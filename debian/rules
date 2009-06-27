@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+
+build clean install binary-arch binary-indep binary:
+	+dh $(opt_no_act) $@
+
+override_dh_auto_clean:
+	dh_auto_clean
+	chmod -x configure compile install-sh depcomp ltmain.sh missing
+	rm -f config.guess config.sub
+
+override_dh_auto_configure:
+	ln -s /usr/share/misc/config.sub .
+	ln -s /usr/share/misc/config.guess .
+	chmod +x configure compile install-sh depcomp ltmain.sh missing
+	dh_auto_configure -- --enable-dynamic $(opt_optimize) $(opt_quiet)
+
+override_dh_auto_build:
+	$(MAKE)
+	doxygen Doxyfile
+
+override_dh_auto_test:
+	$(MAKE) check
+
+opt_no_act =
+opt_optimize = CFLAGS="-g -O2"
+opt_quiet =
+comma=,
+space_sep_build_opts=$(subst $(comma), ,$(DEB_BUILD_OPTIONS))
+ifneq (,$(findstring n,$(MAKEFLAGS)))
+    opt_no_act = --no-act
+endif
+ifneq (,$(filter noopt,$(space_sep_build_opts)))
+    opt_optimize = --disable-assembler CFLAGS="-g -O0"
+endif
+ifndef in_submake
+ifneq (,$(filter parallel=%,$(space_sep_build_opts)))
+    MAKEFLAGS += -j $(subst parallel=,,$(filter parallel=%,$(space_sep_build_opts)))
+endif
+endif
+ifneq (,$(filter quiet,$(space_sep_build_opts)))
+    opt_quiet = --quiet
+    MAKEFLAGS += --quiet
+endif
+in_submake = yes
+export in_submake

@@ -1,0 +1,23 @@
+XZ Utils for Debian
+-------------------
+
+XZ Utils should have been called LZMA Utils 4.42, but it came too late.
+The old .lzma file format has some problems, worst of which is the lack
+of magic number, but it gets enough use to still need to be supported.
+See /usr/share/doc/xz-utils/history.txt.gz for the full story.
+
+This package is supposed to to supersede LZMA Utils, but we want to
+provide a gentle transition.  Rather than go through contortions to
+allow both packages to be installed at the same time, we have chosen to
+make xz-utils conflict with and replace lzma.  If this package proves
+problematic early on, please uninstall it, reinstall lzma, and let me
+know so that I can revisit this decision.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 29 May 2009 12:53:54 -0500
+
+Executables are installed to /usr/bin, not /bin, so they will not necessarily
+be available before /usr is mounted.  If you want to use xz without /usr
+mounted, copy both xz and liblzma to some convenient place and try setting
+LD_LIBRARY_PATH if you have trouble.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 30 May 2009 16:20:21 -0500
