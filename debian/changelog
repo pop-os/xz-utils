@@ -1,0 +1,4 @@
+xz-utils (4.999.8beta-111-g8f8ec94-1) experimental; urgency=low
+
+  [ Jonathan Nieder ]
+  * Initial package for Debian. (Closes: #518803)
