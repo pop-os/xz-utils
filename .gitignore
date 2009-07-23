@@ -25,6 +25,7 @@ Makefile.in
 /ltmain.sh
 /missing
 /stamp-h1
+/po/remove-potcdate.sed
 
 /src/liblzma/liblzma.pc
 /src/xz/xz
@@ -50,3 +51,18 @@ Makefile.in
 /src/liblzma/common/Makefile
 /src/liblzma/subblock/Makefile
 /src/xzdec/Makefile
+
+/src/scripts/xzdiff
+/src/scripts/xzgrep
+/src/scripts/xzless
+/src/scripts/xzmore
+
+/tests/compress_generated_abc
+/tests/compress_generated_random
+/tests/compress_generated_text
+/tests/create_compress_files
+/tests/test_block_header
+/tests/test_check
+/tests/test_filter_flags
+/tests/test_index
+/tests/test_stream_flags
