@@ -1,0 +1,10 @@
+*.debhelper.log
+
+/liblzma0/
+/xz-utils/
+/liblzma-dev/
+/tmp/
+
+/files
+*.substvars
+*.debhelper
