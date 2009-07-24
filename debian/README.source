@@ -10,6 +10,7 @@ When each new version of XZ Utils comes out:
 	version=${version#v}
 	git archive --format=tar "v${version}" --prefix="xz-utils-$version/" |
 		gzip -9 > "../xz-utils_$version.orig.tar.gz"
+	git log --date=iso --stat > debian/changelog.upstream
 	git merge debian
 	./autogen.sh
 	debuild

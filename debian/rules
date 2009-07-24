@@ -17,6 +17,9 @@ override_dh_auto_configure:
 override_dh_auto_test:
 	$(MAKE) check
 
+override_dh_installchangelogs:
+	dh_installchangelogs debian/changelog.upstream
+
 generated_executables = configure build-aux/compile build-aux/config.rpath \
 	build-aux/install-sh build-aux/depcomp build-aux/ltmain.sh \
 	build-aux/missing
