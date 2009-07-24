@@ -22,9 +22,8 @@ though:
  * for COPYING.GPLv3, see /usr/share/common-licenses/GPL-3
  * for COPYING.LGPLv2.1, see /usr/share/common-licenses/LGPL-2.1
 
-If you would like to help develop XZ Utils, see
-/usr/share/doc/xz-utils/faq.txt.gz and the XZ Utils TODO file.  The latter
-is installed with the liblzma-dev documentation (and also is part of
-the xz-utils source package).
+If you would like to help develop XZ Utils, see TODO in the xz-utils
+source package.  (That file is also installed with the liblzma-dev
+documentation.)
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 23 Jul 2009 22:23:12 -0500
