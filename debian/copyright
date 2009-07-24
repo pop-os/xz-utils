@@ -169,18 +169,13 @@ License: other
 Files: Makefile.am, autogen.sh, configure.ac,
        debug/Makefile.am, debug/*.c, dos/Makefile,
        extra/7z2lzma/7z2lzma.bash, m4/lc_cpucores.m4, m4/lc_physmem.m4,
-       src/Makefile.am, src/common/*.h, src/scripts/Makefile.am,
-       version.h, tests/Makefile.am, tests/*.{c,h,sh},
-       windows/Makefile
+       src/Makefile.am, src/common/*, src/scripts/Makefile.am,
+       src/xz/*, src/xzdec/*, version.h, tests/Makefile.am,
+       tests/*.{c,h,sh}, windows/Makefile
 License: PD
  This file has been put in the public domain.
  You can do whatever you want with this file.
 Author: Lasse Collin
-
-Files: src/common/common_w32res.rc
-License: PD
- #define MY_COMPANY	"Lasse Collin and Igor Pavlov"
- #define MY_COPYRIGHT	"Public Domain by " MY_COMPANY
 
 Files: src/liblzma/*, except as noted below
 License: PD
@@ -261,15 +256,6 @@ Copyright: Copyright © 2001, 2002, 2007 Free Software Foundation
            Modified for XZ Utils by Andrew Dudman and Lasse Collin.
 License: GPL-2+
 
-Files: src/xz/* except src/xz/xz_w32res.rc,
-       src/xzdec/* except src/xzdec/{xz,lzma}dec_w32res.rc
-License: PD
-Author: Lasse Collin
-
-Files: src/xz/xz_w32res.rc, src/xzdec/*.rc
-License: none
- These brief files are probably not copyrightable.
-
 Files: tests/compress_prepared_bcj_sparc, tests/compress_prepared_bcj_x86
 License: PD
 Additional information (from upstream’s commit log):
@@ -285,6 +271,7 @@ Files: tests/files/*
 License: PD
  All the test files (*.xz) and this README have
  been put into the public domain.
+
 Files: debug/README, doc/bugs.txt, doc/faq.txt, doc/history.txt
 License: PD
  No in-file notice, but released into public domain in COPYING.
@@ -341,7 +328,7 @@ License: none
 
 Files: .gitignore, m4/.gitignore, po/.gitignore, po/POTFILES.in
 License: none
- Just list of files, probably not copyrightable.
+ Just lists of files, probably not copyrightable.
 
 Files: COPYING.GPLv2
 Copyright: Copyright © 1989, 1991 Free Software Foundation, Inc.
