@@ -1,0 +1,362 @@
+This is the Debian prepackaged version of XZ Utils.  The package was
+prepared by by Jonathan Nieder <jrnieder@gmail.com> on 29 May 2009
+with sources from the git repository at
+<git://ctrl.tukaani.org/xz.git>.  For changes since then,
+see changelog.Debian.gz
+
+Upstream Maintainer:
+
+    Lasse Collin
+
+See AUTHORS for more information on authorship.
+
+Copyright:
+
+    Copyright © 1987-2009, Free Software Foundation, Inc.
+    Copyright © 2007, Steven G. Johnson
+    Copyright © 1992, 1993, Jean-loup Gailly
+    Copyright © 2006 Timo Lindfors
+
+This package is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This package is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+On Debian systems, the complete text of the GNU General Public License
+can be found in ‘/usr/share/common-licenses/GPL’, version 3 in
+‘/usr/share/common-licenses/GPL-3’.
+
+Many of the individual files making up this package have more permissive
+licenses:
+
+The lzmadec, xz, and xzdec binaries fall under the terms of the GNU
+Lesser General Public License, version 2.1 or later.  Minus getopt, their
+source code is in the public domain.
+
+The xzdiff, xzgrep, and xzmore scripts and their documentation are
+available under the terms of the GNU General Public License, version 2 or
+later.
+
+liblzma’s source code is in the public domain, but its object files
+are linked against the GNU C library, use of which is covered by the GNU
+Lesser General Public License, version 2.1 or later.
+
+These Debian packaging files are in the public domain.
+You may freely use, modify, and distribute them.
+
+==================================================================
+COPYRIGHT AND LICENSING TERMS FOR SOURCE FILES
+
+Files: *
+License: various
+ Different licenses apply to different files in this package. Here
+ is a rough summary of which licenses apply to which parts of this
+ package (but check the individual files to be sure!):
+ .
+   - liblzma is in the public domain.
+ .
+   - xz, xzdec, and lzmadec command line tools are in the public
+     domain unless GNU getopt_long had to be compiled and linked
+     in from the lib directory. The getopt_long code is under
+     GNU LGPLv2.1+.
+ .
+   - The scripts to grep, diff, and view compressed files have been
+     adapted from gzip. These scripts and their documentation are
+     under GNU GPLv2+.
+ .
+   - All the documentation in the doc directory and most of the
+     XZ Utils specific documentation files in other directories
+     are in the public domain.
+ .
+   - Translated messages are in the public domain.
+ .
+   - The build system contains public domain files, and files that
+     are under GNU GPLv2+ or GNU GPLv3+. None of these files end up
+     in the binaries being built.
+ .
+   - Test files and test code in the tests directory, and debugging
+     utilities in the debug directory are in the public domain.
+ .
+   - The extra directory may contain public domain files, and files
+     that are under various free software licenses.
+ .
+ You can do whatever you want with the files that have been put into
+ the public domain. If you find public domain legally problematic,
+ take the previous sentence as a license grant. If you still find
+ the lack of copyright legally problematic, you have too many
+ lawyers.
+ .
+ If you copy significant amounts of public domain code from XZ Utils
+ into your project, acknowledging this somewhere in your software is
+ polite, but naturally it is not legally required.
+ .
+ As usual, this software is provided "as is", without any warranty.
+ .
+ The following license texts are included in the following files:
+   - COPYING.LGPLv2.1: GNU Lesser General Public License version 2.1
+   - COPYING.GPLv2: GNU General Public License version 2
+   - COPYING.GPLv3: GNU General Public License version 3
+ .
+ Note that the toolchain (compiler, linker etc.) may add some code
+ pieces that are copyrighted. Thus, it is possible that e.g. liblzma
+ binary wouldn't actually be in the public domain in its entirety
+ even though it contains no copyrighted code from this package.
+ .
+ If you have questions, don't hesitate to ask the author(s) for more
+ information.
+
+On Debian systems, the complete text of the GNU General Public License
+version 2 is in ‘/usr/share/common-licenses/GPL-2’, version 3 in
+‘/usr/share/common-licenses/GPL-3’, and the GNU Lesser General Public
+License version 2.1 in ‘/usr/share/common-licenses/LGPL-2.1’.
+
+Files: debian/*
+License: PD
+ The Debian packaging files are in the public domain.
+ You may freely use, modify, and distribute them.
+
+Files: AUTHORS, ChangeLog, COPYING, README, THANKS, TODO,
+       dos/README, windows/README
+Author: Lasse Collin
+License: PD
+ All the documentation in the doc directory and most of the
+ XZ Utils specific documentation files in other directories
+ are in the public domain.
+Additional information:
+ From: Lasse Collin <lasse.collin@tukaani.org>
+ To: Jonathan Nieder <jrnieder@gmail.com>
+ Subject: Re: XZ utils for Debian
+ Date: Sun, 19 Jul 2009 13:28:23 +0300
+ .
+ [...]
+ .
+ > AUTHORS, ChangeLog, COPYING, README, THANKS, TODO,
+ > dos/README, windows/README
+ .
+ COPYING says that most docs are in the public domain. Maybe that's not
+ clear enough, but on the other hand it looks a bit stupid to put
+ copyright information in tiny and relatively small docs like README.
+ .
+ I don't dare to say that _all_ XZ Utils specific docs are in the public
+ domain unless otherwise mentioned in the file. I'm including PDF files
+ generated by groff + ps2pdf, and some day I might include Doxygen-
+ generated HTML docs too. Those don't include any copyright notices, but
+ it seems likely that groff + ps2pdf or at least Doxygen put some
+ copyrighted content into the generated files.
+
+Files: INSTALL, PACKAGERS
+Author: Lasse Collin
+License: probably PD
+ All the documentation in the doc directory and most of the
+ XZ Utils specific documentation files in other directories
+ are in the public domain.
+
+Files: INSTALL.generic
+Copyright: Copyright © 1994, 1995, 1996, 1999, 2000, 2001, 2002, 2004, 2005,
+           2006, 2007, 2008, 2009 Free Software Foundation, Inc.
+License: other
+ This file is free documentation; the Free Software Foundation gives
+ unlimited permission to copy, distribute and modify it.
+
+Files: Makefile.am, autogen.sh, configure.ac,
+       debug/Makefile.am, debug/*.c, dos/Makefile,
+       extra/7z2lzma/7z2lzma.bash, m4/lc_cpucores.m4, m4/lc_physmem.m4,
+       src/Makefile.am, src/common/*.h, src/scripts/Makefile.am,
+       version.h, tests/Makefile.am, tests/*.{c,h,sh},
+       windows/Makefile
+License: PD
+ This file has been put in the public domain.
+ You can do whatever you want with this file.
+Author: Lasse Collin
+
+Files: src/common/common_w32res.rc
+License: PD
+ #define MY_COMPANY	"Lasse Collin and Igor Pavlov"
+ #define MY_COPYRIGHT	"Public Domain by " MY_COMPANY
+
+Files: src/liblzma/*, except as noted below
+License: PD
+Author: Lasse Collin
+
+Files: src/liblzma/check/crc{32,64}_table_[bl]e.h,
+       src/liblzma/lzma/fastpos_table.c, src/liblzma/rangecoder/price_table.c
+License: not copyrighted
+ Automatically generated by programs in the same directory.
+
+Files: src/liblzma/check/crc{32,64}_x86.S, src/liblzma/lz/lz_{en,de}coder.[ch],
+       src/liblzma/lz/lz_encoder_mf.c, src/liblzma/lzma/fastpos.h,
+       src/liblzma/lzma/fastpos_tablegen.c, src/liblzma/lzma/lzma_common.h,
+       src/liblzma/lzma/lzma{,2}_{de,en}coder.[ch],
+       src/liblzma/lzma/lzma_encoder_private.h,
+       src/liblzma/rangecoder/price_tablegen.c,
+       src/liblzma/rangecoder/range_common.h,
+       src/liblzma/rangecoder/range_{en,de}coder.[ch],
+       src/liblzma/simple/{arm{,thumb},ia64,powerpc,sparc,x86}.c
+License: PD
+Authors: Lasse Collin, Igor Pavlov
+
+Files: src/liblzma/check/sha256.c
+License: PD
+Authors: Kevin Springle, Wei Dai, Igor Pavlov, Lasse Collin
+
+Files: src/liblzma/lz/lz_encoder_hash.h,
+       src/liblzma/lzma/lzma_encoder_optimum_{fast,normal}.c,
+       src/liblzma/rangecoder/price.h
+License: PD
+Author: Igor Pavlov
+
+Files: src/scripts/xzdiff.1
+Authors: Jean-loup Gailly, Lasse Collin, Andrew Dudman
+License: GPL-2+
+
+Files: src/scripts/xzgrep.1
+Authors: Jean-loup Gailly, Charles Levert, Lasse Collin
+License: GPL-2+
+
+Files: src/scripts/xzless.1
+Authors: Andrew Dudman, Lasse Collin
+License: PD
+
+Files: src/scripts/xzmore.1
+Authors: Jean-loup Gailly, Lasse Collin
+License: GPL-2+
+
+Files: src/scripts/xzdiff.in
+Copyright: Copyright © 1998, 2002, 2006, 2007 Free Software Foundation
+           Copyright © 1993 Jean-loup Gailly 
+           .
+           Modified for XZ Utils by Andrew Dudman and Lasse Collin.
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+Files: src/scripts/xzgrep.in
+Copyright: Copyright © 1998, 2001, 2002, 2006, 2007 Free Software Foundation
+           Copyright © 1993 Jean-loup Gailly
+           .
+           Adapted from a version sent by Charles Levert
+           Modified for XZ Utils by Andrew Dudman and Lasse Collin.
+License: GPL-2+
+
+Files: src/scripts/xzless.in
+Copyright: Copyright © 1998, 2002, 2006, 2007 Free Software Foundation
+           .
+           Modified for XZ Utils by Andrew Dudman and Lasse Collin.
+License: GPL-2+
+
+Files: src/scripts/xzmore.in
+Copyright: Copyright © 2001, 2002, 2007 Free Software Foundation
+           Copyright © 1992, 1993 Jean-loup Gailly
+           .
+           Modified for XZ Utils by Andrew Dudman and Lasse Collin.
+License: GPL-2+
+
+Files: src/xz/* except src/xz/xz_w32res.rc,
+       src/xzdec/* except src/xzdec/{xz,lzma}dec_w32res.rc
+License: PD
+Author: Lasse Collin
+
+Files: src/xz/xz_w32res.rc, src/xzdec/*.rc
+License: none
+ These brief files are probably not copyrightable.
+
+Files: tests/compress_prepared_bcj_sparc, tests/compress_prepared_bcj_x86
+License: PD
+Additional information (from upstream’s commit log):
+ Recreated the BCJ test files for x86 and SPARC. The old files
+ were linked with crt*.o, which are copyrighted, and thus the
+ old test files were not in the public domain as a whole. They
+ are freely distributable though, but it is better to be careful
+ and avoid including any copyrighted pieces in the test files.
+ The new files are just compiled and assembled object files,
+ and thus don't contain any copyrighted code.
+
+Files: tests/files/*
+License: PD
+ All the test files (*.xz) and this README have
+ been put into the public domain.
+Files: debug/README, doc/bugs.txt, doc/faq.txt, doc/history.txt
+License: PD
+ No in-file notice, but released into public domain in COPYING.
+
+Files: doc/lzma-file-format.txt, doc/xz-file-format.txt
+License: PD
+ This document has been put into the public domain.
+Authors: Lasse Collin
+
+Files: Doxyfile.in, dos/config.h, windows/config.h, po/Makevars
+License: none
+ Generated by doxygen or autotools, so the comments are probably not
+ in the public domain.
+
+Files: lib/Makefile.am
+Copyright: Copyright © 2004-2007 Free Software Foundation, Inc.
+License: GPL-2+
+
+Files: lib/getopt.c, lib/getopt1.c, lib/getopt.in.h
+Copyright: Copyright © 1987-2007 Free Software Foundation, Inc.
+License: LGPL-2.1+
+
+Files: lib/getopt_int.h
+Copyright: Copyright © 1989-1994, 1996-1999, 2001, 2003, 2004,
+                       Free Software Foundation, Inc.
+License: GPL-2+
+
+Files: m4/acx_pthread.m4
+Copyright: Copyright © 2007, Steven G. Johnson <stevenj@alum.mit.edu>
+License: GPL-3+
+
+Files: m4/getopt.m4
+Copyright: Copyright © 2002-2006, 2008, Free Software Foundation, Inc.
+License: other
+ This file is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+
+Files: m4/posix-shell.m4
+Copyright: Copyright © 2007-2008 Free Software Foundation, Inc.
+           Written by Paul Eggert.
+License: other
+ This file is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+
+Files: extra/scanlzma/scanlzma.c
+Copyright: Copyright © 2006 Timo Lindfors
+License: GPL-2+
+
+Files: ChangeLog, NEWS
+License: none
+ Probably too short for copyright.
+
+Files: .gitignore, m4/.gitignore, po/.gitignore, po/POTFILES.in
+License: none
+ Just list of files, probably not copyrightable.
+
+Files: COPYING.GPLv2
+Copyright: Copyright © 1989, 1991 Free Software Foundation, Inc.
+License: other
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+Files: COPYING.GPLv3
+Copyright: Copyright © 2007 Free Software Foundation, Inc.
+License: other
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+Files: COPYING.LGPLv2.1
+Copyright: Copyright © 1991, 1999 Free Software Foundation, Inc.
+License: other
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
