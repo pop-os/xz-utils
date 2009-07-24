@@ -5,8 +5,7 @@ xz-utils (4.999.8beta-115-gadbad2d-1) UNRELEASED; urgency=low
      + debian/rules
         - add minimal rules file (using Debhelper 7), a control file
           describing the binary packages, and an appropriate compat file.
-        - use configure --enable-dynamic; use up-to-date config.guess and
-          config.sub files.
+        - use up-to-date config.guess and config.sub files.
         - do not run automake and so on on autobuilders.  Instead, we can
           run them ourselves when we build the source package.
      + debian/README.source:

@@ -12,7 +12,7 @@ override_dh_auto_configure:
 	ln -s /usr/share/misc/config.sub build-aux
 	ln -s /usr/share/misc/config.guess build-aux
 	chmod +x $(generated_executables)
-	dh_auto_configure -- --enable-dynamic $(opt_optimize) $(opt_quiet)
+	dh_auto_configure -- $(opt_optimize) $(opt_quiet)
 
 override_dh_auto_test:
 	$(MAKE) check
