@@ -1,4 +1,4 @@
-xz-utils (4.999.8beta-111-g8f8ec94-1) experimental; urgency=low
+xz-utils (4.999.8beta-111-g8f8ec94-1) UNRELEASED; urgency=low
 
   [ Jonathan Nieder ]
   * Initial package for Debian. (Closes: #518803)
@@ -11,3 +11,8 @@ xz-utils (4.999.8beta-111-g8f8ec94-1) experimental; urgency=low
           run them ourselves when we build the source package.
      + debian/README.source:
         - add information about the packaging Git repository.
+
+  [ Mohammed Adnène Trojette ]
+  * Prepare for upload to experimental.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 23 Jul 2009 22:32:43 -0500
