@@ -37,17 +37,14 @@ can be found in ‘/usr/share/common-licenses/GPL’, version 3 in
 Many of the individual files making up this package have more permissive
 licenses:
 
-The lzmadec, xz, and xzdec binaries fall under the terms of the GNU
-Lesser General Public License, version 2.1 or later.  Minus getopt, their
-source code is in the public domain.
-
 The xzdiff, xzgrep, and xzmore scripts and their documentation are
 available under the terms of the GNU General Public License, version 2 or
 later.
 
-liblzma’s source code is in the public domain, but its object files
-are linked against the GNU C library, use of which is covered by the GNU
-Lesser General Public License, version 2.1 or later.
+The source code to lzmadec, xz, xzdec, and liblzma is in the public
+domain, but their object files are linked against the GNU C library, use
+of which is covered by the GNU Lesser General Public License, version 2.1
+or later.
 
 These Debian packaging files are in the public domain.
 You may freely use, modify, and distribute them.
