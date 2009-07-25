@@ -45,7 +45,7 @@ domain, but their object files are linked against the GNU C library, use
 of which is covered by the GNU Lesser General Public License, version 2.1
 or later.
 
-These Debian packaging files are in the public domain.
+The Debian packaging files are in the public domain.
 You may freely use, modify, and distribute them.
 
 ==================================================================

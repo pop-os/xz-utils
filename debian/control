@@ -52,7 +52,7 @@ Section: libdevel
 Architecture: any
 Depends: liblzma0 (= ${binary:Version}), ${misc:Depends}
 Description: high compression-ratio compression library - development
- liblzma is data compression library with support for several
+ liblzma is a data compression library with support for several
  filters (algorithm implementations).  The primary filter is LZMA2,
  an extended version of the compression method used in lzma and 7-Zip.
  This package includes the development support files.
