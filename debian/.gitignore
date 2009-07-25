@@ -1,12 +1,15 @@
 /changelog.upstream
 
 *.debhelper.log
+*.debhelper
+
+/normal-build/
+/xzdec-build/
+/tmp/
 
 /liblzma0/
 /xz-utils/
 /liblzma-dev/
-/tmp/
 
 /files
 *.substvars
-*.debhelper

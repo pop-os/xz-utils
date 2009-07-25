@@ -4,7 +4,8 @@ build clean install binary-arch binary-indep binary:
 	+dh $(opt_no_act) $@
 
 override_dh_auto_clean:
-	dh_auto_clean
+	dh_auto_clean --builddirectory debian/normal-build
+	dh_auto_clean --builddirectory debian/xzdec-build
 	chmod -x $(generated_executables)
 	rm -f build-aux/config.guess build-aux/config.sub
 
@@ -12,10 +13,25 @@ override_dh_auto_configure:
 	ln -s /usr/share/misc/config.sub build-aux
 	ln -s /usr/share/misc/config.guess build-aux
 	chmod +x $(generated_executables)
-	dh_auto_configure -- $(opt_optimize) $(opt_quiet)
+	dh_auto_configure --builddirectory debian/normal-build -- \
+		$(opt_optimize) $(opt_quiet)
+	dh_auto_configure --builddirectory debian/xzdec-build -- \
+		--disable-shared --disable-nls --disable-encoders \
+		--enable-small --disable-threads \
+		$(opt_optimize_small) $(opt_quiet)
+
+override_dh_auto_build:
+	dh_auto_build --builddirectory debian/normal-build
+	$(MAKE) -C debian/xzdec-build/src/liblzma
+	$(MAKE) -C debian/xzdec-build/src/xzdec
 
 override_dh_auto_test:
-	$(MAKE) check
+	$(MAKE) -C debian/normal-build check
+
+override_dh_auto_install:
+	dh_auto_install --builddirectory debian/normal-build
+	$(MAKE) -C debian/xzdec-build/src/xzdec install \
+		DESTDIR=$$(pwd)/debian/tmp
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
@@ -25,6 +41,7 @@ generated_executables = configure build-aux/compile build-aux/config.rpath \
 	build-aux/missing
 opt_no_act =
 opt_optimize = CFLAGS="-g -O2"
+opt_optimize_small = CFLAGS="-g -Os"
 opt_quiet =
 comma=,
 space_sep_build_opts=$(subst $(comma), ,$(DEB_BUILD_OPTIONS))
@@ -33,6 +50,7 @@ ifneq (,$(findstring n,$(MAKEFLAGS)))
 endif
 ifneq (,$(filter noopt,$(space_sep_build_opts)))
     opt_optimize = --disable-assembler CFLAGS="-g -O0"
+    opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
 endif
 ifndef in_submake
 ifneq (,$(filter parallel=%,$(space_sep_build_opts)))
