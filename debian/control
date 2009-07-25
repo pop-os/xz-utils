@@ -28,7 +28,6 @@ Description: high compression-ratio compression library - runtime
  during decompression.
 
 Package: xz-utils
-Section: utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: lzma
