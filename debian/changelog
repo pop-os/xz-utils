@@ -1,7 +1,7 @@
 xz-utils (4.999.8beta-115-gadbad2d-1) UNRELEASED; urgency=low
 
   [ Jonathan Nieder ]
-  * Initial package for Debian. (Closes: #518803)
+  * Initial package for Debian. (Closes: #518803, #532501)
      + debian/rules
         - add minimal rules file (using Debhelper 7), a control file
           describing the binary packages, and an appropriate compat file.
