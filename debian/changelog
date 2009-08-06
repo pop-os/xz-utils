@@ -1,19 +1,48 @@
 xz-utils (4.999.8beta-115-gadbad2d-1) UNRELEASED; urgency=low
 
   [ Jonathan Nieder ]
-  * Initial package for Debian. (Closes: #518803, #532501)
-     + debian/rules
+  * New upstream snapshot.
+  * Update and clarify copyright file.
+  * debian/control: Add information about the packaging Git repository.
+  * debian/control: Clarify package descriptions.
+  * Add debian/.gitignore listing build products.
+  * Build xz-utils with static liblzma.
+     - debian/rules: Use configure --disable-dynamic.
+     - debian/control: Drop dependency on liblzma0 in package xz-utils.
+  * Optimize xzdec and lzmadec for size, following suggestion in
+    PACKAGERS.
+     - debian/rules: Build xzdec and lzmadec separately so they can
+       be optimized for size.
+     - debian/control: Build-Depends: debhelper (>= 7.3.0).
+  * Generate upstream changelog instead of shipping placeholder.
+     - debian/README.source: Add instructions for regenerating upstream
+       changelog file.
+     - debian/rules: Install generated changelog file.
+  * liblzma-dev: Add short README.Debian with pointers to documentation.
+  * Drop debian/xzdec.1, since upstream ships a better man page.
+
+  [ Cristian Greco ]
+  * debian/copyright: refer to versioned GPL-3 file.
+  * debian/control: remove duplicate field ‘section’ in package xz-utils.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 06 Aug 2009 13:51:13 -0500
+
+xz-utils (4.999.8beta-1) experimental; urgency=low
+
+  [ Jonathan Nieder ]
+  * Initial package for Debian. (Closes: #518803)
+     + debian/rules:
         - add minimal rules file (using Debhelper 7), a control file
           describing the binary packages, and an appropriate compat file.
-        - use up-to-date config.guess and config.sub files.
-        - build xzdec and lzmadec separately so they can be optimized for
-          size
-        - do not run automake and so on on autobuilders.  Instead, we can
+        - use configure --enable-dynamic; use up-to-date config.guess and
+          config.sub files.
+        - do not run automake and so on on autobuilders. Instead, we can
           run them ourselves when we build the source package.
      + debian/README.source:
-        - add information about the packaging Git repository.
+        - add informations about the packaging GIT repository.
+  * Add liblzma-doc package with Doxygen-generated API docs.
 
   [ Mohammed Adnène Trojette ]
   * Prepare for upload to experimental.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 23 Jul 2009 22:32:43 -0500
+ -- Mohammed Adnène Trojette <adn+deb@diwi.org>  Sat, 27 Jun 2009 17:26:56 +0200
