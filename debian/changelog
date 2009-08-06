@@ -20,6 +20,8 @@ xz-utils (4.999.8beta-115-gadbad2d-1) UNRELEASED; urgency=low
      - debian/rules: Install generated changelog file.
   * liblzma-dev: Add short README.Debian with pointers to documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
+  * debian/control: Make xz-utils conflict with lzip, since each ships
+    its own lzdiff. (Closes: #540232).
 
   [ Cristian Greco ]
   * debian/copyright: refer to versioned GPL-3 file.

@@ -30,7 +30,7 @@ Description: high compression-ratio compression library - runtime
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: lzma
+Conflicts: lzma, lzip
 Provides: lzma
 Replaces: lzma
 Description: high compression-ratio compressor
