@@ -1,4 +1,4 @@
-xz-utils (4.999.8beta-120-gb735cde-1) UNRELEASED; urgency=low
+xz-utils (4.999.8beta-120-gb735cde-1) unstable; urgency=low
 
   [ Jonathan Nieder ]
   * New upstream snapshot.
@@ -23,6 +23,7 @@ xz-utils (4.999.8beta-120-gb735cde-1) UNRELEASED; urgency=low
   * Drop debian/xzdec.1, since upstream ships a better man page.
   * debian/control: Make xz-utils conflict with lzip, since each ships
     its own lzdiff. (Closes: #540232).
+  * Prepare for upload to unstable.
 
   [ Cristian Greco ]
   * debian/copyright: refer to versioned GPL-3 file.
