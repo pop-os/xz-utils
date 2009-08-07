@@ -11,8 +11,4 @@ To build from a git checkout:
 	git log --date=iso --stat "$version" > debian/changelog.upstream
 	debuild -i -I
 
-Unfortunately, since git-archive forgets upstream’s time stamps, the
-procedure above violates Debian policy 4.7.  We still use it - it’s the
-best we have.
-
  -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 30 May 2009 19:25:48 -0500
