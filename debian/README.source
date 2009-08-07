@@ -9,12 +9,10 @@ To build from a git checkout:
 	git archive --format=tar "$version" --prefix="xz-utils-${version#v}/" |
 	gzip -9 > "../xz-utils_${version#v}.orig.tar.gz"
 	git log --date=iso --stat "$version" > debian/changelog.upstream
-	./autogen.sh
 	debuild -i -I
 
-The "clean" target from debian/rules deletes config.guess and config.sub,
-so there is no trouble patching them at build time.  Unfortunately, since
-git-archive forgets upstream’s time stamps, the procedure above violates
-Debian policy 4.7.  We still use it - it’s the best we have.
+Unfortunately, since git-archive forgets upstream’s time stamps, the
+procedure above violates Debian policy 4.7.  We still use it - it’s the
+best we have.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 30 May 2009 19:25:48 -0500

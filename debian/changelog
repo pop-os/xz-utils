@@ -22,7 +22,15 @@ xz-utils (4.999.8beta-120-gb735cde-1) unstable; urgency=low
   * liblzma-dev: Add short README.Debian with pointers to documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
   * debian/control: Make xz-utils conflict with lzip, since each ships
-    its own lzdiff. (Closes: #540232).
+    its own lzdiff. (Closes: #540232)
+  * Run autotools at build time.
+     + debian/control:
+        - Build-Depends: autoconf, automake, libtool, gettext
+        - Build-Conflicts: autoconf2.13, automake1.4
+     + debian/rules:
+        - configure: autoreconf -fi
+        - clean: remove autotools-generated files to avoid .diff.gz
+          changes when built twice in a row.
   * Prepare for upload to unstable.
 
   [ Cristian Greco ]

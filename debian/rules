@@ -4,15 +4,16 @@ build clean install binary-arch binary-indep binary:
 	+dh $(opt_no_act) $@
 
 override_dh_auto_clean:
-	dh_auto_clean --builddirectory debian/normal-build
 	dh_auto_clean --builddirectory debian/xzdec-build
-	chmod -x $(generated_executables)
-	rm -f build-aux/config.guess build-aux/config.sub
+	dh_auto_clean --builddirectory debian/normal-build
+	rm -fr build-aux
+	rm -f ABOUT-NLS aclocal.m4 config.h.in configure
+	cd po && xargs -d "\n" rm -f < .gitignore
+	cd m4 && xargs -d "\n" rm -f < .gitignore
+	find . -name Makefile.in -delete
 
 override_dh_auto_configure:
-	ln -s /usr/share/misc/config.sub build-aux
-	ln -s /usr/share/misc/config.guess build-aux
-	chmod +x $(generated_executables)
+	autoreconf -fi
 	dh_auto_configure --builddirectory debian/normal-build -- \
 		$(opt_optimize) $(opt_quiet)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
@@ -37,9 +38,6 @@ override_dh_auto_install:
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
 
-generated_executables = configure build-aux/compile build-aux/config.rpath \
-	build-aux/install-sh build-aux/depcomp build-aux/ltmain.sh \
-	build-aux/missing
 opt_no_act =
 opt_optimize = CFLAGS="-g -O2"
 opt_optimize_small = CFLAGS="-g -Os"
