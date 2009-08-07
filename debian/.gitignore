@@ -1,5 +1,4 @@
 /changelog.upstream
-/orig-source/
 
 *.debhelper.log
 *.debhelper
