@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+include debian/get-orig.rules
+
 build clean install binary-arch binary-indep binary:
 	+dh $(opt_no_act) $@
 

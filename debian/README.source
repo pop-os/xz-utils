@@ -5,10 +5,9 @@ This Debian package is developed in a public git repository (see the Vcs-Git
 field of debian/control) based on XZ Utils’s Git repository on tukaani.org.
 To build from a git checkout:
 
-	version=$(git describe upstream/master)
-	git archive --format=tar "$version" --prefix="xz-utils-${version#v}/" |
-	gzip -9 > "../xz-utils_${version#v}.orig.tar.gz"
-	git log --date=iso --stat "$version" > debian/changelog.upstream
+	debian/rules get-orig-source
+	mv xz-utils_*.tar.gz ..
+	git log --date=iso --stat origin/upstream > debian/changelog.upstream
 	debuild -i -I
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 30 May 2009 19:25:48 -0500

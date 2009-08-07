@@ -31,6 +31,7 @@ xz-utils (4.999.8beta-120-gb735cde-1) unstable; urgency=low
         - configure: autoreconf -fi
         - clean: remove autotools-generated files to avoid .diff.gz
           changes when built twice in a row.
+  * debian/rules: Add get-orig-source target.
   * Prepare for upload to unstable.
 
   [ Cristian Greco ]
