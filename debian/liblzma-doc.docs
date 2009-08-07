@@ -1,4 +1,4 @@
-doc/html/
-AUTHORS
+debian/normal-build/doc/html/
 README
+AUTHORS
 THANKS

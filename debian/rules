@@ -22,9 +22,9 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	dh_auto_build --builddirectory debian/normal-build
+	cd debian/normal-build && doxygen Doxyfile
 	$(MAKE) -C debian/xzdec-build/src/liblzma
 	$(MAKE) -C debian/xzdec-build/src/xzdec
-	doxygen Doxyfile
 
 override_dh_auto_test:
 	$(MAKE) -C debian/normal-build check
