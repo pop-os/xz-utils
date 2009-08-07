@@ -7,7 +7,7 @@ To build from a git checkout:
 
 	debian/rules get-orig-source
 	mv xz-utils_*.tar.gz ..
-	git log --date=iso --stat origin/upstream > debian/changelog.upstream
+	debian/changelog.upstream.sh
 	debuild -i -I
 
 To build a released version, no special instructions apply.

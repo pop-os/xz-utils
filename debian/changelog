@@ -18,6 +18,7 @@ xz-utils (4.999.8beta+20090801-1) unstable; urgency=low
   * Generate upstream changelog instead of shipping placeholder.
      - debian/README.source: Add instructions for regenerating upstream
        changelog file.
+     - debian/changelog.upstream.sh: New script.
      - debian/rules: Install generated changelog file.
   * liblzma-dev: Add short README.Debian with pointers to documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
