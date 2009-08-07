@@ -1,7 +1,7 @@
-xz-utils (4.999.8beta-120-gb735cde-1) unstable; urgency=low
+xz-utils (4.999.8beta+20090801-1) unstable; urgency=low
 
   [ Jonathan Nieder ]
-  * New upstream snapshot.
+  * New upstream snapshot, taken from upstream commit b735cde.
   * Update and clarify copyright file.
   * debian/control: Add information about the packaging Git repository.
   * debian/control: Clarify package descriptions.
