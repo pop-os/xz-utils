@@ -5,6 +5,7 @@ xz-utils (4.999.8beta-120-gb735cde-1) UNRELEASED; urgency=low
   * Update and clarify copyright file.
   * debian/control: Add information about the packaging Git repository.
   * debian/control: Clarify package descriptions.
+  * debian/README.source: Clarify build instructions.
   * Add debian/.gitignore listing build products.
   * Build xz-utils with static liblzma.
      - debian/rules: Use configure --disable-dynamic.

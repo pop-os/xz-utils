@@ -3,17 +3,14 @@ XZ Utils sources for Debian
 
 This Debian package is developed in a public git repository (see the Vcs-Git
 field of debian/control) based on XZ Utils’s Git repository on tukaani.org.
-When each new version of XZ Utils comes out:
+To build from a git checkout:
 
-	git checkout upstream/master
-	version=$(git describe)
-	version=${version#v}
-	git archive --format=tar "v${version}" --prefix="xz-utils-$version/" |
-		gzip -9 > "../xz-utils_$version.orig.tar.gz"
-	git log --date=iso --stat > debian/changelog.upstream
-	git merge debian
+	version=$(git describe upstream/master)
+	git archive --format=tar "$version" --prefix="xz-utils-${version#v}/" |
+	gzip -9 > "../xz-utils_${version#v}.orig.tar.gz"
+	git log --date=iso --stat "$version" > debian/changelog.upstream
 	./autogen.sh
-	debuild
+	debuild -i -I
 
 The "clean" target from debian/rules deletes config.guess and config.sub,
 so there is no trouble patching them at build time.  Unfortunately, since
