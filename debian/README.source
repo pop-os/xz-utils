@@ -10,4 +10,7 @@ To build from a git checkout:
 	git log --date=iso --stat origin/upstream > debian/changelog.upstream
 	debuild -i -I
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 30 May 2009 19:25:48 -0500
+To build a released version, no special instructions apply.
+“dpkg-buildpackage” and “apt-get -b xz-utils” should work as usual.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 07 Aug 2009 14:32:24 -0500
