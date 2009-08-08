@@ -6,13 +6,6 @@ The old .lzma file format has some problems, worst of which is the lack
 of magic number, but it gets enough use to still need to be supported.
 See /usr/share/doc/xz-utils/history.txt.gz for the full story.
 
-This package is supposed to to supersede LZMA Utils, but we want to
-provide a gentle transition.  Rather than go through contortions to
-allow both packages to be installed at the same time, we have chosen to
-make xz-utils conflict with and replace lzma.  If this package proves
-problematic early on, please uninstall it, reinstall lzma, and let me
-know so that I can revisit this decision.
-
 Some documentation files refer to COPYING and COPYING.GPLv2/3/LGPLv2.1
 files distributed.  Their contents are installed under different names,
 though:
@@ -26,4 +19,4 @@ If you would like to help develop XZ Utils, see TODO in the xz-utils
 source package.  (That file is also installed with the liblzma-dev
 documentation.)
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 23 Jul 2009 22:23:12 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 08 Aug 2009 12:15:39 -0500
