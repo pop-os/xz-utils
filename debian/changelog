@@ -23,8 +23,8 @@ xz-utils (4.999.8beta+20090801-1) unstable; urgency=low
      - debian/rules: Install generated changelog file.
   * liblzma-dev: Add short README.Debian with pointers to documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
-  * debian/control: Make xz-lzma conflict with lzip, since each ships
-    its own lzdiff. (Closes: #540232)
+  * debian/rules: Do not install lzdiff and lzgrep in xz-lzma, to avoid
+    conflict with lzip. (Closes: #540232)
   * Run autotools at build time.
      + debian/control:
         - Build-Depends: autoconf, automake, libtool, gettext
