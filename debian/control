@@ -59,8 +59,8 @@ Description: high compression-ratio compressor - compatibility commands
  This package provides lzma, unlzma, lzcat, and other command line
  tools emulating the interface of the legacy LZMA Utils package.
  .
- This package does not provide the lzdiff command; for that, see
- the lzip package.
+ This package does not provide lzdiff and lzgrep commands; they
+ can be found in the lzip package.
  .
  Since the commands in xz-utils handle the .lzma format already,
  you should only need this package if you have scripts or other
