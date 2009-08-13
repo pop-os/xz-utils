@@ -171,7 +171,7 @@ License: other
 Files: Makefile.am, autogen.sh, configure.ac,
        debug/Makefile.am, debug/*.c, dos/Makefile,
        extra/7z2lzma/7z2lzma.bash, m4/lc_cpucores.m4, m4/lc_physmem.m4,
-       src/Makefile.am, src/common/*, src/scripts/Makefile.am,
+       src/Makefile.am, src/common/*, src/lzmainfo/*, src/scripts/Makefile.am,
        src/xz/*, src/xzdec/*, version.h, tests/Makefile.am,
        tests/*.{c,h,sh}, windows/Makefile
 License: PD
@@ -285,7 +285,7 @@ Authors: Lasse Collin
 
 Files: Doxyfile.in
 Copyright: Copyright © 1997-2007 by Dimitri van Heesch
-License: GPL-2
+License: GPL-2+
 
 Files: dos/config.h, windows/config.h
 Copyright: Copyright © 1992, 1993, 1994, 1999, 2000, 2001, 2002

@@ -31,7 +31,7 @@ Description: high compression-ratio compression library - runtime
 
 Package: xz-utils
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: liblzma0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Recommends: xz-lzma
 Description: high compression-ratio compressor
  This package includes the xz compression tool and other command

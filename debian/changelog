@@ -1,7 +1,7 @@
-xz-utils (4.999.8beta+20090801-1) unstable; urgency=low
+xz-utils (4.999.8beta+20090813-1) unstable; urgency=low
 
   [ Jonathan Nieder ]
-  * New upstream snapshot, taken from upstream commit b735cde.
+  * New upstream snapshot, taken from upstream commit 66da129.
   * Update and clarify copyright file.
   * Split out lzma compatibility commands as new xz-lzma package.
   * debian/control: Add information about the packaging Git repository.
@@ -9,8 +9,7 @@ xz-utils (4.999.8beta+20090801-1) unstable; urgency=low
   * debian/README.source: Clarify build instructions.
   * Add debian/.gitignore listing build products.
   * Build xz-utils with static liblzma.
-     - debian/rules: Use configure --disable-dynamic.
-     - debian/control: Drop dependency on liblzma0 in package xz-utils.
+     - debian/rules: Use configure --enable-dynamic=mixed.
   * Optimize xzdec and lzmadec for size, following suggestion in
     PACKAGERS.
      - debian/rules: Build xzdec and lzmadec separately so they can

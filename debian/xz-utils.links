@@ -1,2 +1,3 @@
-usr/share/man/man1/xz.1.gz usr/share/man/man1/unxz.1.gz
-usr/share/man/man1/xz.1.gz usr/share/man/man1/xzcat.1.gz
+usr/share/doc/liblzma0/AUTHORS usr/share/doc/xz-utils/AUTHORS
+usr/share/doc/liblzma0/THANKS usr/share/doc/xz-utils/THANKS
+usr/share/doc/liblzma0/bugs.txt usr/share/doc/xz-utils/bugs.txt
