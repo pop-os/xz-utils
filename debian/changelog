@@ -2,6 +2,7 @@ xz-utils (4.999.8beta+20090813-1) unstable; urgency=low
 
   [ Jonathan Nieder ]
   * New upstream snapshot, taken from upstream commit 66da129.
+    (Closes: #540543)
   * Update and clarify copyright file.
   * Split out lzma compatibility commands as new xz-lzma package.
   * debian/control: Add information about the packaging Git repository.
