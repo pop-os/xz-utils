@@ -15,14 +15,8 @@ though:
  * for COPYING.GPLv3, see /usr/share/common-licenses/GPL-3
  * for COPYING.LGPLv2.1, see /usr/share/common-licenses/LGPL-2.1
 
-The Debian xz-lzma package does not include the lzdiff and lzgrep
-commands, but the lzip package provides commands with the same name
-that do more.  Scripts comparing or searching through .lzma files
-with the lzdiff (resp. lzgrep) command should also work with xzdiff
-(xzgrep).
-
 If you would like to help develop XZ Utils, see TODO in the xz-utils
 source package.  (That file is also installed with the liblzma-dev
 documentation.)
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 08 Aug 2009 12:40:52 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 08 Aug 2009 12:15:39 -0500

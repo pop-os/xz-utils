@@ -51,16 +51,12 @@ Description: high compression-ratio compressor
 Package: xz-lzma
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, xz-utils
-Suggests: lzip
-Conflicts: lzma
+Conflicts: lzma, lzip (<< 1.8~rc2)
 Provides: lzma
 Replaces: lzma
 Description: high compression-ratio compressor - compatibility commands
  This package provides lzma, unlzma, lzcat, and other command line
  tools emulating the interface of the legacy LZMA Utils package.
- .
- This package does not provide lzdiff and lzgrep commands; they
- can be found in the lzip package.
  .
  Since the commands in xz-utils handle the .lzma format already,
  you should only need this package if you have scripts or other

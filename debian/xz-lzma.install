@@ -1,9 +1,2 @@
-usr/bin/lzma
-usr/bin/lzmadec
+usr/bin/lz*
 usr/bin/unlzma
-usr/bin/lzcat
-usr/bin/lzegrep
-usr/bin/lzfgrep
-usr/bin/lzless
-usr/bin/lzmore
-usr/bin/lzcmp
