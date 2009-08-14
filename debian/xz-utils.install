@@ -1,6 +1,4 @@
 usr/bin/xz*
 usr/bin/unxz
-usr/bin/lzmainfo
 usr/share/man/man1/xz*.1
 usr/share/man/man1/unxz.1
-usr/share/man/man1/lzmainfo.1
