@@ -50,9 +50,9 @@ Description: high compression-ratio compressor
 
 Package: xz-lzma
 Architecture: any
-Depends: liblzma0 (= ${binary:Version}), xz-utils,
-	${shlibs:Depends}, ${misc:Depends}
-Conflicts: lzma, lzip (<< 1.8~rc2)
+Pre-Depends: xz-utils, ${shlibs:Depends}
+Depends: liblzma0 (= ${binary:Version}), ${misc:Depends}
+Conflicts: lzip (<< 1.8~rc2)
 Provides: lzma
 Replaces: lzma
 Description: high compression-ratio compressor - compatibility commands
