@@ -1,4 +1,4 @@
-xz-utils (4.999.8beta+20090817-1) unstable; urgency=low
+xz-utils (4.999.8beta+20090817-1) experimental; urgency=low
 
   [ Jonathan Nieder ]
   * New upstream snapshot, taken from upstream commit 8e8ebc1.
@@ -41,13 +41,13 @@ xz-utils (4.999.8beta+20090817-1) unstable; urgency=low
         - clean: remove autotools-generated files to avoid .diff.gz
           changes when built twice in a row.
   * debian/rules: Add get-orig-source target.
-  * Prepare for upload to unstable.
+  * Prepare for upload to experimental.
 
   [ Cristian Greco ]
   * debian/copyright: refer to versioned GPL-3 file.
   * debian/control: remove duplicate field ‘section’ in package xz-utils.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 17 Aug 2009 22:00:30 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 02:51:12 -0500
 
 xz-utils (4.999.8beta-1) experimental; urgency=low
 
