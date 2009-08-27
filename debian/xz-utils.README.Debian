@@ -6,9 +6,15 @@ The old .lzma file format has some problems, worst of which is the lack
 of magic number, but it gets enough use to still need to be supported.
 See /usr/share/doc/xz-utils/history.txt.gz for the full story.
 
-Some documentation files refer to COPYING and COPYING.GPLv2/3/LGPLv2.1
-files distributed.  Their contents are installed under different names,
-though:
+To avoid a conflict with lzip 1.7, the lzgrep and lzdiff commands are
+not included in the xz-lzma Debian package.  Use xzgrep and xzdiff
+instead.  (Alternatively, if a command named lzdiff to compare .lzma
+files is desperately needed, you can provide a symbolic link pointing to
+/usr/bin/xzdiff locally.)
+
+Some of the documentation refers to COPYING and COPYING.GPLv2/3/LGPLv2.1
+files from the source distribution.  On Debian systems, their content can
+be found under different names:
 
  * upstream’s COPYING is included in /usr/share/doc/xz-utils/copyright
  * for COPYING.GPLv2, see /usr/share/common-licenses/GPL-2
@@ -19,4 +25,4 @@ If you would like to help develop XZ Utils, see TODO in the xz-utils
 source package.  (That file is also installed with the liblzma-dev
 documentation.)
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 08 Aug 2009 12:15:39 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 02:37:21 -0500

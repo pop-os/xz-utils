@@ -1,8 +1,6 @@
 usr/bin/lzmadec
-usr/bin/lz*grep
 usr/bin/lzless
 usr/bin/lzmore
-usr/bin/lzdiff
 usr/bin/lzcmp
 usr/bin/lzmainfo
 usr/share/man/man1/lzmainfo.1

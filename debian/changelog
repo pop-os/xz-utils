@@ -10,6 +10,10 @@ xz-utils (4.999.8beta+20090817-1) unstable; urgency=low
      - debian/control: xz-lzma only conflicts with lzma versions
        before 4.43-15, when it started using update-alternatives
        to provide lzma, unlzma, and lzcat (Closes: #542060)
+  * Avoid conflict between xz-lzma and lzip 1.7:
+     - Do not install lzdiff and lzgrep commands. (Closes: #540232)
+     - Add a note to README.Debian explaining how to get lzdiff and
+       lzgrep commands if old scripts require them.
   * debian/control: Add information about the packaging Git repository.
   * debian/control: Clarify package descriptions.
   * debian/README.source: Clarify build instructions.
@@ -28,8 +32,6 @@ xz-utils (4.999.8beta+20090817-1) unstable; urgency=low
      - debian/rules: Install generated changelog file.
   * liblzma-dev: Add short README.Debian with pointers to documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
-  * debian/control: Make xz-lzma conflict with lzip versions that ship
-    their own lzdiff and lzgrep. (Closes: #540232)
   * Run autotools at build time.
      + debian/control:
         - Build-Depends: autoconf, automake, libtool, gettext
