@@ -14,7 +14,7 @@ endif
 
 SUBDIRS += src po tests
 
-doc_DATA = \
+dist_doc_DATA = \
 	AUTHORS \
 	COPYING \
 	COPYING.GPLv2 \
@@ -28,14 +28,17 @@ doc_DATA = \
 	doc/lzma-file-format.txt
 
 EXTRA_DIST = \
+	extra \
+	dos \
+	windows \
+	autogen.sh \
 	version.sh \
 	Doxyfile.in \
-	extra \
-	doc \
-	windows \
 	COPYING.GPLv2 \
 	COPYING.GPLv3 \
-	COPYING.LGPLv2.1
+	COPYING.LGPLv2.1 \
+	INSTALL.generic \
+	PACKAGERS
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -51,13 +54,13 @@ manfiles = \
 # Create ChangeLog from output of "git log --date=iso --stat".
 # Convert the man pages to PDF and plain text (ASCII only) formats.
 dist-hook:
-	test -d "$(srcdir)/.git" && type git > /dev/null 2>&1 \
-		&& ( cd "$(srcdir)" && git log --date=iso --stat ) \
-			> "$(distdir)/ChangeLog"
+	if test -d "$(srcdir)/.git" && type git > /dev/null 2>&1; then \
+		( cd "$(srcdir)" && git log --date=iso --stat ) \
+			> "$(distdir)/ChangeLog"; \
+	fi
 	if type groff > /dev/null 2>&1 && type ps2pdf > /dev/null 2>&1; then \
 		dest="$(distdir)/doc/man" && \
-		mkdir "$$dest" && \
-		mkdir "$$dest/pdf-a4" "$$dest/pdf-letter" "$$dest/txt" && \
+		$(MKDIR_P) "$$dest/pdf-a4" "$$dest/pdf-letter" "$$dest/txt" && \
 		for FILE in $(manfiles); do \
 			BASE=`basename $$FILE .1` && \
 			groff -man -t -Tps -P-pa4 < "$(srcdir)/$$FILE" \
