@@ -1,6 +1,5 @@
 usr/share/doc/xz-utils/AUTHORS usr/share/doc/xz-lzma/AUTHORS
 usr/share/doc/xz-utils/THANKS usr/share/doc/xz-lzma/THANKS
-usr/share/doc/xz-utils/bugs.txt usr/share/doc/xz-lzma/bugs.txt
 usr/share/doc/xz-utils/faq.txt usr/share/doc/xz-lzma/faq.txt
 usr/share/doc/xz-utils/README.Debian usr/share/doc/xz-lzma/README.Debian
 usr/share/man/man1/xzdec.1.gz usr/share/man/man1/lzmadec.1.gz

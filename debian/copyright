@@ -2,7 +2,9 @@ This is the Debian prepackaged version of XZ Utils.  The package was
 prepared by by Jonathan Nieder <jrnieder@gmail.com> on 29 May 2009
 with sources from the git repository at
 <git://ctrl.tukaani.org/xz.git>.  For changes since then,
-see changelog.Debian.gz
+see changelog.Debian.gz.
+
+Sources for released versions are from <http://tukaani.org/xz/>.
 
 Upstream Maintainer:
 
@@ -274,7 +276,7 @@ License: PD
  All the test files (*.xz) and this README have
  been put into the public domain.
 
-Files: debug/README, doc/bugs.txt, doc/faq.txt, doc/history.txt
+Files: debug/README, doc/faq.txt, doc/history.txt
 License: PD
  No in-file notice, but released into public domain in COPYING.
 

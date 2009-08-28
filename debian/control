@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
 Build-Depends: debhelper (>= 7.3.0), doxygen,
-	autoconf, automake, libtool, gettext
+	autoconf, automake, libtool (>= 2.2), gettext
 Build-Conflicts: autoconf2.13, automake1.4
 Standards-Version: 3.8.3
 Vcs-Browser: http://git.debian.org/?p=collab-maint/xz.git

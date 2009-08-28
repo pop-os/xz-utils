@@ -1,15 +1,14 @@
-xz-utils (4.999.8beta+20090817-1) experimental; urgency=low
+xz-utils (4.999.9beta-1) experimental; urgency=low
 
   [ Jonathan Nieder ]
-  * New upstream snapshot, taken from upstream commit 8e8ebc1.
-    (Closes: #540543, #541391, #541540)
+  * New upstream release. (Closes: #540543, #541391, #541540)
   * Update and clarify copyright file.
   * Split out lzma compatibility commands as new xz-lzma package.
   * Avoid conflict between xz-lzma and lzma:
      - Use update-alternatives to provide lzma, unlzma, and lzcat.
      - debian/control: xz-lzma only conflicts with lzma versions
        before 4.43-15, when it started using update-alternatives
-       to provide lzma, unlzma, and lzcat (Closes: #542060)
+       to provide lzma, unlzma, and lzcat. (Closes: #542060)
   * Avoid conflict between xz-lzma and lzip 1.7:
      - Do not install lzdiff and lzgrep commands. (Closes: #540232)
      - Add a note to README.Debian explaining how to get lzdiff and
@@ -47,7 +46,7 @@ xz-utils (4.999.8beta+20090817-1) experimental; urgency=low
   * debian/copyright: refer to versioned GPL-3 file.
   * debian/control: remove duplicate field ‘section’ in package xz-utils.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 02:51:12 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 20:31:08 -0500
 
 xz-utils (4.999.8beta-1) experimental; urgency=low
 
