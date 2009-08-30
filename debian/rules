@@ -6,11 +6,7 @@ build clean install binary-arch binary-indep binary:
 override_dh_auto_clean:
 	dh_auto_clean --builddirectory debian/xzdec-build
 	dh_auto_clean --builddirectory debian/normal-build
-	rm -fr build-aux
-	rm -f ABOUT-NLS aclocal.m4 config.h.in configure
-	cd po && xargs -d "\n" rm -f < .gitignore
-	cd m4 && xargs -d "\n" rm -f < .gitignore
-	find . -name Makefile.in -delete
+	sh debian/clean.sh
 
 override_dh_auto_configure:
 	autoreconf -fi

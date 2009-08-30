@@ -7,10 +7,10 @@ To build from a git checkout:
 
 	debian/rules get-orig-source
 	mv xz-utils_*.tar.gz ..
-	debian/changelog.upstream.sh
+	debian/autogen.sh
 	debuild -i -I
 
 To build a released version, no special instructions apply.
 “dpkg-buildpackage” and “apt-get -b xz-utils” should work as usual.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 07 Aug 2009 14:32:24 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 30 Aug 2009 00:51:42 -0500

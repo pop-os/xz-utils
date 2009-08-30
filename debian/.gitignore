@@ -1,4 +1,6 @@
 /changelog.upstream
+/generated-m4.list
+/generated-po.list
 
 *.debhelper.log
 *.debhelper
