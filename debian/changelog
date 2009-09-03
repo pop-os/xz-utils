@@ -1,7 +1,11 @@
 xz-utils (4.999.9beta-1) experimental; urgency=low
 
   [ Jonathan Nieder ]
-  * New upstream release. (Closes: #540543, #541391, #541540)
+  * New upstream release.
+     - Fix a data corruption in the compression code. (Closes: #544872)
+     - xzdiff: Fix comparing two compressed files. (Closes: #540543)
+     - Most of XZ Utils is now in the public domain. (Closes: #541391)
+     - Add doc/history.txt to the distributed tarball. (Closes: #541540)
   * Update and clarify copyright file.
   * Split out lzma compatibility commands as new xz-lzma package.
   * Avoid conflict between xz-lzma and lzma:
