@@ -33,7 +33,10 @@ xz-utils (4.999.9beta-1) experimental; urgency=low
        changelog file.
      - debian/changelog.upstream.sh: New script.
      - debian/rules: Install generated changelog file.
-  * liblzma-dev: Add short README.Debian with pointers to documentation.
+  * liblzma-doc: Drop documentation already shipped in
+    /usr/share/doc/xz-utils.
+  * liblzma-dev, liblzma-doc: Add short README.Debian with pointers to
+    development documentation.
   * Drop debian/xzdec.1, since upstream ships a better man page.
   * Run autotools at build time.
      + debian/control:
