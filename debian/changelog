@@ -7,26 +7,16 @@ xz-utils (4.999.9beta-1) experimental; urgency=low
      - Most of XZ Utils is now in the public domain. (Closes: #541391)
      - Add doc/history.txt to the distributed tarball. (Closes: #541540)
   * Update and clarify copyright file.
-  * Split out lzma compatibility commands as new xz-lzma package.
-  * Avoid conflict between xz-lzma and lzma:
-     - Use update-alternatives to provide lzma, unlzma, and lzcat.
-     - debian/control: xz-lzma only conflicts with lzma versions
-       before 4.43-15, when it started using update-alternatives
-       to provide lzma, unlzma, and lzcat. (Closes: #542060)
-  * Avoid conflict between xz-lzma and lzip 1.7:
-     - Do not install lzdiff and lzgrep commands. (Closes: #540232)
-     - Add a note to README.Debian explaining how to get lzdiff and
-       lzgrep commands if old scripts require them.
+  * Drop lzma compatibility commands for now. (Closes: #542060, #540232)
+    Add instructions to README.Debian for installing them locally.
   * debian/control: Add information about the packaging Git repository.
   * debian/control: Clarify package descriptions.
   * debian/README.source: Clarify build instructions.
   * Add debian/.gitignore listing build products.
   * Build xz-utils with static liblzma.
      - debian/rules: Use configure --enable-dynamic=mixed.
-  * Optimize xzdec and lzmadec for size, following suggestion in
-    PACKAGERS.
-     - debian/rules: Build xzdec and lzmadec separately so they can
-       be optimized for size.
+  * Optimize xzdec for size, following suggestion in PACKAGERS.
+     - debian/rules: Build xzdec separately so it can be optimized for size.
      - debian/control: Build-Depends: debhelper (>= 7.3.0).
   * Generate upstream changelog instead of shipping placeholder.
      - debian/README.source: Add instructions for regenerating upstream
@@ -53,7 +43,7 @@ xz-utils (4.999.9beta-1) experimental; urgency=low
   * debian/copyright: refer to versioned GPL-3 file.
   * debian/control: remove duplicate field ‘section’ in package xz-utils.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 20:31:08 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 30 Sep 2009 01:44:04 -0500
 
 xz-utils (4.999.8beta-1) experimental; urgency=low
 

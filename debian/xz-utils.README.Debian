@@ -6,11 +6,19 @@ The old .lzma file format has some problems, worst of which is the lack
 of magic number, but it gets enough use to still need to be supported.
 See /usr/share/doc/xz-utils/history.txt.gz for the full story.
 
-To avoid a conflict with lzip 1.7, the lzgrep and lzdiff commands are
-not included in the xz-lzma Debian package.  Use xzgrep and xzdiff
-instead.  (Alternatively, if a command named lzdiff to compare .lzma
-files is desperately needed, you can provide a symbolic link pointing to
-/usr/bin/xzdiff locally.)
+To support old scripts and muscle memory, XZ Utils can emulate the
+legacy LZMA Utils interface.  To use this feature, you can install some
+subset of the following list of symbolic links to your $PATH.
+
+	lzma, unlzma, lzcat -> /usr/bin/xz
+	lzgrep, lzegrep, lzfgrep -> /usr/bin/xzgrep
+	lzless -> /usr/bin/xzless
+	lzmore -> /usr/bin/xzmore
+	lzdiff, lzcmp -> /usr/bin/xzdiff
+
+Note that lzip 1.7 includes lzgrep and lzdiff commands with different
+behavior, so unless you desperately need them, it is safest to omit those
+two.
 
 Some of the documentation refers to COPYING and COPYING.GPLv2/3/LGPLv2.1
 files from the source distribution.  On Debian systems, their content can

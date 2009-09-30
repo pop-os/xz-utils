@@ -1,6 +1,6 @@
 Source: xz-utils
 Section: utils
-Priority: extra
+Priority: optional
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
 Build-Depends: debhelper (>= 7.3.0), doxygen,
@@ -32,7 +32,6 @@ Description: high compression-ratio compression library - runtime
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: xz-lzma
 Description: high compression-ratio compressor
  This package includes the xz compression tool and other command
  line tools for working with files compressed with the
@@ -40,27 +39,10 @@ Description: high compression-ratio compressor
  formats: .xz and the legacy .lzma format.  Commands provided
  include xz, unxz, xzcat, xzgrep, and so on.
  .
- For commands such as lzma and lzgrep, emulating the interface of
- LZMA Utils, see the xz-lzma package.
- .
  The primary algorithm supported by the .xz format is the LZMA2
  algorithm.  Compression is generally good (on par with or better
  than bzip2), decompression fast, and RAM usage high during
  compression and low during decompression.
-
-Package: xz-lzma
-Architecture: any
-Pre-Depends: xz-utils, ${shlibs:Depends}
-Depends: liblzma0 (= ${binary:Version}), ${misc:Depends}
-Conflicts: lzma (<< 4.43-15)
-Provides: lzma
-Description: high compression-ratio compressor - compatibility commands
- This package provides lzma, unlzma, lzcat, and other command line
- tools emulating the interface of the legacy LZMA Utils package.
- .
- Since the commands in xz-utils handle the .lzma format already,
- you should only need this package if you have scripts or other
- programs requiring the legacy interface.
 
 Package: liblzma-dev
 Section: libdevel
