@@ -20,17 +20,4 @@ Note that lzip 1.7 includes lzgrep and lzdiff commands with different
 behavior, so unless you desperately need them, it is safest to omit those
 two.
 
-Some of the documentation refers to COPYING and COPYING.GPLv2/3/LGPLv2.1
-files from the source distribution.  On Debian systems, their content can
-be found under different names:
-
- * upstream’s COPYING is included in /usr/share/doc/xz-utils/copyright
- * for COPYING.GPLv2, see /usr/share/common-licenses/GPL-2
- * for COPYING.GPLv3, see /usr/share/common-licenses/GPL-3
- * for COPYING.LGPLv2.1, see /usr/share/common-licenses/LGPL-2.1
-
-If you would like to help develop XZ Utils, see TODO in the xz-utils
-source package.  (That file is also installed with the liblzma-dev
-documentation.)
-
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 Aug 2009 02:37:21 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 30 Sep 2009 01:29:38 -0500
