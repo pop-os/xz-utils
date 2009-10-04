@@ -44,6 +44,15 @@ case $host_os in
 esac
 AM_CONDITIONAL([COND_W32], [test "$is_w32" = yes])
 
+# We need to use $EXEEXT with $(LN_S) when creating symlinks to
+# executables. Cygwin is an exception to this, since it is recommended
+# that symlinks don't have the .exe suffix. To make this work, we
+# define LN_EXEEXT.
+case $host_os in
+	cygwin)  LN_EXEEXT= ;;
+	*)       LN_EXEEXT='$(EXEEXT)' ;;
+esac
+AC_SUBST([LN_EXEEXT])
 
 echo
 echo "Configure options:"
@@ -371,6 +380,30 @@ AC_MSG_RESULT([$enable_threads])
 # We use the actual result a little later.
 
 
+#########################
+# Assumed amount of RAM #
+#########################
+
+# We use 32 MiB as default, because it should be small enough for most
+# cases and allows decompressing files compressed with the default settings.
+# Probably it is too small for most systems, but it's safer to guess too low.
+AC_MSG_CHECKING([how much RAM to assume if the real amount is unknown])
+AC_ARG_ENABLE([assume-ram], AC_HELP_STRING([--enable-assume-ram=SIZE],
+		[If and only if the real amount of RAM cannot be determined,
+		assume SIZE MiB. The default is 32 MiB. This affects the
+		default memory usage limit.]),
+	[], [enable_assume_ram=32])
+assume_ram_check=`echo "$enable_assume_ram" | tr -d 0123456789`
+if test -z "$enable_assume_ram" || test -n "$assume_ram_check"; then
+	AC_MSG_RESULT([])
+	AC_MSG_ERROR([--enable-assume-ram accepts only an integer argument])
+fi
+AC_MSG_RESULT([$enable_assume_ram MiB])
+AC_DEFINE_UNQUOTED([ASSUME_RAM], [$enable_assume_ram],
+		[How many MiB of RAM to assume if the real amount cannot
+		be determined.])
+
+
 ############################################
 # xz/xzdec/lzmadec linkage against liblzma #
 ############################################
@@ -476,12 +509,7 @@ AC_CHECK_HEADERS([fcntl.h limits.h sys/time.h],
 	[AC_MSG_ERROR([Required header file(s) are missing.])])
 
 # If any of these headers are missing, things should still work correctly:
-AC_CHECK_HEADERS([sys/param.h sys/sysctl.h byteswap.h],
-	[], [], [
-#ifdef HAVE_SYS_PARAM_H
-#	include <sys/param.h>
-#endif
-])
+AC_CHECK_HEADERS([byteswap.h])
 
 # Even if we have byteswap.h, we may lack the specific macros/functions.
 if test x$ac_cv_header_byteswap_h = xyes ; then
@@ -549,8 +577,9 @@ gl_GETOPT
 # Find the best function to set timestamps.
 AC_CHECK_FUNCS([futimens futimes futimesat utimes utime], [break])
 
-lc_PHYSMEM
-lc_CPUCORES
+TUKLIB_PROGNAME
+TUKLIB_PHYSMEM
+TUKLIB_CPUCORES
 
 
 ###############################################################################

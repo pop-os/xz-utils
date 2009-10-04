@@ -95,8 +95,8 @@
 			/* Use the standard inttypes.h. */
 #			ifdef __cplusplus
 				/*
-				 * C99 sections 7.18.2 and 7.18.4 specify that
-				 * in C++ implementations define the limit
+				 * C99 sections 7.18.2 and 7.18.4 specify
+				 * that C++ implementations define the limit
 				 * and constant macros only if specifically
 				 * requested. Note that if you want the
 				 * format macros (PRIu64 etc.) too, you need
@@ -210,7 +210,7 @@
 #ifndef lzma_nothrow
 #	if defined(__cplusplus)
 #		define lzma_nothrow throw()
-#	elif __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+#	elif __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)
 #		define lzma_nothrow __attribute__((__nothrow__))
 #	else
 #		define lzma_nothrow

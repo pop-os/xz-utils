@@ -13,7 +13,12 @@
 
 #include "lz_encoder.h"
 #include "lz_encoder_hash.h"
-#include "check.h"
+
+// See lz_encoder_hash.h. This is a bit hackish but avoids making
+// endianness a conditional in makefiles.
+#if defined(WORDS_BIGENDIAN) && !defined(HAVE_SMALL)
+#	include "lz_encoder_hash_table.h"
+#endif
 
 
 struct lzma_coder_s {
@@ -84,23 +89,20 @@ fill_window(lzma_coder *coder, lzma_allocator *allocator, const uint8_t *in,
 	// (which I find cleanest), but we need size_t here when filling
 	// the history window.
 	size_t write_pos = coder->mf.write_pos;
-	size_t in_used;
 	lzma_ret ret;
 	if (coder->next.code == NULL) {
 		// Not using a filter, simply memcpy() as much as possible.
-		in_used = lzma_bufcpy(in, in_pos, in_size, coder->mf.buffer,
+		lzma_bufcpy(in, in_pos, in_size, coder->mf.buffer,
 				&write_pos, coder->mf.size);
 
 		ret = action != LZMA_RUN && *in_pos == in_size
 				? LZMA_STREAM_END : LZMA_OK;
 
 	} else {
-		const size_t in_start = *in_pos;
 		ret = coder->next.code(coder->next.coder, allocator,
 				in, in_pos, in_size,
 				coder->mf.buffer, &write_pos,
 				coder->mf.size, action);
-		in_used = *in_pos - in_start;
 	}
 
 	coder->mf.write_pos = write_pos;

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-/// \file       physmem.h
+/// \file       tuklib_physmem.c
 /// \brief      Get the amount of physical memory
 //
 //  Author:     Lasse Collin
@@ -10,43 +10,46 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef PHYSMEM_H
-#define PHYSMEM_H
+#include "tuklib_physmem.h"
 
-// Test for Windows first, because we want to use Windows-specific code
-// on Cygwin, which also has memory information available via sysconf(), but
-// on Cygwin 1.5 and older it gives wrong results (from our point of view).
+// We want to use Windows-specific code on Cygwin, which also has memory
+// information available via sysconf(), but on Cygwin 1.5 and older it
+// gives wrong results (from our point of view).
 #if defined(_WIN32) || defined(__CYGWIN__)
 #	ifndef _WIN32_WINNT
 #		define _WIN32_WINNT 0x0500
 #	endif
 #	include <windows.h>
 
-#elif defined(HAVE_PHYSMEM_SYSCONF)
-#	include <unistd.h>
-
-#elif defined(HAVE_PHYSMEM_SYSCTL)
-#	ifdef HAVE_SYS_PARAM_H
-#		include <sys/param.h>
-#	endif
-#	ifdef HAVE_SYS_SYSCTL_H
-#		include <sys/sysctl.h>
-#	endif
-
-#elif defined(HAVE_PHYSMEM_SYSINFO)
-#	include <sys/sysinfo.h>
+#elif defined(__OS2__)
+#	define INCL_DOSMISC
+#	include <os2.h>
 
 #elif defined(__DJGPP__)
 #	include <dpmi.h>
+
+#elif defined(__VMS)
+#	include <lib$routines.h>
+#	include <syidef.h>
+#	include <ssdef.h>
+
+#elif defined(TUKLIB_PHYSMEM_SYSCONF)
+#	include <unistd.h>
+
+#elif defined(TUKLIB_PHYSMEM_SYSCTL)
+#	ifdef HAVE_SYS_PARAM_H
+#		include <sys/param.h>
+#	endif
+#	include <sys/sysctl.h>
+
+// This sysinfo() is Linux-specific.
+#elif defined(TUKLIB_PHYSMEM_SYSINFO)
+#	include <sys/sysinfo.h>
 #endif
 
 
-/// \brief      Get the amount of physical memory in bytes
-///
-/// \return     Amount of physical memory in bytes. On error, zero is
-///             returned.
-static inline uint64_t
-physmem(void)
+extern uint64_t
+tuklib_physmem(void)
 {
 	uint64_t ret = 0;
 
@@ -79,7 +82,26 @@ physmem(void)
 		ret = meminfo.dwTotalPhys;
 	}
 
-#elif defined(HAVE_PHYSMEM_SYSCONF)
+#elif defined(__OS2__)
+	unsigned long mem;
+	if (DosQuerySysInfo(QSV_TOTPHYSMEM, QSV_TOTPHYSMEM,
+			&mem, sizeof(mem)) == 0)
+		ret = mem;
+
+#elif defined(__DJGPP__)
+	__dpmi_free_mem_info meminfo;
+	if (__dpmi_get_free_memory_information(&meminfo) == 0
+			&& meminfo.total_number_of_physical_pages
+				!= (unsigned long)-1)
+		ret = (uint64_t)meminfo.total_number_of_physical_pages * 4096;
+
+#elif defined(__VMS)
+	int vms_mem;
+	int val = SYI$_MEMSIZE;
+	if (LIB$GETSYI(&val, &vms_mem, 0, 0, 0, 0) == SS$_NORMAL)
+		ret = (uint64_t)vms_mem * 8192;
+
+#elif defined(TUKLIB_PHYSMEM_SYSCONF)
 	const long pagesize = sysconf(_SC_PAGESIZE);
 	const long pages = sysconf(_SC_PHYS_PAGES);
 	if (pagesize != -1 || pages != -1)
@@ -88,9 +110,9 @@ physmem(void)
 		// which may report exactly 4 GiB of RAM, and "long"
 		// being 32-bit will overflow. Casting to uint64_t
 		// hopefully avoids overflows in the near future.
-		ret = (uint64_t)(pagesize) * (uint64_t)(pages);
+		ret = (uint64_t)pagesize * (uint64_t)pages;
 
-#elif defined(HAVE_PHYSMEM_SYSCTL)
+#elif defined(TUKLIB_PHYSMEM_SYSCTL)
 	int name[2] = {
 		CTL_HW,
 #ifdef HW_PHYSMEM64
@@ -104,7 +126,7 @@ physmem(void)
 		uint64_t u64;
 	} mem;
 	size_t mem_ptr_size = sizeof(mem.u64);
-	if (!sysctl(name, 2, &mem.u64, &mem_ptr_size, NULL, NULL)) {
+	if (sysctl(name, 2, &mem.u64, &mem_ptr_size, NULL, 0) != -1) {
 		// IIRC, 64-bit "return value" is possible on some 64-bit
 		// BSD systems even with HW_PHYSMEM (instead of HW_PHYSMEM64),
 		// so support both.
@@ -114,21 +136,11 @@ physmem(void)
 			ret = mem.u32;
 	}
 
-#elif defined(HAVE_PHYSMEM_SYSINFO)
+#elif defined(TUKLIB_PHYSMEM_SYSINFO)
 	struct sysinfo si;
 	if (sysinfo(&si) == 0)
-		ret = (uint64_t)(si.totalram) * si.mem_unit;
-
-#elif defined(__DJGPP__)
-	__dpmi_free_mem_info meminfo;
-	if (__dpmi_get_free_memory_information(&meminfo) == 0
-			&& meminfo.total_number_of_physical_pages
-				!= (unsigned long)(-1))
-		ret = (uint64_t)(meminfo.total_number_of_physical_pages)
-				* 4096;
+		ret = (uint64_t)si.totalram * si.mem_unit;
 #endif
 
 	return ret;
 }
-
-#endif

@@ -28,7 +28,12 @@ xz_SOURCES = \
 	suffix.c \
 	suffix.h \
 	util.c \
-	util.h
+	util.h \
+	$(top_srcdir)/src/common/tuklib_open_stdxxx.c \
+	$(top_srcdir)/src/common/tuklib_progname.c \
+	$(top_srcdir)/src/common/tuklib_exit.c \
+	$(top_srcdir)/src/common/tuklib_physmem.c \
+	$(top_srcdir)/src/common/tuklib_cpucores.c
 
 if COND_W32
 xz_SOURCES += xz_w32res.rc
@@ -69,7 +74,7 @@ install-exec-hook:
 	cd $(DESTDIR)$(bindir) && \
 	target=`echo xz | sed '$(transform)'`$(EXEEXT) && \
 	for name in $(xzlinks); do \
-		link=`echo $$name | sed '$(transform)'` && \
+		link=`echo $$name | sed '$(transform)'`$(LN_EXEEXT) && \
 		rm -f $$link && \
 		$(LN_S) $$target $$link; \
 	done
@@ -86,7 +91,7 @@ install-data-hook:
 uninstall-hook:
 	cd $(DESTDIR)$(bindir) && \
 	for name in $(xzlinks); do \
-		link=`echo $$name | sed '$(transform)'` && \
+		link=`echo $$name | sed '$(transform)'`$(LN_EXEEXT) && \
 		rm -f $$link; \
 	done
 	cd $(DESTDIR)$(mandir)/man1 && \

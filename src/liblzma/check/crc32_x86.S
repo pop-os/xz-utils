@@ -118,7 +118,7 @@ LZMA_CRC32:
 #if (!defined(PIC) && !defined(__PIC__)) \
 		|| (defined(_WIN32) || defined(__CYGWIN__))
 	/* Not PIC */
-	movl	$LZMA_CRC32_TABLE, %ebx
+	movl	$ LZMA_CRC32_TABLE, %ebx
 #elif defined(__MACH__)
 	/* Mach-O */
 	call	.L_get_pc

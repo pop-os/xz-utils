@@ -19,9 +19,6 @@
 #include <stdarg.h>
 
 
-/// Name of the program which is prefixed to the error messages.
-static const char *argv0;
-
 /// Number of the current file
 static unsigned int files_pos = 0;
 
@@ -138,11 +135,8 @@ my_snprintf(char **pos, size_t *left, const char *fmt, ...)
 
 
 extern void
-message_init(const char *given_argv0)
+message_init(void)
 {
-	// Name of the program
-	argv0 = given_argv0;
-
 	// If --verbose is used, we use a progress indicator if and only
 	// if stderr is a terminal. If stderr is not a terminal, we print
 	// verbose information only after finishing the file. As a special
@@ -223,6 +217,13 @@ message_verbosity_decrease(void)
 		--verbosity;
 
 	return;
+}
+
+
+extern enum message_verbosity
+message_verbosity_get(void)
+{
+	return verbosity;
 }
 
 
@@ -361,14 +362,14 @@ progress_sizes_helper(char **pos, size_t *left, uint64_t value, bool final)
 	// Allow high precision only for the final message, since it looks
 	// stupid for in-progress information.
 	if (final) {
-		// At maximum of four digits is allowed for exact byte count.
+		// A maximum of four digits are allowed for exact byte count.
 		if (value < 10000) {
 			my_snprintf(pos, left, "%s B",
 					uint64_to_str(value, 0));
 			return;
 		}
 
-		// At maximum of five significant digits is allowed for KiB.
+		// A maximum of five significant digits are allowed for KiB.
 		if (value < UINT64_C(10239900)) {
 			my_snprintf(pos, left, "%s KiB", double_to_str(
 					(double)(value) / 1024.0));
@@ -523,51 +524,51 @@ progress_remaining(uint64_t in_pos, uint64_t elapsed)
 
 	// Select appropriate precision for the estimated remaining time.
 	if (remaining <= 10) {
-		// At maximum of 10 seconds remaining.
+		// A maximum of 10 seconds remaining.
 		// Show the number of seconds as is.
 		snprintf(buf, sizeof(buf), "%" PRIu32 " s", remaining);
 
 	} else if (remaining <= 50) {
-		// At maximum of 50 seconds remaining.
+		// A maximum of 50 seconds remaining.
 		// Round up to the next multiple of five seconds.
 		remaining = (remaining + 4) / 5 * 5;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " s", remaining);
 
 	} else if (remaining <= 590) {
-		// At maximum of 9 minutes and 50 seconds remaining.
+		// A maximum of 9 minutes and 50 seconds remaining.
 		// Round up to the next multiple of ten seconds.
 		remaining = (remaining + 9) / 10 * 10;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " min %" PRIu32 " s",
 				remaining / 60, remaining % 60);
 
 	} else if (remaining <= 59 * 60) {
-		// At maximum of 59 minutes remaining.
+		// A maximum of 59 minutes remaining.
 		// Round up to the next multiple of a minute.
 		remaining = (remaining + 59) / 60;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " min", remaining);
 
 	} else if (remaining <= 9 * 3600 + 50 * 60) {
-		// At maximum of 9 hours and 50 minutes left.
+		// A maximum of 9 hours and 50 minutes left.
 		// Round up to the next multiple of ten minutes.
 		remaining = (remaining + 599) / 600 * 10;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " h %" PRIu32 " min",
 				remaining / 60, remaining % 60);
 
 	} else if (remaining <= 23 * 3600) {
-		// At maximum of 23 hours remaining.
+		// A maximum of 23 hours remaining.
 		// Round up to the next multiple of an hour.
 		remaining = (remaining + 3599) / 3600;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " h", remaining);
 
 	} else if (remaining <= 9 * 24 * 3600 + 23 * 3600) {
-		// At maximum of 9 days and 23 hours remaining.
+		// A maximum of 9 days and 23 hours remaining.
 		// Round up to the next multiple of an hour.
 		remaining = (remaining + 3599) / 3600;
 		snprintf(buf, sizeof(buf), "%" PRIu32 " d %" PRIu32 " h",
 				remaining / 24, remaining % 24);
 
 	} else if (remaining <= 999 * 24 * 3600) {
-		// At maximum of 999 days remaining. ;-)
+		// A maximum of 999 days remaining. ;-)
 		// Round up to the next multiple of a day.
 		remaining = (remaining + 24 * 3600 - 1) / (24 * 3600);
 		snprintf(buf, sizeof(buf), "%" PRIu32 " d", remaining);
@@ -774,7 +775,7 @@ vmessage(enum message_verbosity v, const char *fmt, va_list ap)
 
 		progress_flush(false);
 
-		fprintf(stderr, "%s: ", argv0);
+		fprintf(stderr, "%s: ", progname);
 		vfprintf(stderr, fmt, ap);
 		fputc('\n', stderr);
 
@@ -830,7 +831,7 @@ message_fatal(const char *fmt, ...)
 	vmessage(V_ERROR, fmt, ap);
 	va_end(ap);
 
-	my_exit(E_ERROR);
+	tuklib_exit(E_ERROR, E_ERROR, false);
 }
 
 
@@ -894,7 +895,7 @@ message_filters(enum message_verbosity v, const lzma_filter *filters)
 	if (v > verbosity)
 		return;
 
-	fprintf(stderr, _("%s: Filter chain:"), argv0);
+	fprintf(stderr, _("%s: Filter chain:"), progname);
 
 	for (size_t i = 0; filters[i].id != LZMA_VLI_UNKNOWN; ++i) {
 		fprintf(stderr, " --");
@@ -1005,7 +1006,8 @@ message_try_help(void)
 {
 	// Print this with V_WARNING instead of V_ERROR to prevent it from
 	// showing up when --quiet has been specified.
-	message(V_WARNING, _("Try `%s --help' for more information."), argv0);
+	message(V_WARNING, _("Try `%s --help' for more information."),
+			progname);
 	return;
 }
 
@@ -1017,7 +1019,7 @@ message_version(void)
 	// line tool version, so print both.
 	printf("xz (" PACKAGE_NAME ") " LZMA_VERSION_STRING "\n");
 	printf("liblzma %s\n", lzma_version_string());
-	my_exit(E_SUCCESS);
+	tuklib_exit(E_SUCCESS, E_ERROR, verbosity != V_SILENT);
 }
 
 
@@ -1026,7 +1028,7 @@ message_help(bool long_help)
 {
 	printf(_("Usage: %s [OPTION]... [FILE]...\n"
 			"Compress or decompress FILEs in the .xz format.\n\n"),
-			argv0);
+			progname);
 
 	puts(_("Mandatory arguments to long options are mandatory for "
 			"short options too.\n"));
@@ -1157,7 +1159,7 @@ message_help(bool long_help)
 
 	if (long_help) {
 		printf(_(
-"On this system and configuration, this program will use at maximum of roughly\n"
+"On this system and configuration, this program will use a maximum of roughly\n"
 "%s MiB RAM and "), uint64_to_str(hardware_memlimit_get() / (1024 * 1024), 0));
 		printf(N_("one thread.\n\n", "%s threads.\n\n",
 				hardware_threadlimit_get()),
@@ -1168,5 +1170,5 @@ message_help(bool long_help)
 			PACKAGE_BUGREPORT);
 	printf(_("%s home page: <%s>\n"), PACKAGE_NAME, PACKAGE_HOMEPAGE);
 
-	my_exit(E_SUCCESS);
+	tuklib_exit(E_SUCCESS, E_ERROR, verbosity != V_SILENT);
 }
