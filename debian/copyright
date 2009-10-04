@@ -144,8 +144,8 @@ License:
 
 Files: Makefile.am, autogen.sh, configure.ac,
        debug/Makefile.am, debug/*.c, dos/Makefile,
-       extra/7z2lzma/7z2lzma.bash, m4/lc_cpucores.m4, m4/lc_physmem.m4,
-       src/Makefile.am, src/common/*, src/lzmainfo/*, src/scripts/Makefile.am,
+       extra/7z2lzma/7z2lzma.bash, m4/tuklib_*, src/Makefile.am,
+       src/common/*, src/lzmainfo/*, src/scripts/Makefile.am,
        src/xz/*, src/xzdec/*, version.h, tests/Makefile.am,
        tests/*.{c,h,sh}, windows/Makefile
 Author: Lasse Collin
