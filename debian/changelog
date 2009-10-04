@@ -1,6 +1,7 @@
 xz-utils (4.999.9beta+20091002-1) experimental; urgency=low
 
   * New upstream snapshot, taken from upstream commit 29fd321.
+  * debian/control: Build-Depends: cvs (for autopoint).
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 04 Oct 2009 00:21:08 -0500
 
