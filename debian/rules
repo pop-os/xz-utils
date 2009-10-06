@@ -34,28 +34,35 @@ override_dh_auto_install:
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
 
-opt_no_act =
 opt_optimize = CFLAGS="-g -O2"
 opt_optimize_small = CFLAGS="-g -Os"
+opt_no_act =
 opt_quiet =
+
 comma=,
-space_sep_build_opts=$(subst $(comma), ,$(DEB_BUILD_OPTIONS))
-ifneq (,$(findstring n,$(MAKEFLAGS)))
-    opt_no_act = --no-act
-endif
+space_sep_build_opts := $(subst $(comma), ,$(DEB_BUILD_OPTIONS))
+build_opt_parallel := $(filter parallel=%,$(space_sep_build_opts))
+
 ifneq (,$(filter noopt,$(space_sep_build_opts)))
     opt_optimize = --disable-assembler CFLAGS="-g -O0"
     opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
 endif
+
 ifndef in_submake
-ifneq (,$(filter parallel=%,$(space_sep_build_opts)))
-    MAKEFLAGS += -j $(subst parallel=,,$(filter parallel=%,$(space_sep_build_opts)))
+ifneq (,$(build_opt_parallel))
+    MAKEFLAGS += -j $(subst parallel=,,$(build_opt_parallel))
 endif
 endif
+
+ifneq (,$(findstring n,$(MAKEFLAGS)))
+    opt_no_act = --no-act
+endif
+
 ifneq (,$(filter quiet,$(space_sep_build_opts)))
     opt_quiet = --quiet
     MAKEFLAGS += --quiet
 endif
+
 in_submake = yes
 export in_submake
 
