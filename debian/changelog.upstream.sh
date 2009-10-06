@@ -8,7 +8,10 @@ set -e
 # If argument matches /^Version: /, output remaining text.
 # Result is true if and only if argument matches.
 version_line() {
-	result=${1#Version: }
+	local line result
+	line=$1
+	result=${line#Version: }
+
 	if test "$result" = "$line"
 	then
 		return 1
@@ -22,7 +25,10 @@ version_line() {
 # output remaining text.
 # Result is true if and only if argument matches.
 commit_id_line() {
-	result=${1#\* New upstream snapshot*commit }
+	local line result
+	line=$1
+	result=${line#\* New upstream snapshot*commit }
+
 	if test "$result" = "$line"
 	then
 		return 1
@@ -40,6 +46,7 @@ commit_id_line() {
 # $1 is a name for the upstream version sought, for use in error
 # messages.
 read_commit_id() {
+	local upstream_version line version cid
 	upstream_version=$1
 
 	while read line
@@ -65,6 +72,7 @@ last_cid=none
 # and set last=$2.
 # $1 is a user-readable name for the commit $2
 add_version() {
+	local new new_cid limiter
 	new=$1
 	new_cid=$2
 
