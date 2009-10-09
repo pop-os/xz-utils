@@ -42,17 +42,20 @@ commit_id_line() {
 # form “New upstream snapshot, taken from upstream commit <blah>.”
 # Output is <blah>.
 # Fails and writes a message to standard error if no such entry is
-# found before the next Version: line or EOF.
-# $1 is a name for the upstream version sought, for use in error
-# messages.
+# found before the next Version: line with a different upstream
+# version (or EOF).
+# $1 is the upstream version sought.
 read_commit_id() {
 	local upstream_version line version cid
 	upstream_version=$1
 
 	while read line
 	do
-		if version=$(version_line "$line")
-		then break
+		if
+			version=$(version_line "$line") &&
+			test "${version%-*}" != "$upstream_version"
+		then
+			break
 		fi
 
 		if cid=$(commit_id_line "$line")

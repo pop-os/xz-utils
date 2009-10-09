@@ -2,7 +2,9 @@ xz-utils (4.999.9beta+20091002-2) experimental; urgency=low
 
   * debian/control: Conflicts: xz-lzma. (Closes: #550249)
   * debian/changelog.upstream.sh: Declare local variables.
-  * debian/rules: Use ":=" where appropriate
+  * debian/changelog.upstream.sh: Cope with multiple Debian revisions per
+    upstream version.
+  * debian/rules: Use ":=" where appropriate.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 08 Oct 2009 21:49:55 -0500
 
