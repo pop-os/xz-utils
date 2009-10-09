@@ -32,7 +32,7 @@ Description: high compression-ratio compression library - runtime
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: xz-lzma (<< 4.999.9beta+20091002-2)
+Conflicts: xz-lzma (<< 4.999.9beta+20091004-1)
 Description: high compression-ratio compressor
  This package includes the xz compression tool and other command
  line tools for working with files compressed with the

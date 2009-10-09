@@ -1,5 +1,6 @@
-xz-utils (4.999.9beta+20091002-2) experimental; urgency=low
+xz-utils (4.999.9beta+20091004-1) experimental; urgency=low
 
+  * New upstream snapshot, taken from upstream commit ebfb2c5.
   * debian/control: Conflicts: xz-lzma. (Closes: #550249)
   * debian/changelog.upstream.sh: Declare local variables.
   * debian/changelog.upstream.sh: Cope with multiple Debian revisions per
