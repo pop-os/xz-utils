@@ -6,6 +6,7 @@ xz-utils (4.999.9beta+20091004-1) experimental; urgency=low
   * debian/changelog.upstream.sh: Cope with multiple Debian revisions per
     upstream version.
   * debian/rules: Use ":=" where appropriate.
+  * Add watch file.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 08 Oct 2009 21:49:55 -0500
 
