@@ -1,6 +1,7 @@
 xz-utils (4.999.9beta+20091004-1) experimental; urgency=low
 
   * New upstream snapshot, taken from upstream commit ebfb2c5.
+  * Patch xzmore.1 to use dashes instead of minus signs.
   * debian/control: Conflicts: xz-lzma. (Closes: #550249)
   * liblzma-doc: Register Doxygen-generated docs with doc-base.
   * debian/changelog.upstream.sh: Declare local variables.
