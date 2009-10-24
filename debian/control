@@ -15,66 +15,69 @@ Package: liblzma0
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: high compression-ratio compression library - runtime
- liblzma is a library implementing the Lempel-Ziv/Markov-chain
- compression method found in xz, lzma, and 7-Zip.  This package
- includes the shared library.
+Description: XZ-format compression library
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
  .
- This library does not support 7-Zip's LZMA-based .7z format (for
- that, see p7zip).  This library's native file format is .xz, but
- the old .lzma format and raw (no headers) streams are also
- supported.
- .
- Compression is generally good (on par with or better than bzip2),
- decompression fast, and RAM usage high during compression and low
- during decompression.
+ The native format of liblzma is XZ; it also supports raw (headerless)
+ streams and the older LZMA format used by lzma. (For 7-Zip's related
+ format, use the p7zip package instead.)
 
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: xz-lzma (<< 4.999.9beta+20091004-1)
-Description: high compression-ratio compressor
- This package includes the xz compression tool and other command
- line tools for working with files compressed with the
- Lempel-Ziv/Markov-chain compression method.  It supports two
- formats: .xz and the legacy .lzma format.  Commands provided
- include xz, unxz, xzcat, xzgrep, and so on.
+Description: XZ-format compression utilities
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
  .
- The primary algorithm supported by the .xz format is the LZMA2
- algorithm.  Compression is generally good (on par with or better
- than bzip2), decompression fast, and RAM usage high during
- compression and low during decompression.
+ This package provides the command line tools for working with XZ
+ compression, including xz, unxz, xzcat, xzgrep, and so on. They can
+ also handle the older LZMA format, and if invoked via appropriate
+ symlinks will emulate the behavior of the commands in the lzma
+ package.
+ .
+ The XZ format is similar to the older LZMA format but includes some
+ improvements for general use:
+ .
+  * 'file' magic for detecting XZ files;
+  * crc64 data integrity check;
+  * limited random-access reading support;
+  * improved support for multithreading (not used in xz-utils);
+  * support for flushing the encoder.
 
 Package: liblzma-dev
 Section: libdevel
 Architecture: any
 Depends: liblzma0 (= ${binary:Version}), ${misc:Depends}
 Suggests: liblzma-doc
-Description: high compression-ratio compression library - development
- liblzma is a data compression library with support for several
- filters (algorithm implementations).  The primary filter is LZMA2,
- an extended version of the compression method used in lzma and 7-Zip.
- This package includes the development support files.
+Description: XZ-format compression library - development files
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
  .
- This library does not support 7-Zip's LZMA-based .7z format (for
- that, see p7zip).  This library's native file format is .xz, but
- the old .lzma format and raw (no headers) streams are also
- supported.
- .
- Compression is generally good (on par with or better than bzip2),
- decompression fast, and RAM usage high during compression and low
- during decompression.
+ The native format of liblzma is XZ; it also supports raw (headerless)
+ streams and the older LZMA format used by lzma. (For 7-Zip's related
+ format, use the p7zip package instead.) This package provides the
+ development library needed to build programs using liblzma.
 
 Package: liblzma-doc
 Section: doc
 Architecture: all
 Depends: ${misc:Depends}
 Suggests: liblzma-dev
-Description: high compression-ratio compression library - reference documentation
- This package contains documentation for developers using the liblzma
- data compression library.
+Description: XZ-format compression library - API documentation
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
  .
- Currently it contains only the Doxygen-generated API reference in
- HTML format.  The purpose of each struct, macro, and function in the
- public interface is explained here, but for an overview of XZ Utils
- one would have to look elsewhere.
+ The native format of liblzma is XZ; it also supports raw (headerless)
+ streams and the older LZMA format used by lzma. (For 7-Zip's related
+ format, use the p7zip package instead.)
+ .
+ This package contains a reference manual for the liblzma data
+ compression library, in Doxygen-generated HTML files. The purpose
+ of each struct, macro, and function in the public interface is
+ explained.
