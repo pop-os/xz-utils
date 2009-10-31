@@ -1,10 +1,12 @@
-xz-utils (4.999.9beta+20091004-2) unstable; urgency=low
+xz-utils (4.999.9beta+20091016-1) unstable; urgency=low
 
+  * New upstream snapshot, taken from upstream commit 78e92c1.
+  * Drop xzmore.1 patch, applied upstream.
   * debian/control: Clarify binary package descriptions.
   * debian/rules get-orig-source: Use commit date (instead of last patch
     date) to name snapshots.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 24 Oct 2009 05:22:23 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 31 Oct 2009 14:30:15 -0500
 
 xz-utils (4.999.9beta+20091004-1) unstable; urgency=low
 
