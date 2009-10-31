@@ -43,6 +43,17 @@ comma=,
 space_sep_build_opts := $(subst $(comma), ,$(DEB_BUILD_OPTIONS))
 build_opt_parallel := $(filter parallel=%,$(space_sep_build_opts))
 
+# The Hurd is misdetected as Mac OS X in the x86 assembler code,
+# resulting in errors like
+#
+# 	crc32_x86.S:280: Error: character following name is not '#'
+#
+# Use C code in its place on those machines for now.
+ifeq (hurd,$(shell dpkg-architecture -qDEB_HOST_ARCH_OS))
+    opt_optimize += --disable-assembler
+    opt_optimize_small += --disable-assembler
+endif
+
 ifneq (,$(filter noopt,$(space_sep_build_opts)))
     opt_optimize = --disable-assembler CFLAGS="-g -O0"
     opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
