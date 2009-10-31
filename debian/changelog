@@ -1,6 +1,8 @@
 xz-utils (4.999.9beta+20091004-2) unstable; urgency=low
 
   * debian/control: Clarify binary package descriptions.
+  * debian/rules get-orig-source: Use commit date (instead of last patch
+    date) to name snapshots.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 24 Oct 2009 05:22:23 -0500
 

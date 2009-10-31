@@ -81,7 +81,7 @@ get-orig-source:
 		commit_name=$$(git describe FETCH_HEAD); \
 		release=$${commit_name%%-*}; \
 		date=$$(date --utc --date="$$( \
-			git log -1 --pretty=format:%aD "$$commit_name" \
+			git log -1 --pretty=format:%cD "$$commit_name" \
 			)" "+%Y%m%d"); \
 		if test "$$commit_name" = "$$release"; \
 		then upstream_version=$${commit_name#v}; \
