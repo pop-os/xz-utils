@@ -3,11 +3,12 @@ xz-utils (4.999.9beta+20091016-1) unstable; urgency=low
   * New upstream snapshot, taken from upstream commit 78e92c1.
   * Drop xzmore.1 patch, applied upstream.
   * debian/rules: Disable assembler optimizations on hurd. (Closes: #553331)
-  * debian/control: Clarify binary package descriptions.
+  * debian/control: Clarify binary package descriptions.  Thanks to
+    Justin B Rye and Ben Finney for the text.
   * debian/rules get-orig-source: Use commit date (instead of last patch
     date) to name snapshots.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 31 Oct 2009 18:05:40 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 01 Nov 2009 00:22:04 -0500
 
 xz-utils (4.999.9beta+20091004-1) unstable; urgency=low
 
