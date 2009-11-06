@@ -1,4 +1,5 @@
-This is the Debian prepackaged version of XZ Utils.
+This is the Debian prepackaged version of the XZ format compression
+utilities.
 
 The package was prepared by by Jonathan Nieder <jrnieder@gmail.com>
 on 29 May 2009.  For changes since then, see changelog.Debian.gz.
@@ -7,8 +8,10 @@ The sources may be found at <http://tukaani.org/xz/>.  Sources for
 snapshot builds come from the git repository at
 <git://ctrl.tukaani.org/xz.git>.
 
-The upstream maintainer is Lasse Collin.  See AUTHORS for some
-information on the remaining authors.
+XZ Utils is developed and maintained upstream by Lasse Collin.  Major
+portions are based on code by other authors; see AUTHORS for details.
+Most of the source is in the public domain, but some files are
+copyrighted:
 
 Copyright © 1987-2009, Free Software Foundation, Inc.
 Copyright © 2007, Steven G. Johnson
@@ -24,8 +27,8 @@ the Free Software Foundation, either version 3 of the License, or
 On Debian systems, the complete text of the GNU General Public License
 version 3 can be found in ‘/usr/share/common-licenses/GPL-3’.
 
-Most of the source files in this package are licensed under more
-permissive terms.
+Most files in this package are licensed with more permissive terms.
+Details follow.
 
 | Different licenses apply to different files in this package. Here
 | is a rough summary of which licenses apply to which parts of this
