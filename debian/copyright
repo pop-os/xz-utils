@@ -11,13 +11,7 @@ snapshot builds come from the git repository at
 XZ Utils is developed and maintained upstream by Lasse Collin.  Major
 portions are based on code by other authors; see AUTHORS for details.
 Most of the source is in the public domain, but some files are
-copyrighted:
-
-Copyright © 1987-2009, Free Software Foundation, Inc.
-Copyright © 2007, Steven G. Johnson
-Copyright © 1992, 1993, Jean-loup Gailly
-Copyright © 2006 Timo Lindfors
-Copyright © 1997-2007 by Dimitri van Heesch
+copyrighted (details below).
 
 This package is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
