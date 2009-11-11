@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20091016-3) unstable; urgency=low
+
+  * Clarify debian/copyright.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 11 Nov 2009 06:52:19 -0600
+
 xz-utils (4.999.9beta+20091016-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit 78e92c1.
