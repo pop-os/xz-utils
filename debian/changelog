@@ -1,8 +1,9 @@
 xz-utils (4.999.9beta+20091016-3) unstable; urgency=low
 
   * Clarify debian/copyright.
+  * debian/rules: Remove unnecessary debian/*.dirs lists.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 11 Nov 2009 06:52:19 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 11 Nov 2009 08:57:38 -0600
 
 xz-utils (4.999.9beta+20091016-1) unstable; urgency=low
 
