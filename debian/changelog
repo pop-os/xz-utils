@@ -1,8 +1,23 @@
-xz-utils (4.999.9beta+20091016-3) unstable; urgency=low
+xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 
-  * Clarify debian/copyright.
+  * New upstream snapshot, taken from upstream commit d315ca4.
+     + liblzma: add some new functions:
+        - lzma_filters_copy() to copy a filter chain;
+        - lzma_filters_update() to change compression options mid-stream;
+        - lzma_physmem() to retrieve the total quantity of installed RAM.
+     + Fix a design error in liblzma API.
+        - Stop requiring caller to maintain filter chain during
+          compression.  The library used to read it for new compression
+          options.  Callers that need to change options mid-stream should
+          use lzma_filters_update() instead.
+        - Remove 'persistent' member from struct lzma_options_lzma.
+     + xz: add --robot --info-memory options, for front-ends to use to
+       read the memory usage limit.
+  * liblzma: bump soname; add README.Debian explaining why soname
+    differs from upstream.
+  * Update and clarify copyright file.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 11 Nov 2009 06:52:19 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 16 Nov 2009 14:41:41 -0600
 
 xz-utils (4.999.9beta+20091016-1) unstable; urgency=low
 
