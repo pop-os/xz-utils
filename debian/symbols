@@ -1,6 +1,7 @@
-liblzma.so.0 liblzma0 #MINVER#
+liblzma.so.1 liblzma1 #MINVER#
+* Build-Depends-Package: liblzma-dev
  lzma_alone_decoder@Base 4.999.9beta
- lzma_alone_encoder@Base 4.999.9beta
+ lzma_alone_encoder@Base 4.999.9beta+20091116
  lzma_auto_decoder@Base 4.999.9beta
  lzma_block_buffer_bound@Base 4.999.9beta
  lzma_block_buffer_decode@Base 4.999.9beta
@@ -29,6 +30,8 @@ liblzma.so.0 liblzma0 #MINVER#
  lzma_filter_flags_decode@Base 4.999.9beta
  lzma_filter_flags_encode@Base 4.999.9beta
  lzma_filter_flags_size@Base 4.999.9beta
+ lzma_filters_copy@Base 4.999.9beta+20091116
+ lzma_filters_update@Base 4.999.9beta+20091116
  lzma_get_check@Base 4.999.9beta
  lzma_index_append@Base 4.999.9beta
  lzma_index_buffer_decode@Base 4.999.9beta
@@ -55,12 +58,13 @@ liblzma.so.0 liblzma0 #MINVER#
  lzma_index_stream_size@Base 4.999.9beta
  lzma_index_total_size@Base 4.999.9beta
  lzma_index_uncompressed_size@Base 4.999.9beta
- lzma_lzma_preset@Base 4.999.9beta
+ lzma_lzma_preset@Base 4.999.9beta+20091116
  lzma_memlimit_get@Base 4.999.9beta
  lzma_memlimit_set@Base 4.999.9beta
  lzma_memusage@Base 4.999.9beta
  lzma_mf_is_supported@Base 4.999.9beta
  lzma_mode_is_supported@Base 4.999.9beta
+ lzma_physmem@Base 4.999.9beta+20091116
  lzma_properties_decode@Base 4.999.9beta
  lzma_properties_encode@Base 4.999.9beta
  lzma_properties_size@Base 4.999.9beta
