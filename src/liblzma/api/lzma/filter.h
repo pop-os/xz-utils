@@ -95,6 +95,37 @@ extern LZMA_API(lzma_bool) lzma_filter_decoder_is_supported(lzma_vli id)
 
 
 /**
+ * \brief       Copy the filters array
+ *
+ * Copy the Filter IDs and filter-specific options from src to dest.
+ * Up to LZMA_FILTERS_MAX filters are copied, plus the terminating
+ * .id == LZMA_VLI_UNKNOWN. Thus, dest should have at least
+ * LZMA_FILTERS_MAX + 1 elements space unless the caller knows that
+ * src is smaller than that.
+ *
+ * Unless the filter-specific options is NULL, the Filter ID has to be
+ * supported by liblzma, because liblzma needs to know the size of every
+ * filter-specific options structure. The filter-specific options are not
+ * validated. If options is NULL, any unsupported Filter IDs are copied
+ * without returning an error.
+ *
+ * Old filter-specific options in dest are not freed, so dest doesn't
+ * need to be initialized by the caller in any way.
+ *
+ * If an error occurs, memory possibly already allocated by this function
+ * is always freed.
+ *
+ * \return      - LZMA_OK
+ *              - LZMA_MEM_ERROR
+ *              - LZMA_OPTIONS_ERROR: Unsupported Filter ID and its options
+ *                is not NULL.
+ *              - LZMA_PROG_ERROR: src or dest is NULL.
+ */
+extern LZMA_API(lzma_ret) lzma_filters_copy(const lzma_filter *src,
+		lzma_filter *dest, lzma_allocator *allocator);
+
+
+/**
  * \brief       Calculate rough memory requirements for raw encoder
  *
  * Because the calculation is rough, this function can be used to calculate
@@ -164,6 +195,36 @@ extern LZMA_API(lzma_ret) lzma_raw_encoder(
 extern LZMA_API(lzma_ret) lzma_raw_decoder(
 		lzma_stream *strm, const lzma_filter *filters)
 		lzma_nothrow lzma_attr_warn_unused_result;
+
+
+/**
+ * \brief       Update the filter chain in the encoder
+ *
+ * This function is for advanced users only. This function has two slightly
+ * different purposes:
+ *
+ *  - After LZMA_FULL_FLUSH when using Stream encoder: Set a new filter
+ *    chain, which will be used starting from the next Block.
+ *
+ *  - After LZMA_SYNC_FLUSH using Raw, Block, or Stream encoder: Change
+ *    the filter-specific options in the middle of encoding. The actual
+ *    filters in the chain (Filter IDs) cannot be changed. In the future,
+ *    it might become possible to change the filter options without
+ *    using LZMA_SYNC_FLUSH.
+ *
+ * While rarely useful, this function may be called also when no data has
+ * been compressed yet. In that case, this function will behave as if
+ * LZMA_FULL_FLUSH (Stream encoder) or LZMA_SYNC_FLUSH (Raw or Block
+ * encoder) had been used right before calling this function.
+ *
+ * \return      - LZMA_OK
+ *              - LZMA_MEM_ERROR
+ *              - LZMA_MEMLIMIT_ERROR
+ *              - LZMA_OPTIONS_ERROR
+ *              - LZMA_PROG_ERROR
+ */
+extern LZMA_API(lzma_ret) lzma_filters_update(
+		lzma_stream *strm, const lzma_filter *filters);
 
 
 /**
