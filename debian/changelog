@@ -4,8 +4,9 @@ xz-utils (4.999.9beta+20091125-1) unstable; urgency=low
   * debian/rules: Stop explicitly disabling assembler optimizations
     on the Hurd.  The configure script will check if a platform is
     supported now.
+  * Remove debian/dirs lists.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 26 Nov 2009 01:19:55 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 26 Nov 2009 01:27:53 -0600
 
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 
