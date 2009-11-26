@@ -288,29 +288,27 @@ AC_ARG_ENABLE([assembler], AC_HELP_STRING([--disable-assembler],
 		for the architecture.]),
 	[], [enable_assembler=yes])
 if test "x$enable_assembler" = xyes; then
-	case $host_cpu in
-		i?86)   enable_assembler=x86 ;;
-		x86_64) enable_assembler=x86_64 ;;
-		*)      enable_assembler=no ;;
+	enable_assembler=no
+	case $host_os in
+		# Darwin should work too but only if not creating universal
+		# binaries. Solaris x86 could work too but I cannot test.
+		linux* | *bsd* | mingw* | cygwin*)
+			case $host_cpu in
+				i?86)   enable_assembler=x86 ;;
+				x86_64) enable_assembler=x86_64 ;;
+			esac
+			;;
 	esac
 fi
 case $enable_assembler in
-	x86)
-		AC_DEFINE([HAVE_ASM_X86], [1],
-			[Define to 1 if using x86 assembler optimizations.])
-		;;
-	x86_64)
-		AC_DEFINE([HAVE_ASM_X86_64], [1],
-			[Define to 1 if using x86_64 assembler optimizations.])
-		;;
-	no)
+	x86 | x86_64 | no)
+		AC_MSG_RESULT([$enable_assembler])
 		;;
 	*)
 		AC_MSG_RESULT([])
 		AC_MSG_ERROR([--enable-assembler accepts only \`yes', \`no', \`x86', or \`x86_64'.])
 		;;
 esac
-AC_MSG_RESULT([$enable_assembler])
 AM_CONDITIONAL(COND_ASM_X86, test "x$enable_assembler" = xx86)
 AM_CONDITIONAL(COND_ASM_X86_64, test "x$enable_assembler" = xx86_64)
 
@@ -681,3 +679,19 @@ AC_CONFIG_FILES([
 ])
 
 AC_OUTPUT
+
+# Some warnings
+if test x$tuklib_cv_physmem_method = xunknown; then
+	echo
+	echo "WARNING:"
+	echo "No supported method to detect the amount of RAM."
+	echo "Consider using --enable-assume-ram (if you didn't already)"
+	echo "or make a patch to add support for this operating system."
+fi
+
+# Not threading yet so don't warn.
+#if test x$tuklib_cv_cpucores_method = xunknown; then
+#	echo
+#	echo "WARNING:"
+#	echo "No supported method to detect the number of CPU cores."
+#fi
