@@ -1,12 +1,15 @@
 xz-utils (4.999.9beta+20091125-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit 919fbaf.
+     - xz: try to write a sparse file if the decompressed stream
+       contains long runs of null bytes.
+     - xz: add --no-sparse option for disabling this behavior.
   * debian/rules: Stop explicitly disabling assembler optimizations
     on the Hurd.  The configure script will check if a platform is
     supported now.
   * Remove debian/dirs lists.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 26 Nov 2009 01:27:53 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 26 Nov 2009 02:26:23 -0600
 
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 
