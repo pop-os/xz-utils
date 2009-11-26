@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20091125-1) unstable; urgency=low
+
+  * New upstream snapshot, taken from upstream commit 919fbaf.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 26 Nov 2009 01:13:51 -0600
+
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit d315ca4.
