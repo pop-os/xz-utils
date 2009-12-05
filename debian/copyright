@@ -1,8 +1,8 @@
 This is the Debian prepackaged version of the XZ format compression
 utilities.
 
-The package was prepared by by Jonathan Nieder <jrnieder@gmail.com>
-on 29 May 2009.  For changes since then, see changelog.Debian.gz.
+The package was prepared by Jonathan Nieder <jrnieder@gmail.com> on
+29 May 2009.  For changes since then, see changelog.Debian.gz.
 
 The sources may be found at <http://tukaani.org/xz/>.  Sources for
 snapshot builds come from the git repository at
