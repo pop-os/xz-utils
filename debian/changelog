@@ -60,10 +60,11 @@ xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
     in .gitignore.
   * Build-Depends: perl.
 
+  * debian/rules: Speed up build by using autoreconf --symlink.
   * Remove debian/dirs lists.
   * Update copyright file and fix a small typo.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 02:42:13 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 04:01:44 -0600
 
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 

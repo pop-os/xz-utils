@@ -9,7 +9,7 @@ override_dh_auto_clean:
 	sh debian/clean.sh
 
 override_dh_auto_configure:
-	autoreconf -fi
+	autoreconf -fis
 	dh_auto_configure --builddirectory debian/normal-build -- \
 		$(opt_optimize) $(opt_quiet)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
