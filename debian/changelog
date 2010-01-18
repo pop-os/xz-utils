@@ -13,8 +13,9 @@ xz-utils (4.999.9beta+20091126-1) unstable; urgency=low
   * Build-Depends: perl.
 
   * Remove debian/dirs lists.
+  * debian/copyright: fix a small typo.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 02:14:36 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 02:19:30 -0600
 
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 
