@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
-Build-Depends: debhelper (>= 7.3.0), doxygen,
+Build-Depends: debhelper (>= 7.3.0), doxygen, perl,
 	autoconf, automake, libtool (>= 2.2), gettext, cvs
 Build-Conflicts: autoconf2.13, automake1.4
 Standards-Version: 3.8.3
