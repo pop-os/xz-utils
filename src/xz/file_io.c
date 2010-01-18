@@ -40,9 +40,11 @@ static bool warn_fchown;
 /// If true, try to create sparse files when decompressing.
 static bool try_sparse = true;
 
+#ifndef TUKLIB_DOSLIKE
 /// File status flags of standard output. This is used by io_open_dest()
 /// and io_close_dest().
 static int stdout_flags = 0;
+#endif
 
 
 static bool io_write_buf(file_pair *pair, const uint8_t *buf, size_t size);
@@ -273,9 +275,14 @@ io_open_src(file_pair *pair)
 		return false;
 	}
 
+	// Symlinks are not followed unless writing to stdout or --force
+	// was used.
+	const bool follow_symlinks = opt_stdout || opt_force;
+
 	// We accept only regular files if we are writing the output
-	// to disk too, and if --force was not given.
-	const bool reg_files_only = !opt_stdout && !opt_force;
+	// to disk too. bzip2 allows overriding this with --force but
+	// gzip and xz don't.
+	const bool reg_files_only = !opt_stdout;
 
 	// Flags for open()
 	int flags = O_RDONLY | O_BINARY | O_NOCTTY;
@@ -291,13 +298,13 @@ io_open_src(file_pair *pair)
 #endif
 
 #if defined(O_NOFOLLOW)
-	if (reg_files_only)
+	if (!follow_symlinks)
 		flags |= O_NOFOLLOW;
 #elif !defined(TUKLIB_DOSLIKE)
 	// Some POSIX-like systems lack O_NOFOLLOW (it's not required
 	// by POSIX). Check for symlinks with a separate lstat() on
 	// these systems.
-	if (reg_files_only) {
+	if (!follow_symlinks) {
 		struct stat st;
 		if (lstat(pair->src_name, &st)) {
 			message_error("%s: %s", pair->src_name,
@@ -372,7 +379,7 @@ io_open_src(file_pair *pair)
 			was_symlink = true;
 
 #	else
-		if (errno == ELOOP && reg_files_only) {
+		if (errno == ELOOP && !follow_symlinks) {
 			const int saved_errno = errno;
 			struct stat st;
 			if (lstat(pair->src_name, &st) == 0
@@ -524,14 +531,7 @@ io_open_dest(file_pair *pair)
 
 		// If --force was used, unlink the target file first.
 		if (opt_force && unlink(pair->dest_name) && errno != ENOENT) {
-			message_error("%s: Cannot unlink: %s",
-					pair->dest_name, strerror(errno));
-			free(pair->dest_name);
-			return true;
-		}
-
-		if (opt_force && unlink(pair->dest_name) && errno != ENOENT) {
-			message_error("%s: Cannot unlink: %s",
+			message_error(_("%s: Cannot remove: %s"),
 					pair->dest_name, strerror(errno));
 			free(pair->dest_name);
 			return true;
@@ -640,6 +640,7 @@ io_open_dest(file_pair *pair)
 static int
 io_close_dest(file_pair *pair, bool success)
 {
+#ifndef TUKLIB_DOSLIKE
 	// If io_open_dest() has disabled O_APPEND, restore it here.
 	if (stdout_flags != 0) {
 		assert(pair->dest_fd == STDOUT_FILENO);
@@ -654,6 +655,7 @@ io_close_dest(file_pair *pair, bool success)
 			return -1;
 		}
 	}
+#endif
 
 	if (pair->dest_fd == -1 || pair->dest_fd == STDOUT_FILENO)
 		return 0;

@@ -13,7 +13,7 @@ remove_files='#!/usr/bin/perl
 use strict;
 use warnings;
 
-my $fnchar = qr/[-.@[:alnum:]]/;
+my $fnchar = qr/[-_~.@[:alnum:]]/;
 
 my $empty = qr/^$/;
 my $comment = qr/^#/;

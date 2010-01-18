@@ -11,7 +11,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/xz.git
 Vcs-Git: git://git.debian.org/collab-maint/xz.git
 Homepage: http://tukaani.org/xz/
 
-Package: liblzma1
+Package: liblzma2
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
@@ -51,7 +51,7 @@ Description: XZ-format compression utilities
 Package: liblzma-dev
 Section: libdevel
 Architecture: any
-Depends: liblzma1 (= ${binary:Version}), ${misc:Depends}
+Depends: liblzma2 (= ${binary:Version}), ${misc:Depends}
 Suggests: liblzma-doc
 Description: XZ-format compression library - development files
  XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm

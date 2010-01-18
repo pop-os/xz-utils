@@ -1097,7 +1097,7 @@ message_help(bool long_help)
 "                      ratio without increasing memory usage of the decoder"));
 
 	if (long_help)
-		puts(_(
+		puts(_( // xgettext:no-c-format
 "  -M, --memory=NUM    use roughly NUM bytes of memory at maximum; 0 indicates\n"
 "                      the default setting, which is 40 % of total RAM"));
 
@@ -1189,6 +1189,10 @@ message_help(bool long_help)
 				uint64_to_str(hardware_threadlimit_get(), 0));
 	}
 
+	// TRANSLATORS: This message indicates the bug reporting address
+	// for this package. Please add _another line_ saying
+	// "Report translation bugs to <...>\n" with the email or WWW
+	// address for translation bugs. Thanks.
 	printf(_("Report bugs to <%s> (in English or Finnish).\n"),
 			PACKAGE_BUGREPORT);
 	printf(_("%s home page: <%s>\n"), PACKAGE_NAME, PACKAGE_HOMEPAGE);

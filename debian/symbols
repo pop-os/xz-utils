@@ -1,4 +1,4 @@
-liblzma.so.1 liblzma1 #MINVER#
+liblzma.so.2 liblzma2 #MINVER#
 * Build-Depends-Package: liblzma-dev
  lzma_alone_decoder@Base 4.999.9beta
  lzma_alone_encoder@Base 4.999.9beta+20091116
@@ -34,27 +34,32 @@ liblzma.so.1 liblzma1 #MINVER#
  lzma_filters_update@Base 4.999.9beta+20091116
  lzma_get_check@Base 4.999.9beta
  lzma_index_append@Base 4.999.9beta
+ lzma_index_block_count@Base 4.999.9beta+20100117
  lzma_index_buffer_decode@Base 4.999.9beta
- lzma_index_buffer_encode@Base 4.999.9beta
- lzma_index_cat@Base 4.999.9beta
- lzma_index_count@Base 4.999.9beta
+ lzma_index_buffer_encode@Base 4.999.9beta+20100117
+ lzma_index_cat@Base 4.999.9beta+20100117
+ lzma_index_checks@Base 4.999.9beta+20100117
  lzma_index_decoder@Base 4.999.9beta
  lzma_index_dup@Base 4.999.9beta
- lzma_index_encoder@Base 4.999.9beta
+ lzma_index_encoder@Base 4.999.9beta+20100117
  lzma_index_end@Base 4.999.9beta
- lzma_index_equal@Base 4.999.9beta
  lzma_index_file_size@Base 4.999.9beta
  lzma_index_hash_append@Base 4.999.9beta
  lzma_index_hash_decode@Base 4.999.9beta
  lzma_index_hash_end@Base 4.999.9beta
  lzma_index_hash_init@Base 4.999.9beta
  lzma_index_hash_size@Base 4.999.9beta
- lzma_index_init@Base 4.999.9beta
- lzma_index_locate@Base 4.999.9beta
- lzma_index_memusage@Base 4.999.9beta
- lzma_index_read@Base 4.999.9beta
- lzma_index_rewind@Base 4.999.9beta
+ lzma_index_init@Base 4.999.9beta+20100117
+ lzma_index_iter_init@Base 4.999.9beta+20100117
+ lzma_index_iter_locate@Base 4.999.9beta+20100117
+ lzma_index_iter_next@Base 4.999.9beta+20100117
+ lzma_index_iter_rewind@Base 4.999.9beta+20100117
+ lzma_index_memusage@Base 4.999.9beta+20100117
+ lzma_index_memused@Base 4.999.9beta+20100117
  lzma_index_size@Base 4.999.9beta
+ lzma_index_stream_count@Base 4.999.9beta+20100117
+ lzma_index_stream_flags@Base 4.999.9beta+20100117
+ lzma_index_stream_padding@Base 4.999.9beta+20100117
  lzma_index_stream_size@Base 4.999.9beta
  lzma_index_total_size@Base 4.999.9beta
  lzma_index_uncompressed_size@Base 4.999.9beta

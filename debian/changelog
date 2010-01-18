@@ -1,21 +1,69 @@
-xz-utils (4.999.9beta+20091126-1) unstable; urgency=low
+xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 
-  * New upstream snapshot, taken from upstream commit f057a33.
-     - xz: try to write a sparse file if the decompressed stream
-       contains long runs of null bytes.
-     - xz: add --no-sparse option for disabling this behavior.
-  * debian/rules: Stop explicitly disabling assembler optimizations
-    on the Hurd.  The configure script will check if a platform is
-    supported now.
+  * New upstream snapshot, taken from upstream commit 07a11dad.
+     + The user-specified memory usage limit was not being honored in
+       some cases.
+     + xz will no longer compress or decompress special files in place,
+       even with --force.
+       --force still enables compression of the target of a symlink.
+     + xz will no longer read compressed data from a terminal or write
+       it to a terminal, even with --force.
+     + liblzma: many Index handling API improvements:
+        - An lzma_index includes more useful metadata that is not
+          actually from the Index.  This is particularly helpful for
+          describing multiple-stream files.
+           * lzma_index_cat() does not take a stream padding argument
+             any more; use lzma_index_stream_padding() instead.
+           * lzma_index_memusage() takes two arguments now.
+             The new lzma_index_memused() convenience function
+             calculates the total memory usage of an lzma_index.
+           * lzma_index_count() has been replaced with
+             lzma_index_block_count() and lzma_index_stream_count().
+           * The new lzma_index_stream_flags() allows storing Stream
+             Flags (e.g., checksum types) with the Index information.
+           * The new lzma_index_checks() function indicates the list of
+             checksum types in use.
+           * lzma_index_equal() has been removed.  Its semantics were
+             unclear, and something approximate equivalent can be
+             implemented by iterating over Blocks in application code.
+        - An lzma_index no longer represents a position within an Index.
+          The new lzma_index_iter type can be used for that purpose.
+           * Certain functions generate an iterator on demand now rather
+             than clobbering their lzma_index argument.  Using a single
+             lzma_index for multiple concurrent invocations is safe now:
+              lzma_index_buffer_encode(), lzma_index_encoder()
+           * Functions that used to specify a Record by modifying an
+             lzma_index argument have been renamed and taught to write
+             an lzma_index_iter instead:
+              lzma_index_locate() -> lzma_index_iter_locate()
+              lzma_index_rewind() -> lzma_index_iter_rewind()
+              lzma_index_read() -> lzma_index_iter_next()
+           * The lzma_index_record type used by lzma_index_read() for
+             complex seeks is no more.  lzma_index_iter_next() instead
+             takes a parameter of the new lzma_index_iter_mode type.
+           * New function: lzma_index_iter_init()
+           * lzma_index_init() cannot reuse memory from an existing
+             lzma_index any more.  The signature changed accordingly.
+     + xz: support for decompressing to a sparse file
+        - Try to write a sparse file if the decompressed stream contains
+          long runs of null bytes.
+        - The new --no-sparse option disables this behavior.
+     + xz: add Czech translation.
+     - liblzma-dev: lzma_filters_copy() and lzma_filters_update() are
+       declared not to throw exceptions.
+  * liblzma: bump soname.
+  * debian/rules: Stop explicitly disabling assembler optimizations on
+    the Hurd.  The configure script will check if a platform is
+    supported.
 
-  * debian/rules: Update clean target to handle comments and
-    wildcards in .gitignore.
+  * debian/rules: Update clean target to handle comments and wildcards
+    in .gitignore.
   * Build-Depends: perl.
 
   * Remove debian/dirs lists.
-  * debian/copyright: fix a small typo.
+  * Update copyright file and fix a small typo.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 02:19:30 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 02:42:13 -0600
 
 xz-utils (4.999.9beta+20091116-1) unstable; urgency=low
 

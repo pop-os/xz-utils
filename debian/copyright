@@ -231,6 +231,11 @@ Copyright: Copyright © 2001, 2002, 2007 Free Software Foundation
            Modified for XZ Utils by Andrew Dudman and Lasse Collin.
 License: GPL-2+
 
+Files: po/cs.po
+Author: Marek Černocký
+
+No copyright notice.
+
 Files: tests/compress_prepared_bcj_sparc, tests/compress_prepared_bcj_x86
 License: PD
 
