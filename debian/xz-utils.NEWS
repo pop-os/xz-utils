@@ -1,0 +1,13 @@
+xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
+
+  Starting with this version, xz produces sparse files by default when
+  decompressing.  This saves disk space when reproducing files with long
+  runs of zero bytes, such as file system images.  Implementing this feature
+  requires seeking forward beyond the end of a file so that the operating
+  system knows to put in a "hole".
+
+  If you use xz --decompress to append to a file that might be appended to
+  by another process at the same time (e.g, a shared log file), please use
+  the --no-sparse option to avoid problems interleaving I/O.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 04:15:01 -0600
