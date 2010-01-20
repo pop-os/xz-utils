@@ -7,7 +7,11 @@ xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
   system knows to put in a "hole".
 
   If you use xz --decompress to append to a file that might be appended to
-  by another process at the same time (e.g, a shared log file), please use
-  the --no-sparse option to avoid problems interleaving I/O.
+  by another process at the same time (e.g, a shared log file), this
+  could cause concurrent output from another command to be overwritten.
+  Note, however, that xz’s buffering strategy is likely to change in future
+  versions, so if you need to safely interleave concurrent output from xz
+  and another command, it is recommended that you use a command such as
+  ‘unxz input.xz | dd ibs=1k obs=1k >> log’ to avoid unpredictable results.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 18 Jan 2010 04:15:01 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 20 Jan 2010 01:18:22 -0600
