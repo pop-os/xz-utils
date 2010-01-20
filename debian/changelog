@@ -2,8 +2,9 @@ xz-utils (4.999.9beta+20100117-2) unstable; urgency=low
 
   * xz-utils: NEWS.Debian.gz: Clarify how else interleaved output can
     go wrong.
+  * Correct some typos in the 4.999.9beta+20100117-1 changelog entry.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 20 Jan 2010 01:18:56 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 20 Jan 2010 01:26:57 -0600
 
 xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 
@@ -31,12 +32,12 @@ xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
            * The new lzma_index_checks() function indicates the list of
              checksum types in use.
            * lzma_index_equal() has been removed.  Its semantics were
-             unclear, and something approximate equivalent can be
+             unclear, and something approximately equivalent can be
              implemented by iterating over Blocks in application code.
         - An lzma_index no longer represents a position within an Index.
           The new lzma_index_iter type can be used for that purpose.
            * Certain functions generate an iterator on demand now rather
-             than clobbering their lzma_index argument.  Using a single
+             than clobbering their lzma_index arguments.  Using a single
              lzma_index for multiple concurrent invocations is safe now:
               lzma_index_buffer_encode(), lzma_index_encoder()
            * Functions that used to specify a Record by modifying an
@@ -56,7 +57,7 @@ xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
           long runs of null bytes.
         - The new --no-sparse option disables this behavior.
      + xz: add Czech translation.
-     - liblzma-dev: lzma_filters_copy() and lzma_filters_update() are
+     + liblzma-dev: lzma_filters_copy() and lzma_filters_update() are
        declared not to throw exceptions.
   * liblzma: bump soname.
   * xz-utils: Add NEWS.Debian describing the sparse file support.
