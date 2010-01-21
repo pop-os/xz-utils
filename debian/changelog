@@ -3,11 +3,14 @@ xz-utils (4.999.9beta+20100120-1) unstable; urgency=low
   * New upstream snapshot, taken from upstream commit 2a98fdff.
   * xz-utils: NEWS.Debian.gz: Clarify how else interleaved output can
     go wrong.
-  * debian/rules: Simplify by removing support for comma-delimited
-    $(DEB_BUILD_OPTIONS).
+  * debian/rules: Simplify:
+     - remove support for comma as a delimiter for $(DEB_BUILD_OPTIONS).
+     - rely on dh --parallel instead of tricky logic of our own to
+       handle parallel builds without cryptic job control warnings.
+       Build-Depends: debhelper (>= 7.4.10).
   * Correct some typos in the 4.999.9beta+20100117-1 changelog entry.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 21 Jan 2010 04:29:19 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 21 Jan 2010 04:36:51 -0600
 
 xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 

@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 build clean install binary-arch binary-indep binary:
-	+dh $(opt_no_act) $@
+	+dh --parallel $(opt_no_act) $@
 
 override_dh_auto_clean:
 	dh_auto_clean --builddirectory debian/xzdec-build
@@ -44,13 +44,6 @@ ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
     opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
 endif
 
-ifndef in_submake
-build_opt_parallel := $(filter parallel=%,$(DEB_BUILD_OPTIONS))
-ifneq (,$(build_opt_parallel))
-    MAKEFLAGS += -j $(subst parallel=,,$(build_opt_parallel))
-endif
-endif
-
 ifneq (,$(findstring n,$(MAKEFLAGS)))
     opt_no_act = --no-act
 endif
@@ -59,9 +52,6 @@ ifneq (,$(filter quiet,$(DEB_BUILD_OPTIONS)))
     opt_quiet = --quiet
     MAKEFLAGS += --quiet
 endif
-
-in_submake = yes
-export in_submake
 
 # Build a tarball with the latest upstream version.
 # This is made complicated by the need to choose a nice version number.
