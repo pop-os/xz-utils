@@ -56,17 +56,17 @@ static bool preset_default = true;
 static bool preset_extreme = false;
 
 /// Integrity check type
-#ifdef HAVE_CHECK_CRC64
-static lzma_check check = LZMA_CHECK_CRC64;
-#else
-static lzma_check check = LZMA_CHECK_CRC32;
-#endif
+static lzma_check check;
+
+/// This becomes false if the --check=CHECK option is used.
+static bool check_default = true;
 
 
 extern void
 coder_set_check(lzma_check new_check)
 {
 	check = new_check;
+	check_default = false;
 	return;
 }
 
@@ -244,15 +244,13 @@ coder_set_compression_settings(void)
 		if (!preset_default)
 			message(V_WARNING, _("Adjusted LZMA%c dictionary size "
 					"from %s MiB to %s MiB to not exceed "
-					"the memory usage limit of %s"),
+					"the memory usage limit of %s MiB"),
 					filters[i].id == LZMA_FILTER_LZMA2
 						? '2' : '1',
 					uint64_to_str(orig_dict_size >> 20, 0),
 					uint64_to_str(opt->dict_size >> 20, 1),
-					uint64_to_nicestr(memory_limit,
-							NICESTR_B,
-							NICESTR_MIB,
-							false, 2));
+					uint64_to_str(round_up_to_mib(
+						memory_limit), 2));
 	}
 
 /*
@@ -266,6 +264,15 @@ coder_set_compression_settings(void)
 	if (opt_threads > thread_limit)
 		opt_threads = thread_limit;
 */
+
+	if (check_default) {
+		// The default check type is CRC64, but fallback to CRC32
+		// if CRC64 isn't supported by the copy of liblzma we are
+		// using. CRC32 is always supported.
+		check = LZMA_CHECK_CRC64;
+		if (!lzma_check_is_supported(check))
+			check = LZMA_CHECK_CRC32;
+	}
 
 	return;
 }

@@ -102,8 +102,7 @@ Copyright and Licensing Terms for Individual Source Files
 Files: debian/*
 License: PD
 
-Files: AUTHORS, ChangeLog, COPYING, README, THANKS, TODO,
-       dos/README, windows/README
+Files: AUTHORS, ChangeLog, COPYING, README, THANKS, TODO, dos/README
 Author: Lasse Collin
 License: PD
 
@@ -128,7 +127,8 @@ License: PD
 | it seems likely that groff + ps2pdf or at least Doxygen put some
 | copyrighted content into the generated files.
 
-Files: INSTALL, PACKAGERS
+Files: INSTALL, PACKAGERS, windows/README-Windows.txt,
+       windows/INSTALL-Windows.txt
 Author: Lasse Collin
 License: probably PD
 
@@ -144,7 +144,7 @@ Files: Makefile.am, autogen.sh, configure.ac,
        extra/7z2lzma/7z2lzma.bash, m4/tuklib_*, src/Makefile.am,
        src/common/*, src/lzmainfo/*, src/scripts/Makefile.am,
        src/xz/*, src/xzdec/*, version.h, tests/Makefile.am,
-       tests/*.{c,h,sh}, windows/Makefile
+       tests/*.{c,h,sh}, windows/build.sh
 Author: Lasse Collin
 License: PD
  This file has been put in the public domain.
@@ -269,10 +269,10 @@ Files: Doxyfile.in
 Copyright: Copyright © 1997-2007 by Dimitri van Heesch
 License: GPL-2+
 
-Files: dos/config.h, windows/config.h
+Files: dos/config.h
 
-These config.h files contain no copyright notice.  The comments they
-contain are copied by autoconf from configure.ac, GNU Autoconf, and
+This config.h file contains no copyright notice.  The comments it
+contains are copied by autoconf from configure.ac, GNU Autoconf, and
 gettext-runtime/m4/visibility.m4.
 
 configure.ac was written by Lasse Collin and is in the public domain.
