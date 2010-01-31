@@ -112,8 +112,18 @@ io_unlink(const char *name, const struct stat *known_st)
 			|| new_st.st_ino != known_st->st_ino
 #	endif
 			)
-		message_error(_("%s: File seems to be moved, not removing"),
-				name);
+		// TRANSLATORS: When compression or decompression finishes,
+		// and xz is going to remove the source file, xz first checks
+		// if the source file still exists, and if it does, does its
+		// device and inode numbers match what xz saw when it opened
+		// the source file. If these checks fail, this message is
+		// shown, %s being the filename, and the file is not deleted.
+		// The check for device and inode numbers is there, because
+		// it is possible that the user has put a new file in place
+		// of the original file, and in that case it obviously
+		// shouldn't be removed.
+		message_error(_("%s: File seems to have been moved, "
+				"not removing"), name);
 	else
 #endif
 		// There's a race condition between lstat() and unlink()
@@ -264,7 +274,7 @@ io_copy_attrs(const file_pair *pair)
 
 /// Opens the source file. Returns false on success, true on error.
 static bool
-io_open_src(file_pair *pair)
+io_open_src_real(file_pair *pair)
 {
 	// There's nothing to open when reading from stdin.
 	if (pair->src_name == stdin_filename) {
@@ -317,6 +327,9 @@ io_open_src(file_pair *pair)
 			return true;
 		}
 	}
+#else
+	// Avoid warnings.
+	(void)follow_symlinks;
 #endif
 
 	// Try to open the file. If we are accepting non-regular files,
@@ -482,6 +495,36 @@ error:
 }
 
 
+extern file_pair *
+io_open_src(const char *src_name)
+{
+	if (is_empty_filename(src_name))
+		return NULL;
+
+	// Since we have only one file open at a time, we can use
+	// a statically allocated structure.
+	static file_pair pair;
+
+	pair = (file_pair){
+		.src_name = src_name,
+		.dest_name = NULL,
+		.src_fd = -1,
+		.dest_fd = -1,
+		.src_eof = false,
+		.dest_try_sparse = false,
+		.dest_pending_sparse = 0,
+	};
+
+	// Block the signals, for which we have a custom signal handler, so
+	// that we don't need to worry about EINTR.
+	signals_block();
+	const bool error = io_open_src_real(&pair);
+	signals_unblock();
+
+	return error ? NULL : &pair;
+}
+
+
 /// \brief      Closes source file of the file_pair structure
 ///
 /// \param      pair    File whose src_fd should be closed
@@ -515,7 +558,7 @@ io_close_src(file_pair *pair, bool success)
 
 
 static bool
-io_open_dest(file_pair *pair)
+io_open_dest_real(file_pair *pair)
 {
 	if (opt_stdout || pair->src_fd == STDIN_FILENO) {
 		// We don't modify or free() this.
@@ -544,12 +587,8 @@ io_open_dest(file_pair *pair)
 		pair->dest_fd = open(pair->dest_name, flags, mode);
 
 		if (pair->dest_fd == -1) {
-			// Don't bother with error message if user requested
-			// us to exit anyway.
-			if (!user_abort)
-				message_error("%s: %s", pair->dest_name,
-						strerror(errno));
-
+			message_error("%s: %s", pair->dest_name,
+					strerror(errno));
 			free(pair->dest_name);
 			return true;
 		}
@@ -630,6 +669,16 @@ io_open_dest(file_pair *pair)
 }
 
 
+extern bool
+io_open_dest(file_pair *pair)
+{
+	signals_block();
+	const bool ret = io_open_dest_real(pair);
+	signals_unblock();
+	return ret;
+}
+
+
 /// \brief      Closes destination file of the file_pair structure
 ///
 /// \param      pair    File whose dest_fd should be closed
@@ -637,7 +686,7 @@ io_open_dest(file_pair *pair)
 ///
 /// \return     Zero if closing succeeds. On error, -1 is returned and
 ///             error message printed.
-static int
+static bool
 io_close_dest(file_pair *pair, bool success)
 {
 #ifndef TUKLIB_DOSLIKE
@@ -652,13 +701,13 @@ io_close_dest(file_pair *pair, bool success)
 			message_error(_("Error restoring the O_APPEND flag "
 					"to standard output: %s"),
 					strerror(errno));
-			return -1;
+			return true;
 		}
 	}
 #endif
 
 	if (pair->dest_fd == -1 || pair->dest_fd == STDOUT_FILENO)
-		return 0;
+		return false;
 
 	if (close(pair->dest_fd)) {
 		message_error(_("%s: Closing the file failed: %s"),
@@ -668,7 +717,7 @@ io_close_dest(file_pair *pair, bool success)
 		// contents. Get rid of junk:
 		io_unlink(pair->dest_name, &pair->dest_st);
 		free(pair->dest_name);
-		return -1;
+		return true;
 	}
 
 	// If the operation using this file wasn't successful, we git rid
@@ -678,48 +727,7 @@ io_close_dest(file_pair *pair, bool success)
 
 	free(pair->dest_name);
 
-	return 0;
-}
-
-
-extern file_pair *
-io_open(const char *src_name)
-{
-	if (is_empty_filename(src_name))
-		return NULL;
-
-	// Since we have only one file open at a time, we can use
-	// a statically allocated structure.
-	static file_pair pair;
-
-	pair = (file_pair){
-		.src_name = src_name,
-		.dest_name = NULL,
-		.src_fd = -1,
-		.dest_fd = -1,
-		.src_eof = false,
-		.dest_try_sparse = false,
-		.dest_pending_sparse = 0,
-	};
-
-	// Block the signals, for which we have a custom signal handler, so
-	// that we don't need to worry about EINTR.
-	signals_block();
-
-	file_pair *ret = NULL;
-	if (!io_open_src(&pair)) {
-		// io_open_src() may have unblocked the signals temporarily,
-		// and thus user_abort may have got set even if open()
-		// succeeded.
-		if (user_abort || io_open_dest(&pair))
-			io_close_src(&pair, false);
-		else
-			ret = &pair;
-	}
-
-	signals_unblock();
-
-	return ret;
+	return false;
 }
 
 
@@ -751,7 +759,9 @@ io_close(file_pair *pair, bool success)
 
 	signals_block();
 
-	if (success && pair->dest_fd != STDOUT_FILENO)
+	// Copy the file attributes. We need to skip this if destination
+	// file isn't open or it is standard output.
+	if (success && pair->dest_fd != -1 && pair->dest_fd != STDOUT_FILENO)
 		io_copy_attrs(pair);
 
 	// Close the destination first. If it fails, we must not remove
@@ -809,6 +819,31 @@ io_read(file_pair *pair, io_buf *buf_union, size_t size)
 	}
 
 	return size - left;
+}
+
+
+extern bool
+io_pread(file_pair *pair, io_buf *buf, size_t size, off_t pos)
+{
+	// Using lseek() and read() is more portable than pread() and
+	// for us it is as good as real pread().
+	if (lseek(pair->src_fd, pos, SEEK_SET) != pos) {
+		message_error(_("%s: Error seeking the file: %s"),
+				pair->src_name, strerror(errno));
+		return true;
+	}
+
+	const size_t amount = io_read(pair, buf, size);
+	if (amount == SIZE_MAX)
+		return true;
+
+	if (amount != size) {
+		message_error(_("%s: Unexpected end of file"),
+				pair->src_name);
+		return true;
+	}
+
+	return false;
 }
 
 

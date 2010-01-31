@@ -103,11 +103,12 @@ coder_add_filter(lzma_vli id, void *options)
 
 
 static void lzma_attribute((noreturn))
-memlimit_too_small(uint64_t memory_usage, uint64_t memory_limit)
+memlimit_too_small(uint64_t memory_usage)
 {
-	message_fatal(_("Memory usage limit (%" PRIu64 " MiB) is too small "
-			"for the given filter setup (%" PRIu64 " MiB)"),
-			memory_limit >> 20, memory_usage >> 20);
+	message(V_ERROR, _("Memory usage limit is too low for the given "
+			"filter setup."));
+	message_mem_needed(V_ERROR, memory_usage);
+	tuklib_exit(E_ERROR, E_ERROR, false);
 }
 
 
@@ -180,22 +181,18 @@ coder_set_compression_settings(void)
 		memory_usage = lzma_raw_decoder_memusage(filters);
 
 	if (memory_usage == UINT64_MAX)
-		message_fatal("Unsupported filter chain or filter options");
+		message_fatal(_("Unsupported filter chain or filter options"));
 
-	// Print memory usage info.
-	message(V_DEBUG, _("%s MiB (%s B) of memory is required per thread, "
-			"limit is %s MiB (%s B)"),
-			uint64_to_str(memory_usage >> 20, 0),
-			uint64_to_str(memory_usage, 1),
-			uint64_to_str(memory_limit >> 20, 2),
-			uint64_to_str(memory_limit, 3));
+	// Print memory usage info before possible dictionary
+	// size auto-adjusting.
+	message_mem_needed(V_DEBUG, memory_usage);
 
 	if (memory_usage > memory_limit) {
 		// If --no-auto-adjust was used or we didn't find LZMA1 or
 		// LZMA2 as the last filter, give an error immediatelly.
 		// --format=raw implies --no-auto-adjust.
 		if (!auto_adjust || opt_format == FORMAT_RAW)
-			memlimit_too_small(memory_usage, memory_limit);
+			memlimit_too_small(memory_usage);
 
 		assert(opt_mode == MODE_COMPRESS);
 
@@ -206,7 +203,7 @@ coder_set_compression_settings(void)
 		while (filters[i].id != LZMA_FILTER_LZMA2
 				&& filters[i].id != LZMA_FILTER_LZMA1) {
 			if (filters[i].id == LZMA_VLI_UNKNOWN)
-				memlimit_too_small(memory_usage, memory_limit);
+				memlimit_too_small(memory_usage);
 
 			++i;
 		}
@@ -225,7 +222,7 @@ coder_set_compression_settings(void)
 			// FIXME: Displays the scaled memory usage instead
 			// of the original.
 			if (opt->dict_size < (UINT32_C(1) << 20))
-				memlimit_too_small(memory_usage, memory_limit);
+				memlimit_too_small(memory_usage);
 
 			memory_usage = lzma_raw_encoder_memusage(filters);
 			if (memory_usage == UINT64_MAX)
@@ -245,14 +242,17 @@ coder_set_compression_settings(void)
 		// However, omit the message if no preset or custom chain
 		// was given. FIXME: Always warn?
 		if (!preset_default)
-			message(V_WARNING, "Adjusted LZMA%c dictionary size "
+			message(V_WARNING, _("Adjusted LZMA%c dictionary size "
 					"from %s MiB to %s MiB to not exceed "
-					"the memory usage limit of %s MiB",
+					"the memory usage limit of %s"),
 					filters[i].id == LZMA_FILTER_LZMA2
 						? '2' : '1',
 					uint64_to_str(orig_dict_size >> 20, 0),
 					uint64_to_str(opt->dict_size >> 20, 1),
-					uint64_to_str(memory_limit >> 20, 2));
+					uint64_to_nicestr(memory_limit,
+							NICESTR_B,
+							NICESTR_MIB,
+							false, 2));
 	}
 
 /*
@@ -417,10 +417,23 @@ coder_init(file_pair *pair)
 			ret = lzma_raw_decoder(&strm, filters);
 			break;
 		}
+
+		// Try to decode the headers. This will catch too low
+		// memory usage limit in case it happens in the first
+		// Block of the first Stream, which is where it very
+		// probably will happen if it is going to happen.
+		if (ret == LZMA_OK && init_format != FORMAT_RAW) {
+			strm.next_out = NULL;
+			strm.avail_out = 0;
+			ret = lzma_code(&strm, LZMA_RUN);
+		}
 	}
 
 	if (ret != LZMA_OK) {
 		message_error("%s: %s", pair->src_name, message_strm(ret));
+		if (ret == LZMA_MEMLIMIT_ERROR)
+			message_mem_needed(V_ERROR, lzma_memusage(&strm));
+
 		return CODER_INIT_ERROR;
 	}
 
@@ -538,24 +551,10 @@ coder_normal(file_pair *pair)
 			}
 
 			if (ret == LZMA_MEMLIMIT_ERROR) {
-				// Figure out how much memory it would have
+				// Display how much memory it would have
 				// actually needed.
-				uint64_t memusage = lzma_memusage(&strm);
-				uint64_t memlimit = hardware_memlimit_get();
-
-				// Round the memory limit down and usage up.
-				// This way we don't display a ridiculous
-				// message like "Limit was 9 MiB, but 9 MiB
-				// would have been needed".
-				memusage = (memusage + 1024 * 1024 - 1)
-						/ (1024 * 1024);
-				memlimit /= 1024 * 1024;
-
-				message_error(_("Limit was %s MiB, "
-						"but %s MiB would "
-						"have been needed"),
-						uint64_to_str(memlimit, 0),
-						uint64_to_str(memusage, 1));
+				message_mem_needed(V_ERROR,
+						lzma_memusage(&strm));
 			}
 
 			if (stop)
@@ -599,15 +598,13 @@ coder_passthru(file_pair *pair)
 extern void
 coder_run(const char *filename)
 {
-	// Try to open the input and output files.
-	file_pair *pair = io_open(filename);
+	// Set and possibly print the filename for the progress message.
+	message_filename(filename);
+
+	// Try to open the input file.
+	file_pair *pair = io_open_src(filename);
 	if (pair == NULL)
 		return;
-
-	// Initialize the progress indicator.
-	const uint64_t in_size = pair->src_st.st_size <= (off_t)(0)
-			? 0 : (uint64_t)(pair->src_st.st_size);
-	message_progress_start(&strm, pair->src_name, in_size);
 
 	// Assume that something goes wrong.
 	bool success = false;
@@ -618,21 +615,34 @@ coder_run(const char *filename)
 	strm.avail_in = io_read(pair, &in_buf, IO_BUFFER_SIZE);
 
 	if (strm.avail_in != SIZE_MAX) {
-		switch (coder_init(pair)) {
-		case CODER_INIT_NORMAL:
-			success = coder_normal(pair);
-			break;
+		// Initialize the coder. This will detect the file format
+		// and, in decompression or testing mode, check the memory
+		// usage of the first Block too. This way we don't try to
+		// open the destination file if we see that coding wouldn't
+		// work at all anyway. This also avoids deleting the old
+		// "target" file if --force was used.
+		const enum coder_init_ret init_ret = coder_init(pair);
 
-		case CODER_INIT_PASSTHRU:
-			success = coder_passthru(pair);
-			break;
+		if (init_ret != CODER_INIT_ERROR && !user_abort) {
+			// Don't open the destination file when --test
+			// is used.
+			if (opt_mode == MODE_TEST || !io_open_dest(pair)) {
+				// Initialize the progress indicator.
+				const uint64_t in_size
+						= pair->src_st.st_size <= 0
+						? 0 : pair->src_st.st_size;
+				message_progress_start(&strm, in_size);
 
-		case CODER_INIT_ERROR:
-			break;
+				// Do the actual coding or passthru.
+				if (init_ret == CODER_INIT_NORMAL)
+					success = coder_normal(pair);
+				else
+					success = coder_passthru(pair);
+
+				message_progress_end(success);
+			}
 		}
 	}
-
-	message_progress_end(success);
 
 	// Close the file pair. It needs to know if coding was successful to
 	// know if the source or target file should be unlinked.

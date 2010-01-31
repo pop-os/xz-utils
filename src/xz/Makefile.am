@@ -16,6 +16,8 @@ xz_SOURCES = \
 	file_io.h \
 	hardware.c \
 	hardware.h \
+	list.c \
+	list.h \
 	main.c \
 	main.h \
 	message.c \

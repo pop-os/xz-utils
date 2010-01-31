@@ -11,6 +11,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "private.h"
+#include <stdarg.h>
 
 
 extern void *
@@ -144,10 +145,58 @@ uint64_to_str(uint64_t value, uint32_t slot)
 
 
 extern const char *
+uint64_to_nicestr(uint64_t value, enum nicestr_unit unit_min,
+		enum nicestr_unit unit_max, bool always_also_bytes,
+		uint32_t slot)
+{
+	assert(unit_min <= unit_max);
+	assert(unit_max <= NICESTR_TIB);
+
+	enum nicestr_unit unit = NICESTR_B;
+	const char *str;
+
+	if ((unit_min == NICESTR_B && value < 10000)
+			|| unit_max == NICESTR_B) {
+		// The value is shown as bytes.
+		str = uint64_to_str(value, slot);
+	} else {
+		// Scale the value to a nicer unit. Unless unit_min and
+		// unit_max limit us, we will show at most five significant
+		// digits with one decimal place.
+		double d = (double)(value);
+		do {
+			d /= 1024.0;
+			++unit;
+		} while (unit < unit_min || (d > 9999.9 && unit < unit_max));
+
+		str = double_to_str(d);
+	}
+
+	static const char suffix[5][4] = { "B", "KiB", "MiB", "GiB", "TiB" };
+
+	// Minimum buffer size:
+	// 26   2^64 with thousand separators
+	//  4   " KiB"
+	//  2   " ("
+	// 26   2^64 with thousand separators
+	//  3   " B)"
+	//  1   '\0'
+	// 62   Total
+	static char buf[4][64];
+	char *pos = buf[slot];
+	size_t left = sizeof(buf[slot]);
+	my_snprintf(&pos, &left, "%s %s", str, suffix[unit]);
+
+	if (always_also_bytes && value >= 10000)
+		snprintf(pos, left, " (%s B)", uint64_to_str(value, slot));
+
+	return buf[slot];
+}
+
+
+extern const char *
 double_to_str(double value)
 {
-	// 64 bytes is surely enough, since it won't fit in some other
-	// fields anyway.
 	static char buf[64];
 
 	static enum { UNKNOWN, WORKS, BROKEN } thousand = UNKNOWN;
@@ -163,6 +212,28 @@ double_to_str(double value)
 		snprintf(buf, sizeof(buf), "%.1f", value);
 
 	return buf;
+}
+
+
+extern void
+my_snprintf(char **pos, size_t *left, const char *fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	const int len = vsnprintf(*pos, *left, fmt, ap);
+	va_end(ap);
+
+	// If an error occurred, we want the caller to think that the whole
+	// buffer was used. This way no more data will be written to the
+	// buffer. We don't need better error handling here.
+	if (len < 0 || (size_t)(len) >= *left) {
+		*left = 0;
+	} else {
+		*pos += len;
+		*left -= len;
+	}
+
+	return;
 }
 
 

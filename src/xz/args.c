@@ -222,6 +222,10 @@ parse_real(args_info *args, int argc, char **argv)
 		// --robot
 		case OPT_ROBOT:
 			opt_robot = true;
+
+			// This is to make sure that floating point numbers
+			// always have a dot as decimal separator.
+			setlocale(LC_NUMERIC, "C");
 			break;
 
 		case 'z':
@@ -353,7 +357,7 @@ parse_real(args_info *args, int argc, char **argv)
 		case OPT_FILES0:
 			if (args->files_name != NULL)
 				message_fatal(_("Only one file can be "
-						"specified with `--files'"
+						"specified with `--files' "
 						"or `--files0'."));
 
 			if (optarg == NULL) {

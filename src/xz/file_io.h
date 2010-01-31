@@ -23,6 +23,7 @@
 /// Use an union to make sure that the buffer is properly aligned.
 typedef union {
 	uint8_t u8[IO_BUFFER_SIZE];
+	uint32_t u32[IO_BUFFER_SIZE / sizeof(uint32_t)];
 	uint64_t u64[IO_BUFFER_SIZE / sizeof(uint64_t)];
 } io_buf;
 
@@ -71,8 +72,12 @@ extern void io_init(void);
 extern void io_no_sparse(void);
 
 
-/// \brief      Opens a file pair
-extern file_pair *io_open(const char *src_name);
+/// \brief      Open the source file
+extern file_pair *io_open_src(const char *src_name);
+
+
+/// \brief      Open the destination file
+extern bool io_open_dest(file_pair *pair);
 
 
 /// \brief      Closes the file descriptors and frees possible allocated memory
@@ -95,6 +100,22 @@ extern void io_close(file_pair *pair, bool success);
 ///             file zero is returned and pair->src_eof set to true.
 ///             On error, SIZE_MAX is returned and error message printed.
 extern size_t io_read(file_pair *pair, io_buf *buf, size_t size);
+
+
+/// \brief      Read from source file from given offset to a buffer
+///
+/// This is remotely similar to standard pread(). This uses lseek() though,
+/// so the read offset is changed on each call.
+///
+/// \param      pair    Seekable source file
+/// \param      buf     Destination buffer
+/// \param      size    Amount of data to read
+/// \param      pos     Offset relative to the beginning of the file,
+///                     from which the data should be read.
+///
+/// \return     On success, false is returned. On error, error message
+///             is printed and true is returned.
+extern bool io_pread(file_pair *pair, io_buf *buf, size_t size, off_t pos);
 
 
 /// \brief      Writes a buffer to the destination file

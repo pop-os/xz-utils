@@ -111,29 +111,6 @@ my_time(void)
 }
 
 
-/// Wrapper for snprintf() to help constructing a string in pieces.
-static void lzma_attribute((format(printf, 3, 4)))
-my_snprintf(char **pos, size_t *left, const char *fmt, ...)
-{
-	va_list ap;
-	va_start(ap, fmt);
-	const int len = vsnprintf(*pos, *left, fmt, ap);
-	va_end(ap);
-
-	// If an error occurred, we want the caller to think that the whole
-	// buffer was used. This way no more data will be written to the
-	// buffer. We don't need better error handling here.
-	if (len < 0 || (size_t)(len) >= *left) {
-		*left = 0;
-	} else {
-		*pos += len;
-		*left -= len;
-	}
-
-	return;
-}
-
-
 extern void
 message_init(void)
 {
@@ -242,14 +219,15 @@ message_set_files(unsigned int files)
 static void
 print_filename(void)
 {
-	if (!current_filename_printed
-			&& (files_total != 1 || filename != stdin_filename)) {
+	if (files_total != 1 || filename != stdin_filename) {
 		signals_block();
+
+		FILE *file = opt_mode == MODE_LIST ? stdout : stderr;
 
 		// If a file was already processed, put an empty line
 		// before the next filename to improve readability.
 		if (first_filename_printed)
-			fputc('\n', stderr);
+			fputc('\n', file);
 
 		first_filename_printed = true;
 		current_filename_printed = true;
@@ -257,10 +235,10 @@ print_filename(void)
 		// If we don't know how many files there will be due
 		// to usage of --files or --files0.
 		if (files_total == 0)
-			fprintf(stderr, "%s (%u)\n", filename,
+			fprintf(file, "%s (%u)\n", filename,
 					files_pos);
 		else
-			fprintf(stderr, "%s (%u/%u)\n", filename,
+			fprintf(file, "%s (%u/%u)\n", filename,
 					files_pos, files_total);
 
 		signals_unblock();
@@ -271,8 +249,24 @@ print_filename(void)
 
 
 extern void
-message_progress_start(
-		lzma_stream *strm, const char *src_name, uint64_t in_size)
+message_filename(const char *src_name)
+{
+	// Start numbering the files starting from one.
+	++files_pos;
+	filename = src_name;
+
+	if (verbosity >= V_VERBOSE
+			&& (progress_automatic || opt_mode == MODE_LIST))
+		print_filename();
+	else
+		current_filename_printed = false;
+
+	return;
+}
+
+
+extern void
+message_progress_start(lzma_stream *strm, uint64_t in_size)
 {
 	// Store the pointer to the lzma_stream used to do the coding.
 	// It is needed to find out the position in the stream.
@@ -283,27 +277,15 @@ message_progress_start(
 	// since it is possible that the user sends us a signal to show
 	// statistics, we need to have these available anyway.
 	start_time = my_time();
-	filename = src_name;
 	expected_in_size = in_size;
 
 	// Indicate that progress info may need to be printed before
 	// printing error messages.
 	progress_started = true;
 
-	// Indicate the name of this file hasn't been printed to
-	// stderr yet.
-	current_filename_printed = false;
-
-	// Start numbering the files starting from one.
-	++files_pos;
-
 	// If progress indicator is wanted, print the filename and possibly
 	// the file count now.
 	if (verbosity >= V_VERBOSE && progress_automatic) {
-		// Print the filename to stderr if that is appropriate with
-		// the current settings.
-		print_filename();
-
 		// Start the timer to display the first progress message
 		// after one second. An alternative would be to show the
 		// first message almost immediatelly, but delaying by one
@@ -356,35 +338,6 @@ progress_percentage(uint64_t in_pos, bool final)
 }
 
 
-static void
-progress_sizes_helper(char **pos, size_t *left, uint64_t value, bool final)
-{
-	// Allow high precision only for the final message, since it looks
-	// stupid for in-progress information.
-	if (final) {
-		// A maximum of four digits are allowed for exact byte count.
-		if (value < 10000) {
-			my_snprintf(pos, left, "%s B",
-					uint64_to_str(value, 0));
-			return;
-		}
-
-		// A maximum of five significant digits are allowed for KiB.
-		if (value < UINT64_C(10239900)) {
-			my_snprintf(pos, left, "%s KiB", double_to_str(
-					(double)(value) / 1024.0));
-			return;
-		}
-	}
-
-	// Otherwise we use MiB.
-	my_snprintf(pos, left, "%s MiB",
-			double_to_str((double)(value) / (1024.0 * 1024.0)));
-
-	return;
-}
-
-
 /// Make the string containing the amount of input processed, amount of
 /// output produced, and the compression ratio.
 static const char *
@@ -401,9 +354,12 @@ progress_sizes(uint64_t compressed_pos, uint64_t uncompressed_pos, bool final)
 
 	// Print the sizes. If this the final message, use more reasonable
 	// units than MiB if the file was small.
-	progress_sizes_helper(&pos, &left, compressed_pos, final);
-	my_snprintf(&pos, &left, " / ");
-	progress_sizes_helper(&pos, &left, uncompressed_pos, final);
+	const enum nicestr_unit unit_min = final ? NICESTR_B : NICESTR_MIB;
+	my_snprintf(&pos, &left, "%s / %s",
+			uint64_to_nicestr(compressed_pos,
+				unit_min, NICESTR_MIB, false, 0),
+			uint64_to_nicestr(uncompressed_pos,
+				unit_min, NICESTR_MIB, false, 1));
 
 	// Avoid division by zero. If we cannot calculate the ratio, set
 	// it to some nice number greater than 10.0 so that it gets caught
@@ -637,7 +593,8 @@ message_progress_update(void)
 	signals_block();
 
 	// Print the filename if it hasn't been printed yet.
-	print_filename();
+	if (!current_filename_printed)
+		print_filename();
 
 	// Print the actual progress message. The idea is that there is at
 	// least three spaces between the fields in typical situations, but
@@ -886,6 +843,25 @@ message_strm(lzma_ret code)
 	}
 
 	return NULL;
+}
+
+
+extern void
+message_mem_needed(enum message_verbosity v, uint64_t memusage)
+{
+	if (v > verbosity)
+		return;
+
+	// NOTE: With bad luck, the rounded values may be the same, which
+	// can be confusing to the user when this function is called to
+	// tell that the memory usage limit was too low.
+	message(v, _("%s of memory is required. The limit is %s."),
+			uint64_to_nicestr(memusage,
+				NICESTR_B, NICESTR_MIB, false, 0),
+			uint64_to_nicestr(hardware_memlimit_get(),
+				NICESTR_B, NICESTR_MIB, false, 1));
+
+	return;
 }
 
 
@@ -1195,7 +1171,7 @@ message_help(bool long_help)
 	// address for translation bugs. Thanks.
 	printf(_("Report bugs to <%s> (in English or Finnish).\n"),
 			PACKAGE_BUGREPORT);
-	printf(_("%s home page: <%s>\n"), PACKAGE_NAME, PACKAGE_HOMEPAGE);
+	printf(_("%s home page: <%s>\n"), PACKAGE_NAME, PACKAGE_URL);
 
 	tuklib_exit(E_SUCCESS, E_ERROR, verbosity != V_SILENT);
 }
