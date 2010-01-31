@@ -12,8 +12,9 @@ xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
      - rely on dh --parallel instead of tricky logic of our own to
        handle parallel builds.  Build-Depends: debhelper (>= 7.4.10).
   * Correct some typos in the 4.999.9beta+20100117-1 changelog entry.
+  * Standards-Version: 3.8.4 (checked).
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 31 Jan 2010 05:08:49 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 31 Jan 2010 05:28:39 -0600
 
 xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 
