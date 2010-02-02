@@ -1,11 +1,16 @@
 xz-utils (4.999.9beta+20100202-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit dd7c3841.
-     + xz --force removes symlinks without complaint after
-       successful compression now.
+     - xz --force compresses symlinks without complaint now.
   * xz-utils: Simplify NEWS.Debian.gz a bit.
+  * Correct an item from the 4.999.9beta+20100117-1 changelog entry.
+    It said:
+     + The user-specified memory usage limit was not being honored in
+       some cases.
+    No such bug was observed, so clarify the scope of the change
+    instead.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 02 Feb 2010 15:53:29 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 02 Feb 2010 16:20:33 -0600
 
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
@@ -29,8 +34,8 @@ xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit 07a11dad.
-     + The user-specified memory usage limit was not being honored in
-       some cases.
+     + Fix some logic errors in the internal memory usage configuration
+       API.
      + xz will no longer compress or decompress special files in place,
        even with --force.
        --force still enables compression of the target of a symlink.
