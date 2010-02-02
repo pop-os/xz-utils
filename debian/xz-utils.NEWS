@@ -14,7 +14,7 @@ xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
   interleave concurrent output from xz and another command, a
   construction such as
 
-	xz --decompress input.xz | dd ibs=1k obs=1k >> log
+  	xz --decompress input.xz | dd ibs=1k obs=1k >> log
 
   would be needed to avoid unpredictable results.
 
