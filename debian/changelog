@@ -1,3 +1,11 @@
+xz-utils (4.999.9beta+20100202-1) unstable; urgency=low
+
+  * New upstream snapshot, taken from upstream commit dd7c3841.
+     + xz --force removes symlinks without complaint after
+       successful compression now.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 02 Feb 2010 15:43:40 -0600
+
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit f9dd797a.
