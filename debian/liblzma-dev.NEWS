@@ -1,0 +1,8 @@
+xz-utils (4.999.9beta+20100207-1) unstable; urgency=low
+  
+  Starting with this version, the lzma_block_header_decode() function
+  is advertised to require its block->version parameter to be initialized.
+  Future versions of liblzma may use an alternate version of the Block
+  options if the application declares it supports it.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 08 Feb 2010 17:57:39 -0600
