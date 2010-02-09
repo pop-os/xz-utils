@@ -4,16 +4,18 @@ xz-utils (4.999.9beta+20100207-1) unstable; urgency=low
      - xz --force compresses symlinks without complaint now.
   * xz-utils: Simplify NEWS.Debian.gz a bit.
   * liblzma-dev: Add a NEWS file for describing API changes.
+
   * debian/README.source: leave out “-I -i” options.  Ignoring version
     control cruft is the default behavior with dpkg source format 3.0.
   * debian/changelog.upstream.sh: pass ‘git log’ an explicit --format
     option to avoid problems if format.pretty is set in gitconfig.
+
   * Correct the 4.999.9beta+20100117-1 changelog entry.  It said:
      + The user-specified memory usage limit was not being honored in
        some cases.
     No such bug was observed, so clarify the scope of the change instead.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 08 Feb 2010 18:26:29 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 08 Feb 2010 18:51:42 -0600
 
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
