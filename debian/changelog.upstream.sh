@@ -99,7 +99,7 @@ add_version() {
 		limiter="$new_cid.."
 	fi
 	echo
-	git log --date=iso --stat --no-merges "$limiter$last_cid"
+	git log --date=iso --stat --no-merges --format=medium "$limiter$last_cid"
 	test "$new" = none || echo
 
 	last=$new
