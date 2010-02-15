@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100212-1.1) unstable; urgency=low
+
+  * debian/copyright: include more details in machine-readable format.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 16 Feb 2010 05:04:25 -0600
+
 xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit eb7d51a3f.
