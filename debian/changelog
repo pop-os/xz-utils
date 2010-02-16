@@ -8,19 +8,20 @@ xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
   * xz-utils: Simplify NEWS.Debian.gz.
   * liblzma-dev: Add a NEWS file for describing API changes.
 
+  * Drop unnecessary build-time conflict with autoconf2.13.
+  * Add a blank line to the end of all NEWS files.
+    (Works around: #247356)
   * debian/README.source: Leave out “-I -i” options.  Ignoring version
     control cruft is the default behavior with dpkg source format 3.0.
   * debian/changelog.upstream.sh: Pass ‘git log’ an explicit --format
     option to avoid problems if format.pretty is set in gitconfig.
-  * Add a blank line to the end of all NEWS files.
-    (Works around: #247356)
 
   * Correct the 4.999.9beta+20100117-1 changelog entry.  It said:
      + The user-specified memory usage limit was not being honored in
        some cases.
     No such bug was observed, so describe the change instead.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 15 Feb 2010 23:38:33 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 15 Feb 2010 23:46:17 -0600
 
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
