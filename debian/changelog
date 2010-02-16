@@ -6,7 +6,7 @@ xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
        misdetects the Hurd as Mac OS X.
   * debian/rules: ./configure --enable-assembler on the Hurd.
   * xz-utils: Simplify NEWS.Debian.gz.
-  * liblzma-dev: Add a NEWS file for describing API changes.
+  * liblzma-dev: Add a NEWS file to keep track of future API changes.
 
   * Drop unnecessary build-time conflict with autoconf2.13.
   * Add a blank line to the end of all NEWS files.
@@ -21,7 +21,7 @@ xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
        some cases.
     No such bug was observed, so describe the change instead.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 15 Feb 2010 23:46:17 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 16 Feb 2010 00:30:24 -0600
 
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
