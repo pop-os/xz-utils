@@ -39,6 +39,19 @@ opt_optimize_small = CFLAGS="-g -Os"
 opt_no_act =
 opt_quiet =
 
+# Unless noopt is set, use optimized CRC32 routine on the Hurd.
+ifeq (hurd,$(shell dpkg-architecture -qDEB_HOST_ARCH_OS))
+    cputype := $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+    ifeq (i386,$(cputype))
+        opt_optimize += --enable-assembler=x86
+        opt_optimize_small += --enable-assembler=x86
+    endif
+    ifeq (amd64,$(cputype))
+        opt_optimize += --enable-assembler=x86_64
+        opt_optimize_small += --enable-assembler=x86_64
+    endif
+endif
+
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
     opt_optimize = --disable-assembler CFLAGS="-g -O0"
     opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
