@@ -1,7 +1,9 @@
-xz-utils (4.999.9beta+20100207-1) unstable; urgency=low
+xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
 
-  * New upstream snapshot, taken from upstream commit 6503fde.
+  * New upstream snapshot, taken from upstream commit eb7d51a3f.
      - xz --force compresses symlinks without complaint now.
+     - liblzma: the optimized CRC32 implementation for x86 (disabled
+       on Hurd by default) no longer misdetects the Hurd as Mac OS X.
   * xz-utils: Simplify NEWS.Debian.gz a bit.
   * liblzma-dev: Add a NEWS file for describing API changes.
 
@@ -17,7 +19,7 @@ xz-utils (4.999.9beta+20100207-1) unstable; urgency=low
        some cases.
     No such bug was observed, so clarify the scope of the change instead.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 08 Feb 2010 19:26:22 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 15 Feb 2010 23:13:54 -0600
 
 xz-utils (4.999.9beta+20100131-1) unstable; urgency=low
 
