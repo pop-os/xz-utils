@@ -1,3 +1,11 @@
+xz-utils (4.999.9beta+20100212-2) unstable; urgency=low
+
+  * Split off xzdec and lzmadec commands into new xz-utils-tiny package.
+    Thanks to Guillem Jover for the idea.  Closes: #571060.
+  * xz-utils.NEWS: advertise this change.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 23 Feb 2010 00:53:38 -0600
+
 xz-utils (4.999.9beta+20100212-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit eb7d51a3f.

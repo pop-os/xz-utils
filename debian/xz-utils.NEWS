@@ -1,3 +1,11 @@
+xz-utils (4.999.9beta+20100212-2) unstable; urgency=low
+
+  The tiny xzdec and lzmadec decompressors have been moved to the new
+  xz-utils-tiny package.  One can use “xz --decompress --stdout”
+  (abbreviated as “xzcat”) to replace them where space is not a premium.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 23 Feb 2010 00:05:06 -0600
+
 xz-utils (4.999.9beta+20100117-1) unstable; urgency=low
 
   From this version on, xz produces sparse files by default when

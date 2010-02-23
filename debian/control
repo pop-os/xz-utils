@@ -48,6 +48,29 @@ Description: XZ-format compression utilities
   * improved support for multithreading (not used in xz-utils);
   * support for flushing the encoder.
 
+Package: xz-utils-tiny
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: xz-utils
+Conflicts: xz-lzma (<< 4.999.9beta+20091004-1)
+Description: XZ-format compression utilities - tiny decompressors
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
+ .
+ This package provides the xzdec and lzmadec utilities, which, like
+ xzcat and lzcat, write the decompressed version of a compressed file
+ to standard output. The binaries are very small, so they can be
+ easily stored on small media with some compressed files, and they are
+ linked statically against liblzma so they can be used on machines
+ without a compatible version of liblzma installed. However, they
+ have:
+ .
+   * no compression support;
+   * no support for writing to a file other than standard output;
+   * no translated messages;
+   * been optimized for size rather than speed.
+
 Package: liblzma-dev
 Section: libdevel
 Architecture: any
