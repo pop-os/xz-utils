@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100212-3) unstable; urgency=low
+
+  * liblzma-dev: Remove unneeded .la file.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 23 Feb 2010 10:38:02 -0600
+
 xz-utils (4.999.9beta+20100212-2) unstable; urgency=low
 
   * Split off xzdec and lzmadec commands into new xzdec package.
