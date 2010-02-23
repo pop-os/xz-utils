@@ -48,7 +48,7 @@ Description: XZ-format compression utilities
   * improved support for multithreading (not used in xz-utils);
   * support for flushing the encoder.
 
-Package: xz-utils-tiny
+Package: xzdec
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: xz-utils
