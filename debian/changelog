@@ -2,8 +2,11 @@ xz-utils (4.999.9beta+20100212-3) unstable; urgency=low
 
   * liblzma-dev: Remove unneeded .la file.
   * xz-utils: Dynamically link the xz binary.
+  * Do not waste time installing and running doxygen on buildds that
+    are not going to build arch-all packages.
+    Build-Depends-Indep: doxygen.  Closes: #540444.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 23 Feb 2010 17:30:28 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 23 Feb 2010 18:23:29 -0600
 
 xz-utils (4.999.9beta+20100212-2) unstable; urgency=low
 

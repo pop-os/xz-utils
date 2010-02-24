@@ -3,8 +3,9 @@ Section: utils
 Priority: optional
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
-Build-Depends: debhelper (>= 7.4.10), doxygen, perl,
+Build-Depends: debhelper (>= 7.4.10), perl,
 	autoconf, automake, libtool (>= 2.2), gettext, cvs
+Build-Depends-Indep: doxygen
 Build-Conflicts: automake1.4
 Standards-Version: 3.8.4
 Vcs-Browser: http://git.debian.org/?p=collab-maint/xz.git
