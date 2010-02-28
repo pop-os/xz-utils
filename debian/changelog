@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100212-4) unstable; urgency=low
+
+  * debian/copyright: clean up and include more details.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 27 Feb 2010 23:41:18 -0600
+
 xz-utils (4.999.9beta+20100212-3) unstable; urgency=low
 
   * liblzma-dev: Remove unneeded .la file.
