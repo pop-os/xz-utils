@@ -1,8 +1,10 @@
 xz-utils (4.999.9beta+20100212-4) unstable; urgency=low
 
   * debian/copyright: clean up and include more details.
+  * debian/control: Build-Depends: autopoint instead of cvs.
+    Closes: #572481.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 27 Feb 2010 23:41:18 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 04 Mar 2010 07:31:17 -0600
 
 xz-utils (4.999.9beta+20100212-3) unstable; urgency=low
 
