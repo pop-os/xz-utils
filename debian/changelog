@@ -4,8 +4,9 @@ xz-utils (4.999.9beta+20100212-4) unstable; urgency=low
     Closes: #572481.
   * debian/copyright: Clean up and include more details.
   * debian/rules get-orig-source: Unindent comment lines.
+  * xz-utils: include Czech translation.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 04 Mar 2010 08:01:05 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 04 Mar 2010 10:17:15 -0600
 
 xz-utils (4.999.9beta+20100212-3) unstable; urgency=low
 
