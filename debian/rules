@@ -78,11 +78,11 @@ BRANCH = master
 get-orig-source:
 	mkdir debian-orig-source
 	-set -e; cd debian-orig-source; \
-		: fetch latest upstream version; \
+	: Fetch latest upstream version.; \
 		git init -q; \
 		git fetch -q --tags $(REPO); \
 		git fetch -q $(REPO) $(BRANCH); \
-		: determine upstream version number; \
+	: Determine version number.; \
 		commit_name=$$(git describe FETCH_HEAD); \
 		release=$${commit_name%%-*}; \
 		date=$$(date --utc --date="$$( \
@@ -92,7 +92,7 @@ get-orig-source:
 		then upstream_version=$${commit_name#v}; \
 		else upstream_version="$${release#v}+$${date}"; \
 		fi; \
-		: generate tarball; \
+	: Generate tarball.; \
 		echo "packaging $$commit_name"; \
 		git archive --format=tar "$$commit_name" \
 			--prefix="xz-utils-$$upstream_version/" | \
