@@ -38,6 +38,9 @@
 /// Number of bytes to use memory at maximum
 static uint64_t memlimit;
 
+/// Total amount of physical RAM
+static uint64_t total_ram;
+
 /// Error messages are suppressed if this is zero, which is the case when
 /// --quiet has been given at least twice.
 static unsigned int display_errors = 2;
@@ -63,6 +66,10 @@ my_errorf(const char *fmt, ...)
 static void lzma_attribute((noreturn))
 help(void)
 {
+	// Round up to the next MiB and do it correctly also with UINT64_MAX.
+	const uint64_t mem_mib = (memlimit >> 20)
+			+ ((memlimit & ((UINT32_C(1) << 20) - 1)) != 0);
+
 	printf(
 "Usage: %s [OPTION]... [FILE]...\n"
 "Uncompress files in the ." TOOL_FORMAT " format to the standard output.\n"
@@ -82,8 +89,7 @@ help(void)
 "%" PRIu64 " MiB RAM.\n"
 "\n"
 "Report bugs to <" PACKAGE_BUGREPORT "> (in English or Finnish).\n"
-PACKAGE_NAME " home page: <" PACKAGE_URL ">\n",
-		progname, memlimit / (1024 * 1024));
+PACKAGE_NAME " home page: <" PACKAGE_URL ">\n", progname, mem_mib);
 	tuklib_exit(EXIT_SUCCESS, EXIT_FAILURE, display_errors);
 }
 
@@ -103,14 +109,7 @@ version(void)
 static void
 memlimit_set_percentage(uint32_t percentage)
 {
-	uint64_t mem = lzma_physmem();
-
-	// If we cannot determine the amount of RAM, use the assumption
-	// set by the configure script.
-	if (mem == 0)
-		mem = (uint64_t)(ASSUME_RAM) * 1024 * 1024;
-
-	memlimit = percentage * mem / 100;
+	memlimit = percentage * total_ram / 100;
 	return;
 }
 
@@ -120,11 +119,33 @@ memlimit_set_percentage(uint32_t percentage)
 static void
 memlimit_set(uint64_t new_memlimit)
 {
-	if (new_memlimit == 0)
-		memlimit_set_percentage(40);
-	else
+	if (new_memlimit != 0) {
 		memlimit = new_memlimit;
+	} else {
+		memlimit = 40 * total_ram / 100;
+		if (memlimit < UINT64_C(80) * 1024 * 1024) {
+			memlimit = 80 * total_ram / 100;
+			if (memlimit > UINT64_C(80) * 1024 * 1024)
+				memlimit = UINT64_C(80) * 1024 * 1024;
+		}
+	}
 
+	return;
+}
+
+
+/// Get the total amount of physical RAM and set the memory usage limit
+/// to the default value.
+static void
+memlimit_init(void)
+{
+	// If we cannot determine the amount of RAM, use the assumption
+	// defined by the configure script.
+	total_ram = lzma_physmem();
+	if (total_ram == 0)
+		total_ram = (uint64_t)(ASSUME_RAM) * 1024 * 1024;
+
+	memlimit_set(0);
 	return;
 }
 
@@ -162,34 +183,24 @@ str_to_uint64(const char *value, uint64_t max)
 
 	if (*value != '\0') {
 		// Look for suffix.
-		static const struct {
-			const char name[4];
-			uint32_t multiplier;
-		} suffixes[] = {
-			{ "k",   1000 },
-			{ "kB",  1000 },
-			{ "M",   1000000 },
-			{ "MB",  1000000 },
-			{ "G",   1000000000 },
-			{ "GB",  1000000000 },
-			{ "Ki",  1024 },
-			{ "KiB", 1024 },
-			{ "Mi",  1048576 },
-			{ "MiB", 1048576 },
-			{ "Gi",  1073741824 },
-			{ "GiB", 1073741824 }
-		};
+		uint64_t multiplier = 0;
+		if (*value == 'k' || *value == 'K')
+			multiplier = UINT64_C(1) << 10;
+		else if (*value == 'm' || *value == 'M')
+			multiplier = UINT64_C(1) << 20;
+		else if (*value == 'g' || *value == 'G')
+			multiplier = UINT64_C(1) << 30;
 
-		uint32_t multiplier = 0;
-		for (size_t i = 0; i < ARRAY_SIZE(suffixes); ++i) {
-			if (strcmp(value, suffixes[i].name) == 0) {
-				multiplier = suffixes[i].multiplier;
-				break;
-			}
-		}
+		++value;
+
+		// Allow also e.g. Ki, KiB, and KB.
+		if (*value != '\0' && strcmp(value, "i") != 0
+				&& strcmp(value, "iB") != 0
+				&& strcmp(value, "B") != 0)
+			multiplier = 0;
 
 		if (multiplier == 0) {
-			my_errorf("%s: Invalid suffix", value);
+			my_errorf("%s: Invalid suffix", value - 1);
 			exit(EXIT_FAILURE);
 		}
 
@@ -422,7 +433,7 @@ main(int argc, char **argv)
 
 	// Set the default memory usage limit. This is needed before parsing
 	// the command line arguments.
-	memlimit_set(0);
+	memlimit_init();
 
 	// Parse the command line options.
 	parse_options(argc, argv);
