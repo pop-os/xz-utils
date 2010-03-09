@@ -257,10 +257,10 @@ Files: src/liblzma/check/crc32_table_[bl]e.h,
        src/liblzma/lzma/fastpos_table.c,
        src/liblzma/rangecoder/price_table.c
 Copyright: none, automatically generated data
-X-Generators: src/liblzma/check/crc32_tablegen.c,
-              src/liblzma/check/crc64_tablegen.c,
-              src/liblzma/lzma/fastpos_tablegen.c,
-              src/liblzma/rangecoder/price_tablegen.c
+X-Generated-With: src/liblzma/check/crc32_tablegen.c,
+                  src/liblzma/check/crc64_tablegen.c,
+                  src/liblzma/lzma/fastpos_tablegen.c,
+                  src/liblzma/rangecoder/price_tablegen.c
 License: none
  No copyright to license.
 
