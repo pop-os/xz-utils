@@ -8,8 +8,9 @@ xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
       of input" failures (Gentoo bug 305591).
     - The default memory usage limit on low-memory systems has been
       increased.
+  * debian/copyright: Clarify.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 07 Mar 2010 18:06:53 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 09 Mar 2010 10:22:24 -0600
 
 xz-utils (4.999.9beta+20100212-4) unstable; urgency=low
 
