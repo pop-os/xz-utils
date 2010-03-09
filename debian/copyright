@@ -70,7 +70,7 @@ X-Overview:
  If you have questions, don't hesitate to ask the author(s) for more
  information.
 X-Note:
- The entries below only describe the source package.  The binary
+ The rest of this file only describes the source package.  The binary
  packages contain some files derived from other works: for example,
  all images in the API documentation come from Doxygen.
 
