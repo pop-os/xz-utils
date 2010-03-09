@@ -8,25 +8,6 @@ X-Authors:
  portions are based on code by other authors; see AUTHORS for details.
  Most of the source is in the public domain, but some files are
  copyrighted (details below).
-X-Package-License: GPL-3+
- This package is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
- .
- On Debian systems, the complete text of the GNU General Public License
- version 3 can be found in ‘/usr/share/common-licenses/GPL-3’.
- .
- Most files in this package are licensed with more permissive terms.
- See below for details.
- .
- Although the source code to xz, liblzma, xzdec, lzmadec, and lzmainfo
- is in the public domain, the object code is linked against the GNU C
- library, use of which is covered by the GNU Lesser General Public
- License, version 2.1 or later.
- .
- On Debian systems, the complete text of the GNU Lesser General Public
- License version 2.1 can be found in ‘/usr/share/common-licenses/LGPL-2.1’.
 X-Overview:
  Different licenses apply to different files in this package. Here
  is a rough summary of which licenses apply to which parts of this
