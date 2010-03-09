@@ -2,7 +2,7 @@ xz-utils (4.999.9beta+20100307-1.1) unstable; urgency=low
 
   * debian/copyright: Clarify.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 09 Mar 2010 06:43:47 -0600
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 09 Mar 2010 06:45:11 -0600
 
 xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
 
