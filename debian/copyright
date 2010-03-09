@@ -1,4 +1,4 @@
-Format: http://dep.debian.net/deps/dep5/
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?rev=135
 Name: XZ Utils
 Maintainer: Lasse Collin <lasse.collin@tukaani.org>
 Source: http://tukaani.org/xz

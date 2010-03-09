@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100307-1.1) unstable; urgency=low
+
+  * debian/copyright: Tweak to more closely conform to DEP5.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 09 Mar 2010 06:33:39 -0600
+
 xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit f4b2b526.
