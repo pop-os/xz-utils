@@ -6,10 +6,11 @@ xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
     - liblzma: Remove the Subblock filter from the public API
       (the ABI is unchanged).
   * liblzma-dev.NEWS: Update.
+  * xz-utils: Update Czech translation.
   * Change priority of xz-utils and liblzma2 to required and
     xzdec to extra.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 May 2010 16:12:16 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 May 2010 16:27:04 -0500
 
 xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
 
