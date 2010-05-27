@@ -1,10 +1,13 @@
-xz-utils (4.999.9beta+20100412-1) unstable; urgency=low
+xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
-  * New upstream snapshot, taken from upstream commit a290cfee.
+  * New upstream snapshot, taken from upstream commit a334348dc.
     - Show both elapsed time and estimated remaining time in xz -v.
       Thanks to Trent W. Buck for the idea.  Closes: #574583.
+    - liblzma: Omit lzma_restrict from API headers.
+    - liblzma: Remove the Subblock filter from the public API
+      (the ABI is unchanged).
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 12 Apr 2010 17:22:10 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 27 May 2010 07:01:07 -0500
 
 xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
 
