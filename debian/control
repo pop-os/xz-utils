@@ -1,6 +1,6 @@
 Source: xz-utils
 Section: utils
-Priority: optional
+Priority: required
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
 Build-Depends: debhelper (>= 7.4.10), perl,
@@ -50,6 +50,7 @@ Description: XZ-format compression utilities
   * support for flushing the encoder.
 
 Package: xzdec
+Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: xz-utils
@@ -76,6 +77,7 @@ Description: XZ-format compression utilities - tiny decompressors
 
 Package: liblzma-dev
 Section: libdevel
+Priority: optional
 Architecture: any
 Depends: liblzma2 (= ${binary:Version}), ${misc:Depends}
 Suggests: liblzma-doc
@@ -91,6 +93,7 @@ Description: XZ-format compression library - development files
 
 Package: liblzma-doc
 Section: doc
+Priority: optional
 Architecture: all
 Depends: ${misc:Depends}
 Suggests: liblzma-dev
