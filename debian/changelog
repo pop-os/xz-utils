@@ -8,8 +8,10 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
       addition of some examples.  Closes: #578465.
     - liblzma: The lzma_block_compressed_size() function no longer
       returns LZMA_DATA_ERROR for valid Blocks.
+  * Correct the 4.999.9beta+20100307-1 changelog entry to describe
+    which public functions were affected.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 02 Jun 2010 22:43:44 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 01:47:01 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
@@ -28,7 +30,7 @@ xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 xz-utils (4.999.9beta+20100307-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit f4b2b526.
-    - liblzma: The lzma_stream_init() function was not correctly
+    - liblzma: The stream initialization functions were not correctly
       initializing the internal allow_buffer_error flag.  As a result,
       ever since 4.999.9beta-1 in rare circumstances when decompressing
       LZMA files, the xz tool would produce spurious "Unexpected end
