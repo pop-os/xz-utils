@@ -6,7 +6,7 @@ liblzma.so.2 liblzma2 #MINVER#
  lzma_block_buffer_bound@Base 4.999.9beta
  lzma_block_buffer_decode@Base 4.999.9beta
  lzma_block_buffer_encode@Base 4.999.9beta
- lzma_block_compressed_size@Base 4.999.9beta
+ lzma_block_compressed_size@Base 4.999.9beta+20100602
  lzma_block_decoder@Base 4.999.9beta
  lzma_block_encoder@Base 4.999.9beta
  lzma_block_header_decode@Base 4.999.9beta

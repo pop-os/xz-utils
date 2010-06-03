@@ -8,10 +8,11 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
       addition of some examples.  Closes: #578465.
     - liblzma: The lzma_block_compressed_size() function no longer
       returns LZMA_DATA_ERROR for valid Blocks.
+  * debian/symbols: Bump minimal version for lzma_block_compressed_size.
   * Correct the 4.999.9beta+20100307-1 changelog entry to describe
     which public functions were affected.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 01:47:01 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 01:48:40 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
