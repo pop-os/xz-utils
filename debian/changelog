@@ -12,7 +12,12 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
   * Correct the 4.999.9beta+20100307-1 changelog entry to describe
     which public functions were affected.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 01:48:40 -0500
+  * Add new xz-lzma package to allow xz to provide lzma and related
+    commands.  Conflicts: and Provides: lzma.
+  * xz-utils: Suggests: xz-lzma.
+  * xz-utils/README.Debian: Suggest xz-lzma.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:25:22 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 

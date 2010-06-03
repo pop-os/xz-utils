@@ -28,6 +28,7 @@ Description: XZ-format compression library
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: xz-lzma
 Conflicts: xz-lzma (<< 4.999.9beta+20091004-1)
 Description: XZ-format compression utilities
  XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
@@ -48,6 +49,23 @@ Description: XZ-format compression utilities
   * limited random-access reading support;
   * improved support for multithreading (not used in xz-utils);
   * support for flushing the encoder.
+
+Package: xz-lzma
+Architecture: all
+Priority: extra
+Depends: xz-utils, ${shlibs:Depends}, ${misc:Depends}
+Conflicts: lzma, lzip (<< 1.8~rc2)
+Provides: lzma
+Description: XZ-format compression utilities - compatibility commands
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
+ .
+ This package provides symbolic links allowing xz-utils to provide the
+ same interface for manipulating LZMA files as the lzma package. The
+ xz-utils package can handle LZMA files on its own; this package is
+ only necessary when using scripts or other programs that require the
+ older command names.
 
 Package: xzdec
 Priority: extra

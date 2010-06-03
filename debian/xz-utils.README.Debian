@@ -16,8 +16,9 @@ subset of the following list of symbolic links to your $PATH.
 	lzmore -> /usr/bin/xzmore
 	lzdiff, lzcmp -> /usr/bin/xzdiff
 
-Note that lzip 1.7 includes lzgrep and lzdiff commands with different
-behavior, so unless you desperately need them, it is safest to omit those
-two.
+To allow administrators to keep the old lzma package, the xz-utils
+package does not provide those links itself.  If you would like XZ Utils
+to provide these commands by default for all users, install the
+xz-lzma package.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 30 Sep 2009 01:29:38 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:25:06 -0500
