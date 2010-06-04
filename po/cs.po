@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz-utils\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2010-05-27 01:01-0500\n"
+"POT-Creation-Date: 2010-06-04 02:39-0500\n"
 "PO-Revision-Date: 2009-12-05 13:51+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <diskuze@lists.l10n.cz>\n"
@@ -39,9 +39,7 @@ msgstr "Maximální počet filtrů je čtyři"
 
 #: src/xz/coder.c:108
 msgid "Memory usage limit is too low for the given filter setup."
-msgstr ""
-"Omezení použitelné paměti je příliš malé pro dané nastavení "
-"filtru."
+msgstr "Omezení použitelné paměti je příliš malé pro dané nastavení filtru."
 
 #: src/xz/coder.c:129
 msgid "Using a preset in raw mode is discouraged."
@@ -173,17 +171,17 @@ msgstr "%s: Neočekávaný konec souboru"
 msgid "%s: Write error: %s"
 msgstr "%s: Chyba zápisu: %s"
 
-#: src/xz/main.c:76
+#: src/xz/main.c:89
 #, c-format
 msgid "%s: Error reading filenames: %s"
 msgstr "%s: Chyba při čtení názvů souborů: %s"
 
-#: src/xz/main.c:83
+#: src/xz/main.c:96
 #, c-format
 msgid "%s: Unexpected end of input when reading filenames"
 msgstr "%s: Neočekávaný konec vstupu při čtení názvů souborů"
 
-#: src/xz/main.c:107
+#: src/xz/main.c:120
 #, c-format
 msgid ""
 "%s: Null character found when reading filenames; maybe you meant to use `--"
@@ -192,11 +190,11 @@ msgstr ""
 "%s: Byl nalezen nulový znak při čtení názvů souborů; nechtěli jste náhodou "
 "použít „--files0“ místo „--files“?"
 
-#: src/xz/main.c:157
+#: src/xz/main.c:174
 msgid "Compression and decompression with --robot are not supported yet."
 msgstr "Komprimace a dekomprimace s přepínačem --robot není zatím podporovaná."
 
-#: src/xz/main.c:214
+#: src/xz/main.c:231
 msgid ""
 "Cannot read data from standard input when reading filenames from standard "
 "input"
@@ -244,8 +242,7 @@ msgstr "Neočekávaný konec vstupu"
 #: src/xz/message.c:872
 #, fuzzy, c-format
 msgid "%s MiB of memory is required. The limit is %s."
-msgstr ""
-"Je vyžadováno %s MiB paměti. Limit je %s."
+msgstr "Je vyžadováno %s MiB paměti. Limit je %s."
 
 #: src/xz/message.c:1038
 #, c-format
@@ -646,14 +643,12 @@ msgstr "Prázdný název souboru, vynechává se"
 #: src/xz/util.c:297
 #, fuzzy
 msgid "Compressed data cannot be read from a terminal"
-msgstr ""
-"Komprimovaná data se nečtou z terminálu"
+msgstr "Komprimovaná data se nečtou z terminálu"
 
 #: src/xz/util.c:310
 #, fuzzy
 msgid "Compressed data cannot be written to a terminal"
-msgstr ""
-"Komprimovaná data se nezapisují do terminálu"
+msgstr "Komprimovaná data se nezapisují do terminálu"
 
 #~ msgid "%s: Invalid multiplier suffix. Valid suffixes:"
 #~ msgstr "%s: Neplatná přípona. Platné přípony jsou:"
