@@ -53,7 +53,7 @@ Description: XZ-format compression utilities
 Package: xz-lzma
 Architecture: all
 Priority: extra
-Depends: xz-utils, ${shlibs:Depends}, ${misc:Depends}
+Depends: xz-utils, ${misc:Depends}
 Conflicts: lzma, lzip (<< 1.8~rc2)
 Provides: lzma
 Description: XZ-format compression utilities - compatibility commands
