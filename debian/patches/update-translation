@@ -1,5 +1,5 @@
 From: Jonathan Nieder <jrnieder@gmail.com>
-Date: Thu, 27 May 2010 02:15:45 -0500
+Date: Fri, 4 Jun 2010 03:19:54 -0500
 Subject: Update Czech translation file
 
 Let msgmerge --update update cs.po.  Give a guess at a correct
@@ -9,7 +9,7 @@ translation for some of the newly fuzzy strings.
  1 files changed, 145 insertions(+), 122 deletions(-)
 
 diff --git a/po/cs.po b/po/cs.po
-index a953fd3..6ed34ca 100644
+index a953fd3..97917b9 100644
 --- a/po/cs.po
 +++ b/po/cs.po
 @@ -2,10 +2,11 @@ msgid ""
@@ -17,7 +17,7 @@ index a953fd3..6ed34ca 100644
  "Project-Id-Version: xz-utils\n"
  "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
 -"POT-Creation-Date: 2009-12-04 16:04+0100\n"
-+"POT-Creation-Date: 2010-05-27 01:01-0500\n"
++"POT-Creation-Date: 2010-06-04 02:39-0500\n"
  "PO-Revision-Date: 2009-12-05 13:51+0100\n"
  "Last-Translator: Marek Černocký <marek@manet.cz>\n"
  "Language-Team: Czech <diskuze@lists.l10n.cz>\n"
@@ -53,7 +53,7 @@ index a953fd3..6ed34ca 100644
  msgid "The environment variable XZ_OPT contains too many arguments"
  msgstr "Proměnná prostředí XZ_OPT obsahuje příliš mnoho argumentů"
  
-@@ -37,119 +38,137 @@ msgid "Maximum number of filters is four"
+@@ -37,134 +38,150 @@ msgid "Maximum number of filters is four"
  msgstr "Maximální počet filtrů je čtyři"
  
  #: src/xz/coder.c:108
@@ -61,12 +61,11 @@ index a953fd3..6ed34ca 100644
 -msgid ""
 -"Memory usage limit (%<PRIu64> MiB) is too small for the given filter setup (%"
 -"<PRIu64> MiB)"
-+msgid "Memory usage limit is too low for the given filter setup."
- msgstr ""
+-msgstr ""
 -"Omezení použitelné paměti (%<PRIu64> MiB) je příliš malé pro dané nastavení "
 -"filtru (%<PRIu64> MiB)"
-+"Omezení použitelné paměti je příliš malé pro dané nastavení "
-+"filtru."
++msgid "Memory usage limit is too low for the given filter setup."
++msgstr "Omezení použitelné paměti je příliš malé pro dané nastavení filtru."
  
 -#: src/xz/coder.c:128
 +#: src/xz/coder.c:129
@@ -228,21 +227,39 @@ index a953fd3..6ed34ca 100644
  #, c-format
  msgid "%s: Write error: %s"
  msgstr "%s: Chyba zápisu: %s"
-@@ -173,11 +192,11 @@ msgstr ""
+ 
+-#: src/xz/main.c:76
++#: src/xz/main.c:89
+ #, c-format
+ msgid "%s: Error reading filenames: %s"
+ msgstr "%s: Chyba při čtení názvů souborů: %s"
+ 
+-#: src/xz/main.c:83
++#: src/xz/main.c:96
+ #, c-format
+ msgid "%s: Unexpected end of input when reading filenames"
+ msgstr "%s: Neočekávaný konec vstupu při čtení názvů souborů"
+ 
+-#: src/xz/main.c:107
++#: src/xz/main.c:120
+ #, c-format
+ msgid ""
+ "%s: Null character found when reading filenames; maybe you meant to use `--"
+@@ -173,11 +190,11 @@ msgstr ""
  "%s: Byl nalezen nulový znak při čtení názvů souborů; nechtěli jste náhodou "
  "použít „--files0“ místo „--files“?"
  
 -#: src/xz/main.c:160
-+#: src/xz/main.c:157
++#: src/xz/main.c:174
  msgid "Compression and decompression with --robot are not supported yet."
  msgstr "Komprimace a dekomprimace s přepínačem --robot není zatím podporovaná."
  
 -#: src/xz/main.c:207
-+#: src/xz/main.c:214
++#: src/xz/main.c:231
  msgid ""
  "Cannot read data from standard input when reading filenames from standard "
  "input"
-@@ -185,59 +204,65 @@ msgstr ""
+@@ -185,59 +202,64 @@ msgstr ""
  "Ze standardního vstupu nelze číst data, když se ze standardního vstupu "
  "načítají názvy souborů"
  
@@ -296,8 +313,7 @@ index a953fd3..6ed34ca 100644
 +#: src/xz/message.c:872
 +#, fuzzy, c-format
 +msgid "%s MiB of memory is required. The limit is %s."
-+msgstr ""
-+"Je vyžadováno %s MiB paměti. Limit je %s."
++msgstr "Je vyžadováno %s MiB paměti. Limit je %s."
 +
 +#: src/xz/message.c:1038
  #, c-format
@@ -323,7 +339,7 @@ index a953fd3..6ed34ca 100644
  #, c-format
  msgid ""
  "Usage: %s [OPTION]... [FILE]...\n"
-@@ -248,18 +273,18 @@ msgstr ""
+@@ -248,18 +270,18 @@ msgstr ""
  "Komprimuje nebo dekomprimuje SOUBORy ve formátu xz.\n"
  "\n"
  
@@ -345,7 +361,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -z, --compress      force compression\n"
  "  -d, --decompress    force decompression\n"
-@@ -271,7 +296,7 @@ msgstr ""
+@@ -271,7 +293,7 @@ msgstr ""
  " -t, --test            testovat integritu komprimovaného souboru\n"
  " -l, --list            vypsat informace o souborech"
  
@@ -354,7 +370,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  " Operation modifiers:\n"
-@@ -279,7 +304,7 @@ msgstr ""
+@@ -279,7 +301,7 @@ msgstr ""
  "\n"
  "Modifikátory operací:\n"
  
@@ -363,7 +379,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -k, --keep          keep (don't delete) input files\n"
  "  -f, --force         force overwrite of output file and (de)compress links\n"
-@@ -291,7 +316,7 @@ msgstr ""
+@@ -291,7 +313,7 @@ msgstr ""
  " -c, --stdout          zapisovat na standardní výstup a nemazat vstupní "
  "soubory"
  
@@ -372,7 +388,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "      --no-sparse     do not create sparse files when decompressing\n"
  "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
-@@ -311,7 +336,7 @@ msgstr ""
+@@ -311,7 +333,7 @@ msgstr ""
  "     --files0=[SOUBOR] stejné jako --files, ale použít k zakončování nulový "
  "znak"
  
@@ -381,7 +397,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  " Basic file format and compression options:\n"
-@@ -319,7 +344,7 @@ msgstr ""
+@@ -319,7 +341,7 @@ msgstr ""
  "\n"
  "Základní přepínače pro formát souboru a komprimaci:\n"
  
@@ -390,7 +406,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -F, --format=FMT    file format to encode or decode; possible values are\n"
  "                      `auto' (default), `xz', `lzma', and `raw'\n"
-@@ -331,7 +356,7 @@ msgstr ""
+@@ -331,7 +353,7 @@ msgstr ""
  " -C, --check=KONTROLA  typ kontroly integrity: „crc32“, „crc64“ (výchozí),\n"
  "                       „sha256“ nebo „none“ (používejte s rozmyslem)"
  
@@ -399,7 +415,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -0 .. -9            compression preset; 0-2 fast compression, 3-5 good\n"
  "                      compression, 6-9 excellent compression; default is 6"
-@@ -339,7 +364,7 @@ msgstr ""
+@@ -339,7 +361,7 @@ msgstr ""
  " -0 .. -9              přednastavení komprimace; 0-2 rychlá komprimace, 3-5\n"
  "                       dobrá komprimace, 6-9 skvělá komprimace; výchozí je 6"
  
@@ -408,7 +424,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -e, --extreme       use more CPU time when encoding to increase "
  "compression\n"
-@@ -349,7 +374,8 @@ msgstr ""
+@@ -349,7 +371,8 @@ msgstr ""
  "                       zvýší kompresní poměr bez zvýšení paměti použité "
  "kodérem"
  
@@ -418,7 +434,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -M, --memory=NUM    use roughly NUM bytes of memory at maximum; 0 "
  "indicates\n"
-@@ -360,7 +386,7 @@ msgstr ""
+@@ -360,7 +383,7 @@ msgstr ""
  "                       výchozí nastavení, což je 40% celkového množství "
  "paměti"
  
@@ -427,7 +443,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  " Custom filter chain for compression (alternative for using presets):"
-@@ -369,7 +395,7 @@ msgstr ""
+@@ -369,7 +392,7 @@ msgstr ""
  "Vlastní omezující filtr pro komprimaci (alternativa k použití "
  "přednastavených):"
  
@@ -436,7 +452,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero "
-@@ -393,8 +419,8 @@ msgstr ""
+@@ -393,8 +416,8 @@ msgstr ""
  "žádné\n"
  " --lzma2[=VOLBY]       nebo více následujících voleb (platné hodnoty; "
  "výchozí):\n"
@@ -447,7 +463,7 @@ index a953fd3..6ed34ca 100644
  "                         dict=POČ   velikost slovníku (4 KiB - 1536 MiB; 8 "
  "MiB)\n"
  "                         lc=POČ     počet kontextových bitů literálu (0-4; "
-@@ -409,7 +435,7 @@ msgstr ""
+@@ -409,7 +432,7 @@ msgstr ""
  "                         depth=POČ  maximální hloubka prohledávání;\n"
  "                                    0=automaticky (výchozí)"
  
@@ -456,7 +472,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  "  --x86[=OPTS]        x86 BCJ filter\n"
-@@ -431,7 +457,7 @@ msgstr ""
+@@ -431,7 +454,7 @@ msgstr ""
  "                       Platné volby pro všechny filtry BCJ:\n"
  "                         start=POČ  počáteční posun pro převody (výchozí=0)"
  
@@ -465,7 +481,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  "  --delta[=OPTS]      Delta filter; valid OPTS (valid values; default):\n"
-@@ -444,23 +470,7 @@ msgstr ""
+@@ -444,23 +467,7 @@ msgstr ""
  "odečítány\n"
  "                                    jeden od druhého (1-256; 1)"
  
@@ -490,7 +506,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  " Other options:\n"
-@@ -468,7 +478,7 @@ msgstr ""
+@@ -468,7 +475,7 @@ msgstr ""
  "\n"
  " Ostatní přepínače:\n"
  
@@ -499,7 +515,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -q, --quiet         suppress warnings; specify twice to suppress errors "
  "too\n"
-@@ -479,22 +489,22 @@ msgstr ""
+@@ -479,22 +486,22 @@ msgstr ""
  " -v, --verbose         podrobnější zprávy; zadáním dvakrát, budou ještě\n"
  "                       podrobnější"
  
@@ -526,7 +542,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -h, --help          display the short help (lists only the basic options)\n"
  "  -H, --long-help     display this long help and exit"
-@@ -503,7 +513,7 @@ msgstr ""
+@@ -503,7 +510,7 @@ msgstr ""
  "přepínače)\n"
  " -H, --long-help       zobrazit tuto úplnou nápovědu a skončit"
  
@@ -535,7 +551,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "  -h, --help          display this short help and exit\n"
  "  -H, --long-help     display the long help (lists also the advanced options)"
-@@ -512,11 +522,11 @@ msgstr ""
+@@ -512,11 +519,11 @@ msgstr ""
  " -H, --long-help       zobrazit úplnou nápovědu (vypíše i pokročilé "
  "přepínače)"
  
@@ -549,7 +565,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "\n"
  "With no FILE, or when FILE is -, read standard input.\n"
-@@ -525,7 +535,7 @@ msgstr ""
+@@ -525,7 +532,7 @@ msgstr ""
  "Pokud SOUBOR není zadán nebo pokud je -, bude se číst ze standardního "
  "vstupu.\n"
  
@@ -558,7 +574,7 @@ index a953fd3..6ed34ca 100644
  #, c-format
  msgid ""
  "On this system and configuration, this program will use a maximum of "
-@@ -536,7 +546,7 @@ msgstr ""
+@@ -536,7 +543,7 @@ msgstr ""
  "zhruba\n"
  "%s MiB RAM a "
  
@@ -567,7 +583,7 @@ index a953fd3..6ed34ca 100644
  msgid ""
  "one thread.\n"
  "\n"
-@@ -544,12 +554,16 @@ msgstr ""
+@@ -544,12 +551,16 @@ msgstr ""
  "jedno vlákno.\n"
  "\n"
  
@@ -586,7 +602,7 @@ index a953fd3..6ed34ca 100644
  #, c-format
  msgid "%s home page: <%s>\n"
  msgstr "Domovská stránka %s: <%s>\n"
-@@ -569,16 +583,16 @@ msgstr "%s: Neplatný název volby"
+@@ -569,16 +580,16 @@ msgstr "%s: Neplatný název volby"
  msgid "%s: Invalid option value"
  msgstr "%s: Neplatná hodnota volby"
  
@@ -606,7 +622,7 @@ index a953fd3..6ed34ca 100644
  #, c-format
  msgid "The selected match finder requires at least nice=%<PRIu32>"
  msgstr "Vybraný vyhledávač shod vyžaduje minimálně nice=%<PRIu32>"
-@@ -606,31 +620,40 @@ msgstr "%s: Soubor již má příponu „%s“, vynechává se"
+@@ -606,31 +617,38 @@ msgstr "%s: Soubor již má příponu „%s“, vynechává se"
  msgid "%s: Invalid filename suffix"
  msgstr "%s: Neplatná přípona názvu souboru"
  
@@ -624,12 +640,12 @@ index a953fd3..6ed34ca 100644
 +#, fuzzy, c-format
 +msgid "%s: Invalid multiplier suffix"
 +msgstr "%s: Neplatná přípona názvu souboru"
-+
+ 
+-#: src/xz/util.c:115
 +#: src/xz/util.c:92
 +msgid "Valid suffixes are `KiB' (2^10), `MiB' (2^20), and `GiB' (2^30)."
 +msgstr ""
- 
--#: src/xz/util.c:115
++
 +#: src/xz/util.c:109
  #, c-format
  msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
@@ -642,21 +658,21 @@ index a953fd3..6ed34ca 100644
  
 -#: src/xz/util.c:226
 -msgid "Compressed data not read from a terminal unless `--force' is used."
+-msgstr ""
+-"Komprimovaná data se nečtou z terminálu, vyjma použití volby „--force“."
 +#: src/xz/util.c:297
 +#, fuzzy
 +msgid "Compressed data cannot be read from a terminal"
- msgstr ""
--"Komprimovaná data se nečtou z terminálu, vyjma použití volby „--force“."
-+"Komprimovaná data se nečtou z terminálu"
++msgstr "Komprimovaná data se nečtou z terminálu"
  
 -#: src/xz/util.c:239
 -msgid "Compressed data not written to a terminal unless `--force' is used."
+-msgstr ""
+-"Komprimovaná data se nezapisují do terminálu, vyjma použití volby „--force“."
 +#: src/xz/util.c:310
 +#, fuzzy
 +msgid "Compressed data cannot be written to a terminal"
- msgstr ""
--"Komprimovaná data se nezapisují do terminálu, vyjma použití volby „--force“."
-+"Komprimovaná data se nezapisují do terminálu"
++msgstr "Komprimovaná data se nezapisují do terminálu"
 +
 +#~ msgid "%s: Invalid multiplier suffix. Valid suffixes:"
 +#~ msgstr "%s: Neplatná přípona. Platné přípony jsou:"

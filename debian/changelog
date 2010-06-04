@@ -17,7 +17,7 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
   * xz-utils: Suggests: xz-lzma.
   * xz-utils/README.Debian: Suggest xz-lzma.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:30:14 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 03:24:43 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
