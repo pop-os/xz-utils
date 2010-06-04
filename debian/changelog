@@ -1,11 +1,11 @@
 xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
 
   * New upstream snapshot, taken from upstream commit d8b41eed.
-    - xz -v --list and xz -v -v --list print more information than they
-      used to.  xz -v -v can be used to obtain an estimate for the
-      memory required to decompress a file.
-    - The xz manual page has been updated, in particular with the
-      addition of some examples.  Closes: #578465.
+    - xz -v --list and xz -v -v --list print even more information.
+      xz -v -v can be used to obtain an estimate for the memory required
+      to decompress a file.
+    - The xz manual page has some new material, including examples.
+      Closes: #578465.
     - liblzma: The lzma_block_compressed_size() function no longer
       returns LZMA_DATA_ERROR for valid Blocks.
   * debian/symbols: Bump minimal version for lzma_block_compressed_size.
@@ -17,7 +17,7 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
   * xz-utils: Suggests: xz-lzma.
   * xz-utils/README.Debian: Suggest xz-lzma.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:25:22 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:30:14 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
