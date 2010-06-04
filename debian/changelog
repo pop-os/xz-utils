@@ -16,9 +16,9 @@ xz-utils (4.999.9beta+20100602-1) experimental; urgency=low
   * Add new xz-lzma package to allow xz to provide lzma and related
     commands.  Conflicts: and Provides: lzma.
   * xz-utils: Suggests: xz-lzma.
-  * xz-utils/README.Debian: Suggest xz-lzma.
+  * xz-utils/README.Debian: Take xz-lzma into account.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 04:17:10 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 15:53:58 -0500
 
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
