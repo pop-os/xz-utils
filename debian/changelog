@@ -1,3 +1,10 @@
+xz-utils (4.999.9beta+20100527-2) UNRELEASED; urgency=low
+
+  * Explicitly depend on autoconf (>= 2.64~) due to AC_PREREQ,
+    discovered during backporting.
+
+ -- Thorsten Glaser <tg@mirbsd.de>  Thu, 17 Jun 2010 16:02:20 +0200
+
 xz-utils (4.999.9beta+20100527-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit a334348dc.

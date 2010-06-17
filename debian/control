@@ -4,7 +4,7 @@ Priority: required
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
 Build-Depends: debhelper (>= 7.4.10), perl,
-	autoconf, automake, libtool (>= 2.2), gettext, autopoint
+	autoconf (>= 2.64~), automake, libtool (>= 2.2), gettext, autopoint
 Build-Depends-Indep: doxygen
 Build-Conflicts: automake1.4
 Standards-Version: 3.8.4
