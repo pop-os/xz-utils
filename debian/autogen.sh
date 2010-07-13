@@ -7,6 +7,25 @@
 
 set -e
 
-sh debian/changelog.upstream.sh
+changelog_needs_update() {
+	test -e debian/changelog.upstream &&
+	read line < debian/changelog.upstream ||
+	return 0
+
+	ver=${line#Version } &&
+	ver=${ver%;*} &&
+	test "$ver" != "" ||
+	return 0
+
+	read line < debian/changelog &&
+	rhs=${line#*(} &&
+	deb_ver=${rhs%)*} &&
+	new_ver=${deb_ver%-*} ||
+	return 0
+
+	test "$ver" != "$new_ver"
+}
+
 cp -f m4/.gitignore debian/generated-m4.list
 cp -f po/.gitignore debian/generated-po.list
+! changelog_needs_update || exec sh debian/changelog.upstream.sh

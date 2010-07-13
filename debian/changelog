@@ -9,6 +9,8 @@ xz-utils (4.999.9beta+20100713-0.1) unstable; urgency=low
   * New upstream snapshot, taken from upstream commit a540198f.
     - xz: The new --no-adjust option can be used to error out if there
       is insufficient memory for the chosen compression level.
+  * debian/autogen.sh: Don’t regenerate upstream changelog when it is
+    not out of date.
   * Standards-Version: 3.9.0 (checked).
   * Update copyright file.
 
