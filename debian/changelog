@@ -10,6 +10,7 @@ xz-utils (4.999.9beta+20100713-0.1) unstable; urgency=low
     - xz: The new --no-adjust option can be used to error out if there
       is insufficient memory for the chosen compression level.
   * Standards-Version: 3.9.0 (checked).
+  * Update copyright file.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 12 Jul 2010 15:46:43 -0500
 

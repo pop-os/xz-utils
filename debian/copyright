@@ -150,6 +150,11 @@ License: PD
  This file has been put in the public domain.
  You can do whatever you want with this file.
 
+Files: doc/examples/xz_pipe_comp.c, doc/examples/xz_pipe_decomp.c
+Copyright: 2010, Daniel Mealha Cabrita
+License: PD
+ Not copyrighted -- provided to the public domain.
+
 Files: lib/getopt.c, lib/getopt1.c, lib/getopt.in.h
 Copyright: © 1987-2007 Free Software Foundation, Inc.
 X-Other-Authors: Ulrich Drepper
