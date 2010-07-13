@@ -1,4 +1,4 @@
-xz-utils (4.999.9beta+20100602-1.1) unstable; urgency=low
+xz-utils (4.999.9beta+20100713-0.1) unstable; urgency=low
 
   [ Thorsten Glaser ]
   * Explicitly depend on autoconf (>= 2.64~) due to AC_PREREQ,
@@ -6,6 +6,9 @@ xz-utils (4.999.9beta+20100602-1.1) unstable; urgency=low
 
   [ Jonathan Nieder ]
   * Upload to unstable.
+  * New upstream snapshot, taken from upstream commit a540198f.
+    - xz: The new --no-adjust option can be used to error out if there
+      is insufficient memory for the chosen compression level.
   * Standards-Version: 3.9.0 (checked).
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 12 Jul 2010 15:46:43 -0500
