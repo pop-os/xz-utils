@@ -12,6 +12,7 @@ xz-utils (4.999.9beta+20100713-0.1) unstable; urgency=low
   * liblzma-dev: Install examples to /usr/share/doc/liblzma-dev.
   * debian/autogen.sh: Don’t regenerate upstream changelog when it is
     not out of date.
+  * debian/rules get-orig-source: Use gzip --no-name.
   * Standards-Version: 3.9.0.
     + Drop unpack-time conflicts in favor of configuration-time
       conflicts (Replaces + Breaks).

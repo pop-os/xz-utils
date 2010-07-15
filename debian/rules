@@ -96,5 +96,5 @@ get-orig-source:
 		echo "packaging $$commit_name"; \
 		git archive --format=tar "$$commit_name" \
 			--prefix="xz-utils-$$upstream_version/" | \
-		gzip -9 > "../xz-utils_$$upstream_version.orig.tar.gz"
+		gzip -n -9 > "../xz-utils_$$upstream_version.orig.tar.gz"
 	rm -fr debian-orig-source
