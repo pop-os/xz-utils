@@ -120,14 +120,6 @@ Architecture: all
 Depends: ${misc:Depends}
 Suggests: liblzma-dev
 Description: XZ-format compression library - API documentation
- XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
- compression format, which provides memory-hungry but powerful
- compression (often better than bzip2) and fast, easy decompression.
- .
- The native format of liblzma is XZ; it also supports raw (headerless)
- streams and the older LZMA format used by lzma. (For 7-Zip's related
- format, use the p7zip package instead.)
- .
  This package contains a reference manual for the liblzma data
  compression library, in Doxygen-generated HTML files. The purpose
  of each struct, macro, and function in the public interface is

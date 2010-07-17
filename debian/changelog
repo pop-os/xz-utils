@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100713-1.1) experimental; urgency=low
+
+  * liblzma-doc: Simplify package description.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 16 Jul 2010 22:30:49 -0500
+
 xz-utils (4.999.9beta+20100713-1) unstable; urgency=low
 
   [ Thorsten Glaser ]
