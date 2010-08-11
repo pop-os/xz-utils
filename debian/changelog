@@ -1,5 +1,17 @@
-xz-utils (4.999.9beta+20100713-1.1) experimental; urgency=low
+xz-utils (4.999.9beta+20100810-0.1) experimental; urgency=low
 
+  * New upstream snapshot, taken from upstream commit d5653ba8a.
+    - xz: The memory usage limiter is now disabled by default.
+    - xz: Support for an XZ_DEFAULTS environment variable was added.
+      It contains user-specific default settings, such as memory usage
+      limits, and can be overridden by the command line and XZ_OPT.
+    - xz: The new --memlimit-compress and --memlimit-decompress
+      options allow the memory usage limit to be set separately for
+      compression and decompression.  A new --memlimit alias has been
+      added for the existing --memory option.
+    - xz: The --info-memory option (with or without --robot) now prints
+      how much RAM is installed in addition to the compression and
+      decompression memory limits.
   * liblzma-doc: Simplify package description.
   * debian/control: Build-Depends: autopoint | gettext (<< 0.18-1),
     autopoint | cvs instead of autopoint, to help with backporting.

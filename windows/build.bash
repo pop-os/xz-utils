@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 ###############################################################################
 #
@@ -48,9 +48,9 @@ esac
 
 # This script can be run either at the top-level directory of the package
 # or in the same directory containing this script.
-if [ ! -f windows/build.sh ]; then
+if [ ! -f windows/build.bash ]; then
 	cd ..
-	if [ ! -f windows/build.sh ]; then
+	if [ ! -f windows/build.bash ]; then
 		echo "You are in a wrong directory." >&2
 		exit 1
 	fi
@@ -106,7 +106,8 @@ buildit()
 	cp -v src/xz/xz.exe src/liblzma/.libs/liblzma.a "$DESTDIR"
 	cp -v src/liblzma/.libs/liblzma-*.dll "$DESTDIR/liblzma.dll"
 
-	strip -v "$DESTDIR/"*
+	strip -v "$DESTDIR/"*.{exe,dll}
+	strip -vg "$DESTDIR/"*.a
 }
 
 # Copy files and convert newlines from LF to CR+LF. Optinally add a suffix
