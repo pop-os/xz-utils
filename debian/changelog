@@ -1,4 +1,4 @@
-xz-utils (4.999.9beta+20100810-0.1) experimental; urgency=low
+xz-utils (4.999.9beta+20100810-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit d5653ba8a.
     - xz: The memory usage limiter is now disabled by default.
@@ -17,7 +17,7 @@ xz-utils (4.999.9beta+20100810-0.1) experimental; urgency=low
     autopoint | cvs instead of autopoint, to help with backporting.
     Thanks to Thorsten Glaser for a report.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 16 Jul 2010 22:30:49 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 10 Aug 2010 20:27:14 -0500
 
 xz-utils (4.999.9beta+20100713-1) unstable; urgency=low
 
