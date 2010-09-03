@@ -1,3 +1,9 @@
+xz-utils (4.999.9beta+20100810-1.1) experimental; urgency=low
+
+  * debian/copyright: Update upstream Git URL.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 03 Sep 2010 14:30:22 -0500
+
 xz-utils (4.999.9beta+20100810-1) unstable; urgency=low
 
   * New upstream snapshot, taken from upstream commit d5653ba8a.
