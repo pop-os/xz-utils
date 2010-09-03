@@ -1,6 +1,7 @@
 xz-utils (4.999.9beta+20100810-1.1) experimental; urgency=low
 
   * debian/copyright: Update upstream Git URL.
+  * debian/changelog.upstream.sh: Permit terser changelog lines.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 03 Sep 2010 14:30:22 -0500
 
