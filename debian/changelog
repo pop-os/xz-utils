@@ -1,5 +1,20 @@
-xz-utils (4.999.9beta+20100810-1.1) experimental; urgency=low
+xz-utils (4.999.9beta+20100903-0.1) experimental; urgency=low
 
+  * New snapshot, taken from upstream commit 373ee26.
+    - liblzma: The settings for compression levels 0 through 5
+      (used by xz -0/.../-5) have been tweaked.  This affects the
+      speed, compression ratio, and memory usage at compression and
+      decompression time.
+    - Does not search so hard for a match when a low "nice match
+      length" setting is specified without a depth.
+    - xz: The -1/.../-9 preset options override any previously
+      specified filters, rather than vice versa.  To mix presets
+      with filter options, use the --lzma2=preset=n option.
+    - xz: Warns about --memlimit-compress settings that result in
+      compression settings changing even if no explicit -1/.../-9,
+      --lzma1, or --lzma2 option was used.
+    - "xz -v -v --compress" now prints an estimate of the memory
+      required to decompress a file.
   * debian/copyright: Update upstream Git URL.
   * debian/changelog.upstream.sh: Permit terser changelog lines.
 
