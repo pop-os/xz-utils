@@ -21,4 +21,15 @@ package does not provide those links itself.  If you would like XZ Utils
 to provide these commands by default for all users, install the
 xz-lzma package.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 04 Jun 2010 02:25:06 -0500
+The memory usage of xz can vary from a few hundred kilobytes to several
+gigabytes depending on the compression settings.  If you would like xz
+to automatically scale down its settings while compressing to decrease
+memory usage, you can declare so by adding an option like the
+following to your environment (e.g., in ~/.profile):
+
+	XZ_DEFAULTS=--memlimit-compress=256MiB
+	export XZ_DEFAULTS
+
+See the "Memory usage" section of the xz(1) manual page for details.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 26 Sep 2010 14:33:55 -0500

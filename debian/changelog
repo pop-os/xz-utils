@@ -9,6 +9,7 @@ xz-utils (4.999.9beta+20100926-1) experimental; urgency=low
     - xz: New German and Italian translations.
     - Various documentation, message, and translation updates.
   * debian/rules get-orig-source: Update upstream Git URL.
+  * xz-utils/README.Debian: Advertise XZ_DEFAULTS.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 26 Sep 2010 13:37:33 -0500
 
