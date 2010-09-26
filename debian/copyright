@@ -250,8 +250,8 @@ X-Generated-With: src/liblzma/check/crc32_tablegen.c,
 License: none
  No copyright to license.
 
-Files: .gitignore, m4/.gitignore, po/.gitignore, po/POTFILES.in
-Copyright: none; these are just short lists of files
+Files: .gitignore, m4/.gitignore, po/.gitignore, po/LINGUAS, po/POTFILES.in
+Copyright: none; these are just short lists.
 License: none
  No copyright to license.
 
@@ -269,11 +269,18 @@ License: PD
  The new files are just compiled and assembled object files,
  and thus don't contain any copyrighted code.
 
-Files: po/cs.po
-Copyright: 2009, Marek Černocký
-License: missing
- No copyright notice.  Probably intended to be released into the
- public domain like most of XZ Utils, but the file does not say so.
+Files: po/cs.po, po/de.po
+Copyright: 2010, Marek Černocký
+           2010, Andre Noll
+License: PD
+ This file is put in the public domain.
+
+Files: po/it.po
+Copyright: 2009, 2010, Gruppo traduzione italiano di Ubuntu-it
+           2010, Lorenzo De Liso
+           2009, 2010, Milo Casagrande
+License: PD
+ This file is in the public domain
 
 Files: dos/config.h
 Copyright: © 1992, 1993, 1994, 1999, 2000, 2001, 2002, 2005
