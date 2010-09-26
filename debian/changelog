@@ -1,5 +1,13 @@
-xz-utils (4.999.9beta+20100903-1.1) experimental; urgency=low
+xz-utils (4.999.9beta+20100926-1) experimental; urgency=low
 
+  * New snapshot, taken from upstream commit 075257a.
+    - liblzma: The meaning of --extreme has been tweaked to address
+      cases in which it made the compression ratio worse.  Some files
+      might benefit slightly less from --extreme.
+    - xz: Table columns are not misaligned any more in messages with
+      multi-byte characters (e.g., file sizes with LANG=fi_FI.UTF-8).
+    - xz: New German and Italian translations.
+    - Various documentation, message, and translation updates.
   * debian/rules get-orig-source: Update upstream Git URL.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 26 Sep 2010 13:37:33 -0500
