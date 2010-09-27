@@ -1,6 +1,6 @@
-xz-utils (4.999.9beta+20100926-1) experimental; urgency=low
+xz-utils (4.999.9beta+20100927-1) experimental; urgency=low
 
-  * New snapshot, taken from upstream commit 075257a.
+  * New snapshot, taken from upstream commit cec0ddc.
     - liblzma: The meaning of --extreme has been tweaked to address
       cases in which it made the compression ratio worse.  Some files
       might benefit slightly less from --extreme.
@@ -12,7 +12,7 @@ xz-utils (4.999.9beta+20100926-1) experimental; urgency=low
   * debian/rules get-orig-source: Update upstream Git URL.
   * xz-utils/README.Debian: Advertise XZ_DEFAULTS.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 26 Sep 2010 17:04:54 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 27 Sep 2010 16:22:22 -0500
 
 xz-utils (4.999.9beta+20100903-1) experimental; urgency=low
 
