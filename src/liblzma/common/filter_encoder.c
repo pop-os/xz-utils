@@ -226,6 +226,24 @@ lzma_raw_encoder_memusage(const lzma_filter *filters)
 }
 
 
+/// \brief       Compatibility function to avoid breaking ABI.
+///
+/// The lzma_chunk_size() function is a predecessor of the current
+/// lzma_mt_block_size(). At the time it was written, no filter
+/// encoder implemented the block_size method, so it always returned
+/// zero. The function was removed in XZ Utils 5.0.0.
+///
+/// As a temporary, Debian-specific change, we continue to export it
+/// to avoid breaking automatically generated language bindings and
+/// similar applications that might have linked to the function by
+/// mistake.
+
+extern LZMA_API(lzma_vli)
+lzma_chunk_size(const lzma_filter *filters)
+{
+	return 0;
+}
+
 extern uint64_t
 lzma_mt_block_size(const lzma_filter *filters)
 {
