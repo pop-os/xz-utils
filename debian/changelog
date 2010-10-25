@@ -14,6 +14,8 @@ xz-utils (5.0.0-0.1) experimental; urgency=low
   * liblzma/README.Debian: Document ABI differences from upstream.
   * Copy sample code not included in the release tarball from
     the development upstream repository to debian/examples.
+  * debian/rules clean: Remove some files not included in the
+    release tarball.
   * copyright: List new INSTALL.generic license.
   * debian/rules clean: Take new build-aux scripts into account.
   * debian/rules:  Adapt for upstream build system changes.
