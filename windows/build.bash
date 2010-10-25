@@ -5,7 +5,7 @@
 # Build a binary package on Windows with MinGW and MSYS
 #
 # Set the paths where MinGW, Mingw-w32, or MinGW-w64 are installed. If both
-# MinGW and MinGW-w32 are specified, MinGW will be used. If there is no
+# MinGW and MinGW-w32 are specified, MinGW-w32 will be used. If there is no
 # 32-bit or 64-bit compiler at all, it is simply skipped.
 #
 # Optionally, 7-Zip is used to create the final .zip and .7z packages.
@@ -98,10 +98,11 @@ buildit()
 		--prefix= \
 		--disable-nls \
 		--disable-threads \
-		--enable-dynamic=no \
 		--build="$BUILD" \
 		CFLAGS="$CFLAGS -O2"
-	make check
+	make -C src/liblzma
+	make -C src/xz LDFLAGS=-static
+	make -C tests check
 
 	cp -v src/xz/xz.exe src/liblzma/.libs/liblzma.a "$DESTDIR"
 	cp -v src/liblzma/.libs/liblzma-*.dll "$DESTDIR/liblzma.dll"
@@ -133,19 +134,19 @@ txtcp()
 # support even Win95.
 #
 # FIXME: Using i486 in the configure triplet may be wrong.
-if [ -d "$MINGW_DIR" ]; then
-	# 32-bit x86, Win95 or later, using MinGW
-	PATH=$MINGW_DIR/bin:$PATH \
-			buildit \
-			pkg/bin_i486 \
-			i486-pc-mingw32 \
-			'-march=i486 -mtune=generic'
-elif [ -d "$MINGW_W32_DIR" ]; then
+if [ -d "$MINGW_W32_DIR" ]; then
 	# 32-bit x86, Win95 or later, using MinGW-w32
 	PATH=$MINGW_W32_DIR/bin:$MINGW_W32_DIR/i686-w64-mingw32/bin:$PATH \
 			buildit \
 			pkg/bin_i486 \
 			i486-w64-mingw32 \
+			'-march=i486 -mtune=generic'
+elif [ -d "$MINGW_DIR" ]; then
+	# 32-bit x86, Win95 or later, using MinGW
+	PATH=$MINGW_DIR/bin:$PATH \
+			buildit \
+			pkg/bin_i486 \
+			i486-pc-mingw32 \
 			'-march=i486 -mtune=generic'
 fi
 
@@ -165,14 +166,17 @@ txtcp pkg/include "" src/liblzma/api/lzma.h
 txtcp pkg/include/lzma "" src/liblzma/api/lzma/*.h
 txtcp pkg/doc "" src/liblzma/liblzma.def
 txtcp pkg/doc .txt AUTHORS COPYING NEWS README THANKS TODO
-txtcp pkg/doc "" doc/*.txt
+txtcp pkg/doc "" doc/*.txt windows/README-Windows.txt
 txtcp pkg/doc/manuals "" doc/man/txt/{xz,xzdec,lzmainfo}.txt
 cp -v doc/man/pdf-*/{xz,xzdec,lzmainfo}-*.pdf pkg/doc/manuals
-txtcp pkg "" windows/README-Windows.txt
+
+if [ -f windows/COPYING-Windows.txt ]; then
+	txtcp pkg/doc "" windows/COPYING-Windows.txt
+fi
 
 # Create the package. This requires 7z.exe from 7-Zip. If it wasn't found,
 # this step is skipped and you have to zip it yourself.
-VER=$(sh version.sh)
+VER=$(sh build-aux/version.sh)
 cd pkg
 if [ -x "$SEVENZ_EXE" ]; then
 	"$SEVENZ_EXE" a -tzip ../xz-$VER-windows.zip *
@@ -182,6 +186,13 @@ else
 	echo "NOTE: 7z.exe was not found. xz-$VER-windows.zip"
 	echo "      and xz-$VER-windows.7z were not created."
 	echo "      You can create them yourself from the pkg directory."
+fi
+
+if [ ! -f ../windows/COPYING-Windows.txt ]; then
+	echo
+	echo "NOTE: windows/COPYING-Windows.txt doesn't exists."
+	echo "      MinGW(-w64) runtime copyright information"
+	echo "      is not included in the package."
 fi
 
 echo

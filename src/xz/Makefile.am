@@ -46,10 +46,8 @@ xz_CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-I$(top_srcdir)/src/common \
 	-I$(top_srcdir)/src/liblzma/api \
-	-I$(top_builddir)/lib \
-	$(STATIC_CPPFLAGS)
+	-I$(top_builddir)/lib
 
-xz_LDFLAGS = $(STATIC_LDFLAGS)
 xz_LDADD = $(top_builddir)/src/liblzma/liblzma.la
 
 if COND_GNULIB
@@ -71,7 +69,11 @@ dist_man_MANS = xz.1
 
 ## Create symlinks for unxz and xzcat for convenience. Create symlinks also
 ## for lzma, unlzma, and lzcat for compatibility with LZMA Utils 4.32.x.
-xzlinks = unxz xzcat lzma unlzma lzcat
+xzlinks = unxz xzcat
+
+if COND_LZMALINKS
+xzlinks += lzma unlzma lzcat
+endif
 
 install-exec-hook:
 	cd $(DESTDIR)$(bindir) && \

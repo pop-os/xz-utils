@@ -1,3 +1,21 @@
+xz-utils (5.0.0-0.1) experimental; urgency=low
+
+  * First stable upstream release.
+    - xz avoids SA_RESTART.  This should not have a visible effect
+      because xz already blocked signals during operations that
+      would be difficult to resume after interruption.
+    - liblzma: The coders returned by lzma_index_encoder() and
+      lzma_index_decoder() support an LZMA_FINISH action, with
+      identical semantics to LZMA_RUN.
+    - liblzma: ABI breaks:
+      + lzma_chunk_size() (which is only a placeholder) was removed.
+      + some structs have added or rearranged padding.
+    - The printable (PDF and PS) versions of the manual are easier
+      to read.
+    - Many documentation and build system cleanups.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 01:53:46 -0500
+
 xz-utils (4.999.9beta+20100927-1) experimental; urgency=low
 
   * New snapshot, taken from upstream commit cec0ddc.
