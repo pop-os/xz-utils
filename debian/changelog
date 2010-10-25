@@ -1,3 +1,9 @@
+xz-utils (5.0.0-1.1) experimental; urgency=low
+
+  * liblzma2, liblzma-dev, xz-lzma: Install release notes.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 11:29:23 -0500
+
 xz-utils (5.0.0-1) experimental; urgency=low
 
   * Upload to experimental.
