@@ -7,12 +7,10 @@ xz-utils (5.0.0-0.1) experimental; urgency=low
     - liblzma: The coders returned by lzma_index_encoder() and
       lzma_index_decoder() support an LZMA_FINISH action, with
       identical semantics to LZMA_RUN.
-    - liblzma: ABI breaks:
-      + lzma_chunk_size() (which is only a placeholder) was removed.
-      + some structs have added or rearranged padding.
     - The printable (PDF and PS) versions of the manual are easier
       to read.
     - Many documentation and build system cleanups.
+  * liblzma: Back out upstream ABI tweaks.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 01:53:46 -0500
 
