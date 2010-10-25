@@ -38,7 +38,6 @@ while (my $line = <>) {
 '
 
 dh_testdir
-rm -fr build-aux
 rm -f ABOUT-NLS aclocal.m4 config.h.in configure
 (cd po && perl -e "$remove_files") < debian/generated-po.list
 (cd m4 && perl -e "$remove_files") < debian/generated-m4.list
