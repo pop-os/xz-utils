@@ -1,6 +1,7 @@
-xz-utils (5.0.0-0.1) experimental; urgency=low
+xz-utils (5.0.0-1) experimental; urgency=low
 
-  * First stable upstream release.
+  * Upload to experimental.
+  * New stable upstream release.  Closes: #592298.
     - xz avoids SA_RESTART.  This should not have a visible effect
       because xz already blocked signals during operations that
       would be difficult to resume after interruption.
@@ -22,7 +23,7 @@ xz-utils (5.0.0-0.1) experimental; urgency=low
     Closes: #540443.
   * xz-utils, xzdec: Install release notes.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 01:53:46 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 05:45:18 -0500
 
 xz-utils (4.999.9beta+20100927-1) experimental; urgency=low
 
