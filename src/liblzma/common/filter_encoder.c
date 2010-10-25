@@ -226,7 +226,6 @@ lzma_raw_encoder_memusage(const lzma_filter *filters)
 }
 
 
-/*
 extern LZMA_API(lzma_vli)
 lzma_chunk_size(const lzma_filter *filters)
 {
@@ -248,7 +247,6 @@ lzma_chunk_size(const lzma_filter *filters)
 
 	return max;
 }
-*/
 
 
 extern LZMA_API(lzma_ret)
