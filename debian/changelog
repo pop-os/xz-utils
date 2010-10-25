@@ -14,6 +14,8 @@ xz-utils (5.0.0-0.1) experimental; urgency=low
   * liblzma/README.Debian: Document ABI differences from upstream.
   * copyright: List new INSTALL.generic license.
   * debian/rules clean: Take new build-aux scripts into account.
+  * debian/rules:  Adapt for upstream build system changes.
+    Closes: #540443.
   * xz-utils, xzdec: Install release notes.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 01:53:46 -0500
