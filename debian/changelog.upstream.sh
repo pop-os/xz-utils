@@ -93,6 +93,9 @@ add_version() {
 		echo "Version $last:"
 		echo "Version $last:" | tr "[:print:]" -
 		limiter=
+	elif test "$new" = "$last"
+	then
+		return 0
 	else
 		echo "Version $last; changes since $new:"
 		echo "Version $last; changes since $new:" | tr "[:print:]" -

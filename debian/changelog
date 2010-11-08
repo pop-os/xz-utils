@@ -5,6 +5,8 @@ xz-utils (5.0.0-1.1) experimental; urgency=low
     lzma_index_decoder to the version in which they gained LZMA_FINISH
     support.
   * xz-utils/README.Debian: emphasize differences from upstream ABI.
+  * debian/changelog.upstream.sh: Cope with multiple Debian revisions per
+    tagged release.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 11:29:23 -0500
 
