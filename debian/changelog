@@ -13,6 +13,8 @@ xz-utils (5.1.0alpha+20110206-0.1) experimental; urgency=low
       to name source files.  Closes: #572273.
     - xz: New Polish translation.
   * Update copyright file.
+  * Remove example programs from debian/examples.  They are included
+    in the upstream source package now.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 16 Mar 2011 23:12:21 -0500
 

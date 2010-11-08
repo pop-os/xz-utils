@@ -1,1 +1,0 @@
-extend-diff-ignore = doc/examples/xz_pipe_(?:de)?comp.c$
