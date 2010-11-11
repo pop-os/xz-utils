@@ -1,14 +1,15 @@
-xz-utils (5.0.0-1.1) experimental; urgency=low
+xz-utils (5.0.0-2) unstable; urgency=low
 
+  * Upload to unstable.
   * liblzma2, liblzma-dev, xz-lzma: Install release notes.
   * debian/symbols: Bump the minimal versions for lzma_index_encoder,
     lzma_index_decoder to the version in which they gained LZMA_FINISH
     support.
-  * xz-utils/README.Debian: emphasize differences from upstream ABI.
-  * debian/changelog.upstream.sh: Cope with multiple Debian revisions per
-    tagged release.
+  * xz-utils/README.Debian: Document differences from upstream ABI.
+  * debian/changelog.upstream.sh: Avoid empty changelog entries when
+    multiple Debian revisions match an upstream tag.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 25 Oct 2010 11:29:23 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 11 Nov 2010 13:45:20 -0600
 
 xz-utils (5.0.0-1) experimental; urgency=low
 
