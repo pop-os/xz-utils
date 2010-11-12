@@ -12,6 +12,7 @@ xz-utils (5.1.0alpha+20110206-0.1) experimental; urgency=low
     - The Doxygen-generated documentation uses short, relative paths
       to name source files.  Closes: #572273.
     - xz: New Polish translation.
+  * Update copyright file.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 16 Mar 2011 23:12:21 -0500
 
