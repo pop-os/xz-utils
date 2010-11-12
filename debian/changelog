@@ -15,6 +15,8 @@ xz-utils (5.1.0alpha+20110206-0.1) experimental; urgency=low
   * Update copyright file.
   * Remove example programs from debian/examples.  They are included
     in the upstream source package now.
+  * debian/rules: Treat DEB_BUILD_OPTIONS=nocheck as a request not to
+    run build-time tests.  Thanks to Thorsten Glaser for a reminder.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 16 Mar 2011 23:12:21 -0500
 

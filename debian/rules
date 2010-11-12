@@ -30,12 +30,8 @@ override_dh_auto_build:
 		doxygen Doxyfile; \
 	fi
 
-override_dh_auto_test:
-	$(MAKE) -C debian/normal-build check
-	$(MAKE) -C debian/xzdec-build/tests create_compress_files
-	$(MAKE) -C debian/xzdec-build/tests \
-		TESTS="test_check test_files.sh test_compress.sh" \
-		check-TESTS
+# Run tests if and only if nocheck is unset (see below).
+override_dh_auto_test::
 
 override_dh_auto_install:
 	dh_auto_install --builddirectory debian/normal-build
@@ -74,6 +70,15 @@ endif
 ifneq (,$(filter quiet,$(DEB_BUILD_OPTIONS)))
     opt_quiet = --quiet
     MAKEFLAGS += --quiet
+endif
+
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+override_dh_auto_test::
+	$(MAKE) -C debian/normal-build check
+	$(MAKE) -C debian/xzdec-build/tests create_compress_files
+	$(MAKE) -C debian/xzdec-build/tests \
+		TESTS="test_check test_files.sh test_compress.sh" \
+		check-TESTS
 endif
 
 # Build a tarball with the latest upstream version.
