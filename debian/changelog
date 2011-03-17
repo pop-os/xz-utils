@@ -1,3 +1,20 @@
+xz-utils (5.1.0alpha+20110206-0.1) experimental; urgency=low
+
+  * Upload to experimental.
+  * New snapshot, taken from upstream commit 96f94bc.
+    - xz with -S.suf will refuse to compress file.suf because the
+      uncompressed file’s name already ends with the suffix .suf.
+    - xz --force no longer refuses to compress setuid, setgid,
+      sticky, or multiply linked files.
+    - xz --help: Czech output uses a more correct term for files with
+      holes.  Thanks to Petr Hubený for a report.  Closes: #605762.
+    - xzdiff can read gzip- and bzip2-compressed files now.
+    - The Doxygen-generated documentation uses short, relative paths
+      to name source files.  Closes: #572273.
+    - xz: New Polish translation.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 16 Mar 2011 23:12:21 -0500
+
 xz-utils (5.0.0-2) unstable; urgency=low
 
   * Upload to unstable.
