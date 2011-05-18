@@ -40,6 +40,8 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
   * Update copyright file.
   * Remove example programs from debian/examples.  They are included
     in the upstream source package now.
+  * debian/symbols: Bump the minimal version for LZMA2 encoder
+    functions that reject more bad arguments and skip empty blocks.
   * debian/rules: ./configure --disable-symbol-versions for now.
   * debian/rules: Treat DEB_BUILD_OPTIONS=nocheck as a request not to
     run build-time tests.  Thanks to Thorsten Glaser for a reminder.

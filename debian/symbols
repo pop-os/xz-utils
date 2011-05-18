@@ -5,7 +5,7 @@ liblzma.so.2 liblzma2 #MINVER#
  lzma_auto_decoder@Base 4.999.9beta
  lzma_block_buffer_bound@Base 4.999.9beta
  lzma_block_buffer_decode@Base 4.999.9beta
- lzma_block_buffer_encode@Base 4.999.9beta
+ lzma_block_buffer_encode@Base 5.1.1alpha+20110809
  lzma_block_compressed_size@Base 4.999.9beta+20100602
  lzma_block_decoder@Base 4.999.9beta
  lzma_block_encoder@Base 4.999.9beta
@@ -20,7 +20,7 @@ liblzma.so.2 liblzma2 #MINVER#
  lzma_code@Base 4.999.9beta
  lzma_crc32@Base 4.999.9beta
  lzma_crc64@Base 4.999.9beta
- lzma_easy_buffer_encode@Base 4.999.9beta
+ lzma_easy_buffer_encode@Base 5.1.1alpha+20110809
  lzma_easy_decoder_memusage@Base 4.999.9beta
  lzma_easy_encoder@Base 4.999.9beta
  lzma_easy_encoder_memusage@Base 4.999.9beta
@@ -81,7 +81,7 @@ liblzma.so.2 liblzma2 #MINVER#
  lzma_raw_encoder_memusage@Base 4.999.9beta
  lzma_stream_buffer_bound@Base 4.999.9beta
  lzma_stream_buffer_decode@Base 4.999.9beta
- lzma_stream_buffer_encode@Base 4.999.9beta
+ lzma_stream_buffer_encode@Base 5.1.1alpha+20110809
  lzma_stream_decoder@Base 4.999.9beta
  lzma_stream_encoder@Base 4.999.9beta
  lzma_stream_flags_compare@Base 4.999.9beta
