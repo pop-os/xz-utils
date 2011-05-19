@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 8.9.0), perl,
  gettext, autopoint | gettext (<< 0.18-1), autopoint | cvs
 Build-Depends-Indep: doxygen
 Build-Conflicts: automake1.4
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Vcs-Browser: http://git.debian.org/?p=collab-maint/xz.git
 Vcs-Git: git://git.debian.org/collab-maint/xz.git
 Homepage: http://tukaani.org/xz/

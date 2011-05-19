@@ -51,6 +51,7 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
       instead of /usr/lib.
     - Thanks to Steve Langasek for explaining the process on the
       Debian wiki.
+  * Standards-Version: 3.9.2 (checked).
   * debian/control: liblzma2 is Multi-Arch: same, while xz-utils
     and xzdec are Multi-Arch: foreign.
   * debian/symbols: Bump the minimal version for LZMA2 encoder
