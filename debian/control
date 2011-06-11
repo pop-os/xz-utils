@@ -3,7 +3,7 @@ Section: utils
 Priority: required
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
-Build-Depends: debhelper (>= 7.4.10), perl,
+Build-Depends: debhelper (>= 8.1.3), perl,
  autoconf (>= 2.64~), automake, libtool (>= 2.2),
  gettext, autopoint | gettext (<< 0.18-1), autopoint | cvs
 Build-Depends-Indep: doxygen
@@ -17,6 +17,7 @@ Package: liblzma2
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
 Description: XZ-format compression library
  XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
  compression format, which provides memory-hungry but powerful

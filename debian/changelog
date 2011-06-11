@@ -40,6 +40,17 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
   * Update copyright file.
   * Remove example programs from debian/examples.  They are included
     in the upstream source package now.
+  * Move liblzma to an architecture-specific directory, as
+    preparation for allowing the native library and
+    foreign-architecture versions to be installed simultaneously.
+    - liblzma2: Pre-Depends: multiarch-support.
+    - Use debhelper compatibility level 9.  This requires passing
+      the dh sequence name before other options when invoking dh in
+      debian/rules.  Build-Depends: debhelper (>= 8.1.3).
+    - liblzma2, liblzma-dev: Install files under /usr/lib/<triplet>
+      instead of /usr/lib.
+    - Thanks to Steve Langasek for explaining the process on the
+      Debian wiki.
   * debian/symbols: Bump the minimal version for LZMA2 encoder
     functions that reject more bad arguments and skip empty blocks.
   * debian/rules: ./configure --disable-symbol-versions for now.

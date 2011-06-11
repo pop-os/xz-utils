@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 build clean install binary-arch binary-indep binary:
-	+dh --parallel $(opt_no_act) $@
+	+dh $@ --parallel $(opt_no_act)
 
 override_dh_auto_clean:
 	dh_auto_clean --builddirectory debian/xzdec-build

@@ -1,1 +1,1 @@
-usr/lib/liblzma.so.*
+usr/lib/*/liblzma.so.*
