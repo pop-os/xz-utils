@@ -94,12 +94,3 @@ global:
 	lzma_vli_encode;
 	lzma_vli_size;
 };
-
-XZ_5.1.1alpha {
-global:
-	lzma_stream_encoder_mt;
-	lzma_stream_encoder_mt_memusage;
-
-local:
-	*;
-} XZ_5.0;
