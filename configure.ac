@@ -467,7 +467,6 @@ if test "x$enable_threads" = xyes; then
 	AC_CHECK_DECLS([CLOCK_MONOTONIC], [], [], [[#include <time.h>]])
 	CFLAGS=$OLD_CFLAGS
 fi
-AM_CONDITIONAL([COND_THREADS], [test "x$ax_pthread_ok" = xyes])
 
 echo
 echo "Initializing Libtool:"

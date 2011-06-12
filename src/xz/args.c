@@ -179,9 +179,8 @@ parse_real(args_info *args, int argc, char **argv)
 			break;
 
 		case 'T':
-			// The max is from src/liblzma/common/common.h.
-			hardware_threads_set(str_to_uint64("threads",
-					optarg, 0, 16384));
+			hardware_threadlimit_set(str_to_uint64(
+					"threads", optarg, 0, UINT32_MAX));
 			break;
 
 		// --version
