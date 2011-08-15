@@ -18,6 +18,7 @@ Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
 Description: XZ-format compression library
  XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
  compression format, which provides memory-hungry but powerful
@@ -30,6 +31,7 @@ Description: XZ-format compression library
 Package: xz-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Multi-Arch: foreign
 Suggests: xz-lzma
 Breaks: xz-lzma (<< 4.999.9beta+20091004-1)
 Replaces: xz-lzma (<< 4.999.9beta+20091004-1)
@@ -76,6 +78,7 @@ Package: xzdec
 Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Multi-Arch: foreign
 Suggests: xz-utils
 Breaks: xz-lzma (<< 4.999.9beta+20091004-1)
 Replaces: xz-lzma (<< 4.999.9beta+20091004-1)
