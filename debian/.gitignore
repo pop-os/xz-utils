@@ -6,6 +6,8 @@
 *.debhelper.log
 *.debhelper
 
+/*-stamp
+
 /normal-build/
 /xzdec-build/
 /tmp/

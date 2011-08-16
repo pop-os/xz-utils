@@ -56,6 +56,10 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
   * debian/symbols: Bump the minimal version for LZMA2 encoder
     functions that reject more bad arguments and skip empty blocks.
   * debian/rules: ./configure --disable-symbol-versions for now.
+  * debian/rules: Provide build-arch and build-indep targets that
+    only build the code and the API documentation, respectively.
+    Thanks to Roger Leigh for suggesting it through lintian.
+    Build-Depends: debhelper (>= 8.9.0).
   * debian/rules: Treat DEB_BUILD_OPTIONS=nocheck as a request not to
     run build-time tests.  Thanks to Thorsten Glaser for a reminder.
 
