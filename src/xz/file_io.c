@@ -53,7 +53,7 @@ static bool io_write_buf(file_pair *pair, const uint8_t *buf, size_t size);
 extern void
 io_init(void)
 {
-	// Make sure that stdin, stdout, and and stderr are connected to
+	// Make sure that stdin, stdout, and stderr are connected to
 	// a valid file descriptor. Exit immediately with exit code ERROR
 	// if we cannot make the file descriptors valid. Maybe we should
 	// print an error message, but our stderr could be screwed anyway.
@@ -68,8 +68,7 @@ io_init(void)
 #ifdef __DJGPP__
 	// Avoid doing useless things when statting files.
 	// This isn't important but doesn't hurt.
-	_djstat_flags = _STAT_INODE | _STAT_EXEC_EXT
-			| _STAT_EXEC_MAGIC | _STAT_DIRSIZE;
+	_djstat_flags = _STAT_EXEC_EXT | _STAT_EXEC_MAGIC | _STAT_DIRSIZE;
 #endif
 
 	return;
@@ -294,6 +293,10 @@ io_open_src_real(file_pair *pair)
 #ifdef TUKLIB_DOSLIKE
 		setmode(STDIN_FILENO, O_BINARY);
 #endif
+#ifdef HAVE_POSIX_FADVISE
+		// It will fail if stdin is a pipe and that's fine.
+		(void)posix_fadvise(STDIN_FILENO, 0, 0, POSIX_FADV_SEQUENTIAL);
+#endif
 		return false;
 	}
 
@@ -448,8 +451,18 @@ io_open_src_real(file_pair *pair)
 
 	// Stat the source file. We need the result also when we copy
 	// the permissions, and when unlinking.
+	//
+	// NOTE: Use stat() instead of fstat() with DJGPP, because
+	// then we have a better chance to get st_ino value that can
+	// be used in io_open_dest_real() to prevent overwriting the
+	// source file.
+#ifdef __DJGPP__
+	if (stat(pair->src_name, &pair->src_st))
+		goto error_msg;
+#else
 	if (fstat(pair->src_fd, &pair->src_st))
 		goto error_msg;
+#endif
 
 	if (S_ISDIR(pair->src_st.st_mode)) {
 		message_warning(_("%s: Is a directory, skipping"),
@@ -495,6 +508,17 @@ io_open_src_real(file_pair *pair)
 			goto error;
 		}
 	}
+#endif
+
+#ifdef HAVE_POSIX_FADVISE
+	const int fadvise_ret = posix_fadvise(
+			pair->src_fd, 0, 0, POSIX_FADV_SEQUENTIAL);
+
+	// It shouldn't fail, but if it does anyway, it doesn't matter.
+	// Check it with an assertion so that if something gets messed
+	// up in the future, it will get caught when debugging is enabled.
+	assert(fadvise_ret == 0);
+	(void)fadvise_ret;
 #endif
 
 	return false;
@@ -584,6 +608,28 @@ io_open_dest_real(file_pair *pair)
 		if (pair->dest_name == NULL)
 			return true;
 
+#ifdef __DJGPP__
+		struct stat st;
+		if (stat(pair->dest_name, &st) == 0) {
+			// Check that it isn't a special file like "prn".
+			if (st.st_dev == -1) {
+				message_error("%s: Refusing to write to "
+						"a DOS special file",
+						pair->dest_name);
+				return true;
+			}
+
+			// Check that we aren't overwriting the source file.
+			if (st.st_dev == pair->src_st.st_dev
+					&& st.st_ino == pair->src_st.st_ino) {
+				message_error("%s: Output file is the same "
+						"as the input file",
+						pair->dest_name);
+				return true;
+			}
+		}
+#endif
+
 		// If --force was used, unlink the target file first.
 		if (opt_force && unlink(pair->dest_name) && errno != ENOENT) {
 			message_error(_("%s: Cannot remove: %s"),
@@ -606,17 +652,19 @@ io_open_dest_real(file_pair *pair)
 		}
 	}
 
-	// If this really fails... well, we have a safe fallback.
+#ifndef TUKLIB_DOSLIKE
+	// dest_st isn't used on DOS-like systems except as a dummy
+	// argument to io_unlink(), so don't fstat() on such systems.
 	if (fstat(pair->dest_fd, &pair->dest_st)) {
-#if defined(__VMS)
+		// If fstat() really fails, we have a safe fallback here.
+#	if defined(__VMS)
 		pair->dest_st.st_ino[0] = 0;
 		pair->dest_st.st_ino[1] = 0;
 		pair->dest_st.st_ino[2] = 0;
-#elif !defined(TUKLIB_DOSLIKE)
+#	else
 		pair->dest_st.st_dev = 0;
 		pair->dest_st.st_ino = 0;
-#endif
-#ifndef TUKLIB_DOSLIKE
+#	endif
 	} else if (try_sparse && opt_mode == MODE_DECOMPRESS) {
 		// When writing to standard output, we need to be extra
 		// careful:
@@ -674,8 +722,8 @@ io_open_dest_real(file_pair *pair)
 		}
 
 		pair->dest_try_sparse = true;
-#endif
 	}
+#endif
 
 	return false;
 }
@@ -787,6 +835,21 @@ io_close(file_pair *pair, bool success)
 	io_close_src(pair, success);
 
 	signals_unblock();
+
+	return;
+}
+
+
+extern void
+io_fix_src_pos(file_pair *pair, size_t rewind_size)
+{
+	assert(rewind_size <= IO_BUFFER_SIZE);
+
+	if (rewind_size > 0) {
+		// This doesn't need to work on unseekable file descriptors,
+		// so just ignore possible errors.
+		(void)lseek(pair->src_fd, -(off_t)(rewind_size), SEEK_CUR);
+	}
 
 	return;
 }

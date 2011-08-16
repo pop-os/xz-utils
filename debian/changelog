@@ -1,20 +1,46 @@
-xz-utils (5.1.0alpha+20110206-0.1) experimental; urgency=low
+xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
 
-  * Upload to experimental.
-  * New snapshot, taken from upstream commit 96f94bc.
-    - xz with -S.suf will refuse to compress file.suf because the
-      uncompressed file’s name already ends with the suffix .suf.
-    - xz --force no longer refuses to compress setuid, setgid,
-      sticky, or multiply linked files.
-    - xz --help: Czech output uses a more correct term for files with
-      holes.  Thanks to Petr Hubený for a report.  Closes: #605762.
-    - xzdiff can read gzip- and bzip2-compressed files now.
+  * New snapshot, taken from upstream commit 5c5b225.
+    - liblzma:
+      - lzma_stream_encoder() leaked memory.
+      - The LZMA2 decoder rejected streams that decompress to a
+        zero-length string.
+      - lzma_easy_buffer_encode() and lzma_stream_buffer_encode()
+        used to write such streams when asked to compress a 0-length
+        buffer.
+      - lzma_index_init() would segfault on allocation failure.
+      - liblzma: Various functions check their arguments (especially
+        choice of integrity check) better, making it harder to create
+        a corrupt .xz file instead of receiving an error.
+    - xz and scripts:
+      - "xz -v -v --list" would read and try to free() uninitialized
+        memory, continuing past the end of an on-stack array, when
+        asked to describe certain corrupted XZ files.
+      - xz -S.suf now refuses to compress a file whose name already
+        ends with the suffix “.suf”.
+      - xz --force can be used to compress setuid, setgid, sticky,
+        and multiply linked files.
+      - xz uses posix_fadvise() to speed up sequential input.
+      - xz --block-size forces a full flush periodically during
+        compression, for better random-access reading support and to
+        make simple parallelism possible in the future.
+      - unxz: The new --single-stream option discards trailing
+        garbage after the end of the first stream.
+      - xzdiff can read gzip- and bzip2-compressed files.
+      - xzdiff and xzgrep can read lzop-compressed files.
+      - xzegrep and xzfgrep perform extended regex and fixed-string
+        matches, respectively.  (The previous behavior was to always
+        use basic regexes.)
+      - xzgrep -l (= --files-with-match) works.
+      - The Czech “xz --help” output uses a more correct term for
+        files with holes.  Thanks to Petr Hubený.  Closes: #605762.
+      - xz: New Polish and French translations.
     - The Doxygen-generated documentation uses short, relative paths
       to name source files.  Closes: #572273.
-    - xz: New Polish translation.
   * Update copyright file.
   * Remove example programs from debian/examples.  They are included
     in the upstream source package now.
+  * debian/rules: ./configure --disable-symbol-versions for now.
   * debian/rules: Treat DEB_BUILD_OPTIONS=nocheck as a request not to
     run build-time tests.  Thanks to Thorsten Glaser for a reminder.
 

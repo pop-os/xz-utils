@@ -229,7 +229,7 @@ fi
 
 m4_define([SUPPORTED_CHECKS], [crc32,crc64,sha256])
 
-m4_foreach([NAME], [SUPPORTED_FILTERS],
+m4_foreach([NAME], [SUPPORTED_CHECKS],
 [enable_check_[]NAME=no
 ])dnl
 
@@ -403,6 +403,29 @@ AC_ARG_ENABLE([scripts], [AC_HELP_STRING([--disable-scripts],
 AM_CONDITIONAL([COND_SCRIPTS], [test x$enable_scripts != xno])
 
 
+#####################
+# Symbol versioning #
+#####################
+
+AC_MSG_CHECKING([if library symbol versioning should be used])
+AC_ARG_ENABLE([symbol-versions], [AC_HELP_STRING([--enable-symbol-versions],
+		[Use symbol versioning for liblzma. Enabled by default on
+		GNU/Linux, other GNU-based systems, and FreeBSD.])],
+	[], [enable_symbol_versions=auto])
+if test "x$enable_symbol_versions" = xauto; then
+	case $host_os in
+		gnu* | *-gnu* | freebsd*)
+			enable_symbol_versions=yes
+			;;
+		*)
+			enable_symbol_versions=no
+			;;
+	esac
+fi
+AC_MSG_RESULT([$enable_symbol_versions])
+AM_CONDITIONAL([COND_SYMVERS], [test "x$enable_symbol_versions" = xyes])
+
+
 ###############################################################################
 # Checks for programs.
 ###############################################################################
@@ -431,10 +454,18 @@ AC_USE_SYSTEM_EXTENSIONS
 if test "x$enable_threads" = xyes; then
 	echo
 	echo "Threading support:"
-	ACX_PTHREAD
+	AX_PTHREAD
 	LIBS="$LIBS $PTHREAD_LIBS"
 	AM_CFLAGS="$AM_CFLAGS $PTHREAD_CFLAGS"
 	CC="$PTHREAD_CC"
+
+	# These are nice to have but not mandatory.
+	OLD_CFLAGS=$CFLAGS
+	CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+	AC_SEARCH_LIBS([clock_gettime], [rt])
+	AC_CHECK_FUNCS([clock_gettime pthread_condattr_setclock])
+	AC_CHECK_DECLS([CLOCK_MONOTONIC], [], [], [[#include <time.h>]])
+	CFLAGS=$OLD_CFLAGS
 fi
 
 echo
@@ -517,11 +548,68 @@ gl_GETOPT
 # Find the best function to set timestamps.
 AC_CHECK_FUNCS([futimens futimes futimesat utimes utime], [break])
 
+# This is nice to have but not mandatory.
+AC_CHECK_FUNCS([posix_fadvise])
+
 TUKLIB_PROGNAME
 TUKLIB_INTEGER
 TUKLIB_PHYSMEM
 TUKLIB_CPUCORES
 TUKLIB_MBSTR
+
+# Check for system-provided SHA-256. At least the following is supported:
+#
+# OS       Headers                     Library  Type           Function
+# FreeBSD  sys/types.h + sha256.h      libmd    SHA256_CTX     SHA256_Init
+# NetBSD   sys/types.h + sha2.h                 SHA256_CTX     SHA256_Init
+# OpenBSD  sys/types.h + sha2.h                 SHA2_CTX       SHA256Init
+# Solaris  sys/types.h + sha2.h        libmd    SHA256_CTX     SHA256Init
+# MINIX 3  sys/types.h + minix/sha2.h  libutil  SHA256_CTX     SHA256_Init
+# Darwin   CommonCrypto/CommonDigest.h          CC_SHA256_CTX  CC_SHA256_Init
+#
+# Note that Darwin's CC_SHA256_Update takes buffer size as uint32_t instead
+# of size_t.
+#
+# We don't check for e.g. OpenSSL or libgcrypt because we don't want
+# to introduce dependencies to other packages by default. Maybe such
+# libraries could be supported via additional configure options though.
+#
+if test "x$enable_check_sha256" = "xyes"; then
+	# Test for Common Crypto before others, because Darwin has sha256.h
+	# too and we don't want to use that, because on older versions it
+	# uses OpenSSL functions, whose SHA256_Init is not guaranteed to
+	# succeed.
+	sha256_header_found=no
+	AC_CHECK_HEADERS(
+		[CommonCrypto/CommonDigest.h sha256.h sha2.h minix/sha2.h],
+		[sha256_header_found=yes ; break])
+	if test "x$sha256_header_found" = xyes; then
+		AC_CHECK_TYPES([CC_SHA256_CTX, SHA256_CTX, SHA2_CTX], [], [],
+			[[#ifdef HAVE_SYS_TYPES_H
+			  # include <sys/types.h>
+			  #endif
+			  #ifdef HAVE_COMMONCRYPTO_COMMONDIGEST_H
+			  # include <CommonCrypto/CommonDigest.h>
+			  #endif
+			  #ifdef HAVE_SHA256_H
+			  # include <sha256.h>
+			  #endif
+			  #ifdef HAVE_SHA2_H
+			  # include <sha2.h>
+			  #endif
+			  #ifdef HAVE_MINIX_SHA2_H
+			  # include <minix/sha2.h>
+			  #endif]])
+		AC_SEARCH_LIBS([SHA256_Init], [md util])
+		AC_SEARCH_LIBS([SHA256Init], [md])
+		AC_CHECK_FUNCS([CC_SHA256_Init SHA256_Init SHA256Init],
+			[break])
+	fi
+fi
+AM_CONDITIONAL([COND_INTERNAL_SHA256],
+	[test "x$ac_cv_func_SHA256_Init" != xyes \
+		&& test "x$ac_cv_func_SHA256Init" != xyes \
+		&& test "x$ac_cv_func_CC_SHA256_Init" != xyes])
 
 
 ###############################################################################
@@ -627,13 +715,13 @@ AC_CONFIG_FILES([
 	src/xzdec/Makefile
 	src/lzmainfo/Makefile
 	src/scripts/Makefile
-	src/scripts/xzdiff
-	src/scripts/xzgrep
-	src/scripts/xzmore
-	src/scripts/xzless
 	tests/Makefile
 	debug/Makefile
 ])
+AC_CONFIG_FILES([src/scripts/xzdiff], [chmod +x src/scripts/xzdiff])
+AC_CONFIG_FILES([src/scripts/xzgrep], [chmod +x src/scripts/xzgrep])
+AC_CONFIG_FILES([src/scripts/xzmore], [chmod +x src/scripts/xzmore])
+AC_CONFIG_FILES([src/scripts/xzless], [chmod +x src/scripts/xzless])
 
 AC_OUTPUT
 
@@ -646,9 +734,8 @@ if test x$tuklib_cv_physmem_method = xunknown; then
 	echo "or make a patch to add support for this operating system."
 fi
 
-# Not threading yet so don't warn.
-#if test x$tuklib_cv_cpucores_method = xunknown; then
-#	echo
-#	echo "WARNING:"
-#	echo "No supported method to detect the number of CPU cores."
-#fi
+if test x$tuklib_cv_cpucores_method = xunknown; then
+	echo
+	echo "WARNING:"
+	echo "No supported method to detect the number of CPU cores."
+fi

@@ -374,7 +374,7 @@ lzma_lzma2_props_encode(const void *options, uint8_t *out)
 	const lzma_options_lzma *const opt = options;
 	uint32_t d = my_max(opt->dict_size, LZMA_DICT_SIZE_MIN);
 
-	// Round up to to the next 2^n - 1 or 2^n + 2^(n - 1) - 1 depending
+	// Round up to the next 2^n - 1 or 2^n + 2^(n - 1) - 1 depending
 	// on which one is the next:
 	--d;
 	d |= d >> 2;
@@ -390,4 +390,14 @@ lzma_lzma2_props_encode(const void *options, uint8_t *out)
 		out[0] = get_dist_slot(d + 1) - 24;
 
 	return LZMA_OK;
+}
+
+
+extern uint64_t
+lzma_lzma2_block_size(const void *options)
+{
+	const lzma_options_lzma *const opt = options;
+
+	// Use at least 1 MiB to keep compression ratio better.
+	return my_max((uint64_t)(opt->dict_size) * 3, UINT64_C(1) << 20);
 }

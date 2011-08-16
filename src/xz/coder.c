@@ -24,6 +24,8 @@ enum coder_init_ret {
 enum operation_mode opt_mode = MODE_COMPRESS;
 enum format_type opt_format = FORMAT_AUTO;
 bool opt_auto_adjust = true;
+bool opt_single_stream = false;
+uint64_t opt_block_size = 0;
 
 
 /// Stream used to communicate with liblzma
@@ -37,10 +39,10 @@ static io_buf in_buf;
 static io_buf out_buf;
 
 /// Number of filters. Zero indicates that we are using a preset.
-static size_t filters_count = 0;
+static uint32_t filters_count = 0;
 
 /// Number of the preset (0-9)
-static size_t preset_number = 6;
+static uint32_t preset_number = 6;
 
 /// If a preset is used (no custom filter chain) and preset_extreme is true,
 /// a significantly slower compression is used to achieve slightly better
@@ -64,7 +66,7 @@ coder_set_check(lzma_check new_check)
 
 
 extern void
-coder_set_preset(size_t new_preset)
+coder_set_preset(uint32_t new_preset)
 {
 	preset_number = new_preset;
 
@@ -102,7 +104,7 @@ coder_add_filter(lzma_vli id, void *options)
 }
 
 
-static void lzma_attribute((noreturn))
+static void lzma_attribute((__noreturn__))
 memlimit_too_small(uint64_t memory_usage)
 {
 	message(V_ERROR, _("Memory usage limit is too low for the given "
@@ -366,8 +368,9 @@ coder_init(file_pair *pair)
 			break;
 		}
 	} else {
-		const uint32_t flags = LZMA_TELL_UNSUPPORTED_CHECK
-				| LZMA_CONCATENATED;
+		uint32_t flags = LZMA_TELL_UNSUPPORTED_CHECK;
+		if (!opt_single_stream)
+			flags |= LZMA_CONCATENATED;
 
 		// We abuse FORMAT_AUTO to indicate unknown file format,
 		// for which we may consider passthru mode.
@@ -398,7 +401,7 @@ coder_init(file_pair *pair)
 
 		switch (init_format) {
 		case FORMAT_AUTO:
-			// Uknown file format. If --decompress --stdout
+			// Unknown file format. If --decompress --stdout
 			// --force have been given, then we copy the input
 			// as is to stdout. Checking for MODE_DECOMPRESS
 			// is needed, because we don't want to do use
@@ -459,14 +462,24 @@ coder_normal(file_pair *pair)
 	// Encoder needs to know when we have given all the input to it.
 	// The decoders need to know it too when we are using
 	// LZMA_CONCATENATED. We need to check for src_eof here, because
-	// the first input chunk has been already read, and that may
-	// have been the only chunk we will read.
+	// the first input chunk has been already read if decompressing,
+	// and that may have been the only chunk we will read.
 	lzma_action action = pair->src_eof ? LZMA_FINISH : LZMA_RUN;
 
 	lzma_ret ret;
 
 	// Assume that something goes wrong.
 	bool success = false;
+
+	// block_remaining indicates how many input bytes to encode until
+	// finishing the current .xz Block. The Block size is set with
+	// --block-size=SIZE. It has an effect only when compressing
+	// to the .xz format. If block_remaining == UINT64_MAX, only
+	// a single block is created.
+	uint64_t block_remaining = UINT64_MAX;
+	if (opt_mode == MODE_COMPRESS && opt_format == FORMAT_XZ
+			&& opt_block_size > 0)
+		block_remaining = opt_block_size;
 
 	strm.next_out = out_buf.u8;
 	strm.avail_out = IO_BUFFER_SIZE;
@@ -476,14 +489,23 @@ coder_normal(file_pair *pair)
 		// end of file yet.
 		if (strm.avail_in == 0 && !pair->src_eof) {
 			strm.next_in = in_buf.u8;
-			strm.avail_in = io_read(
-					pair, &in_buf, IO_BUFFER_SIZE);
+			strm.avail_in = io_read(pair, &in_buf,
+					my_min(block_remaining,
+						IO_BUFFER_SIZE));
 
 			if (strm.avail_in == SIZE_MAX)
 				break;
 
-			if (pair->src_eof)
+			if (pair->src_eof) {
 				action = LZMA_FINISH;
+
+			} else if (block_remaining != UINT64_MAX) {
+				// Start a new Block after every
+				// opt_block_size bytes of input.
+				block_remaining -= strm.avail_in;
+				if (block_remaining == 0)
+					action = LZMA_FULL_FLUSH;
+			}
 		}
 
 		// Let liblzma do the actual work.
@@ -499,7 +521,12 @@ coder_normal(file_pair *pair)
 			strm.avail_out = IO_BUFFER_SIZE;
 		}
 
-		if (ret != LZMA_OK) {
+		if (ret == LZMA_STREAM_END && action == LZMA_FULL_FLUSH) {
+			// Start a new Block.
+			action = LZMA_RUN;
+			block_remaining = opt_block_size;
+
+		} else if (ret != LZMA_OK) {
 			// Determine if the return value indicates that we
 			// won't continue coding.
 			const bool stop = ret != LZMA_NO_CHECK
@@ -518,6 +545,12 @@ coder_normal(file_pair *pair)
 			}
 
 			if (ret == LZMA_STREAM_END) {
+				if (opt_single_stream) {
+					io_fix_src_pos(pair, strm.avail_in);
+					success = true;
+					break;
+				}
+
 				// Check that there is no trailing garbage.
 				// This is needed for LZMA_Alone and raw
 				// streams.
@@ -620,10 +653,15 @@ coder_run(const char *filename)
 	// Assume that something goes wrong.
 	bool success = false;
 
-	// Read the first chunk of input data. This is needed to detect
-	// the input file type (for now, only for decompression).
-	strm.next_in = in_buf.u8;
-	strm.avail_in = io_read(pair, &in_buf, IO_BUFFER_SIZE);
+	if (opt_mode == MODE_COMPRESS) {
+		strm.next_in = NULL;
+		strm.avail_in = 0;
+	} else {
+		// Read the first chunk of input data. This is needed
+		// to detect the input file type.
+		strm.next_in = in_buf.u8;
+		strm.avail_in = io_read(pair, &in_buf, IO_BUFFER_SIZE);
+	}
 
 	if (strm.avail_in != SIZE_MAX) {
 		// Initialize the coder. This will detect the file format
@@ -661,3 +699,13 @@ coder_run(const char *filename)
 
 	return;
 }
+
+
+#ifndef NDEBUG
+extern void
+coder_free(void)
+{
+	lzma_end(&strm);
+	return;
+}
+#endif

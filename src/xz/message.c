@@ -94,7 +94,7 @@ static volatile sig_atomic_t progress_needs_updating = false;
 
 /// Signal handler for SIGALRM
 static void
-progress_signal_handler(int sig lzma_attribute((unused)))
+progress_signal_handler(int sig lzma_attribute((__unused__)))
 {
 	progress_needs_updating = true;
 	return;
@@ -726,7 +726,11 @@ vmessage(enum message_verbosity v, const char *fmt, va_list ap)
 
 		progress_flush(false);
 
-		fprintf(stderr, "%s: ", progname);
+		// TRANSLATORS: This is the program name in the beginning
+		// of the line in messages. Usually it becomes "xz: ".
+		// This is a translatable string because French needs
+		// a space before a colon.
+		fprintf(stderr, _("%s: "), progname);
 		vfprintf(stderr, fmt, ap);
 		fputc('\n', stderr);
 
@@ -1108,7 +1112,10 @@ message_help(bool long_help)
 "  -f, --force         force overwrite of output file and (de)compress links\n"
 "  -c, --stdout        write to standard output and don't delete input files"));
 
-	if (long_help)
+	if (long_help) {
+		puts(_(
+"      --single-stream decompress only the first stream, and silently\n"
+"                      ignore possible remaining input data"));
 		puts(_(
 "      --no-sparse     do not create sparse files when decompressing\n"
 "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
@@ -1116,6 +1123,7 @@ message_help(bool long_help)
 "                      omitted, filenames are read from the standard input;\n"
 "                      filenames must be terminated with the newline character\n"
 "      --files0[=FILE] like --files but use the null character as terminator"));
+	}
 
 	if (long_help) {
 		puts(_("\n Basic file format and compression options:\n"));
@@ -1135,6 +1143,10 @@ message_help(bool long_help)
 "                      does not affect decompressor memory requirements"));
 
 	if (long_help) {
+		puts(_(
+"      --block-size=SIZE\n"
+"                      when compressing to the .xz format, start a new block\n"
+"                      after every SIZE bytes of input; 0=disabled (default)"));
 		puts(_( // xgettext:no-c-format
 "      --memlimit-compress=LIMIT\n"
 "      --memlimit-decompress=LIMIT\n"

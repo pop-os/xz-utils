@@ -1,6 +1,6 @@
 From: Jonathan Nieder <jrnieder@gmail.com>
 Date: Mon, 25 Oct 2010 03:10:49 -0500
-Subject: Uncomment "lzma_chunk_size()" stub
+Subject: Revive "lzma_chunk_size()" stub
 
 This partially reverts commit 0076e03641f201c4b77dddd5a6db5880be19a78c:
 
@@ -13,29 +13,38 @@ could have linked against.
 
 Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
 ---
- src/liblzma/common/filter_encoder.c |    2 --
- 1 files changed, 0 insertions(+), 2 deletions(-)
+ src/liblzma/common/filter_encoder.c |   18 ++++++++++++++++++
+ 1 files changed, 18 insertions(+), 0 deletions(-)
 
 diff --git a/src/liblzma/common/filter_encoder.c b/src/liblzma/common/filter_encoder.c
-index 635d812..436d2cc 100644
+index 4ba652b..e6dbaf1 100644
 --- a/src/liblzma/common/filter_encoder.c
 +++ b/src/liblzma/common/filter_encoder.c
-@@ -226,7 +226,6 @@ lzma_raw_encoder_memusage(const lzma_filter *filters)
+@@ -226,6 +226,24 @@ lzma_raw_encoder_memusage(const lzma_filter *filters)
  }
  
  
--/*
- extern LZMA_API(lzma_vli)
- lzma_chunk_size(const lzma_filter *filters)
++/// \brief       Compatibility function to avoid breaking ABI.
++///
++/// The lzma_chunk_size() function is a predecessor of the current
++/// lzma_mt_block_size(). At the time it was written, no filter
++/// encoder implemented the block_size method, so it always returned
++/// zero. The function was removed in XZ Utils 5.0.0.
++///
++/// As a temporary, Debian-specific change, we continue to export it
++/// to avoid breaking automatically generated language bindings and
++/// similar applications that might have linked to the function by
++/// mistake.
++
++extern LZMA_API(lzma_vli)
++lzma_chunk_size(const lzma_filter *filters)
++{
++	return 0;
++}
++
+ extern uint64_t
+ lzma_mt_block_size(const lzma_filter *filters)
  {
-@@ -248,7 +247,6 @@ lzma_chunk_size(const lzma_filter *filters)
- 
- 	return max;
- }
--*/
- 
- 
- extern LZMA_API(lzma_ret)
 -- 
-1.7.2.3
+1.7.6
 
