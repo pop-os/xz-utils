@@ -105,6 +105,7 @@ Description: XZ-format compression utilities - tiny decompressors
 Package: liblzma-dev
 Section: libdevel
 Priority: optional
+Multi-Arch: same
 Architecture: any
 Depends: liblzma5 (= ${binary:Version}), ${misc:Depends}
 Suggests: liblzma-doc
