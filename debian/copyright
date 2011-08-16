@@ -1,14 +1,21 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?rev=135
-Name: XZ Utils
-Maintainer: Lasse Collin <lasse.collin@tukaani.org>
-Source: http://tukaani.org/xz
+Format: copyright-format draft from debian-policy 3.9.2.0
+Upstream-Name: XZ Utils
+Upstream-Contact:
+ Lasse Collin <lasse.collin@tukaani.org>
+ http://tukaani.org/xz/lists.html
+Source:
+ http://tukaani.org/xz
  http://git.tukaani.org/xz.git
-X-Authors:
+Comment:
  XZ Utils is developed and maintained upstream by Lasse Collin.  Major
  portions are based on code by other authors; see AUTHORS for details.
  Most of the source has been put into the public domain, but some files
  have not (details below).
-X-Overview:
+ .
+ This file describes the source package.  The binary packages contain
+ some files derived from other works: for example, images in the API
+ documentation come from Doxygen.
+License:
  Different licenses apply to different files in this package. Here
  is a rough summary of which licenses apply to which parts of this
  package (but check the individual files to be sure!):
@@ -69,13 +76,9 @@ X-Overview:
  .
  If you have questions, don't hesitate to ask the author(s) for more
  information.
-X-Note:
- The rest of this file only describes the source package.  The binary
- packages contain some files derived from other works: for example,
- all images in the API documentation come from Doxygen.
 
 Files: *
-Copyright: 2006-2010, Lasse Collin
+Copyright: 2006-2011, Lasse Collin
            1999-2008, Igor Pavlov
            2006, Ville Koskinen
            1998, Steve Reid
@@ -86,7 +89,7 @@ Copyright: 2006-2010, Lasse Collin
 License: PD
  This file has been put in the public domain.
  You can do whatever you want with this file.
-X-Note:
+Comment:
  From: Lasse Collin <lasse.collin@tukaani.org>
  To: Jonathan Nieder <jrnieder@gmail.com>
  Subject: Re: XZ utils for Debian
@@ -109,157 +112,78 @@ X-Note:
  it seems likely that groff + ps2pdf or at least Doxygen put some
  copyrighted content into the generated files.
 
-Files: INSTALL,
-       NEWS,
-       PACKAGERS,
-       windows/README-Windows.txt,
-       windows/INSTALL-Windows.txt
+Files: INSTALL NEWS PACKAGERS
+ windows/README-Windows.txt
+ windows/INSTALL-Windows.txt
 Copyright: 2009-2010, Lasse Collin
 License: probably-PD
  See the note on AUTHORS, README, and so on above.
 
-Files: src/scripts/*, lib/*, extra/scanlzma/scanlzma.c
+Files: src/scripts/* lib/* extra/scanlzma/scanlzma.c
 Copyright: © 1993, Jean-loup Gailly
            © 1989-1994, 1996-1999, 2001-2007, Free Software Foundation, Inc.
            © 2006 Timo Lindfors
            2005, Charles Levert
            2005, 2009, Lasse Collin
            2009, Andrew Dudman
-X-Other-Authors: Paul Eggert, Ulrich Drepper
+Other-Authors: Paul Eggert, Ulrich Drepper
 License: GPL-2+
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2, or (at your option)
- any later version.
- .
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- .
- You should have received a copy of the GNU General Public License along
- with this program; if not, write to the Free Software Foundation,
- Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- .
- On Debian systems, the complete text of the GNU General Public License
- version 2 can be found in ‘/usr/share/common-licenses/GPL-2’.
 
-Files: src/scripts/Makefile.am, src/scripts/xzless.1
+Files: src/scripts/Makefile.am src/scripts/xzless.1
 Copyright: 2009, Andrew Dudman
            2009, Lasse Collin
 License: PD
  This file has been put in the public domain.
  You can do whatever you want with this file.
 
-Files: doc/examples/xz_pipe_comp.c, doc/examples/xz_pipe_decomp.c
+Files: doc/examples/xz_pipe_comp.c doc/examples/xz_pipe_decomp.c
 Copyright: 2010, Daniel Mealha Cabrita
 License: PD
  Not copyrighted -- provided to the public domain.
 
-Files: lib/getopt.c, lib/getopt1.c, lib/getopt.in.h
+Files: lib/getopt.c lib/getopt1.c lib/getopt.in.h
 Copyright: © 1987-2007 Free Software Foundation, Inc.
-X-Other-Authors: Ulrich Drepper
+Other-Authors: Ulrich Drepper
 License: LGPL-2.1+
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1, or (at your option)
- any later version.
- .
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
- .
- You should have received a copy of the GNU Lesser General Public License along
- with this program; if not, write to the Free Software Foundation,
- Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- .
- On Debian systems, the complete text of the GNU Lesser General Public
- License version 2.1 can be found in ‘/usr/share/common-licenses/LGPL-2.1’.
 
-Files: m4/getopt.m4, m4/posix-shell.m4
+Files: m4/getopt.m4 m4/posix-shell.m4
 Copyright: © 2002-2006, 2008 Free Software Foundation, Inc.
            © 2007-2008 Free Software Foundation, Inc.
-X-Other-Authors: Bruno Haible, Paul Eggert
-License: permissive
- This file is free software; the Free Software Foundation
- gives unlimited permission to copy and/or distribute it,
- with or without modifications, as long as this notice is preserved.
+Other-Authors: Bruno Haible, Paul Eggert
+License: permissive-fsf
 
 Files: m4/acx_pthread.m4
-Copyright: © 2007, Steven G. Johnson <stevenj@alum.mit.edu>
+Copyright: © 2008, Steven G. Johnson <stevenj@alum.mit.edu>
 License: Autoconf
- This program is free software: you can redistribute it and/or
- modify it under the terms of the GNU General Public License as
- published by the Free Software Foundation, either version 3 of the
- License, or (at your option) any later version.
- .
- This program is distributed in the hope that it will be useful, but
- WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- General Public License for more details.
- .
- You should have received a copy of the GNU General Public License
- along with this program. If not, see
- <http://www.gnu.org/licenses/>.
- .
- As a special exception, the respective Autoconf Macro's copyright
- owner gives unlimited permission to copy, distribute and modify the
- configure scripts that are the output of Autoconf when processing
- the Macro. You need not follow the terms of the GNU General Public
- License when using or distributing such scripts, even though
- portions of the text of the Macro appear in them. The GNU General
- Public License (GPL) does govern all other use of the material that
- constitutes the Autoconf Macro.
- .
- This special exception to the GPL applies to versions of the
- Autoconf Macro released by the Autoconf Macro Archive. When you
- make and distribute a modified version of the Autoconf Macro, you
- may extend this special exception to the GPL to apply to your
- modified version as well.
- .
- On Debian systems, the complete text of the GNU General Public
- License version 3 can be found in ‘/usr/share/common-licenses/GPL-3’.
 
 Files: Doxyfile.in
 Copyright: © 1997-2007 by Dimitri van Heesch
-X-Origin: Doxygen 1.4.7
+Origin: Doxygen 1.4.7
 License: GPL-2
- Permission to use, copy, modify, and distribute this software and its
- documentation under the terms of the GNU General Public License is
- hereby granted. No representations are made about the suitability of
- this software for any purpose. It is provided "as is" without express
- or implied warranty. See the GNU General Public License for more
- details.
- .
- Documents produced by doxygen are derivative works derived from the
- input used in their production; they are not affected by this license.
- .
- On Debian systems, the complete text of the version of the GNU General
- Public License distributed with Doxygen can be found in
- ‘/usr/share/common-licenses/GPL-2’.
 
-Files: src/liblzma/check/crc32_table_[bl]e.h,
-       src/liblzma/check/crc64_table_[bl]e.h,
-       src/liblzma/lzma/fastpos_table.c,
-       src/liblzma/rangecoder/price_table.c
+Files: src/liblzma/check/crc32_table_?e.h
+ src/liblzma/check/crc64_table_?e.h
+ src/liblzma/lzma/fastpos_table.c
+ src/liblzma/rangecoder/price_table.c
 Copyright: none, automatically generated data
-X-Generated-With: src/liblzma/check/crc32_tablegen.c,
-                  src/liblzma/check/crc64_tablegen.c,
-                  src/liblzma/lzma/fastpos_tablegen.c,
-                  src/liblzma/rangecoder/price_tablegen.c
+Generated-With:
+ src/liblzma/check/crc32_tablegen.c
+ src/liblzma/check/crc64_tablegen.c
+ src/liblzma/lzma/fastpos_tablegen.c
+ src/liblzma/rangecoder/price_tablegen.c
 License: none
  No copyright to license.
 
-Files: .gitignore, m4/.gitignore, po/.gitignore, po/LINGUAS, po/POTFILES.in
+Files: .gitignore m4/.gitignore po/.gitignore po/LINGUAS po/POTFILES.in
 Copyright: none; these are just short lists.
 License: none
  No copyright to license.
 
 Files: tests/compress_prepared_bcj_*
 Copyright: 2008-2009, Lasse Collin
-X-Source-Code: tests/bcj_test.c
+Source-Code: tests/bcj_test.c
 License: PD
+Comment:
  changelog.gz (commit 975d8fd) explains:
  .
  Recreated the BCJ test files for x86 and SPARC. The old files
@@ -270,28 +194,35 @@ License: PD
  The new files are just compiled and assembled object files,
  and thus don't contain any copyrighted code.
 
-Files: po/cs.po, po/de.po
+Files: po/cs.po po/de.po po/fr.po
 Copyright: 2010, Marek Černocký
            2010, Andre Noll
+           2011, Adrien Nader
 License: PD
  This file is put in the public domain.
 
-Files: po/it.po
+Files: po/it.po po/pl.po
 Copyright: 2009, 2010, Gruppo traduzione italiano di Ubuntu-it
            2010, Lorenzo De Liso
-           2009, 2010, Milo Casagrande
+           2009, 2010, 2011, Milo Casagrande
+           2011, Jakub Bogusz
 License: PD
  This file is in the public domain
+
+Files: INSTALL.generic
+Copyright: © 1994, 1995, 1996, 1999, 2000, 2001, 2002, 2004, 2005,
+             2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
+License: permissive-nowarranty
 
 Files: dos/config.h
 Copyright: © 1992, 1993, 1994, 1999, 2000, 2001, 2002, 2005
              Free Software Foundation, Inc.
            2007-2010, Lasse Collin
-X-Other-Authors: Roland McGrath, Akim Demaille, Paul Eggert,
-                 David Mackenzie, Bruno Haible, and many others.
-X-Origin: configure.ac from XZ Utils,
-          visibility.m4 serial 1 (gettext-0.15),
-          Autoconf 2.52g
+Other-Authors: Roland McGrath, Akim Demaille, Paul Eggert,
+               David Mackenzie, Bruno Haible, and many others.
+Origin: configure.ac from XZ Utils,
+        visibility.m4 serial 1 (gettext-0.15),
+        Autoconf 2.52g
 License: config-h
  configure.ac:
  .
@@ -362,9 +293,9 @@ License: config-h
  output a script to generate a config.h file and then runs it.
 
 Files: po/Makevars
-X-Origin: gettext-runtime/po/Makevars (gettext-0.12)
-X-Authors: Bruno Haible
+Origin: gettext-runtime/po/Makevars (gettext-0.12)
 Copyright: © 2003 Free Software Foundation, Inc.
+Authors: Bruno Haible
 License: LGPL-2.1+
  The gettext-runtime package is under the LGPL, see files intl/COPYING.LIB-2.0
  and intl/COPYING.LIB-2.1.
@@ -377,16 +308,7 @@ License: LGPL-2.1+
  po/Makevars consists mostly of helpful comments and does not contain a
  copyright and license notice.
 
-Files: INSTALL.generic
-Copyright: © 1994, 1995, 1996, 1999, 2000, 2001, 2002, 2004, 2005,
-             2006, 2007, 2008, 2009, 2010 Free Software Foundation, Inc.
-License: permissive-nowarranty
- Copying and distribution of this file, with or without modification,
- are permitted in any medium without royalty provided the copyright
- notice and this notice are preserved.  This file is offered as-is,
- without warranty of any kind.
-
-Files: COPYING.GPLv2, COPYING.GPLv3, COPYING.LGPLv2.1
+Files: COPYING.GPLv2 COPYING.GPLv3 COPYING.LGPLv2.1
 Copyright: © 1989, 1991, 1999, 2007 Free Software Foundation, Inc.
 License: noderivs
  Everyone is permitted to copy and distribute verbatim copies
@@ -397,3 +319,95 @@ Copyright: 2009-2010, Jonathan Nieder
 License: PD-debian
  The Debian packaging files are in the public domain.
  You may freely use, modify, distribute, and relicense them.
+
+License: LGPL-2.1+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1, or (at your option)
+ any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public License along
+ with this program; if not, write to the Free Software Foundation,
+ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public
+ License version 2.1 can be found in ‘/usr/share/common-licenses/LGPL-2.1’.
+
+License: GPL-2
+ Permission to use, copy, modify, and distribute this software and its
+ documentation under the terms of the GNU General Public License is
+ hereby granted. No representations are made about the suitability of
+ this software for any purpose. It is provided "as is" without express
+ or implied warranty. See the GNU General Public License for more
+ details.
+ .
+ Documents produced by doxygen are derivative works derived from the
+ input used in their production; they are not affected by this license.
+ .
+ On Debian systems, the complete text of the version of the GNU General
+ Public License distributed with Doxygen can be found in
+ ‘/usr/share/common-licenses/GPL-2’.
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2, or (at your option)
+ any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation,
+ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in ‘/usr/share/common-licenses/GPL-2’.
+
+License: Autoconf
+ This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation, either version 3 of the License, or (at your
+ option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception, the respective Autoconf Macro's copyright owner
+ gives unlimited permission to copy, distribute and modify the configure
+ scripts that are the output of Autoconf when processing the Macro. You
+ need not follow the terms of the GNU General Public License when using
+ or distributing such scripts, even though portions of the text of the
+ Macro appear in them. The GNU General Public License (GPL) does govern
+ all other use of the material that constitutes the Autoconf Macro.
+ .
+ This special exception to the GPL applies to versions of the Autoconf
+ Macro released by the Autoconf Archive. When you make and distribute a
+ modified version of the Autoconf Macro, you may extend this special
+ exception to the GPL to apply to your modified version as well.
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License version 3 can be found in ‘/usr/share/common-licenses/GPL-3’.
+
+License: permissive-fsf
+ This file is free software; the Free Software Foundation
+ gives unlimited permission to copy and/or distribute it,
+ with or without modifications, as long as this notice is preserved.
+
+License: permissive-nowarranty
+ Copying and distribution of this file, with or without modification,
+ are permitted in any medium without royalty provided the copyright
+ notice and this notice are preserved.  This file is offered as-is,
+ without warranty of any kind.
