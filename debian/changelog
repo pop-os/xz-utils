@@ -1,3 +1,11 @@
+xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
+
+  * debian/rules build-arch: Do not trigger an infinite "make"
+    recursion loop when DEB_BUILD_OPTIONS=nocheck.  Closes: #638071.
+    Thanks to Thorsten Glaser.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 16 Aug 2011 18:11:47 -0500
+
 xz-utils (5.1.1alpha+20110809-1) unstable; urgency=low
 
   * New snapshot, taken from upstream commit 5c5b225.

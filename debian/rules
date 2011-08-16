@@ -74,6 +74,8 @@ debian/xzdec-build/Makefile: $(configure_input)
 $(autoreconf_products): $(autoreconf_sources)
 	autoreconf -is
 
+noop: ;
+
 opt_optimize = CFLAGS="-g -O2"
 opt_optimize_small = CFLAGS="-g -Os"
 opt_no_act =
@@ -110,7 +112,7 @@ ifneq (,$(filter quiet,$(DEB_BUILD_OPTIONS)))
 endif
 
 ifneq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-    test_targets =
+    test_targets = noop
 endif
 
 # Build a tarball with the latest upstream version.
