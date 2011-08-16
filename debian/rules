@@ -74,8 +74,13 @@ $(autoreconf_products): $(autoreconf_sources)
 
 noop: ;
 
-opt_optimize = CFLAGS="-g -O2"
-opt_optimize_small = CFLAGS="-g -Os"
+small_flags_env =
+small_flags_env += DEB_CFLAGS_MAINT_STRIP='-O2 -O3'
+small_flags_env += DEB_CFLAGS_MAINT_PREPEND=-Os
+flags_cmd = dpkg-buildflags --export=configure
+opt_optimize = $(shell $(flags_cmd))
+opt_optimize_small = $(shell $(small_flags_env) $(flags_cmd))
+
 opt_no_act =
 opt_quiet =
 test_targets =
@@ -96,8 +101,8 @@ ifeq (hurd,$(shell dpkg-architecture -qDEB_HOST_ARCH_OS))
 endif
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-    opt_optimize = --disable-assembler CFLAGS="-g -O0"
-    opt_optimize_small = --disable-assembler CFLAGS="-g -O0"
+    opt_optimize += --disable-assembler
+    opt_optimize_small += --disable-assembler
 endif
 
 ifneq (,$(findstring n,$(MAKEFLAGS)))
