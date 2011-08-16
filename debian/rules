@@ -3,8 +3,8 @@
 build clean install binary-arch binary-indep binary:
 	+dh $@ --parallel $(opt_no_act)
 
-build-arch: build-nocheck
-	$(MAKE) -f debian/rules $(test_target)
+build-arch: build-plain build-small
+	$(MAKE) -f debian/rules $(test_targets)
 
 build-indep: debian/normal-build/Makefile
 	: 'Work around bug #478524'
@@ -15,7 +15,7 @@ build-indep: debian/normal-build/Makefile
 	fi
 
 override_dh_auto_clean:
-	rm -f debian/test-stamp
+	rm -f debian/*-stamp
 	dh_auto_clean --builddirectory debian/xzdec-build
 	dh_auto_clean --builddirectory debian/normal-build
 	sh debian/clean.sh
@@ -27,16 +27,42 @@ override_dh_auto_install:
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
 
-build-nocheck: debian/normal-build/Makefile debian/xzdec-build/Makefile
+build-plain: debian/normal-build/Makefile
 	dh_auto_build --builddirectory debian/normal-build
+
+build-small: debian/xzdec-build/Makefile
 	dh_auto_build --builddirectory debian/xzdec-build
 
-debian/normal-build/Makefile debian/xzdec-build/Makefile:
-	autoreconf -fis
+debian/test-plain-stamp: | build-plain
+	dh_auto_test --builddirectory debian/normal-build
+	>$@
+
+debian/test-xzdec-stamp: | build-small
+	$(MAKE) -C debian/xzdec-build/tests create_compress_files
+	$(MAKE) -C debian/xzdec-build/tests \
+		TESTS="test_check test_files.sh test_compress.sh" \
+		check-TESTS
+	>$@
+
+# There are more, but these will do.
+autoreconf_products := $(wildcard Makefile.in */Makefile.in */*/Makefile.in)
+autoreconf_products += configure
+
+autoreconf_sources := $(wildcard Makefile.am */Makefile.am */*/Makefile.am)
+autoreconf_sources += configure.ac
+
+configure_input := $(autoreconf_products)
+configure_input += Doxyfile.in
+configure_input += src/liblzma/liblzma.pc.in
+configure_input += $(wildcard src/scripts/*.in)
+
+debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-symbol-versions \
 		--disable-xzdec --disable-lzmadec
+
+debian/xzdec-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
 		--disable-shared --disable-nls --disable-encoders \
 		--enable-small --disable-threads \
@@ -45,19 +71,16 @@ debian/normal-build/Makefile debian/xzdec-build/Makefile:
 		--disable-lzmainfo --disable-scripts \
 		--disable-xz --disable-lzma-links
 
-debian/test-stamp: | build-nocheck
-	$(MAKE) -C debian/normal-build check
-	$(MAKE) -C debian/xzdec-build/tests create_compress_files
-	$(MAKE) -C debian/xzdec-build/tests \
-		TESTS="test_check test_files.sh test_compress.sh" \
-		check-TESTS
-	>$@
+$(autoreconf_products): $(autoreconf_sources)
+	autoreconf -is
 
 opt_optimize = CFLAGS="-g -O2"
 opt_optimize_small = CFLAGS="-g -Os"
 opt_no_act =
 opt_quiet =
-test_target = debian/test-stamp
+test_targets =
+test_targets += debian/test-plain-stamp
+test_targets += debian/test-xzdec-stamp
 
 # Unless noopt is set, use optimized CRC32 routine on the Hurd.
 ifeq (hurd,$(shell dpkg-architecture -qDEB_HOST_ARCH_OS))
@@ -87,7 +110,7 @@ ifneq (,$(filter quiet,$(DEB_BUILD_OPTIONS)))
 endif
 
 ifneq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-    test_target =
+    test_targets =
 endif
 
 # Build a tarball with the latest upstream version.
