@@ -1,4 +1,4 @@
-xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
+xz-utils (5.1.1alpha+20110809-1) unstable; urgency=low
 
   * New snapshot, taken from upstream commit 5c5b225.
     - liblzma:
@@ -53,7 +53,8 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
       Debian wiki.
   * Standards-Version: 3.9.2 (checked).
   * debian/control: liblzma2 is Multi-Arch: same, while xz-utils
-    and xzdec are Multi-Arch: foreign.
+    and xzdec are Multi-Arch: foreign.  Closes: #637883.  Thanks to
+    Riku Voipio.
   * debian/symbols: Bump the minimal version for LZMA2 encoder
     functions that reject more bad arguments and skip empty blocks.
   * debian/rules: ./configure --disable-symbol-versions for now.
@@ -63,8 +64,9 @@ xz-utils (5.1.1alpha+20110809-0.1) unstable; urgency=low
     Build-Depends: debhelper (>= 8.9.0).
   * debian/rules: Treat DEB_BUILD_OPTIONS=nocheck as a request not to
     run build-time tests.  Thanks to Thorsten Glaser for a reminder.
+    Closes: #627209.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Wed, 16 Mar 2011 23:12:21 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Tue, 16 Aug 2011 00:40:31 -0500
 
 xz-utils (5.0.0-2) unstable; urgency=low
 
