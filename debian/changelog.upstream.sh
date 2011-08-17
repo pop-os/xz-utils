@@ -102,7 +102,8 @@ add_version() {
 		limiter="$new_cid.."
 	fi
 	echo
-	git log --date=iso --stat --no-merges --format=medium "$limiter$last_cid"
+	git rev-list --no-merges "$limiter$last_cid" |
+	git diff-tree --date=iso --stat --format=medium --stdin
 	test "$new" = none || echo
 
 	last=$new
