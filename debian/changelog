@@ -23,6 +23,7 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
   * debian/rules build: Use dpkg-buildflags to retrieve compiler
     flags, including hardening options.  Build-Depends: dpkg-dev
     (>= 1.16.1~).  Closes: #653739.
+  * debian/rules: Simplify build-arch rule.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
 
