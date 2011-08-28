@@ -14,6 +14,17 @@ build-indep: debian/normal-build/Makefile
 		doxygen Doxyfile; \
 	fi
 
+autoreconf_sources := $(wildcard Makefile.am */Makefile.am */*/Makefile.am)
+autoreconf_sources += configure.ac
+
+autoreconf_products := $(wildcard Makefile.in */Makefile.in */*/Makefile.in)
+autoreconf_products += configure	# and more, but these will do
+
+configure_input := $(autoreconf_products)
+configure_input += Doxyfile.in
+configure_input += src/liblzma/liblzma.pc.in
+configure_input += $(wildcard src/scripts/*.in)
+
 override_dh_auto_clean:
 	rm -f debian/*-stamp
 	dh_auto_clean --builddirectory debian/xzdec-build
@@ -43,18 +54,6 @@ debian/test-xzdec-stamp: | build-small
 		TESTS="test_check test_files.sh test_compress.sh" \
 		check-TESTS
 	>$@
-
-# There are more, but these will do.
-autoreconf_products := $(wildcard Makefile.in */Makefile.in */*/Makefile.in)
-autoreconf_products += configure
-
-autoreconf_sources := $(wildcard Makefile.am */Makefile.am */*/Makefile.am)
-autoreconf_sources += configure.ac
-
-configure_input := $(autoreconf_products)
-configure_input += Doxyfile.in
-configure_input += src/liblzma/liblzma.pc.in
-configure_input += $(wildcard src/scripts/*.in)
 
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
