@@ -1,3 +1,23 @@
+xz-utils (5.1.1alpha+20110809-2.1) unstable; urgency=low
+
+  * xz-lzma: Avoid conflict with lzma as provided with the LZMA SDK.
+    - Use update-alternatives to provide lzma, unlzma, lzcat,
+      lzgrep, etc.
+    - Only conflicts with lzma versions before 9.22-1, when it
+      switched to using update-alternatives to provide lzma, unlzma,
+      and lzcat.
+  * xz-utils: Register directly as an alternative implementation for
+    lzma compatibility commands.
+    - No more xz-lzma package.
+    - xz-utils gets xz-lzma's content and dependencies (replaces
+      ancient lzip to avoid a file conflict, conflict with
+      pre-alternatives lzma, provides lzma).
+    - xz-utils conflicts with and is intended to replace xz-lzma.
+  * xz-utils/README.Debian: Update instructions for choosing an
+    implementation for the lzma compatibility commands.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 29 Aug 2011 17:54:07 -0500
+
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
   * debian/rules build-arch: Do not trigger an infinite "make"
