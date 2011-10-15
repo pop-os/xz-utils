@@ -1,5 +1,7 @@
 xz-utils (5.1.1alpha+20110809-2.1) unstable; urgency=low
 
+  * liblzma: bump soname to 5 and match upstream ABI.  liblzma uses
+    ELF symbol versioning.
   * Remove threading support.  The relevant interfaces in liblzma are
     not stable yet.
 

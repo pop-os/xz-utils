@@ -59,7 +59,6 @@ configure_input += $(wildcard src/scripts/*.in)
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
 		$(opt_optimize) $(opt_quiet) \
-		--disable-symbol-versions \
 		--disable-xzdec --disable-lzmadec
 
 debian/xzdec-build/Makefile: $(configure_input)
@@ -67,7 +66,6 @@ debian/xzdec-build/Makefile: $(configure_input)
 		--disable-shared --disable-nls --disable-encoders \
 		--enable-small --disable-threads \
 		$(opt_optimize_small) $(opt_quiet) \
-		--disable-symbol-versions \
 		--disable-lzmainfo --disable-scripts \
 		--disable-xz --disable-lzma-links
 

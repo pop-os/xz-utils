@@ -184,8 +184,12 @@ lzma_code(lzma_stream *strm, lzma_action action)
 	// which would indicate that some new feature is wanted.
 	if (strm->reserved_ptr1 != NULL
 			|| strm->reserved_ptr2 != NULL
+			|| strm->reserved_ptr3 != NULL
+			|| strm->reserved_ptr4 != NULL
 			|| strm->reserved_int1 != 0
 			|| strm->reserved_int2 != 0
+			|| strm->reserved_int3 != 0
+			|| strm->reserved_int4 != 0
 			|| strm->reserved_enum1 != LZMA_RESERVED_ENUM
 			|| strm->reserved_enum2 != LZMA_RESERVED_ENUM)
 		return LZMA_OPTIONS_ERROR;

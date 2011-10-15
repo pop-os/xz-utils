@@ -1,5 +1,2 @@
 abi-threaded-encoder
 abi-version-script
-abi-reserved-fields
-abi-chunk-size-func
-abi-debian-soname
