@@ -1,3 +1,10 @@
+xz-utils (5.1.1alpha+20110809-2.1) unstable; urgency=low
+
+  * Remove threading support.  The relevant interfaces in liblzma are
+    not stable yet.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 14 Oct 2011 20:52:38 -0500
+
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
   * debian/rules build-arch: Do not trigger an infinite "make"
