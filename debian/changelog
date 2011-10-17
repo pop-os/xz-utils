@@ -5,7 +5,7 @@ xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
   * Remove threading support.  The relevant interfaces in liblzma are
     not stable yet.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 16 Oct 2011 19:20:00 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 16 Oct 2011 19:32:05 -0500
 
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
