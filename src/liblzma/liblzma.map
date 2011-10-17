@@ -93,4 +93,7 @@ global:
 	lzma_vli_decode;
 	lzma_vli_encode;
 	lzma_vli_size;
+
+local:
+	*;
 };

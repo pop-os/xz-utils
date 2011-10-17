@@ -1,0 +1,28 @@
+From: Jonathan Nieder <jrnieder@gmail.com>
+Date: Fri, 14 Oct 2011 23:57:08 -0500
+Subject: liblzma: unlisted symbols are local
+
+When commit 6c800e9 (liblzma: Remove XZ_5.1.1alpha version symbol,
+2011-06-11) removed the XZ_5.1.1alpha node, the author forgot to
+move its "local: *;" declaration to the XZ_5.0 node.
+
+Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
+---
+ src/liblzma/liblzma.map |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/src/liblzma/liblzma.map b/src/liblzma/liblzma.map
+index 9579771..47a7c22 100644
+--- a/src/liblzma/liblzma.map
++++ b/src/liblzma/liblzma.map
+@@ -93,4 +93,7 @@ global:
+ 	lzma_vli_decode;
+ 	lzma_vli_encode;
+ 	lzma_vli_size;
++
++local:
++	*;
+ };
+-- 
+1.7.7
+
