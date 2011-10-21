@@ -17,26 +17,28 @@ liblzma lacks support for multithreaded encoding.
 
 Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
 ---
- src/liblzma/liblzma.map |    9 ---------
- 1 files changed, 0 insertions(+), 9 deletions(-)
+ src/liblzma/liblzma.map |    8 +-------
+ 1 files changed, 1 insertions(+), 7 deletions(-)
 
 diff --git a/src/liblzma/liblzma.map b/src/liblzma/liblzma.map
-index 835eb26..9579771 100644
+index 835eb26..47a7c22 100644
 --- a/src/liblzma/liblzma.map
 +++ b/src/liblzma/liblzma.map
-@@ -94,12 +94,3 @@ global:
+@@ -93,13 +93,7 @@ global:
+ 	lzma_vli_decode;
  	lzma_vli_encode;
  	lzma_vli_size;
- };
+-};
 -
 -XZ_5.1.1alpha {
 -global:
 -	lzma_stream_encoder_mt;
 -	lzma_stream_encoder_mt_memusage;
--
--local:
--	*;
+ 
+ local:
+ 	*;
 -} XZ_5.0;
++};
 -- 
 1.7.7
 

@@ -17,7 +17,7 @@ xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
     the future, so tell dpkg-shlibdeps to produce an error if some
     package manages to use it.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 20 Oct 2011 21:17:17 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 20 Oct 2011 21:19:43 -0500
 
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
