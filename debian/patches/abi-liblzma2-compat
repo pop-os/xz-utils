@@ -2,35 +2,47 @@ From: Jonathan Nieder <jrnieder@gmail.com>
 Date: Fri, 14 Oct 2011 23:05:35 -0500
 Subject: liblzma: define a base version of lzma_code for ABI-compatibility
 
-Generally speaking, it should be safe to have a process image
-including both the pre-5.0 and v5.0 implementations of liblzma
-(liblzma2 and liblzma5 in Debian), since the only changes in ABI were
-to remove a function and to rearrange reserved fields which are not
-used by most functions.
+It is almost safe for liblzma2 and liblzma5 to share a process image,
+since the only changes in ABI were to introduce symbol versioning, to
+remove a function, and to rearrange reserved fields which are not used
+by most functions.
 
-There is one function that does differ between the two ABIs, though:
+There is one function that differs between the two ABIs, though.
 lzma_code() checks that the reserved fields at the end of an
-lzma_stream are all 0 before proceeding.  Applications linked directly
-to liblzma2 and indirectly to liblzma5 use the implementation from
-liblzma5, which looks at more reserved fields than the application
-knows to fill, resulting in segfaults or errors:
+lzma_stream structure pointed to by its "strm" argument are 0 before
+proceeding.  If code built using the liblzma2 headers calls
+lzma_code() from liblzma5, the result is a segfault or error:
 
 	$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/liblzma.so.5 xz README
 	xz: README: Unsupported options
 
-Unfortunately one cannot even get lucky and find the symbol from
-liblzma2 used from time to time: versioned symbols take precedence
-over unversioned ones when resolving unversioned references.
+This happens when a library built against liblzma2 (think
+libkdecore5/squeeze) is used to satisfy a dependency of an app built
+against liblzma5.  Instead of the intended mixture of implementations
+(KDE using liblzma2 routines, app using liblzma5 routines), we get
+liblzma5 providing lzma_code() for all callers, resulting in the error
+described above.
 
 Fortunately the fix is clear: if we additionally bind a compatibility
 version of lzma_code() to the unspecified base version of lzma_code,
-_it_ will be used to resolve references from code linked to liblzma2
-when liblzma2 and liblzma5 share a process image.  Do so.
+it will be used to resolve references from code built against liblzma2
+in this case.  Do so.
 
 Caveat: libbfd-based binutils handles this well (and it is documented
 to work), but GNU gold 2.21.90.20111004 errors out with
 
 	/usr/bin/ld: error: symbol lzma_code has undefined version
+
+When liblzma2 provides lzma_code() for a library built against
+liblzma5 (think: libkdecore5/wheezy satisfying a dependency by
+demo-app/squeeze), there's nothing liblzma5 can do to improve matters.
+Routines from liblzma2 work just fine as implementations of the
+liblzma5 ABI, since the only relevant ABI mismatch is the added
+padding at the end of the lzma_stream struct, which liblzma2 happily
+ignores.  So in that case, we were already safe. *phew*
+
+Thanks to Jakub Wilk for catching some serious errors in a previous
+version of this explanation.
 
 Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
 ---

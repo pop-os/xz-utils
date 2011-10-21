@@ -9,15 +9,15 @@ xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
       interfaces in liblzma are not yet stable.
   * xz-utils/README.Debian: Remove note on ABI differences.
   * Remove liblzma/README.Debian.
-  * liblzma: Introduce a lzma_code@Base compatibility symbol to allow
-    programs linked against unversioned symbols from liblzma2 to share
-    a process image with liblzma5 without breaking.
+  * liblzma: Introduce a lzma_code@Base compatibility symbol to ensure
+    programs linked against unversioned symbols from liblzma2 can
+    share a process image with liblzma5 without breaking.
   * debian/symbols: XZ_5.0 symbols come from liblzma5.  The
     lzma_code@Base symbol is not guaranteed to continue to exist in
     the future, so tell dpkg-shlibdeps to produce an error if some
     package manages to use it.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 17 Oct 2011 21:16:53 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 20 Oct 2011 21:17:17 -0500
 
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
