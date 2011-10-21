@@ -12,12 +12,13 @@ xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
   * liblzma: Introduce a lzma_code@Base compatibility symbol to ensure
     programs linked against unversioned symbols from liblzma2 can
     share a process image with liblzma5 without breaking.
-  * debian/symbols: XZ_5.0 symbols come from liblzma5.  The
-    lzma_code@Base symbol is not guaranteed to continue to exist in
-    the future, so tell dpkg-shlibdeps to produce an error if some
-    package manages to use it.
+  * debian/symbols: XZ_5.0 symbols come from liblzma5.  Build-Depends:
+    dpkg-dev (>= 1.15.6); thanks to Jakub Wilk for a reminder.
+  * debian/symbols: The lzma_code@Base symbol is not guaranteed to
+    continue to exist in the future, so tell dpkg-shlibdeps to produce
+    an error if some package manages to use it.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 20 Oct 2011 21:19:43 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 20 Oct 2011 21:31:31 -0500
 
 xz-utils (5.1.1alpha+20110809-2) unstable; urgency=low
 
