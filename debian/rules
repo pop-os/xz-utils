@@ -39,6 +39,8 @@ override_dh_auto_test:
 
 override_dh_auto_install:
 	dh_auto_install --builddirectory debian/normal-build
+	set -e; dso=$$(basename $$(readlink debian/tmp/usr/lib/liblzma.so)); \
+	ln -s -f /lib/$$dso debian/tmp/usr/lib/liblzma.so
 	dh_auto_install --builddirectory debian/xzdec-build
 
 override_dh_installchangelogs:

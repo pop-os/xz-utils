@@ -1,3 +1,10 @@
+xz-utils (5.0.0-2.1) unstable; urgency=low
+
+  * liblzma: Install run-time library to /lib so it can be used
+    before /usr is mounted.  Closes: #672120.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 13 May 2012 18:35:21 -0500
+
 xz-utils (5.0.0-2) unstable; urgency=low
 
   * Upload to unstable.
