@@ -12,6 +12,8 @@
 
 #include "common.h"
 
+#include <dlfcn.h>
+
 
 /////////////
 // Version //
@@ -162,6 +164,17 @@ lzma_next_end(lzma_next_coder *next, const lzma_allocator *allocator)
 // External to internal API wrapper //
 //////////////////////////////////////
 
+static bool
+liblzma2_loaded(void)
+{
+	void *handle = dlopen("liblzma.so.2", RTLD_LAZY | RTLD_NOLOAD);
+	if (handle) {
+		dlclose(handle);
+		return true;
+	}
+	return false;
+}
+
 extern lzma_ret
 lzma_strm_init(lzma_stream *strm)
 {
@@ -175,6 +188,7 @@ lzma_strm_init(lzma_stream *strm)
 			return LZMA_MEM_ERROR;
 
 		strm->internal->next = LZMA_NEXT_CODER_INIT;
+		strm->internal->liblzma2_compat = liblzma2_loaded();
 	}
 
 	memzero(strm->internal->supported_actions,
@@ -189,6 +203,24 @@ lzma_strm_init(lzma_stream *strm)
 }
 
 
+// Before v5.0.0~6 (liblzma: A few ABI tweaks to reserve space in
+// structures, 2010-10-23), the reserved fields in lzma_stream were:
+//
+//	void *reserved_ptr1;
+//	void *reserved_ptr2;
+//	uint64_t reserved_int1;
+//	uint64_t reserved_int2;
+//	lzma_reserved_enum reserved_enum1;
+//	lzma_reserved_enum reserved_enum2;
+//
+// Nowadays there are two more pointers between reserved_ptr2 and
+// reserved_int1 and two size_t fields between reserved_int2 and
+// reserved_enum1.
+//
+// When strm->internal->liblzma2_compat is set, limit the checks of
+// reserved fields to fields that were present in the old ABI to avoid
+// segfaults and spurious "Unsupported options" from callers sharing
+// the process image that expect the old ABI.
 extern LZMA_API(lzma_ret)
 lzma_code(lzma_stream *strm, lzma_action action)
 {
@@ -206,8 +238,12 @@ lzma_code(lzma_stream *strm, lzma_action action)
 	if (strm->reserved_ptr1 != NULL
 			|| strm->reserved_ptr2 != NULL
 			|| strm->reserved_ptr3 != NULL
-			|| strm->reserved_ptr4 != NULL
-			|| strm->reserved_int1 != 0
+			|| strm->reserved_ptr4 != NULL)
+		return LZMA_OPTIONS_ERROR;
+
+	if (strm->internal->liblzma2_compat)
+		; /* Enough checks. */
+	else if (strm->reserved_int1 != 0
 			|| strm->reserved_int2 != 0
 			|| strm->reserved_int3 != 0
 			|| strm->reserved_int4 != 0

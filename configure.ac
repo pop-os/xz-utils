@@ -548,6 +548,11 @@ case $enable_threads in
 esac
 AM_CONDITIONAL([COND_THREADS], [test "x$enable_threads" != xno])
 
+# As a Debian-specific hack, liblzma uses dlopen() to check if extra
+# paranoia is needed because unversioned symbols from liblzma.so.2 are
+# present in the same process.  See src/liblzma/common/common.c.
+AC_SEARCH_LIBS([dlopen], [dl])
+
 echo
 echo "Initializing Libtool:"
 LT_PREREQ([2.2])

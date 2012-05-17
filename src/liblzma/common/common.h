@@ -226,6 +226,10 @@ struct lzma_internal_s {
 	/// If true, lzma_code will return LZMA_BUF_ERROR if no progress was
 	/// made (no input consumed and no output produced by next.code).
 	bool allow_buf_error;
+
+	/// Indicates whether we are sharing a process image with
+	/// liblzma.so.2 and need to tread carefully.
+	bool liblzma2_compat;
 };
 
 
