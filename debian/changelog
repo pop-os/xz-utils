@@ -1,5 +1,12 @@
-xz-utils (5.1.1alpha+20110809-3.1) unstable; urgency=low
+xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
 
+  * New snapshot, taken from upstream commit d05d6d6.
+    - "xz -v -v --list" prints the minimal XZ Utils version needed
+      to decompress a stream.
+    - xzgrep does not unconditionally fail when the decompressor
+      dies with SIGPIPE due to unconsumed output.  This should make
+      the exit status from "xzgrep -q", "xzgrep -l", and xzgrep of
+      compressed binary files more useful.
   * liblzma: If liblzma2 is sharing the process image according to
     dlopen, relax check of reserved fields to avoid breakage when
     liblzma5 functions are used by old objects because a process is

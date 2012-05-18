@@ -28,16 +28,16 @@ Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
  src/liblzma/common/Makefile.inc        |    7 -
  src/liblzma/common/common.c            |    9 +-
  src/liblzma/common/common.h            |   16 -
- src/liblzma/common/outqueue.c          |  180 ------
+ src/liblzma/common/outqueue.c          |  184 ------
  src/liblzma/common/outqueue.h          |  155 -----
- src/liblzma/common/stream_encoder_mt.c | 1011 --------------------------------
+ src/liblzma/common/stream_encoder_mt.c | 1013 --------------------------------
  src/xz/args.c                          |    5 +-
  src/xz/coder.c                         |  210 +++----
  src/xz/hardware.c                      |   24 +-
  src/xz/hardware.h                      |    9 +-
  src/xz/private.h                       |    2 -
  src/xz/xz.1                            |   34 +-
- 16 files changed, 117 insertions(+), 1717 deletions(-)
+ 16 files changed, 117 insertions(+), 1723 deletions(-)
  delete mode 100644 src/liblzma/common/outqueue.c
  delete mode 100644 src/liblzma/common/outqueue.h
  delete mode 100644 src/liblzma/common/stream_encoder_mt.c
@@ -353,10 +353,10 @@ index 5c92af2..45aba4f 100644
  typedef struct lzma_coder_s lzma_coder;
 diff --git a/src/liblzma/common/outqueue.c b/src/liblzma/common/outqueue.c
 deleted file mode 100644
-index b9eac16..0000000
+index d7a87d9..0000000
 --- a/src/liblzma/common/outqueue.c
 +++ /dev/null
-@@ -1,180 +0,0 @@
+@@ -1,184 +0,0 @@
 -///////////////////////////////////////////////////////////////////////////////
 -//
 -/// \file       outqueue.c
@@ -460,7 +460,11 @@ index b9eac16..0000000
 -lzma_outq_end(lzma_outq *outq, lzma_allocator *allocator)
 -{
 -	lzma_free(outq->bufs, allocator);
+-	outq->bufs = NULL;
+-
 -	lzma_free(outq->bufs_mem, allocator);
+-	outq->bufs_mem = NULL;
+-
 -	return;
 -}
 -
@@ -700,10 +704,10 @@ index 154f91b..0000000
 -}
 diff --git a/src/liblzma/common/stream_encoder_mt.c b/src/liblzma/common/stream_encoder_mt.c
 deleted file mode 100644
-index 323f04a..0000000
+index a4b2800..0000000
 --- a/src/liblzma/common/stream_encoder_mt.c
 +++ /dev/null
-@@ -1,1011 +0,0 @@
+@@ -1,1013 +0,0 @@
 -///////////////////////////////////////////////////////////////////////////////
 -//
 -/// \file       stream_encoder_mt.c
@@ -1001,8 +1005,10 @@ index 323f04a..0000000
 -			while (true) {
 -				// The thread is already idle so if we are
 -				// requested to stop, just set the state.
--				if (thr->state == THR_STOP)
+-				if (thr->state == THR_STOP) {
 -					thr->state = THR_IDLE;
+-					pthread_cond_signal(&thr->cond);
+-				}
 -
 -				state = thr->state;
 -				if (state != THR_IDLE)
