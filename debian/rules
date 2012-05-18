@@ -7,12 +7,7 @@ build clean install binary-arch binary-indep binary:
 build-arch:: build-plain build-small
 
 build-indep: debian/normal-build/Makefile
-	: 'Work around bug #478524'
-	set -e; if type doxygen >/dev/null 2>/dev/null; \
-	then \
-		cd debian/normal-build; \
-		doxygen Doxyfile; \
-	fi
+	cd debian/normal-build && doxygen Doxyfile
 
 autoreconf_sources := $(wildcard Makefile.am */Makefile.am */*/Makefile.am)
 autoreconf_sources += configure.ac

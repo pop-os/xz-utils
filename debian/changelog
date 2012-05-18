@@ -24,10 +24,13 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
     Thanks to Anton Tolchanov for a report.  Closes: #673001.
   * debian/rules:
     - Use dpkg-buildflags to retrieve compiler flags, including
-      hardening options.  Build-Depends: dpkg-dev (>= 1.16.1~).
+      hardening options.  Build-Depends: dpkg-dev (>= 1.16.1).
       Closes: #653739.
     - ./configure --disable-threads for now.
     - Simplify build-arch rule.
+    - Remove workaround for #478524 (sbuild invoking build target
+      without installing Build-Depends-Indep).  Build-Depends:
+      dpkg-dev (>= 1.16.2).
     - Rearrange for clarity.
   * debian/changelog.upstream.sh: Use ‘git rev-list | git diff-tree’
     instead of ‘git log’ for reliable output independent of the

@@ -3,7 +3,7 @@ Section: utils
 Priority: required
 Maintainer: Jonathan Nieder <jrnieder@gmail.com>
 Uploaders: Mohammed Adnène Trojette <adn+deb@diwi.org>
-Build-Depends: debhelper (>= 8.9.0), perl, dpkg-dev (>= 1.16.1~),
+Build-Depends: debhelper (>= 8.9.0), perl, dpkg-dev (>= 1.16.2),
  autoconf (>= 2.64~), automake, libtool (>= 2.2),
  gettext, autopoint | gettext (<< 0.18-1), autopoint | cvs
 Build-Depends-Indep: doxygen
