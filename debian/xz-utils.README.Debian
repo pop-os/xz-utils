@@ -27,10 +27,8 @@ subset of the following list of symbolic links to your $PATH.
 	lzmore -> /usr/bin/xzmore
 	lzdiff, lzcmp -> /usr/bin/xzdiff
 
-To allow administrators to keep the old lzma package, the xz-utils
-package does not provide those links itself.  If you would like XZ Utils
-to provide these commands by default for all users, install the
-xz-lzma package.
+If you would like XZ Utils to provide these commands by default for
+all users, use "update-alternatives --config lzma".
 
 Configuration
 -------------
@@ -46,4 +44,4 @@ following to your environment (e.g., in ~/.profile):
 
 See the "Memory usage" section of the xz(1) manual page for details.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 14 Oct 2011 20:42:05 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 18 May 2012 01:14:16 -0500

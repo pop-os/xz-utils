@@ -29,6 +29,21 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
   * debian/changelog.upstream.sh: Use ‘git rev-list | git diff-tree’
     instead of ‘git log’ for reliable output independent of the
     operator’s configuration.
+  * xz-lzma: Avoid conflict with lzma as provided with the LZMA SDK.
+    - Use update-alternatives to provide lzma, unlzma, lzcat,
+      lzgrep, etc.
+    - Only conflicts with lzma versions before 9.22-1, when it
+      switched to using update-alternatives to provide lzma, unlzma,
+      and lzcat.
+  * xz-utils: Register directly as an alternative implementation for
+    lzma compatibility commands.
+    - No more xz-lzma package.
+    - xz-utils gets xz-lzma's content and dependencies (replaces
+      ancient lzip to avoid a file conflict, conflict with
+      pre-alternatives lzma, provides lzma).
+    - xz-utils conflicts with and is intended to replace xz-lzma.
+  * xz-utils/README.Debian: Update instructions for choosing an
+    implementation for the lzma compatibility commands.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
 
