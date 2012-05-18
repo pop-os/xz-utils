@@ -6,6 +6,9 @@ xz-utils (5.1.1alpha+20110809-3.1) unstable; urgency=low
     linked to both libraries at the same time.
   * liblzma: Remove the lzma_code@Base compatibility symbol.
     Closes: #649522.  Thanks to Eduard Bloch.
+  * liblzma-dev: Install an appropriate library for static linking
+    instead of the decompression-only version used to build xzdec.
+    Thanks to Anton Tolchanov for a report.  Closes: #673001.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
 
