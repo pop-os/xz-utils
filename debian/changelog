@@ -9,6 +9,7 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
       compressed binary files more useful.
   * Update copyright file.
   * Use machine-readable copyright-format 1.0.
+  * Standards-Version: 3.9.3 (checked).
   * liblzma: If liblzma2 is sharing the process image according to
     dlopen, relax check of reserved fields to avoid breakage when
     liblzma5 functions are used by old objects because a process is
