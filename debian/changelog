@@ -1,3 +1,11 @@
+xz-utils (5.0.0-2.1) stable; urgency=low
+
+  * liblzma-dev: Install an appropriate library for static linking
+    instead of the decompression-only version used to build xzdec.
+    Thanks to Anton Tolchanov for a report.  Closes: #673001.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 20:25:00 -0500
+
 xz-utils (5.0.0-2) unstable; urgency=low
 
   * Upload to unstable.

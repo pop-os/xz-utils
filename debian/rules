@@ -38,8 +38,8 @@ override_dh_auto_test:
 		check-TESTS
 
 override_dh_auto_install:
-	dh_auto_install --builddirectory debian/normal-build
 	dh_auto_install --builddirectory debian/xzdec-build
+	dh_auto_install --builddirectory debian/normal-build
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
