@@ -57,6 +57,7 @@ debian/test-xzdec-stamp: | build-small
 
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
+		--disable-threads \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-xzdec --disable-lzmadec
 
