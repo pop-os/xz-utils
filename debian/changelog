@@ -1,4 +1,4 @@
-xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
+xz-utils (5.1.1alpha+20120510-1) unstable; urgency=low
 
   * New snapshot, taken from upstream commit d05d6d6.
     - "xz -v -v --list" prints the minimal XZ Utils version needed
@@ -52,7 +52,7 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
     instead of ‘git log’ to avoid depending on the build system’s
     configuration.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Fri, 18 May 2012 17:19:48 -0500
 
 xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
 

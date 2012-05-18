@@ -1,5 +1,5 @@
 From: Jonathan Nieder <jrnieder@gmail.com>
-Date: Thu May 17 18:49:00 2012 -0500
+Date: Thu, 17 May 2012 18:49:00 -0500
 Subject: liblzma: skip ABI-incompatible check when liblzma.so.2 is loaded
 
 When liblzma started using ELF symbol versioning at the same time
