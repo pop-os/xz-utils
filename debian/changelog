@@ -4,52 +4,53 @@ xz-utils (5.1.1alpha+20120510-0.1) unstable; urgency=low
     - "xz -v -v --list" prints the minimal XZ Utils version needed
       to decompress a stream.
     - xzgrep does not unconditionally fail when the decompressor
-      dies with SIGPIPE due to unconsumed output.  This should make
-      the exit status from "xzgrep -q", "xzgrep -l", and xzgrep of
-      compressed binary files more useful.
-  * Update copyright file.
-  * Use machine-readable copyright-format 1.0.
-  * Standards-Version: 3.9.3 (checked).
-  * liblzma-dev is Multi-Arch: same.  Thanks to Riku Voipio.
-  * liblzma: If liblzma2 is sharing the process image according to
-    dlopen, relax check of reserved fields to avoid breakage when
-    liblzma5 functions are used by old objects because a process is
-    linked to both libraries at the same time.
-  * liblzma: Remove the lzma_code@Base compatibility symbol.
-    Closes: #649522.  Thanks to Eduard Bloch.
-  * liblzma: Install run-time library to /lib so it can be used
-    before /usr is mounted.  Closes: #672120.
-  * liblzma-dev: Install an appropriate library for static linking
-    instead of the decompression-only version used to build xzdec.
-    Thanks to Anton Tolchanov for a report.  Closes: #673001.
+      dies with SIGPIPE due to unconsumed output any more.  This
+      makes the exit status from commands such as "xzgrep -q" and
+      "xzgrep -l" more predictable and convenient for scripts.
+  * liblzma:
+    - If dlopen() indicates that liblzma.so.2 is loaded, check fewer
+      reserved fields in the stream argument to the lzma_code()
+      function.  This prevents out-of-bounds reads when liblzma5
+      functions are called by code built against liblzma2 (see
+      <http://sourceware.org/PR12977>).
+    - Remove the lzma_code@Base compatibility symbol.
+      Closes: #649522.  Thanks to Eduard Bloch.
+    - Install run-time library to /lib so it can be used before /usr
+      is mounted.  Closes: #672120.
+    - Configure with --disable-threads for now to avoid needlessly
+      linking to libpthread and librt.
+  * liblzma-dev:
+    - Install an appropriate library for static linking instead of
+      the decompression-only version used to build xzdec.
+      Closes: #673001.  Thanks to Anton Tolchanov.
+    - Multi-Arch: same.  Thanks to Riku Voipio.
+  * xz-utils:
+    - Use update-alternatives to provide lzma, unlzma, lzcat, and
+      the rest of the lz* scripts without conflicting with the lzma
+      package.
+    - Conflicts: lzma versions before before 9.22-1, when it started
+      providing lzma, unlzma, and lzcat through the alternatives
+      system.
+    - Conflicts: and Replaces: xz-lzma.
+    - README.Debian: Update instructions on configuring the package
+      to provide lzma compatibility commands.
+  * Remove xz-lzma package.
+  * Use dpkg-buildflags to retrieve compiler flags, including
+    hardening options.  Build-Depends: dpkg-dev (>= 1.16.1).
+    Closes: #653739.
   * debian/rules:
-    - Use dpkg-buildflags to retrieve compiler flags, including
-      hardening options.  Build-Depends: dpkg-dev (>= 1.16.1).
-      Closes: #653739.
-    - ./configure --disable-threads for now.
-    - Simplify build-arch rule.
-    - Remove workaround for #478524 (sbuild invoking build target
-      without installing Build-Depends-Indep).  Build-Depends:
-      dpkg-dev (>= 1.16.2).
+    - build-arch: Simplify by using a double-colon rule instead of a
+      dependency on a dummy noop target.
+    - build-indep: Assume doxygen is available, instead of trying to
+      get by by assuming the caller meant to invoke build-arch when
+      it is missing.  Build-Depends: dpkg-dev (>= 1.16.2).
     - Rearrange for clarity.
+  * Use machine-readable copyright-format 1.0.
+  * Update copyright file.
+  * Standards-Version: 3.9.3 (checked).
   * debian/changelog.upstream.sh: Use ‘git rev-list | git diff-tree’
-    instead of ‘git log’ for reliable output independent of the
-    operator’s configuration.
-  * xz-lzma: Avoid conflict with lzma as provided with the LZMA SDK.
-    - Use update-alternatives to provide lzma, unlzma, lzcat,
-      lzgrep, etc.
-    - Only conflicts with lzma versions before 9.22-1, when it
-      switched to using update-alternatives to provide lzma, unlzma,
-      and lzcat.
-  * xz-utils: Register directly as an alternative implementation for
-    lzma compatibility commands.
-    - No more xz-lzma package.
-    - xz-utils gets xz-lzma's content and dependencies (replaces
-      ancient lzip to avoid a file conflict, conflict with
-      pre-alternatives lzma, provides lzma).
-    - xz-utils conflicts with and is intended to replace xz-lzma.
-  * xz-utils/README.Debian: Update instructions for choosing an
-    implementation for the lzma compatibility commands.
+    instead of ‘git log’ to avoid depending on the build system’s
+    configuration.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
 
