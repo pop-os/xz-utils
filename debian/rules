@@ -34,6 +34,11 @@ override_dh_auto_clean:
 override_dh_auto_install:
 	dh_auto_install --builddirectory debian/xzdec-build
 	dh_auto_install --builddirectory debian/normal-build
+	set -e; arch=$$(dpkg-architecture -qDEB_HOST_MULTIARCH); \
+	install -d debian/tmp/lib/$$arch; \
+	mv debian/tmp/usr/lib/$$arch/liblzma.so.* debian/tmp/lib/$$arch/; \
+	dso=$$(basename $$(readlink debian/tmp/usr/lib/$$arch/liblzma.so)); \
+	ln -s -f /lib/$$arch/$$dso debian/tmp/usr/lib/$$arch/liblzma.so
 
 override_dh_installchangelogs:
 	dh_installchangelogs debian/changelog.upstream
