@@ -1,3 +1,14 @@
+xz-utils (5.1.1alpha+20110809-3.1) unstable; urgency=low
+
+  * liblzma: If liblzma2 is sharing the process image according to
+    dlopen, relax check of reserved fields to avoid breakage when
+    liblzma5 functions are used by old objects because a process is
+    linked to both libraries at the same time.
+  * liblzma: Remove the lzma_code@Base compatibility symbol.
+    Closes: #649522.  Thanks to Eduard Bloch.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Thu, 17 May 2012 19:16:19 -0500
+
 xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
 
   * liblzma: Match upstream ABI.
