@@ -1,9 +1,15 @@
-xz-utils (5.1.1alpha+20120510-1) unstable; urgency=low
+xz-utils (5.1.1alpha+20120528-0.1) unstable; urgency=low
 
-  * New snapshot, taken from upstream commit d05d6d6.
+  * New snapshot, taken from upstream commit d8db706a.
+    - liblzma: BCJ filters would return a spurious LZMA_BUF_ERROR
+      result in certain circumstances.  As a result, the xz tool
+      could produce inappropriate "Compressed data is corrupt" or
+      "Unexpected end of input" failures (reported in XZ Embedded as
+      Fedora bug 735408).
     - "xz -v -v --list" prints the minimal XZ Utils version needed
       to decompress a stream.
-    - xzgrep does not unconditionally fail when the decompressor
+    - "xz --robot -v --list" formats filenames more plainly.
+    - xzgrep does not fail unconditionally when the decompressor
       dies with SIGPIPE due to unconsumed output any more.  This
       makes the exit status from commands such as "xzgrep -q" and
       "xzgrep -l" more predictable and convenient for scripts.
@@ -45,6 +51,8 @@ xz-utils (5.1.1alpha+20120510-1) unstable; urgency=low
       get by by assuming the caller meant to invoke build-arch when
       it is missing.  Build-Depends: dpkg-dev (>= 1.16.2).
     - Rearrange for clarity.
+  * debian/symbols: Bump the minimal version for lzma_code(),
+    lzma_raw_buffer_decode(), and lzma_raw_buffer_encode().
   * Use machine-readable copyright-format 1.0.
   * Update copyright file.
   * Standards-Version: 3.9.3 (checked).

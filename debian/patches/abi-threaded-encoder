@@ -43,10 +43,10 @@ Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
  delete mode 100644 src/liblzma/common/stream_encoder_mt.c
 
 diff --git a/configure.ac b/configure.ac
-index 5247c97..d852dff 100644
+index 25eb838..c9585e5 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -467,7 +467,6 @@ if test "x$enable_threads" = xyes; then
+@@ -471,7 +471,6 @@ if test "x$enable_threads" = xyes; then
  	AC_CHECK_DECLS([CLOCK_MONOTONIC], [], [], [[#include <time.h>]])
  	CFLAGS=$OLD_CFLAGS
  fi
@@ -1981,7 +1981,7 @@ index 41193a7..4139da4 100644
  	return;
  }
  
-@@ -397,14 +356,7 @@ coder_init(file_pair *pair)
+@@ -400,14 +359,7 @@ coder_init(file_pair *pair)
  			break;
  
  		case FORMAT_XZ:
@@ -1997,7 +1997,7 @@ index 41193a7..4139da4 100644
  			break;
  
  		case FORMAT_LZMA:
-@@ -525,8 +477,8 @@ coder_normal(file_pair *pair)
+@@ -528,8 +480,8 @@ coder_normal(file_pair *pair)
  	// to the .xz format. If block_remaining == UINT64_MAX, only
  	// a single block is created.
  	uint64_t block_remaining = UINT64_MAX;
