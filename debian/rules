@@ -65,6 +65,7 @@ debian/xzdec-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
 		--disable-shared --disable-nls --disable-encoders \
 		--enable-small --disable-threads \
+		--disable-liblzma2-compat \
 		$(opt_optimize_small) $(opt_quiet) \
 		--disable-lzmainfo --disable-scripts \
 		--disable-xz --disable-lzma-links
