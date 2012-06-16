@@ -1,4 +1,4 @@
-xz-utils (5.1.1alpha+20120614-0.1) unstable; urgency=low
+xz-utils (5.1.1alpha+20120614-1) unstable; urgency=low
 
   * New snapshot, taken from upstream commit f1675f76.
     - liblzma: BCJ filters would return a spurious LZMA_BUF_ERROR
@@ -68,7 +68,7 @@ xz-utils (5.1.1alpha+20120614-0.1) unstable; urgency=low
     instead of ‘git log’ to avoid depending on the build system’s
     configuration.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 16 Jun 2012 04:44:44 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 16 Jun 2012 06:18:54 -0500
 
 xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
 
