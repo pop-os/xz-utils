@@ -4,7 +4,7 @@ build clean install binary-arch binary-indep binary:
 	+dh $@ --parallel $(opt_no_act)
 
 # Runs tests, too, if and only if nocheck is unset (see below).
-build-arch:: build-plain build-small
+build-arch:: build-plain build-static build-small
 
 build-indep: debian/normal-build/Makefile
 	cd debian/normal-build && doxygen Doxyfile
@@ -24,11 +24,13 @@ override_dh_auto_clean:
 	rm -f debian/*-stamp
 	dh_auto_clean --builddirectory debian/xzdec-build
 	dh_auto_clean --builddirectory debian/normal-build
+	dh_auto_clean --builddirectory debian/static-build
 	sh debian/clean.sh
 
 override_dh_auto_install:
 	dh_auto_install --builddirectory debian/xzdec-build
 	dh_auto_install --builddirectory debian/normal-build
+	dh_auto_install --builddirectory debian/static-build
 	set -e; arch=$$(dpkg-architecture -qDEB_HOST_MULTIARCH); \
 	install -d debian/tmp/lib/$$arch; \
 	mv debian/tmp/usr/lib/$$arch/liblzma.so.* debian/tmp/lib/$$arch/; \
@@ -41,11 +43,18 @@ override_dh_installchangelogs:
 build-plain: debian/normal-build/Makefile
 	dh_auto_build --builddirectory debian/normal-build
 
+build-static: debian/static-build/Makefile
+	dh_auto_build --builddirectory debian/static-build
+
 build-small: debian/xzdec-build/Makefile
 	dh_auto_build --builddirectory debian/xzdec-build
 
 debian/test-plain-stamp: | build-plain
 	dh_auto_test --builddirectory debian/normal-build
+	>$@
+
+debian/test-static-stamp: | build-static
+	dh_auto_test --builddirectory debian/static-build
 	>$@
 
 debian/test-xzdec-stamp: | build-small
@@ -57,9 +66,18 @@ debian/test-xzdec-stamp: | build-small
 
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
-		--disable-threads \
+		--disable-threads --disable-static \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-xzdec --disable-lzmadec
+
+debian/static-build/Makefile: $(configure_input)
+	dh_auto_configure --builddirectory debian/static-build -- \
+		--disable-threads --disable-shared \
+		--enable-liblzma2-compat \
+		$(opt_optimize) $(opt_quiet) \
+		--disable-lzmainfo --disable-scripts \
+		--disable-xzdec --disable-lzmadec \
+		--disable-xz --disable-lzma-links
 
 debian/xzdec-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
@@ -111,7 +129,9 @@ ifneq (,$(filter quiet,$(DEB_BUILD_OPTIONS)))
 endif
 
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
-build-arch:: debian/test-plain-stamp debian/test-xzdec-stamp
+build-arch:: debian/test-plain-stamp
+build-arch:: debian/test-static-stamp
+build-arch:: debian/test-xzdec-stamp
 endif
 
 # Build a tarball with the latest upstream version.

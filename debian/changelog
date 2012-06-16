@@ -33,6 +33,8 @@ xz-utils (5.1.1alpha+20120614-0.1) unstable; urgency=low
     - Install an appropriate library for static linking instead of
       the decompression-only version used to build xzdec.
       Closes: #673001.  Thanks to Anton Tolchanov.
+    - Use the liblzma2-compatible version of lzma_code() in the
+      static library.
     - Multi-Arch: same.  Thanks to Riku Voipio.
     - Install new examples and revised old examples to
       /usr/share/doc/liblzma-dev.
