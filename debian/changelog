@@ -68,7 +68,7 @@ xz-utils (5.1.1alpha+20120614-1) unstable; urgency=low
     instead of ‘git log’ to avoid depending on the build system’s
     configuration.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 16 Jun 2012 06:18:54 -0500
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sat, 16 Jun 2012 15:03:17 -0500
 
 xz-utils (5.1.1alpha+20110809-3) unstable; urgency=low
 
