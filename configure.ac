@@ -472,10 +472,39 @@ if test "x$enable_threads" = xyes; then
 	CFLAGS=$OLD_CFLAGS
 fi
 
-# As a Debian-specific hack, liblzma uses dlopen() to check if extra
+# As a Debian-specific hack, liblzma can use dlopen() to check if extra
 # paranoia is needed because unversioned symbols from liblzma.so.2 are
 # present in the same process.  See src/liblzma/common/common.c.
-AC_SEARCH_LIBS([dlopen], [dl])
+AC_MSG_CHECKING([if lzma_code checks should be relaxed for compatibility])
+AC_ARG_ENABLE([liblzma2-compat], [AC_HELP_STRING([--enable-liblzma2-compat],
+		[Relax run-time checks to accomodate old binaries built
+		with smaller sizeof(lzma_stream).  The default is "dynamic",
+		which means to only use the relaxed checks when the dynamic
+		loader reports that liblzma.so.2 is loaded in the same process.])],
+	[], [enable_liblzma2_compat=dynamic])
+case $enable_liblzma2_compat in
+dynamic)
+	AC_SEARCH_LIBS([dlopen], [dl])
+	AC_DEFINE([LIBLZMA2_COMPAT_DYNAMIC], [1],
+		[Define to 1 to use dlopen() to check if lzma_code() checks
+		should be more tolerant because the process is also linked to
+		liblzma from Debian 6.0.])
+	AC_MSG_RESULT([auto])
+	;;
+yes)
+	AC_DEFINE([LIBLZMA2_COMPAT], [1],
+		[Define to 1 to unconditionally make lzma_code() checks tolerant
+		to accomodate callers built against liblzma from Debian 6.0.])
+	AC_MSG_RESULT([yes])
+	;;
+no)
+	AC_MSG_RESULT([no])
+	;;
+*)
+	AC_MSG_RESULT([])
+	AC_MSG_ERROR([--enable-liblzma2: unrecognized value $enable_liblzma2_compat])
+	;;
+esac
 
 echo
 echo "Initializing Libtool:"

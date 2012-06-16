@@ -143,16 +143,46 @@ lzma_next_end(lzma_next_coder *next, lzma_allocator *allocator)
 // External to internal API wrapper //
 //////////////////////////////////////
 
-static bool
-liblzma2_loaded(void)
+#ifdef LIBLZMA2_COMPAT_DYNAMIC
+
+static void
+init_liblzma2_compat(lzma_stream *strm)
 {
 	void *handle = dlopen("liblzma.so.2", RTLD_LAZY | RTLD_NOLOAD);
 	if (handle) {
 		dlclose(handle);
-		return true;
+		strm->internal->liblzma2_compat = true;
+		return;
 	}
+	strm->internal->liblzma2_compat = false;
+}
+
+static bool
+liblzma2_loaded(lzma_stream *strm)
+{
+	return strm->internal->liblzma2_compat;
+}
+
+#else
+
+static void
+init_liblzma2_compat(lzma_stream *strm)
+{
+}
+
+#ifdef LIBLZMA2_COMPAT
+static bool liblzma2_loaded(lzma_stream *strm)
+{
+	return true;
+}
+#else
+static bool liblzma2_loaded(lzma_stream *strm)
+{
 	return false;
 }
+#endif
+
+#endif
 
 extern lzma_ret
 lzma_strm_init(lzma_stream *strm)
@@ -167,7 +197,7 @@ lzma_strm_init(lzma_stream *strm)
 			return LZMA_MEM_ERROR;
 
 		strm->internal->next = LZMA_NEXT_CODER_INIT;
-		strm->internal->liblzma2_compat = liblzma2_loaded();
+		init_liblzma2_compat(strm);
 	}
 
 	memzero(strm->internal->supported_actions,
@@ -220,7 +250,7 @@ lzma_code(lzma_stream *strm, lzma_action action)
 			|| strm->reserved_ptr4 != NULL)
 		return LZMA_OPTIONS_ERROR;
 
-	if (strm->internal->liblzma2_compat)
+	if (liblzma2_loaded(strm))
 		; /* Enough checks. */
 	else if (strm->reserved_int1 != 0
 			|| strm->reserved_int2 != 0
