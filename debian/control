@@ -30,6 +30,7 @@ Description: XZ-format compression library
  format, use the p7zip package instead.)
 
 Package: xz-utils
+Priority: standard
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Multi-Arch: foreign
