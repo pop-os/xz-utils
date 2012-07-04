@@ -1,3 +1,10 @@
+xz-utils (5.1.1alpha+20120614-1.1) unstable; urgency=low
+
+  * xz-utils/README.Debian: Document differences from upstream.
+    Closes: #685217.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Mon, 10 Sep 2012 14:00:55 -0700
+
 xz-utils (5.1.1alpha+20120614-1) unstable; urgency=low
 
   * New snapshot, taken from upstream commit f1675f76.
