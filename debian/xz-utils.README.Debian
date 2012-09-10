@@ -35,6 +35,19 @@ abi-liblzma2-compat, configure-liblzma2-compat
   process image.  Likewise when linked statically.
   (See bug #649522.)
 
+man-date, man-xz-lvv-minver (from upstream)
+  Document the "Minimum version required to decompress" field of
+  "xz --robot -v -v --list" output.
+
+xz-lvv-empty-block-minver (from upstream)
+  Fix the version number printed by "xz -lvv" for files with Blocks
+  of zero uncompressed_size: the decoder bug preventing reading such
+  files was fixed in xz 5.0.2, not 5.0.3.
+
+decoder-check-first-0x00 (from upstream)
+  Check that the first byte of range encoded data is zero to catch
+  broken files sooner.
+
 LZMA Utils compatibility
 ------------------------
 

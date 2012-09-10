@@ -1,5 +1,12 @@
 xz-utils (5.1.1alpha+20120614-1.1) unstable; urgency=low
 
+  * liblzma: report a LZMA_DATA_ERROR when range encoded data starts
+    with a nonzero byte.  This is a sanity check to catch malformed
+    files that no known encoders produce.
+  * xz -v -v --list: Support for decompressing blocks with zero-length
+    uncompressed data was added in xz 5.0.2, not 5.0.3.
+  * xz.1: "xz --robot -v -v --list" gained a "minimum xz version to
+    decompress" field.
   * xz-utils/README.Debian: Document differences from upstream.
     Closes: #685217.
 
