@@ -1,3 +1,16 @@
+xz-utils (5.1.1alpha+20120614-2.1) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Non-maintainer upload.
+
+  [ Colin Watson ]
+  * Remove build-dependency on perl; we use no non-trivial Perl modules so
+    the Essential perl-base is perfectly adequate, and an unadorned
+    build-dependency on perl is problematic for cross-building.
+    Closes: #697328.
+
+ -- Helmut Grohne <helmut@subdivi.de>  Thu, 18 Jun 2015 20:27:23 +0200
+
 xz-utils (5.1.1alpha+20120614-2) unstable; urgency=low
 
   * Apply fixes from 5.1.2alpha.  Closes: #685220.
