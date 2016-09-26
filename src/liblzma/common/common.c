@@ -38,7 +38,7 @@ lzma_version_string(void)
 ///////////////////////
 
 extern void * lzma_attribute((__malloc__)) lzma_attr_alloc_size(1)
-lzma_alloc(size_t size, lzma_allocator *allocator)
+lzma_alloc(size_t size, const lzma_allocator *allocator)
 {
 	// Some malloc() variants return NULL if called with size == 0.
 	if (size == 0)
@@ -55,8 +55,29 @@ lzma_alloc(size_t size, lzma_allocator *allocator)
 }
 
 
+extern void * lzma_attribute((__malloc__)) lzma_attr_alloc_size(1)
+lzma_alloc_zero(size_t size, const lzma_allocator *allocator)
+{
+	// Some calloc() variants return NULL if called with size == 0.
+	if (size == 0)
+		size = 1;
+
+	void *ptr;
+
+	if (allocator != NULL && allocator->alloc != NULL) {
+		ptr = allocator->alloc(allocator->opaque, 1, size);
+		if (ptr != NULL)
+			memzero(ptr, size);
+	} else {
+		ptr = calloc(1, size);
+	}
+
+	return ptr;
+}
+
+
 extern void
-lzma_free(void *ptr, lzma_allocator *allocator)
+lzma_free(void *ptr, const lzma_allocator *allocator)
 {
 	if (allocator != NULL && allocator->free != NULL)
 		allocator->free(allocator->opaque, ptr);
@@ -90,7 +111,7 @@ lzma_bufcpy(const uint8_t *restrict in, size_t *restrict in_pos,
 
 
 extern lzma_ret
-lzma_next_filter_init(lzma_next_coder *next, lzma_allocator *allocator,
+lzma_next_filter_init(lzma_next_coder *next, const lzma_allocator *allocator,
 		const lzma_filter_info *filters)
 {
 	lzma_next_coder_init(filters[0].init, next, allocator);
@@ -101,7 +122,7 @@ lzma_next_filter_init(lzma_next_coder *next, lzma_allocator *allocator,
 
 
 extern lzma_ret
-lzma_next_filter_update(lzma_next_coder *next, lzma_allocator *allocator,
+lzma_next_filter_update(lzma_next_coder *next, const lzma_allocator *allocator,
 		const lzma_filter *reversed_filters)
 {
 	// Check that the application isn't trying to change the Filter ID.
@@ -119,7 +140,7 @@ lzma_next_filter_update(lzma_next_coder *next, lzma_allocator *allocator,
 
 
 extern void
-lzma_next_end(lzma_next_coder *next, lzma_allocator *allocator)
+lzma_next_end(lzma_next_coder *next, const lzma_allocator *allocator)
 {
 	if (next->init != (uintptr_t)(NULL)) {
 		// To avoid tiny end functions that simply call
@@ -238,7 +259,7 @@ lzma_code(lzma_stream *strm, lzma_action action)
 			|| (strm->next_out == NULL && strm->avail_out != 0)
 			|| strm->internal == NULL
 			|| strm->internal->next.code == NULL
-			|| (unsigned int)(action) > LZMA_FINISH
+			|| (unsigned int)(action) > LZMA_ACTION_MAX
 			|| !strm->internal->supported_actions[action])
 		return LZMA_PROG_ERROR;
 
@@ -277,6 +298,10 @@ lzma_code(lzma_stream *strm, lzma_action action)
 		case LZMA_FINISH:
 			strm->internal->sequence = ISEQ_FINISH;
 			break;
+
+		case LZMA_FULL_BARRIER:
+			strm->internal->sequence = ISEQ_FULL_BARRIER;
+			break;
 		}
 
 		break;
@@ -299,6 +324,13 @@ lzma_code(lzma_stream *strm, lzma_action action)
 
 	case ISEQ_FINISH:
 		if (action != LZMA_FINISH
+				|| strm->internal->avail_in != strm->avail_in)
+			return LZMA_PROG_ERROR;
+
+		break;
+
+	case ISEQ_FULL_BARRIER:
+		if (action != LZMA_FULL_BARRIER
 				|| strm->internal->avail_in != strm->avail_in)
 			return LZMA_PROG_ERROR;
 
@@ -329,7 +361,9 @@ lzma_code(lzma_stream *strm, lzma_action action)
 
 	strm->internal->avail_in = strm->avail_in;
 
-	switch (ret) {
+	// Cast is needed to silence a warning about LZMA_TIMED_OUT, which
+	// isn't part of lzma_ret enumeration.
+	switch ((unsigned int)(ret)) {
 	case LZMA_OK:
 		// Don't return LZMA_BUF_ERROR when it happens the first time.
 		// This is to avoid returning LZMA_BUF_ERROR when avail_out
@@ -345,9 +379,16 @@ lzma_code(lzma_stream *strm, lzma_action action)
 		}
 		break;
 
+	case LZMA_TIMED_OUT:
+		strm->internal->allow_buf_error = false;
+		ret = LZMA_OK;
+		break;
+
 	case LZMA_STREAM_END:
 		if (strm->internal->sequence == ISEQ_SYNC_FLUSH
-				|| strm->internal->sequence == ISEQ_FULL_FLUSH)
+				|| strm->internal->sequence == ISEQ_FULL_FLUSH
+				|| strm->internal->sequence
+					== ISEQ_FULL_BARRIER)
 			strm->internal->sequence = ISEQ_RUN;
 		else
 			strm->internal->sequence = ISEQ_END;
@@ -381,6 +422,22 @@ lzma_end(lzma_stream *strm)
 		lzma_next_end(&strm->internal->next, strm->allocator);
 		lzma_free(strm->internal, strm->allocator);
 		strm->internal = NULL;
+	}
+
+	return;
+}
+
+
+extern LZMA_API(void)
+lzma_get_progress(lzma_stream *strm,
+		uint64_t *progress_in, uint64_t *progress_out)
+{
+	if (strm->internal->next.get_progress != NULL) {
+		strm->internal->next.get_progress(strm->internal->next.coder,
+				progress_in, progress_out);
+	} else {
+		*progress_in = strm->total_in;
+		*progress_out = strm->total_out;
 	}
 
 	return;

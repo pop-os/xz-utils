@@ -1,3 +1,15 @@
+xz-utils (5.2.2-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * switch to git-dpm for packaging (closes: #540405)
+  * New Upstream (closes: #731634)
+   - no more "xzless error in line 49" (closes: #693537)
+   - xzgrep -h works (closes: #780268)
+  * update symbol file
+  * enable threads for the "normal build"
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 26 Sep 2016 20:45:45 +0200
+
 xz-utils (5.1.1alpha+20120614-2.1) unstable; urgency=medium
 
   [ Helmut Grohne ]

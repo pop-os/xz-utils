@@ -1,6 +1,10 @@
+From e284cfe27457239e932038fb90084c91f4229c36 Mon Sep 17 00:00:00 2001
 From: Jonathan Nieder <jrnieder@gmail.com>
 Date: Sat, 16 Jun 2012 05:57:42 -0500
 Subject: liblzma: make dlopen()-based liblzma2 compatibility optional
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 Suppose I want to build a statically linked program:
 
@@ -49,20 +53,21 @@ three sets of semantics:
    want your copy of liblzma to be usable by static libraries that
    were built against the old library.
 
+Patch-Name: liblzma-make-dlopen-based-liblzma2-compatibility-opt.patch
 Signed-off-by: Jonathan Nieder <jrnieder@gmail.com>
 ---
- configure.ac                |   33 +++++++++++++++++++++++++++++++--
- src/liblzma/common/common.c |   40 +++++++++++++++++++++++++++++++++++-----
- src/liblzma/common/common.h |    2 ++
+ configure.ac                | 33 +++++++++++++++++++++++++++++++--
+ src/liblzma/common/common.c | 40 +++++++++++++++++++++++++++++++++++-----
+ src/liblzma/common/common.h |  2 ++
  3 files changed, 68 insertions(+), 7 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index cbf92659..eb510fd9 100644
+index 6dae0b9756d6..d17629e0e7f6 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -468,10 +468,39 @@ if test "x$enable_threads" = xyes; then
- 	CFLAGS=$OLD_CFLAGS
- fi
+@@ -548,10 +548,39 @@ case $enable_threads in
+ esac
+ AM_CONDITIONAL([COND_THREADS], [test "x$enable_threads" != xno])
  
 -# As a Debian-specific hack, liblzma uses dlopen() to check if extra
 +# As a Debian-specific hack, liblzma can use dlopen() to check if extra
@@ -103,10 +108,10 @@ index cbf92659..eb510fd9 100644
  echo
  echo "Initializing Libtool:"
 diff --git a/src/liblzma/common/common.c b/src/liblzma/common/common.c
-index e61d940d..3bfdb755 100644
+index 5474211cf0ca..79427b005b4b 100644
 --- a/src/liblzma/common/common.c
 +++ b/src/liblzma/common/common.c
-@@ -143,16 +143,46 @@ lzma_next_end(lzma_next_coder *next, lzma_allocator *allocator)
+@@ -164,16 +164,46 @@ lzma_next_end(lzma_next_coder *next, const lzma_allocator *allocator)
  // External to internal API wrapper //
  //////////////////////////////////////
  
@@ -156,7 +161,7 @@ index e61d940d..3bfdb755 100644
  
  extern lzma_ret
  lzma_strm_init(lzma_stream *strm)
-@@ -167,7 +197,7 @@ lzma_strm_init(lzma_stream *strm)
+@@ -188,7 +218,7 @@ lzma_strm_init(lzma_stream *strm)
  			return LZMA_MEM_ERROR;
  
  		strm->internal->next = LZMA_NEXT_CODER_INIT;
@@ -165,7 +170,7 @@ index e61d940d..3bfdb755 100644
  	}
  
  	memzero(strm->internal->supported_actions,
-@@ -220,7 +250,7 @@ lzma_code(lzma_stream *strm, lzma_action action)
+@@ -241,7 +271,7 @@ lzma_code(lzma_stream *strm, lzma_action action)
  			|| strm->reserved_ptr4 != NULL)
  		return LZMA_OPTIONS_ERROR;
  
@@ -175,10 +180,10 @@ index e61d940d..3bfdb755 100644
  	else if (strm->reserved_int1 != 0
  			|| strm->reserved_int2 != 0
 diff --git a/src/liblzma/common/common.h b/src/liblzma/common/common.h
-index 475661d8..4081c2d3 100644
+index b056e417a29e..eb1d0525c07d 100644
 --- a/src/liblzma/common/common.h
 +++ b/src/liblzma/common/common.h
-@@ -201,9 +201,11 @@ struct lzma_internal_s {
+@@ -227,9 +227,11 @@ struct lzma_internal_s {
  	/// made (no input consumed and no output produced by next.code).
  	bool allow_buf_error;
  
@@ -190,6 +195,3 @@ index 475661d8..4081c2d3 100644
  };
  
  
--- 
-1.7.10.4
-

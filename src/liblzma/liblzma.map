@@ -93,7 +93,16 @@ global:
 	lzma_vli_decode;
 	lzma_vli_encode;
 	lzma_vli_size;
+};
+
+XZ_5.2 {
+global:
+	lzma_block_uncomp_encode;
+	lzma_cputhreads;
+	lzma_get_progress;
+	lzma_stream_encoder_mt;
+	lzma_stream_encoder_mt_memusage;
 
 local:
 	*;
-};
+} XZ_5.0;

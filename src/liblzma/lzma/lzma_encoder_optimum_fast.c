@@ -10,6 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "lzma_encoder_private.h"
+#include "memcmplen.h"
 
 
 #define change_pair(small_dist, big_dist) \
@@ -57,9 +58,8 @@ lzma_lzma_optimum_fast(lzma_coder *restrict coder, lzma_mf *restrict mf,
 
 		// The first two bytes matched.
 		// Calculate the length of the match.
-		uint32_t len;
-		for (len = 2; len < buf_avail
-				&& buf[len] == buf_back[len]; ++len) ;
+		const uint32_t len = lzma_memcmplen(
+				buf, buf_back, 2, buf_avail);
 
 		// If we have found a repeated match that is at least
 		// nice_len long, return it immediately.
@@ -152,19 +152,10 @@ lzma_lzma_optimum_fast(lzma_coder *restrict coder, lzma_mf *restrict mf,
 	// the old buf pointer instead of recalculating it with mf_ptr().
 	++buf;
 
-	const uint32_t limit = len_main - 1;
+	const uint32_t limit = my_max(2, len_main - 1);
 
 	for (uint32_t i = 0; i < REPS; ++i) {
-		const uint8_t *const buf_back = buf - coder->reps[i] - 1;
-
-		if (not_equal_16(buf, buf_back))
-			continue;
-
-		uint32_t len;
-		for (len = 2; len < limit
-				&& buf[len] == buf_back[len]; ++len) ;
-
-		if (len >= limit) {
+		if (memcmp(buf, buf - coder->reps[i] - 1, limit) == 0) {
 			*back_res = UINT32_MAX;
 			*len_res = 1;
 			return;
