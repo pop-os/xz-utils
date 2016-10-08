@@ -32,6 +32,10 @@ liblzma_la_LDFLAGS += \
 	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma.map
 endif
 
+if COND_NEED_FREEBSD_GLUE
+liblzma_la_LDFLAGS += -lfreebsd-glue
+endif
+
 liblzma_la_SOURCES += ../common/tuklib_physmem.c
 
 if COND_THREADS

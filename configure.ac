@@ -39,6 +39,13 @@ case $host_os in
 esac
 AM_CONDITIONAL([COND_W32], [test "$is_w32" = yes])
 
+# We need -lfreebsd-glue on kfreebsd
+case $host_os in
+	kfreebsd*-gnu* ) is_kfreebsd=yes ;;
+	*)               is_kfreebsd=no ;;
+esac
+AM_CONDITIONAL([COND_NEED_FREEBSD_GLUE], [test "$is_kfreebsd" = yes])
+
 # We need to use $EXEEXT with $(LN_S) when creating symlinks to
 # executables. Cygwin is an exception to this, since it is recommended
 # that symlinks don't have the .exe suffix. To make this work, we

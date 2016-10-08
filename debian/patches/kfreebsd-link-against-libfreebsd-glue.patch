@@ -1,0 +1,51 @@
+From c49e1b3c33488a05467d754dc574b284578533ed Mon Sep 17 00:00:00 2001
+From: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+Date: Sat, 8 Oct 2016 14:55:42 +0200
+Subject: kfreebsd: link against libfreebsd-glue
+
+cpuset_getaffinity() is available on kfreebsd but not in libc but in
+libfreebsd-glue. This code adds the library if kfreebsd is detected so
+cpuset_getaffinity() can be used.
+Without it tuklib_cpucores will detect `cpuset' because the compile test
+succeeds and later it fails at link phase.
+
+Patch-Name: kfreebsd-link-against-libfreebsd-glue.patch
+Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+---
+ configure.ac            | 7 +++++++
+ src/liblzma/Makefile.am | 4 ++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index d17629e0e7f6..9697fbd9ab7b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -39,6 +39,13 @@ case $host_os in
+ esac
+ AM_CONDITIONAL([COND_W32], [test "$is_w32" = yes])
+ 
++# We need -lfreebsd-glue on kfreebsd
++case $host_os in
++	kfreebsd*-gnu* ) is_kfreebsd=yes ;;
++	*)               is_kfreebsd=no ;;
++esac
++AM_CONDITIONAL([COND_NEED_FREEBSD_GLUE], [test "$is_kfreebsd" = yes])
++
+ # We need to use $EXEEXT with $(LN_S) when creating symlinks to
+ # executables. Cygwin is an exception to this, since it is recommended
+ # that symlinks don't have the .exe suffix. To make this work, we
+diff --git a/src/liblzma/Makefile.am b/src/liblzma/Makefile.am
+index 24d9c261233e..13624d08798c 100644
+--- a/src/liblzma/Makefile.am
++++ b/src/liblzma/Makefile.am
+@@ -32,6 +32,10 @@ liblzma_la_LDFLAGS += \
+ 	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma.map
+ endif
+ 
++if COND_NEED_FREEBSD_GLUE
++liblzma_la_LDFLAGS += -lfreebsd-glue
++endif
++
+ liblzma_la_SOURCES += ../common/tuklib_physmem.c
+ 
+ if COND_THREADS
