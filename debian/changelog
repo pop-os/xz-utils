@@ -1,3 +1,11 @@
+xz-utils (5.2.2-1.3) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Force a constant /bin/sh for installed scripts. This helps the build
+    be reproducible; /bin/sh on Debian is always POSIX. (Closes: #806331)
+
+ -- Ximin Luo <infinity0@debian.org>  Wed, 28 Jun 2017 18:39:19 +0200
+
 xz-utils (5.2.2-1.2) unstable; urgency=medium
 
   * Non-maintainer upload.

@@ -66,12 +66,14 @@ debian/test-xzdec-stamp: | build-small
 
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 	dh_auto_configure --builddirectory debian/normal-build -- \
+		$(opt_reproduce) \
 		--enable-threads --disable-static \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-xzdec --disable-lzmadec
 
 debian/static-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/static-build -- \
+		$(opt_reproduce) \
 		--disable-threads --disable-shared \
 		--enable-liblzma2-compat \
 		$(opt_optimize) $(opt_quiet) \
@@ -81,6 +83,7 @@ debian/static-build/Makefile: $(configure_input)
 
 debian/xzdec-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
+		$(opt_reproduce) \
 		--disable-shared --disable-nls --disable-encoders \
 		--enable-small --disable-threads \
 		--disable-liblzma2-compat \
@@ -97,6 +100,7 @@ small_flags_env += DEB_CFLAGS_MAINT_PREPEND=-Os
 flags_cmd = dpkg-buildflags --export=configure
 opt_optimize = $(shell $(flags_cmd))
 opt_optimize_small = $(shell $(small_flags_env) $(flags_cmd))
+opt_reproduce = gl_cv_posix_shell=/bin/sh
 
 opt_no_act =
 opt_quiet =
