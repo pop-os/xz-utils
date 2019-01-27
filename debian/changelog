@@ -1,16 +1,16 @@
 xz-utils (5.2.4-0.1) unstable; urgency=low
 
   * New upstream release.  Closes: #851615.
-  * Drop -lfreebsd-glue patch, fixed differently upstream.
-    - No longer Build-Depends: freebsd-glue on kfreebsd.
+  * Drop patches; all were applied or otherwise fixed upstream.
+  * No longer Build-Depends: freebsd-glue on kfreebsd.
   * liblzma:
     - Remove compatibility tricks that permit sharing a process with
       liblzma.so.2.  This means liblzma.a no longer depends on libdl
       at run time.
       Closes: #919950.  Thanks to Josh Triplett.
     - Breaks: liblzma2 versions without symbol versioning.
-  * xz-utils:
-    - README.Debian: Remove notes about liblzma.so.2 compatibility.
+  * xz-utils/README.Debian: Remove notes about differences from
+    upstream.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 27 Jan 2019 15:02:13 -0800
 
