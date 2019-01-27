@@ -1,3 +1,16 @@
+xz-utils (5.2.2-1.4) unstable; urgency=low
+
+  * liblzma:
+    - Remove compatibility tricks that permit sharing a process with
+      liblzma.so.2.  This means liblzma.a no longer depends on libdl
+      at run time.
+      Closes: #919950.  Thanks to Josh Triplett.
+    - Breaks: liblzma2 versions without symbol versioning.
+  * xz-utils:
+    - README.Debian: Remove notes about liblzma.so.2 compatibility.
+
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 27 Jan 2019 15:02:13 -0800
+
 xz-utils (5.2.2-1.3) unstable; urgency=medium
 
   * Non-maintainer upload.

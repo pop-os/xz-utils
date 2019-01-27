@@ -19,21 +19,13 @@ Differences from standard XZ Utils
 ----------------------------------
 
 XZ Utils 5.1.y has some experimental features which are disabled in
-Debian to allow interfaces to evolve.  Debian liblzma is also modified
-to avoid breakage when the same process loads liblzma2 from Debian 6.0
-(squeeze) and liblzma5.
+Debian to allow interfaces to evolve.
 
 abi-threaded-encoder
   Disable threaded compression in liblzma and xz.
 
 abi-version-script
   liblzma: Do not pretend to satisfy dependencies on XZ_5.1.1alpha.
-
-abi-liblzma2-compat, configure-liblzma2-compat
-  Do not check reserved fields past the historical end of the
-  lzma_stream structure if liblzma.so.2 is loaded in the same
-  process image.  Likewise when linked statically.
-  (See bug #649522.)
 
 man-date, man-xz-lvv-minver (from upstream)
   Document the "Minimum version required to decompress" field of
