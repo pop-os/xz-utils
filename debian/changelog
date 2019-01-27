@@ -1,5 +1,8 @@
-xz-utils (5.2.2-1.4) unstable; urgency=low
+xz-utils (5.2.4-0.1) unstable; urgency=low
 
+  * New upstream release.  Closes: #851615.
+  * Drop -lfreebsd-glue patch, fixed differently upstream.
+    - No longer Build-Depends: freebsd-glue on kfreebsd.
   * liblzma:
     - Remove compatibility tricks that permit sharing a process with
       liblzma.so.2.  This means liblzma.a no longer depends on libdl
