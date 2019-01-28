@@ -1,6 +1,7 @@
 xz-utils (5.2.4-0.1) unstable; urgency=low
 
   * New upstream release.  Closes: #851615.
+  * Standards-Version: 4.3.0 (checked).
   * Use an XZ compressed tarball for upstream source.
   * Add upstream signing key and verify tarball at "uscan" time.
   * Drop patches; all were applied or otherwise fixed upstream.
