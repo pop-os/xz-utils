@@ -22,6 +22,7 @@ xz-utils (5.2.4-0.1) unstable; urgency=low
   * xz-utils:
     - Lower priority of xz-utils to standard.  Closes: #685203.
     - README.Debian: Remove notes about differences from upstream.
+    - Remove old NEWS.Debian.
 
  -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 27 Jan 2019 15:02:13 -0800
 
