@@ -78,7 +78,7 @@ License:
  information.
 
 Files: *
-Copyright: 2006-2012, Lasse Collin
+Copyright: 2006-2018, Lasse Collin
            1999-2008, Igor Pavlov
            2006, Ville Koskinen
            1998, Steve Reid
@@ -114,7 +114,7 @@ Comment:
 
 Files: INSTALL NEWS PACKAGERS
  windows/README-Windows.txt
- windows/INSTALL-Windows.txt
+ windows/INSTALL-MinGW.txt
 Copyright: 2009-2010, Lasse Collin
 License: probably-PD
  See the note on AUTHORS, README, and so on above.
@@ -155,6 +155,11 @@ License: permissive-fsf
 Files: m4/acx_pthread.m4
 Copyright: © 2008, Steven G. Johnson <stevenj@alum.mit.edu>
 License: Autoconf
+
+files: m4/ax_check_capsicum.m4
+Copyright: © 2014, Google Inc.
+           © 2015, Lasse Collin <lasse.collin@tukaani.org>
+License: permissive-nowarranty
 
 Files: Doxyfile.in
 Copyright: © 1997-2007 by Dimitri van Heesch
