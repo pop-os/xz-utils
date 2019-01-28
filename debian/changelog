@@ -2,6 +2,8 @@ xz-utils (5.2.4-0.1) unstable; urgency=low
 
   * New upstream release.  Closes: #851615.
   * Drop patches; all were applied or otherwise fixed upstream.
+  * debian/control: Use a stable repo.or.cz URL for packaging repo.
+    Closes: #826382.  Thanks to Rolf Leggewie.
   * No longer Build-Depends: freebsd-glue on kfreebsd.
   * liblzma:
     - Remove compatibility tricks that permit sharing a process with
