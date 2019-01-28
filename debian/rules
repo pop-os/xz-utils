@@ -140,7 +140,7 @@ endif
 
 # Build a tarball with the latest upstream version.
 # This is made complicated by the need to choose a nice version number.
-REPO = http://git.tukaani.org/xz.git
+REPO = https://git.tukaani.org/xz.git
 BRANCH = master
 get-orig-source:
 	mkdir debian-orig-source

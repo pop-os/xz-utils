@@ -11,7 +11,7 @@ Build-Conflicts: automake1.4
 Standards-Version: 3.9.3
 Vcs-Browser: https://repo.or.cz/w/xz/debian
 Vcs-Git: https://repo.or.cz/r/xz/debian
-Homepage: http://tukaani.org/xz/
+Homepage: https://tukaani.org/xz/
 
 Package: liblzma5
 Section: libs
