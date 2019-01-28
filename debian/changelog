@@ -15,6 +15,7 @@ xz-utils (5.2.4-0.1) unstable; urgency=low
       at run time.
       Closes: #919950.  Thanks to Josh Triplett.
     - Breaks: liblzma2 versions without symbol versioning.
+    - Priority: optional.
   * xz-utils:
     - Lower priority of xz-utils to standard.  Closes: #685203.
     - README.Debian: Remove notes about differences from upstream.
