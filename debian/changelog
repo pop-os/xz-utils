@@ -1,4 +1,4 @@
-xz-utils (5.2.4-0.1) unstable; urgency=low
+xz-utils (5.2.4-1) unstable; urgency=low
 
   * New upstream release.  Closes: #851615.
   * Standards-Version: 4.3.0 (checked).
@@ -24,7 +24,7 @@ xz-utils (5.2.4-0.1) unstable; urgency=low
     - README.Debian: Remove notes about differences from upstream.
     - Remove old NEWS.Debian.
 
- -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 27 Jan 2019 15:02:13 -0800
+ -- Jonathan Nieder <jrnieder@gmail.com>  Sun, 27 Jan 2019 17:09:34 -0800
 
 xz-utils (5.2.2-1.3) unstable; urgency=medium
 
