@@ -1,3 +1,11 @@
+xz-utils (5.2.4-1.1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * Add % target to the rules file to work with newer debhelper
+    (Closes: #945961).
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 24 Dec 2020 14:34:19 +0100
+
 xz-utils (5.2.4-1) unstable; urgency=low
 
   * New upstream release.  Closes: #851615.

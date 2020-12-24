@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
-build clean install binary-arch binary-indep binary:
-	+dh $@ --parallel $(opt_no_act)
+%:
+	dh $@ --parallel $(opt_no_act)
 
 # Runs tests, too, if and only if nocheck is unset (see below).
 build-arch:: build-plain build-static build-small
