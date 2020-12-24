@@ -74,7 +74,7 @@ debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 debian/static-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/static-build -- \
 		$(opt_reproduce) \
-		--disable-threads --disable-shared \
+		--enable-threads --disable-shared \
 		--enable-liblzma2-compat \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-lzmainfo --disable-scripts \
