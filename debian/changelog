@@ -5,6 +5,7 @@ xz-utils (5.2.4-1.1) UNRELEASED; urgency=medium
     (Closes: #945961).
   * Enable threads for static builds (Closes: #907449).
   * Ignore SIGPIPE in xzdiff script (Closes: #844770).
+  * Teach xzgrep about zstd (Closes: #970891).
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 24 Dec 2020 14:34:19 +0100
 
