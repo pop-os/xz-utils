@@ -92,7 +92,7 @@ debian/xzdec-build/Makefile: $(configure_input)
 		--disable-xz --disable-lzma-links
 
 $(autoreconf_products): $(autoreconf_sources)
-	autoreconf -is
+	autoreconf -if
 
 small_flags_env =
 small_flags_env += DEB_CFLAGS_MAINT_STRIP='-O2 -O3'
