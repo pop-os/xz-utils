@@ -1,0 +1,26 @@
+From: Lasse Collin <lasse.collin@tukaani.org>
+Date: Sun, 1 Nov 2020 19:09:53 +0200
+Subject: xz: Use non-breaking spaces when intentionally using more than one
+ space.
+
+This silences some style checker warnings. Seems that spaces
+in the beginning of a line don't need this treatment.
+
+Thanks to Bjarni Ingi Gislason.
+---
+ src/xz/xz.1 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/xz/xz.1 b/src/xz/xz.1
+index f659be0..7e83923 100644
+--- a/src/xz/xz.1
++++ b/src/xz/xz.1
+@@ -2591,7 +2591,7 @@ Set a memory usage limit for decompression using
+ .PP
+ .nf
+ .ft CW
+-NEWLIM=$((123 << 20))  # 123 MiB
++NEWLIM=$((123 << 20))\ \ # 123 MiB
+ OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3)
+ if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then
+     XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"
