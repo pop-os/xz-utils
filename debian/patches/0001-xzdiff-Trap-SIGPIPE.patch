@@ -22,7 +22,7 @@ Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
  1 file changed, 1 insertion(+)
 
 diff --git a/src/scripts/xzdiff.in b/src/scripts/xzdiff.in
-index 6aa6b98..1844e06 100644
+index eb7825c..d343a88 100644
 --- a/src/scripts/xzdiff.in
 +++ b/src/scripts/xzdiff.in
 @@ -1,4 +1,5 @@

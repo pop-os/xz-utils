@@ -1,6 +1,8 @@
-xz-utils (5.2.4-1.1) UNRELEASED; urgency=medium
+xz-utils (5.2.5-1.0) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
+  * New upstream release (Closes: #975984).
+    - Increase GETTEXT version (Closes: #959999).
   * Add % target to the rules file to work with newer debhelper
     (Closes: #945961).
   * Enable threads for static builds (Closes: #907449).

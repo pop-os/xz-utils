@@ -50,10 +50,10 @@ index 4bddbe2..98d1351 100644
 +.BR zstd (1),
  .BR zgrep (1)
 diff --git a/src/scripts/xzgrep.in b/src/scripts/xzgrep.in
-index a1fd19c..cde8128 100644
+index 9db5c3a..28a777b 100644
 --- a/src/scripts/xzgrep.in
 +++ b/src/scripts/xzgrep.in
-@@ -158,6 +158,7 @@ for i; do
+@@ -159,6 +159,7 @@ for i; do
      *[-.][zZ] | *_z | *[-.]gz | *.t[ag]z) uncompress="gzip -cdfq";;
      *[-.]bz2 | *[-.]tbz | *.tbz2) uncompress="bzip2 -cdfq";;
      *[-.]lzo | *[-.]tzo) uncompress="lzop -cdfq";;
