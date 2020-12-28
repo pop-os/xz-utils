@@ -1,0 +1,42 @@
+From: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+Date: Sun, 27 Dec 2020 15:27:31 +0100
+Subject: xz: Ignore hard link count if not deleting.
+
+xz refuses to decompress a file which has more than one hard link. It
+can be reproduced by (as per Vincent):
+|$ echo foo > file1
+|$ xz file1
+|$ ln file1.xz file2.xz
+|$ xz -dk file1.xz
+|xz: file1.xz: Input file has more than one hard link, skipping
+
+This behaviour is consistent with `gzip' and `bzip2' but it is not
+documented. The `--force' option would ignore this restriction.
+
+I traced it back in `gzip' to the 90s but the change was not documented
+as why it was needed. It was moved, altered but not documented. At some
+point the error was restricted to <= 2 which might be related to disk
+quota.
+
+Ignore hard link count on input.
+
+Debian BTS: https://bugs.debian.org/975981
+Reported-by: Vincent Lefevre <vincent@vinc17.net>
+Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+---
+ src/xz/file_io.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/xz/file_io.c b/src/xz/file_io.c
+index 0ba8db8..7703e08 100644
+--- a/src/xz/file_io.c
++++ b/src/xz/file_io.c
+@@ -698,7 +698,7 @@ io_open_src_real(file_pair *pair)
+ 			goto error;
+ 		}
+ 
+-		if (pair->src_st.st_nlink > 1) {
++		if (pair->src_st.st_nlink > 1 && !opt_keep_original) {
+ 			message_warning(_("%s: Input file has more "
+ 					"than one hard link, "
+ 					"skipping"), pair->src_name);

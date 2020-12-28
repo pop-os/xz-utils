@@ -5,3 +5,4 @@
 0005-xz-Protect-the-ellipsis-.-on-the-man-page-with.patch
 0006-xz-Use-non-breaking-spaces-when-intentionally-using-.patch
 0007-xz-Avoid-unneeded-f-escapes-on-the-man-page.patch
+0008-xz-Ignore-hard-link-count-if-not-deleting.patch
