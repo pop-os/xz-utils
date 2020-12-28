@@ -1,4 +1,4 @@
-xz-utils (5.2.5-1.0) UNRELEASED; urgency=medium
+xz-utils (5.2.5-1.0) unstable; urgency=medium
 
   * Non-maintainer upload.
   * New upstream release (Closes: #975984).
@@ -11,7 +11,7 @@ xz-utils (5.2.5-1.0) UNRELEASED; urgency=medium
   * Clean up the xz man page (Closes: #894454).
   * Ignore hard link count if input is not deleted (Closes: #975981).
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 24 Dec 2020 14:34:19 +0100
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 28 Dec 2020 11:25:06 +0100
 
 xz-utils (5.2.4-1) unstable; urgency=low
 
