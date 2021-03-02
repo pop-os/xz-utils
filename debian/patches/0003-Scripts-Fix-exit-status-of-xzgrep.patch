@@ -1,0 +1,63 @@
+From: Lasse Collin <lasse.collin@tukaani.org>
+Date: Mon, 11 Jan 2021 23:28:52 +0200
+Subject: Scripts: Fix exit status of xzgrep.
+
+Omit the -q option from xz, gzip, and bzip2. With xz this shouldn't
+matter. With gzip it's important because -q makes gzip replace SIGPIPE
+with exit status 2. With bzip2 it's important because with -q bzip2
+is completely silent if input is corrupt while other decompressors
+still give an error message.
+
+Avoiding exit status 2 from gzip is important because bzip2 uses
+exit status 2 to indicate corrupt input. Before this commit xzgrep
+didn't recognize corrupt .bz2 files because xzgrep was treating
+exit status 2 as SIGPIPE for gzip compatibility.
+
+zstd still needs -q because otherwise it is noisy in normal
+operation.
+
+The code to detect real SIGPIPE didn't check if the exit status
+was due to a signal (>= 128) and so could ignore some other exit
+status too.
+---
+ src/scripts/xzgrep.in | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/src/scripts/xzgrep.in b/src/scripts/xzgrep.in
+index 28a777b..baec826 100644
+--- a/src/scripts/xzgrep.in
++++ b/src/scripts/xzgrep.in
+@@ -156,11 +156,11 @@ res=1
+ 
+ for i; do
+   case $i in
+-    *[-.][zZ] | *_z | *[-.]gz | *.t[ag]z) uncompress="gzip -cdfq";;
+-    *[-.]bz2 | *[-.]tbz | *.tbz2) uncompress="bzip2 -cdfq";;
+-    *[-.]lzo | *[-.]tzo) uncompress="lzop -cdfq";;
+-    *[-.]zst | *[-.]tzst) uncompress="zstd -cdfq";;
+-    *) uncompress="$xz -cdfq";;
++    *[-.][zZ] | *_z | *[-.]gz | *.t[ag]z) uncompress="gzip -cdf";;
++    *[-.]bz2 | *[-.]tbz | *.tbz2) uncompress="bzip2 -cdf";;
++    *[-.]lzo | *[-.]tzo) uncompress="lzop -cdf";;
++    *[-.]zst | *[-.]tzst) uncompress="zstd -cdfq";; # zstd needs -q.
++    *) uncompress="$xz -cdf";;
+   esac
+   # Fail if xz or grep (or sed) fails.
+   xz_status=$(
+@@ -205,8 +205,14 @@ for i; do
+   # fail occurred previously, nothing worse can happen
+   test $res -gt 1 && continue
+ 
+-  test "$xz_status" -eq 0 || test "$xz_status" -eq 2 \
+-      || test "$(kill -l "$xz_status" 2> /dev/null)" = "PIPE" || r=2
++  if test "$xz_status" -eq 0; then
++    :
++  elif test "$xz_status" -ge 128 \
++      && test "$(kill -l "$xz_status" 2> /dev/null)" = "PIPE"; then
++    :
++  else
++    r=2
++  fi
+ 
+   # still no match
+   test $r -eq 1 && continue
