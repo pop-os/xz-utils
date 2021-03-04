@@ -1,10 +1,10 @@
-xz-utils (5.2.5-1.1) unstable; urgency=medium
+xz-utils (5.2.5-1.1) experimental; urgency=medium
 
   * Non-maintainer upload.
   * Update the patches for #844770 and #975981 to what upstream applied.
   * Add a SIGPIPE fix to xzgrep (similar to xzcmp in #844770).
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 18 Feb 2021 23:12:30 +0100
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 02 Mar 2021 21:50:25 +0100
 
 xz-utils (5.2.5-1.0) unstable; urgency=medium
 
