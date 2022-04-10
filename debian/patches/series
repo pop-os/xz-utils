@@ -7,3 +7,4 @@
 0007-xz-Avoid-unneeded-f-escapes-on-the-man-page.patch
 0008-xz-Make-keep-accept-symlinks-hardlinks-and-setuid-se.patch
 0009-Scripts-Fix-exit-status-of-xzgrep.patch
+0010-xzgrep-Fix-escaping-of-malicious-filenames-ZDI-CAN-1.patch
