@@ -97,15 +97,6 @@ static const struct {
 		.changes_size = false,
 	},
 #endif
-#if defined(HAVE_ENCODER_ARM64) || defined(HAVE_DECODER_ARM64)
-       {
-               .id = LZMA_FILTER_ARM64,
-		.options_size = sizeof(lzma_options_arm64),
-               .non_last_ok = true,
-               .last_ok = false,
-               .changes_size = false,
-       },
-#endif
 #if defined(HAVE_ENCODER_SPARC) || defined(HAVE_DECODER_SPARC)
 	{
 		.id = LZMA_FILTER_SPARC,
@@ -131,15 +122,11 @@ static const struct {
 
 
 extern LZMA_API(lzma_ret)
-lzma_filters_copy(const lzma_filter *src, lzma_filter *real_dest,
+lzma_filters_copy(const lzma_filter *src, lzma_filter *dest,
 		const lzma_allocator *allocator)
 {
-	if (src == NULL || real_dest == NULL)
+	if (src == NULL || dest == NULL)
 		return LZMA_PROG_ERROR;
-
-	// Use a temporary destination so that the real destination
-	// will never be modied if an error occurs.
-	lzma_filter dest[LZMA_FILTERS_MAX + 1];
 
 	lzma_ret ret;
 	size_t i;
@@ -186,20 +173,18 @@ lzma_filters_copy(const lzma_filter *src, lzma_filter *real_dest,
 	}
 
 	// Terminate the filter array.
-	assert(i < LZMA_FILTERS_MAX + 1);
+	assert(i <= LZMA_FILTERS_MAX + 1);
 	dest[i].id = LZMA_VLI_UNKNOWN;
 	dest[i].options = NULL;
-
-	// Copy it to the caller-supplied array now that we know that
-	// no errors occurred.
-	memcpy(real_dest, dest, (i + 1) * sizeof(lzma_filter));
 
 	return LZMA_OK;
 
 error:
 	// Free the options which we have already allocated.
-	while (i-- > 0)
+	while (i-- > 0) {
 		lzma_free(dest[i].options, allocator);
+		dest[i].options = NULL;
+	}
 
 	return ret;
 }

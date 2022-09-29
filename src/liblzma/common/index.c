@@ -656,10 +656,6 @@ lzma_index_append(lzma_index *i, const lzma_allocator *allocator,
 	const uint32_t index_list_size_add = lzma_vli_size(unpadded_size)
 			+ lzma_vli_size(uncompressed_size);
 
-	// Check that uncompressed size will not overflow.
-	if (uncompressed_base + uncompressed_size > LZMA_VLI_MAX)
-		return LZMA_DATA_ERROR;
-
 	// Check that the file size will stay within limits.
 	if (index_file_size(s->node.compressed_base,
 			compressed_base + unpadded_size, s->record_count + 1,
@@ -771,9 +767,6 @@ extern LZMA_API(lzma_ret)
 lzma_index_cat(lzma_index *restrict dest, lzma_index *restrict src,
 		const lzma_allocator *allocator)
 {
-	if (dest == NULL || src == NULL)
-		return LZMA_PROG_ERROR;
-
 	const lzma_vli dest_file_size = lzma_index_file_size(dest);
 
 	// Check that we don't exceed the file size limits.
@@ -842,11 +835,6 @@ lzma_index_cat(lzma_index *restrict dest, lzma_index *restrict src,
 		}
 	}
 
-	// dest->checks includes the check types of all except the last Stream
-	// in dest. Set the bit for the check type of the last Stream now so
-	// that it won't get lost when Stream(s) from src are appended to dest.
-	dest->checks = lzma_index_checks(dest);
-
 	// Add all the Streams from src to dest. Update the base offsets
 	// of each Stream from src.
 	const index_cat_info info = {
@@ -863,7 +851,7 @@ lzma_index_cat(lzma_index *restrict dest, lzma_index *restrict src,
 	dest->total_size += src->total_size;
 	dest->record_count += src->record_count;
 	dest->index_list_size += src->index_list_size;
-	dest->checks |= src->checks;
+	dest->checks = lzma_index_checks(dest) | src->checks;
 
 	// There's nothing else left in src than the base structure.
 	lzma_free(src, allocator);

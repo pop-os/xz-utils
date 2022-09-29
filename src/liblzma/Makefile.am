@@ -26,14 +26,10 @@ liblzma_la_CPPFLAGS = \
 	-DTUKLIB_SYMBOL_PREFIX=lzma_
 liblzma_la_LDFLAGS = -no-undefined -version-info 8:99:3
 
-EXTRA_DIST += liblzma_generic.map liblzma_linux.map validate_map.sh
-if COND_SYMVERS_GENERIC
+EXTRA_DIST += liblzma.map validate_map.sh
+if COND_SYMVERS
 liblzma_la_LDFLAGS += \
-	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma_generic.map
-endif
-if COND_SYMVERS_LINUX
-liblzma_la_LDFLAGS += \
-	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma_linux.map
+	-Wl,--version-script=$(top_srcdir)/src/liblzma/liblzma.map
 endif
 
 liblzma_la_SOURCES += ../common/tuklib_physmem.c

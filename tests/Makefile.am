@@ -45,7 +45,6 @@ check_PROGRAMS = \
 	test_block_header \
 	test_index \
 	test_bcj_exact_size \
-	test_memlimit \
 	test_vli
 
 TESTS = \
@@ -56,7 +55,6 @@ TESTS = \
 	test_block_header \
 	test_index \
 	test_bcj_exact_size \
-	test_memlimit \
 	test_vli \
 	test_files.sh \
 	test_compress_prepared_bcj_sparc \

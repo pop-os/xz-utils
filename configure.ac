@@ -79,8 +79,8 @@ fi
 # Filters #
 ###########
 
-m4_define([SUPPORTED_FILTERS], [lzma1,lzma2,delta,x86,powerpc,ia64,arm,armthumb,arm64,sparc])dnl
-m4_define([SIMPLE_FILTERS], [x86,powerpc,ia64,arm,armthumb,arm64,sparc])
+m4_define([SUPPORTED_FILTERS], [lzma1,lzma2,delta,x86,powerpc,ia64,arm,armthumb,sparc])dnl
+m4_define([SIMPLE_FILTERS], [x86,powerpc,ia64,arm,armthumb,sparc])
 m4_define([LZ_FILTERS], [lzma1,lzma2])
 
 m4_foreach([NAME], [SUPPORTED_FILTERS],
@@ -493,28 +493,7 @@ if test "x$enable_symbol_versions" = xauto; then
 	esac
 fi
 AC_MSG_RESULT([$enable_symbol_versions])
-
-# There are two variants for symbol versioning.
-# See src/liblzma/validate_map.sh for details.
-if test "x$enable_symbol_versions" = xyes; then
-	case $host_os in
-		linux*)
-			enable_symbol_versions=linux
-			AC_DEFINE([HAVE_SYMBOL_VERSIONS_LINUX], [1],
-				[Define to 1 to if GNU/Linux-specific details
-				are wanted for symbol versioning. This must
-				be used together with liblzma_linux.map.])
-			;;
-		*)
-			enable_symbol_versions=generic
-			;;
-	esac
-fi
-
-AM_CONDITIONAL([COND_SYMVERS_LINUX],
-	[test "x$enable_symbol_versions" = xlinux])
-AM_CONDITIONAL([COND_SYMVERS_GENERIC],
-	[test "x$enable_symbol_versions" = xgeneric])
+AM_CONDITIONAL([COND_SYMVERS], [test "x$enable_symbol_versions" = xyes])
 
 
 ##############
