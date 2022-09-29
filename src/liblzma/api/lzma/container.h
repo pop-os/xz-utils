@@ -69,7 +69,11 @@ typedef struct {
 	 *
 	 * Set this to zero if no flags are wanted.
 	 *
-	 * No flags are currently supported.
+	 * Encoder: No flags are currently supported.
+	 *
+	 * Decoder: Bitwise-or of zero or more of the decoder flags:
+	 * LZMA_TELL_NO_CHECK, LZMA_TELL_UNSUPPORTED_CHECK,
+	 * LZMA_TELL_ANY_CHECK, LZMA_CONCATENATED, LZMA_FAIL_FAST
 	 */
 	uint32_t flags;
 
@@ -79,7 +83,7 @@ typedef struct {
 	uint32_t threads;
 
 	/**
-	 * \brief       Maximum uncompressed size of a Block
+	 * \brief       Encoder only: Maximum uncompressed size of a Block
 	 *
 	 * The encoder will start a new .xz Block every block_size bytes.
 	 * Using LZMA_FULL_FLUSH or LZMA_FULL_BARRIER with lzma_code()
@@ -135,7 +139,7 @@ typedef struct {
 	uint32_t timeout;
 
 	/**
-	 * \brief       Compression preset (level and possible flags)
+	 * \brief       Encoder only: Compression preset
 	 *
 	 * The preset is set just like with lzma_easy_encoder().
 	 * The preset is ignored if filters below is non-NULL.
@@ -143,7 +147,7 @@ typedef struct {
 	uint32_t preset;
 
 	/**
-	 * \brief       Filter chain (alternative to a preset)
+	 * \brief       Encoder only: Filter chain (alternative to a preset)
 	 *
 	 * If this is NULL, the preset above is used. Otherwise the preset
 	 * is ignored and the filter chain specified here is used.
@@ -151,7 +155,7 @@ typedef struct {
 	const lzma_filter *filters;
 
 	/**
-	 * \brief       Integrity check type
+	 * \brief       Encoder only: Integrity check type
 	 *
 	 * See check.h for available checks. The xz command line tool
 	 * defaults to LZMA_CHECK_CRC64, which is a good choice if you
@@ -173,8 +177,50 @@ typedef struct {
 	uint32_t reserved_int2;
 	uint32_t reserved_int3;
 	uint32_t reserved_int4;
-	uint64_t reserved_int5;
-	uint64_t reserved_int6;
+
+	/**
+	 * \brief       Memory usage limit to reduce the number of threads
+	 *
+	 * Encoder: Ignored.
+	 *
+	 * Decoder:
+	 *
+	 * If the number of threads has been set so high that more than
+	 * memlimit_threading bytes of memory would be needed, the number
+	 * of threads will be reduced so that the memory usage will not exceed
+	 * memlimit_threading bytes. However, if memlimit_threading cannot
+	 * be met even in single-threaded mode, then decoding will continue
+	 * in single-threaded mode and memlimit_threading may be exceeded
+	 * even by a large amount. That is, memlimit_threading will never make
+	 * lzma_code() return LZMA_MEMLIMIT_ERROR. To truly cap the memory
+	 * usage, see memlimit_stop below.
+	 *
+	 * Setting memlimit_threading to UINT64_MAX or a similar huge value
+	 * means that liblzma is allowed to keep the whole compressed file
+	 * and the whole uncompressed file in memory in addition to the memory
+	 * needed by the decompressor data structures used by each thread!
+	 * In other words, a reasonable value limit must be set here or it
+	 * will cause problems sooner or later. If you have no idea what
+	 * a reasonable value could be, try lzma_physmem() / 4 as a starting
+	 * point. Setting this limit will never prevent decompression of
+	 * a file; this will only reduce the number of threads.
+	 *
+	 * If memlimit_threading is greater than memlimit_stop, then the value
+	 * of memlimit_stop will be used for both.
+	 */
+	uint64_t memlimit_threading;
+
+	/**
+	 * \brief       Memory usage limit that should never be exceeded
+	 *
+	 * Encoder: Ignored.
+	 *
+	 * Decoder: If decompressing will need more than this amount of
+	 * memory even in the single-threaded mode, then lzma_code() will
+	 * return LZMA_MEMLIMIT_ERROR.
+	 */
+	uint64_t memlimit_stop;
+
 	uint64_t reserved_int7;
 	uint64_t reserved_int8;
 	void *reserved_ptr1;
@@ -444,6 +490,60 @@ extern LZMA_API(lzma_ret) lzma_stream_buffer_encode(
 		lzma_nothrow lzma_attr_warn_unused_result;
 
 
+/**
+ * \brief       MicroLZMA encoder
+ *
+ * The MicroLZMA format is a raw LZMA stream whose first byte (always 0x00)
+ * has been replaced with bitwise-negation of the LZMA properties (lc/lp/pb).
+ * This encoding ensures that the first byte of MicroLZMA stream is never
+ * 0x00. There is no end of payload marker and thus the uncompressed size
+ * must be stored separately. For the best error detection the dictionary
+ * size should be stored separately as well but alternatively one may use
+ * the uncompressed size as the dictionary size when decoding.
+ *
+ * With the MicroLZMA encoder, lzma_code() behaves slightly unusually.
+ * The action argument must be LZMA_FINISH and the return value will never be
+ * LZMA_OK. Thus the encoding is always done with a single lzma_code() after
+ * the initialization. The benefit of the combination of initialization
+ * function and lzma_code() is that memory allocations can be re-used for
+ * better performance.
+ *
+ * lzma_code() will try to encode as much input as is possible to fit into
+ * the given output buffer. If not all input can be encoded, the stream will
+ * be finished without encoding all the input. The caller must check both
+ * input and output buffer usage after lzma_code() (total_in and total_out
+ * in lzma_stream can be convenient). Often lzma_code() can fill the output
+ * buffer completely if there is a lot of input, but sometimes a few bytes
+ * may remain unused because the next LZMA symbol would require more space.
+ *
+ * lzma_stream.avail_out must be at least 6. Otherwise LZMA_PROG_ERROR
+ * will be returned.
+ *
+ * The LZMA dictionary should be reasonably low to speed up the encoder
+ * re-initialization. A good value is bigger than the resulting
+ * uncompressed size of most of the output chunks. For example, if output
+ * size is 4 KiB, dictionary size of 32 KiB or 64 KiB is good. If the
+ * data compresses extremely well, even 128 KiB may be useful.
+ *
+ * The MicroLZMA format and this encoder variant were made with the EROFS
+ * file system in mind. This format may be convenient in other embedded
+ * uses too where many small streams are needed. XZ Embedded includes a
+ * decoder for this format.
+ *
+ * \return      - LZMA_STREAM_END: All good. Check the amounts of input used
+ *                and output produced. Store the amount of input used
+ *                (uncompressed size) as it needs to be known to decompress
+ *                the data.
+ *              - LZMA_OPTIONS_ERROR
+ *              - LZMA_MEM_ERROR
+ *              - LZMA_PROG_ERROR: In addition to the generic reasons for this
+ *                error code, this may also be returned if there isn't enough
+ *                output space (6 bytes) to create a valid MicroLZMA stream.
+ */
+extern LZMA_API(lzma_ret) lzma_microlzma_encoder(
+		lzma_stream *strm, const lzma_options_lzma *options);
+
+
 /************
  * Decoding *
  ************/
@@ -516,6 +616,35 @@ extern LZMA_API(lzma_ret) lzma_stream_buffer_encode(
 
 
 /**
+ * This flag makes the threaded decoder report errors (like LZMA_DATA_ERROR)
+ * as soon as they are detected. This saves time when the application has no
+ * interest in a partially decompressed truncated or corrupt file. Note that
+ * due to timing randomness, if the same truncated or corrupt input is
+ * decompressed multiple times with this flag, a different amount of output
+ * may be produced by different runs, and even the error code might vary.
+ *
+ * When using LZMA_FAIL_FAST, it is recommended to use LZMA_FINISH to tell
+ * the decoder when no more input will be coming because it can help fast
+ * detection and reporting of truncated files. Note that in this situation
+ * truncated files might be diagnosed with LZMA_DATA_ERROR instead of
+ * LZMA_OK or LZMA_BUF_ERROR!
+ *
+ * Without this flag the threaded decoder will provide as much output as
+ * possible at first and then report the pending error. This default behavior
+ * matches the single-threaded decoder and provides repeatable behavior
+ * with truncated or corrupt input. There are a few special cases where the
+ * behavior can still differ like memory allocation failures (LZMA_MEM_ERROR).
+ *
+ * Single-threaded decoders currently ignore this flag.
+ *
+ * Support for this flag was added in liblzma 5.3.3alpha. Note that in older
+ * versions this flag isn't supported (LZMA_OPTIONS_ERROR) even by functions
+ * that ignore this flag in newer liblzma versions.
+ */
+#define LZMA_FAIL_FAST                  UINT32_C(0x20)
+
+
+/**
  * \brief       Initialize .xz Stream decoder
  *
  * \param       strm        Pointer to properly prepared lzma_stream
@@ -535,6 +664,36 @@ extern LZMA_API(lzma_ret) lzma_stream_buffer_encode(
  */
 extern LZMA_API(lzma_ret) lzma_stream_decoder(
 		lzma_stream *strm, uint64_t memlimit, uint32_t flags)
+		lzma_nothrow lzma_attr_warn_unused_result;
+
+
+/**
+ * \brief       Initialize multithreaded .xz Stream decoder
+ *
+ * \param       strm        Pointer to properly prepared lzma_stream
+ * \param       options     Pointer to multithreaded compression options
+ *
+ * The decoder can decode multiple Blocks in parallel. This requires that each
+ * Block Header contains the Compressed Size and Uncompressed size fields
+ * which are added by the multi-threaded encoder, see lzma_stream_encoder_mt().
+ *
+ * A Stream with one Block will only utilize one thread. A Stream with multiple
+ * Blocks but without size information in Block Headers will be processed in
+ * single-threaded mode in the same way as done by lzma_stream_decoder().
+ * Concatenated Streams are processed one Stream at a time; no inter-Stream
+ * parallelization is done.
+ *
+ * This function behaves like lzma_stream_decoder() when options->threads == 1
+ * and options->memlimit_threading <= 1.
+ *
+ * \return      - LZMA_OK: Initialization was successful.
+ *              - LZMA_MEM_ERROR: Cannot allocate memory.
+ *              - LZMA_MEMLIMIT_ERROR: Memory usage limit was reached.
+ *              - LZMA_OPTIONS_ERROR: Unsupported flags.
+ *              - LZMA_PROG_ERROR
+ */
+extern LZMA_API(lzma_ret) lzma_stream_decoder_mt(
+		lzma_stream *strm, const lzma_mt *options)
 		lzma_nothrow lzma_attr_warn_unused_result;
 
 
@@ -630,3 +789,43 @@ extern LZMA_API(lzma_ret) lzma_stream_buffer_decode(
 		const uint8_t *in, size_t *in_pos, size_t in_size,
 		uint8_t *out, size_t *out_pos, size_t out_size)
 		lzma_nothrow lzma_attr_warn_unused_result;
+
+
+/**
+ * \brief       MicroLZMA decoder
+ *
+ * See lzma_microlzma_decoder() for more information.
+ *
+ * The lzma_code() usage with this decoder is completely normal. The
+ * special behavior of lzma_code() applies to lzma_microlzma_encoder() only.
+ *
+ * \param       strm        Pointer to properly prepared lzma_stream
+ * \param       comp_size   Compressed size of the MicroLZMA stream.
+ *                          The caller must somehow know this exactly.
+ * \param       uncomp_size Uncompressed size of the MicroLZMA stream.
+ *                          If the exact uncompressed size isn't known, this
+ *                          can be set to a value that is at most as big as
+ *                          the exact uncompressed size would be, but then the
+ *                          next argument uncomp_size_is_exact must be false.
+ * \param       uncomp_size_is_exact
+ *                          If true, uncomp_size must be exactly correct.
+ *                          This will improve error detection at the end of
+ *                          the stream. If the exact uncompressed size isn't
+ *                          known, this must be false. uncomp_size must still
+ *                          be at most as big as the exact uncompressed size
+ *                          is. Setting this to false when the exact size is
+ *                          known will work but error detection at the end of
+ *                          the stream will be weaker.
+ * \param       dict_size   LZMA dictionary size that was used when
+ *                          compressing the data. It is OK to use a bigger
+ *                          value too but liblzma will then allocate more
+ *                          memory than would actually be required and error
+ *                          detection will be slightly worse. (Note that with
+ *                          the implementation in XZ Embedded it doesn't
+ *                          affect the memory usage if one specifies bigger
+ *                          dictionary than actually required.)
+ */
+extern LZMA_API(lzma_ret) lzma_microlzma_decoder(
+		lzma_stream *strm, uint64_t comp_size,
+		uint64_t uncomp_size, lzma_bool uncomp_size_is_exact,
+		uint32_t dict_size);

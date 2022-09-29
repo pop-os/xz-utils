@@ -65,7 +65,8 @@ AC_MSG_CHECKING([if unaligned memory access should be used])
 AC_ARG_ENABLE([unaligned-access], AS_HELP_STRING([--enable-unaligned-access],
 		[Enable if the system supports *fast* unaligned memory access
 		with 16-bit and 32-bit integers. By default, this is enabled
-		only on x86, x86_64, and big endian PowerPC.]),
+		only on x86, x86_64, big endian PowerPC,
+		and some ARM systems.]),
 	[], [enable_unaligned_access=auto])
 if test "x$enable_unaligned_access" = xauto ; then
 	# TODO: There may be other architectures, on which unaligned access
@@ -73,6 +74,17 @@ if test "x$enable_unaligned_access" = xauto ; then
 	case $host_cpu in
 		i?86|x86_64|powerpc|powerpc64)
 			enable_unaligned_access=yes
+			;;
+		arm*|aarch64*)
+			# On 32-bit and 64-bit ARM, GCC and Clang
+			# #define __ARM_FEATURE_UNALIGNED if
+			# unaligned access is supported.
+			AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#ifndef __ARM_FEATURE_UNALIGNED
+compile error
+#endif
+int main(void) { return 0; }
+])], [enable_unaligned_access=yes], [enable_unaligned_access=no])
 			;;
 		*)
 			enable_unaligned_access=no

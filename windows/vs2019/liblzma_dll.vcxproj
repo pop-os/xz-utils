@@ -138,6 +138,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,6 +156,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -174,6 +176,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -192,6 +195,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMT|Win32'">
@@ -211,6 +215,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMT|x64'">
@@ -229,6 +234,7 @@
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>./;../../src/liblzma/common;../../src/common;../../src/liblzma/api;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_CONFIG_H</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -256,6 +262,7 @@
     <ClCompile Include="..\..\src\liblzma\common\easy_encoder.c" />
     <ClCompile Include="..\..\src\liblzma\common\easy_encoder_memusage.c" />
     <ClCompile Include="..\..\src\liblzma\common\easy_preset.c" />
+    <ClCompile Include="..\..\src\liblzma\common\file_info.c" />
     <ClCompile Include="..\..\src\liblzma\common\filter_buffer_decoder.c" />
     <ClCompile Include="..\..\src\liblzma\common\filter_buffer_encoder.c" />
     <ClCompile Include="..\..\src\liblzma\common\filter_common.c" />
@@ -345,6 +352,7 @@
     <ClInclude Include="..\..\src\liblzma\common\filter_decoder.h" />
     <ClInclude Include="..\..\src\liblzma\common\filter_encoder.h" />
     <ClInclude Include="..\..\src\liblzma\common\index.h" />
+    <ClInclude Include="..\..\src\liblzma\common\index_decoder.h" />
     <ClInclude Include="..\..\src\liblzma\common\index_encoder.h" />
     <ClInclude Include="..\..\src\liblzma\common\memcmplen.h" />
     <ClInclude Include="..\..\src\liblzma\common\outqueue.h" />

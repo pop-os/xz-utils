@@ -2,6 +2,343 @@
 XZ Utils Release Notes
 ======================
 
+5.3.3alpha (2022-08-22)
+
+    * All fixes from 5.2.6.
+
+    * liblzma:
+
+        - Fixed 32-bit build.
+
+        - Added threaded .xz decompressor lzma_stream_decoder_mt().
+          It can use multiple threads with .xz files that have multiple
+          Blocks with size information in Block Headers. The threaded
+          encoder in xz has always created such files.
+
+          Single-threaded encoder cannot store the size information in
+          Block Headers even if one used LZMA_FULL_FLUSH to create
+          multiple Blocks, so this threaded decoder cannot use multiple
+          threads with such files.
+
+          If there are multiple Streams (concatenated .xz files), one
+          Stream will be decompressed completely before starting the
+          next Stream.
+
+        - A new decoder flag LZMA_FAIL_FAST was added. It makes the
+          threaded decompressor report errors soon instead of first
+          flushing all pending data before the error location.
+
+    * xz:
+
+        - Using -T0 (--threads=0) will now use multi-threaded encoder
+          even on a single-core system. This is to ensure that output
+          from the same xz binary is identical on both single-core and
+          multi-core systems.
+
+        - A default soft memory usage limit is now used for compression
+          when -T0 is used and no explicit limit has been specified.
+          This soft limit is used to restrict the number of threads
+          but if the limit is exceeded with even one thread then xz
+          will continue with one thread using the multi-threaded
+          encoder and this limit is ignored. If the number of threads
+          is specified manually then no default limit will be used;
+          this affects only -T0.
+
+          This change helps on systems that have very many cores and
+          using all of them for xz makes no sense. Previously xz -T0
+          could run out of memory on such systems because it attempted
+          to reserve memory for too many threads.
+
+          This also helps with 32-bit builds which don't have a large
+          amount of address space that would be required for many
+          threads. The default limit is 1400 MiB on all 32-bit
+          platforms with -T0.
+
+          Now xz -T0 should just work. It might use too few threads
+          in some cases but at least it shouldn't easily run out of
+          memory. It's possible that this will be tweaked before 5.4.0.
+
+        - Changes to --memlimit-compress and --no-adjust:
+
+          In single-threaded mode, --memlimit-compress can make xz
+          scale down the LZMA2 dictionary size to meet the memory usage
+          limit. This obviously affects the compressed output. However,
+          if xz was in threaded mode, --memlimit-compress could make xz
+          reduce the number of threads but it wouldn't make xz switch
+          from multi-threaded mode to single-threaded mode or scale
+          down the LZMA2 dictionary size. This seemed illogical.
+
+          Now --memlimit-compress can make xz switch to single-threaded
+          mode if one thread in multi-threaded mode uses too much
+          memory. If memory usage is still too high, then the LZMA2
+          dictionary size can be scaled down too.
+
+          The option --no-adjust was also changed so that it no longer
+          prevents xz from scaling down the number of threads as that
+          doesn't affect compressed output (only performance). After
+          this commit --no-adjust only prevents adjustments that affect
+          compressed output, that is, with --no-adjust xz won't switch
+          from multithreaded mode to single-threaded mode and won't
+          scale down the LZMA2 dictionary size.
+
+        - Added a new option --memlimit-decompress-mt=LIMIT. This is
+          used to limit the number of decompressor threads (possibly
+          falling back to single-threaded mode) but it will never make
+          xz refuse to decompress a file. This has a system-specific
+          default value because without any limit xz could end up
+          allocating memory for the whole compressed input file, the
+          whole uncompressed output file, multiple thread-specific
+          decompressor instances and so on. Basically xz could
+          attempt to use an insane amount of memory even with fairly
+          common files.
+
+          The new option works together with the existing option
+          --memlimit-decompress=LIMIT. The old option sets a hard limit
+          that must not be exceeded (xz will refuse to decompress)
+          while the new option only restricts the number of threads.
+          If the limit set with --memlimit-mt-decompress is greater
+          than the limit set with --memlimit-compress, then the latter
+          value is used also for --memlimit-mt-decompress.
+
+    * Tests:
+
+        - Added a few more tests.
+
+        - Added tests/code_coverage.sh to create a code coverage report
+          of the tests.
+
+    * Build systems:
+
+        - Automake's parallel test harness is now used to make tests
+          finish faster.
+
+        - Added the CMake files to the distribution tarball. These were
+          supposed to be in 5.2.5 already.
+
+        - Added liblzma tests to the CMake build.
+
+        - Windows: Fix building of liblzma.dll with the included
+          Visual Studio project files.
+
+
+5.3.2alpha (2021-10-28)
+
+    This release was made on short notice so that recent erofs-utils can
+    be built with LZMA support without needing a snapshot from xz.git.
+    Thus many pending things were not included, not even updated
+    translations (which would need to be updated for the new --list
+    strings anyway).
+
+    * All fixes from 5.2.5.
+
+    * xz:
+
+        - When copying metadata from the source file to the destination
+          file, don't try to set the group (GID) if it is already set
+          correctly. This avoids a failure on OpenBSD (and possibly on
+          a few other OSes) where files may get created so that their
+          group doesn't belong to the user, and fchown(2) can fail even
+          if it needs to do nothing.
+
+        - The --keep option now accepts symlinks, hardlinks, and
+          setuid, setgid, and sticky files. Previously this required
+          using --force.
+
+        - Split the long strings used in --list and --info-memory modes
+          to make them much easier for translators.
+
+        - If built with sandbox support and enabling the sandbox fails,
+          xz will now immediately exit with exit status of 1. Previously
+          it would only display a warning if -vv was used.
+
+        - Cap --memlimit-compress to 2000 MiB on MIPS32 because on
+          MIPS32 userspace processes are limited to 2 GiB of address
+          space.
+
+    * liblzma:
+
+        - Added lzma_microlzma_encoder() and lzma_microlzma_decoder().
+          The API is in lzma/container.h.
+
+          The MicroLZMA format is a raw LZMA stream (without end marker)
+          whose first byte (always 0x00) has been replaced with
+          bitwise-negation of the LZMA properties (lc/lp/pb). It was
+          created for use in EROFS but may be used in other contexts
+          as well where it is important to avoid wasting bytes for
+          stream headers or footers. The format is also supported by
+          XZ Embedded.
+
+          The MicroLZMA encoder API in liblzma can compress into a
+          fixed-sized output buffer so that as much data is compressed
+          as can be fit into the buffer while still creating a valid
+          MicroLZMA stream. This is needed for EROFS.
+
+        - Added fuzzing support.
+
+        - Support Intel Control-flow Enforcement Technology (CET) in
+          32-bit x86 assembly files.
+
+        - Visual Studio: Use non-standard _MSVC_LANG to detect C++
+          standard version in the lzma.h API header. It's used to
+          detect when "noexcept" can be used.
+
+    * Scripts:
+
+        - Fix exit status of xzdiff/xzcmp. Exit status could be 2 when
+          the correct value is 1.
+
+        - Fix exit status of xzgrep.
+
+        - Detect corrupt .bz2 files in xzgrep.
+
+        - Add zstd support to xzgrep and xzdiff/xzcmp.
+
+        - Fix less(1) version detection in xzless. It failed if the
+          version number from "less -V" contained a dot.
+
+    * Fix typos and technical issues in man pages.
+
+    * Build systems:
+
+        - Windows: Fix building of resource files when config.h isn't
+          used. CMake + Visual Studio can now build liblzma.dll.
+
+        - Various fixes to the CMake support. It might still need a few
+          more fixes even for liblzma-only builds.
+
+
+5.3.1alpha (2018-04-29)
+
+    * All fixes from 5.2.4.
+
+    * Add lzma_file_info_decoder() into liblzma and use it in xz to
+      implement the --list feature.
+
+    * Capsicum sandbox support is enabled by default where available
+      (FreeBSD >= 10).
+
+
+5.2.6 (2022-08-12)
+
+    * xz:
+
+        - The --keep option now accepts symlinks, hardlinks, and
+          setuid, setgid, and sticky files. Previously this required
+          using --force.
+
+        - When copying metadata from the source file to the destination
+          file, don't try to set the group (GID) if it is already set
+          correctly. This avoids a failure on OpenBSD (and possibly on
+          a few other OSes) where files may get created so that their
+          group doesn't belong to the user, and fchown(2) can fail even
+          if it needs to do nothing.
+
+        - Cap --memlimit-compress to 2000 MiB instead of 4020 MiB on
+          MIPS32 because on MIPS32 userspace processes are limited
+          to 2 GiB of address space.
+
+    * liblzma:
+
+        - Fixed a missing error-check in the threaded encoder. If a
+          small memory allocation fails, a .xz file with an invalid
+          Index field would be created. Decompressing such a file would
+          produce the correct output but result in an error at the end.
+          Thus this is a "mild" data corruption bug. Note that while
+          a failed memory allocation can trigger the bug, it cannot
+          cause invalid memory access.
+
+        - The decoder for .lzma files now supports files that have
+          uncompressed size stored in the header and still use the
+          end of payload marker (end of stream marker) at the end
+          of the LZMA stream. Such files are rare but, according to
+          the documentation in LZMA SDK, they are valid.
+          doc/lzma-file-format.txt was updated too.
+
+        - Improved 32-bit x86 assembly files:
+            * Support Intel Control-flow Enforcement Technology (CET)
+            * Use non-executable stack on FreeBSD.
+
+        - Visual Studio: Use non-standard _MSVC_LANG to detect C++
+          standard version in the lzma.h API header. It's used to
+          detect when "noexcept" can be used.
+
+    * xzgrep:
+
+        - Fixed arbitrary command injection via a malicious filename
+          (CVE-2022-1271, ZDI-CAN-16587). A standalone patch for
+          this was released to the public on 2022-04-07. A slight
+          robustness improvement has been made since then and, if
+          using GNU or *BSD grep, a new faster method is now used
+          that doesn't use the old sed-based construct at all. This
+          also fixes bad output with GNU grep >= 3.5 (2020-09-27)
+          when xzgrepping binary files.
+
+          This vulnerability was discovered by:
+          cleemy desu wayo working with Trend Micro Zero Day Initiative
+
+        - Fixed detection of corrupt .bz2 files.
+
+        - Improved error handling to fix exit status in some situations
+          and to fix handling of signals: in some situations a signal
+          didn't make xzgrep exit when it clearly should have. It's
+          possible that the signal handling still isn't quite perfect
+          but hopefully it's good enough.
+
+        - Documented exit statuses on the man page.
+
+        - xzegrep and xzfgrep now use "grep -E" and "grep -F" instead
+          of the deprecated egrep and fgrep commands.
+
+        - Fixed parsing of the options -E, -F, -G, -P, and -X. The
+          problem occurred when multiple options were specied in
+          a single argument, for example,
+
+              echo foo | xzgrep -Fe foo
+
+          treated foo as a filename because -Fe wasn't correctly
+          split into -F -e.
+
+        - Added zstd support.
+
+    * xzdiff/xzcmp:
+
+        - Fixed wrong exit status. Exit status could be 2 when the
+          correct value is 1.
+
+        - Documented on the man page that exit status of 2 is used
+          for decompression errors.
+
+        - Added zstd support.
+
+    * xzless:
+
+        - Fix less(1) version detection. It failed if the version number
+          from "less -V" contained a dot.
+
+    * Translations:
+
+        - Added new translations: Catalan, Croatian, Esperanto,
+          Korean, Portuguese, Romanian, Serbian, Spanish, Swedish,
+          and Ukrainian
+
+        - Updated the Brazilian Portuguese translation.
+
+        - Added French man page translation. This and the existing
+          German translation aren't complete anymore because the
+          English man pages got a few updates and the translators
+          weren't reached so that they could update their work.
+
+    * Build systems:
+
+        - Windows: Fix building of resource files when config.h isn't
+          used. CMake + Visual Studio can now build liblzma.dll.
+
+        - Various fixes to the CMake support. Building static or shared
+          liblzma should work fine in most cases. In contrast, building
+          the command line tools with CMake is still clearly incomplete
+          and experimental and should be used for testing only.
+
+
 5.2.5 (2020-03-17)
 
     * liblzma:

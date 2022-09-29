@@ -210,6 +210,10 @@ AC_ARG_ENABLE([match-finders], AS_HELP_STRING([--enable-match-finders=LIST],
 	[enable_match_finders=SUPPORTED_MATCH_FINDERS])
 enable_match_finders=`echo "$enable_match_finders" | sed 's/,/ /g'`
 if test "x$enable_encoder_lz" = xyes ; then
+	if test -z "$enable_match_finders"; then
+		AC_MSG_ERROR([At least one match finder is required for an LZ-based encoder.])
+	fi
+
 	for arg in $enable_match_finders
 		do
 		case $arg in m4_foreach([NAME], [SUPPORTED_MATCH_FINDERS], [
@@ -570,7 +574,7 @@ echo "Initializing Automake:"
 # http://debbugs.gnu.org/cgi/bugreport.cgi?bug=17354
 # The -Wno-unsupported is used to silence warnings about missing
 # "subdir-objects".
-AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 serial-tests -Wno-unsupported])
+AM_INIT_AUTOMAKE([1.12 foreign tar-v7 filename-length-max=99 -Wno-unsupported])
 AC_PROG_LN_S
 
 AC_PROG_CC_C99

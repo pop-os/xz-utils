@@ -447,6 +447,7 @@ XZ Utils Installation
                         auto    Look for a supported sandboxing method
                                 and use it if found. If no method is
                                 found, then sandboxing isn't used.
+                                This is the default.
 
                         no      Disable sandboxing support.
 
