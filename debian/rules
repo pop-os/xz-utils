@@ -9,9 +9,6 @@ build-arch:: build-plain build-static build-small
 build-indep: debian/normal-build/Makefile
 	cd debian/normal-build && doxygen Doxyfile
 
-autoreconf_sources := $(wildcard Makefile.am */Makefile.am */*/Makefile.am)
-autoreconf_sources += configure.ac
-
 autoreconf_products := $(wildcard Makefile.in */Makefile.in */*/Makefile.in)
 autoreconf_products += configure	# and more, but these will do
 
@@ -87,9 +84,6 @@ debian/xzdec-build/Makefile: $(configure_input)
 		$(opt_optimize_small) $(opt_quiet) \
 		--disable-lzmainfo --disable-scripts \
 		--disable-xz --disable-lzma-links
-
-$(autoreconf_products): $(autoreconf_sources)
-	autoreconf -if
 
 small_flags_env =
 small_flags_env += DEB_CFLAGS_MAINT_STRIP='-O2 -O3'
