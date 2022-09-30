@@ -2,6 +2,7 @@ xz-utils (5.3.3alpha-0.0) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * Import 5.3.3alpha.
+  * Add new symbols.
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 29 Sep 2022 21:41:18 +0200
 

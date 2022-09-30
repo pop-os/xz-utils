@@ -5,3 +5,8 @@ liblzma.so.5 liblzma5 #MINVER#
  lzma_raw_buffer_decode@XZ_5.0 5.1.1alpha+20120614
  lzma_raw_buffer_encode@XZ_5.0 5.1.1alpha+20120614
  (symver)XZ_5.2 5.2.2
+ (symver)XZ_5.3.3alpha@XZ_5.3.3alpha 5.3.3alpha
+ lzma_file_info_decoder@XZ_5.3.3alpha 5.3.3alpha
+ lzma_microlzma_decoder@XZ_5.3.3alpha 5.3.3alpha
+ lzma_microlzma_encoder@XZ_5.3.3alpha 5.3.3alpha
+ lzma_stream_decoder_mt@XZ_5.3.3alpha 5.3.3alpha
