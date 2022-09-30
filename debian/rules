@@ -58,10 +58,7 @@ debian/test-static-stamp: | build-static
 	>$@
 
 debian/test-xzdec-stamp: | build-small
-	$(MAKE) -C debian/xzdec-build/tests create_compress_files
-	$(MAKE) -C debian/xzdec-build/tests \
-		TESTS="test_check test_files.sh test_compress.sh" \
-		check-TESTS
+	dh_auto_test --builddirectory debian/xzdec-build/tests
 	>$@
 
 debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
