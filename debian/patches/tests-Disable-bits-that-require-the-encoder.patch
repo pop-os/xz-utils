@@ -1,0 +1,219 @@
+From: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+Date: Fri, 30 Sep 2022 20:40:24 +0200
+Subject: tests: Disable bits that require the encoder.
+
+A few tests require the encoder to be compiled. This does not work if
+the project was configured with --disable-encoders.
+
+Disable/ Skip tests which require the encoder to be compiled as part of
+the build.
+
+Signed-off-by: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+---
+ tests/Makefile.am           | 10 ++++++++--
+ tests/test_bcj_exact_size.c |  4 ++++
+ tests/test_index.c          |  4 ++++
+ tests/test_stream_flags.c   |  8 ++++++++
+ tests/test_vli.c            |  6 ++++--
+ 5 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index ebf2df9..42276bf 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -42,17 +42,19 @@ check_PROGRAMS = \
+ 	test_hardware \
+ 	test_stream_flags \
+ 	test_filter_flags \
+-	test_block_header \
+ 	test_index \
+ 	test_bcj_exact_size \
+ 	test_vli
+ 
++if COND_MAIN_ENCODER
++check_PROGRAMS += test_block_header
++endif
++
+ TESTS = \
+ 	test_check \
+ 	test_hardware \
+ 	test_stream_flags \
+ 	test_filter_flags \
+-	test_block_header \
+ 	test_index \
+ 	test_bcj_exact_size \
+ 	test_vli \
+@@ -63,6 +65,10 @@ TESTS = \
+ 	test_compress_generated_random \
+ 	test_compress_generated_text
+ 
++if COND_MAIN_ENCODER
++TESTS += test_block_header
++endif
++
+ if COND_SCRIPTS
+ TESTS += test_scripts.sh
+ endif
+diff --git a/tests/test_bcj_exact_size.c b/tests/test_bcj_exact_size.c
+index 39b34c3..9a2fb63 100644
+--- a/tests/test_bcj_exact_size.c
++++ b/tests/test_bcj_exact_size.c
+@@ -18,6 +18,7 @@
+ static void
+ test_exact_size(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	// Something to be compressed
+ 	const uint8_t in[16] = "0123456789ABCDEF";
+ 
+@@ -71,6 +72,7 @@ test_exact_size(void)
+ 		if (strm.total_out < sizeof(in))
+ 			strm.avail_out = 1;
+ 	}
++#endif
+ }
+ 
+ 
+@@ -100,11 +102,13 @@ main(int argc, char **argv)
+ {
+ 	tuktest_start(argc, argv);
+ 
++#ifdef HAVE_ENCODERS
+ 	if (!lzma_filter_encoder_is_supported(LZMA_FILTER_POWERPC)
+ 			|| !lzma_filter_decoder_is_supported(
+ 				LZMA_FILTER_POWERPC))
+ 		tuktest_early_skip("PowerPC BCJ encoder and/or decoder "
+ 				"is disabled");
++#endif
+ 
+ 	tuktest_run(test_exact_size);
+ 	tuktest_run(test_empty_block);
+diff --git a/tests/test_index.c b/tests/test_index.c
+index ce2cfe1..d176ea7 100644
+--- a/tests/test_index.c
++++ b/tests/test_index.c
+@@ -211,6 +211,7 @@ test_read(lzma_index *i)
+ static void
+ test_code(lzma_index *i)
+ {
++#ifdef HAVE_ENCODERS
+ 	const size_t alloc_size = 128 * 1024;
+ 	uint8_t *buf = malloc(alloc_size);
+ 	expect(buf != NULL);
+@@ -275,6 +276,7 @@ test_code(lzma_index *i)
+ 	lzma_index_end(d, NULL);
+ 
+ 	free(buf);
++#endif
+ }
+ 
+ 
+@@ -592,6 +594,7 @@ test_locate(void)
+ static void
+ test_corrupt(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	const size_t alloc_size = 128 * 1024;
+ 	uint8_t *buf = malloc(alloc_size);
+ 	expect(buf != NULL);
+@@ -627,6 +630,7 @@ test_corrupt(void)
+ 
+ 	lzma_end(&strm);
+ 	free(buf);
++#endif
+ }
+ 
+ 
+diff --git a/tests/test_stream_flags.c b/tests/test_stream_flags.c
+index 39304cd..2fcf3c3 100644
+--- a/tests/test_stream_flags.c
++++ b/tests/test_stream_flags.c
+@@ -50,9 +50,11 @@ test_header_decoder(lzma_ret expected_ret)
+ static void
+ test_header(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	memcrap(buffer, sizeof(buffer));
+ 	expect(lzma_stream_header_encode(&known_flags, buffer) == LZMA_OK);
+ 	succeed(test_header_decoder(LZMA_OK));
++#endif
+ }
+ 
+ 
+@@ -74,15 +76,18 @@ test_footer_decoder(lzma_ret expected_ret)
+ static void
+ test_footer(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	memcrap(buffer, sizeof(buffer));
+ 	expect(lzma_stream_footer_encode(&known_flags, buffer) == LZMA_OK);
+ 	succeed(test_footer_decoder(LZMA_OK));
++#endif
+ }
+ 
+ 
+ static void
+ test_encode_invalid(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	known_flags.check = (lzma_check)(LZMA_CHECK_ID_MAX + 1);
+ 	known_flags.backward_size = 1024;
+ 
+@@ -115,12 +120,14 @@ test_encode_invalid(void)
+ 
+ 	expect(lzma_stream_footer_encode(&known_flags, buffer)
+ 			== LZMA_PROG_ERROR);
++#endif
+ }
+ 
+ 
+ static void
+ test_decode_invalid(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	known_flags.check = LZMA_CHECK_NONE;
+ 	known_flags.backward_size = 1024;
+ 
+@@ -158,6 +165,7 @@ test_decode_invalid(void)
+ 	expect(lzma_stream_footer_encode(&known_flags, buffer) == LZMA_OK);
+ 	buffer[11] ^= 1;
+ 	succeed(test_footer_decoder(LZMA_FORMAT_ERROR));
++#endif
+ }
+ 
+ 
+diff --git a/tests/test_vli.c b/tests/test_vli.c
+index 3cf027a..7e07d4a 100644
+--- a/tests/test_vli.c
++++ b/tests/test_vli.c
+@@ -69,7 +69,7 @@ test_lzma_vli_size(void)
+ 	}
+ }
+ 
+-
++#ifdef HAVE_ENCODERS
+ // Helper function for test_lzma_vli_encode
+ // Encodes an input VLI and compares against a pre-computed value
+ static void
+@@ -108,11 +108,12 @@ encode_multi_call_mode(lzma_vli input, const uint8_t *expected,
+ 	assert_uint_eq(vli_pos, expected_len);
+ 	assert_array_eq(out, expected, expected_len);
+ }
+-
++#endif
+ 
+ static void
+ test_lzma_vli_encode(void)
+ {
++#ifdef HAVE_ENCODERS
+ 	size_t vli_pos = 0;
+ 	uint8_t out[LZMA_VLI_BYTES_MAX];
+ 	uint8_t zeros[LZMA_VLI_BYTES_MAX];
+@@ -189,6 +190,7 @@ test_lzma_vli_encode(void)
+ 			sizeof(eight_bytes));
+ 	encode_multi_call_mode(nine_byte_value, nine_bytes,
+ 			sizeof(nine_bytes));
++#endif
+ }
+ 
+ 
