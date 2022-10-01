@@ -1,5 +1,5 @@
-doc/xz-file-format.txt
-doc/lzma-file-format.txt
-doc/examples
-doc/examples_old
-TODO
+usr/share/doc/xz/xz-file-format.txt
+usr/share/doc/xz/lzma-file-format.txt
+usr/share/doc/xz/TODO
+usr/share/doc/xz/examples
+usr/share/doc/xz/examples_old
