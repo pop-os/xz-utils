@@ -9,6 +9,9 @@ usr/bin/lzma
 usr/bin/lzmore
 usr/bin/unlzma
 usr/lib/*/liblzma.la
+usr/share/doc/xz/COPYING
+usr/share/doc/xz/COPYING.GPLv2
+usr/share/doc/xz/TODO
 usr/share/man/man1/lzcat.1
 usr/share/man/man1/lzcmp.1
 usr/share/man/man1/lzdiff.1
