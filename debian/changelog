@@ -3,6 +3,15 @@ xz-utils (5.3.3alpha-0.0) UNRELEASED; urgency=medium
   * Non-maintainer upload.
   * Import 5.3.3alpha.
   * Add new symbols.
+  * Upgrade to dh compat 13
+    - Drop additional rules/ targets for the three flavours and use one.
+    - Add indep targets to skip most of the build process for the indep only
+      build.
+    - Use autoreconf from dh
+    - Update paths for installation and record not used files in not-installed
+    - Update path in the docs package since newer dh detects liblzma-dev as
+      the main package.
+  * Provide de/fr man page (Closes: #988580, #995982).
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 29 Sep 2022 21:41:18 +0200
 
