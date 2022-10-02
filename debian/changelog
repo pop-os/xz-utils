@@ -1,4 +1,4 @@
-xz-utils (5.3.3alpha-0.0) UNRELEASED; urgency=medium
+xz-utils (5.3.3alpha-0.0) experimental; urgency=medium
 
   * Non-maintainer upload.
   * Import 5.3.3alpha.
@@ -13,7 +13,7 @@ xz-utils (5.3.3alpha-0.0) UNRELEASED; urgency=medium
       the main package.
   * Provide de/fr man page (Closes: #988580, #995982).
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 29 Sep 2022 21:41:18 +0200
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sun, 02 Oct 2022 22:04:04 +0200
 
 xz-utils (5.2.5-2.1) unstable; urgency=medium
 
