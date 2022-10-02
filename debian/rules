@@ -10,7 +10,6 @@ override_dh_auto_clean:
 	#sh debian/clean.sh
 
 override_dh_auto_install-indep:
-	dh_auto_install --builddirectory debian/normal-build
 
 override_dh_auto_install:
 	dh_auto_install --builddirectory debian/xzdec-build
@@ -43,6 +42,8 @@ else
 	dh_auto_test --builddirectory debian/static-build
 	dh_auto_test --builddirectory debian/xzdec-build
 endif
+
+override_dh_auto_configure-indep:
 
 override_dh_auto_configure:
 	dh_auto_configure --builddirectory debian/normal-build -- \
