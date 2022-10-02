@@ -8,5 +8,5 @@ Abstract: liblzma is a compression library supporting the .xz and .lzma
 Section: Programming/C
 
 Format: HTML
-Index: /usr/share/doc/liblzma-doc/html/index.html
-Files: /usr/share/doc/liblzma-doc/html/*
+Index: /usr/share/doc/liblzma-dev/html/index.html
+Files: /usr/share/doc/liblzma-dev/html/*
