@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2020-03-17 16:29+0200\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2019-03-20 15:25-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -145,7 +145,7 @@ msgstr "%s：poll() 失败：%s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s：文件似乎已移动，不再进行删除操作"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:882
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s：无法删除：%s"
@@ -155,111 +155,111 @@ msgstr "%s：无法删除：%s"
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s：无法设置文件所有者：%s"
 
-#: src/xz/file_io.c:372
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s：无法设置文件所有组：%s"
 
-#: src/xz/file_io.c:391
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s：无法设置文件权限：%s"
 
-#: src/xz/file_io.c:517
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr "从标准输入获取文件状态标志出错：%s"
 
-#: src/xz/file_io.c:574 src/xz/file_io.c:636
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s：是符号链接，跳过"
 
-#: src/xz/file_io.c:665
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s：是目录，跳过"
 
-#: src/xz/file_io.c:671
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s：不是标准文件，跳过"
 
-#: src/xz/file_io.c:688
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s：文件有设置用户ID或设置组ID标识，跳过"
 
-#: src/xz/file_io.c:695
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s：文件有粘滞位标识，跳过"
 
-#: src/xz/file_io.c:702
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s：输入文件有多于一个硬链接，跳过"
 
-#: src/xz/file_io.c:792
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "回复标准输入的状态标志时出错：%s"
 
-#: src/xz/file_io.c:840
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "获取标准输出的文件状态标志时出错：%s"
 
-#: src/xz/file_io.c:1018
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "恢复标准输出的 O_APPEND 标志时出错：%s"
 
-#: src/xz/file_io.c:1030
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s：关闭文件失败：%s"
 
-#: src/xz/file_io.c:1066 src/xz/file_io.c:1309
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s：尝试创建稀疏文件时 seek 失败：%s"
 
-#: src/xz/file_io.c:1167
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s：读取错误：%s"
 
-#: src/xz/file_io.c:1191
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s：seek 文件时出错：%s"
 
-#: src/xz/file_io.c:1201
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s：未预期的文件结束"
 
-#: src/xz/file_io.c:1260
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s：写入错误：%s"
 
-#: src/xz/hardware.c:137
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "已禁用"
 
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:156
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "物理内存（RAM）总量：      "
 
-#: src/xz/hardware.c:158
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "用于压缩的内存用量限制：   "
 
-#: src/xz/hardware.c:160
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "用于解压缩的内存用量限制： "
 

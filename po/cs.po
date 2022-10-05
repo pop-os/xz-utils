@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz-utils\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2020-03-17 16:29+0200\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2010-12-03 11:32+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <diskuze@lists.l10n.cz>\n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: Vypadá to, že soubor byl přesunut, proto nebude odstraněn"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:882
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: Nelze odstranit: %s"
@@ -154,111 +154,111 @@ msgstr "%s: Nelze odstranit: %s"
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s: Nelze nastavit vlastníka souboru: %s"
 
-#: src/xz/file_io.c:372
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s: Nelze nastavit skupinu souboru: %s"
 
-#: src/xz/file_io.c:391
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s: Nelze nastavit oprávnění souboru: %s"
 
-#: src/xz/file_io.c:517
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr ""
 
-#: src/xz/file_io.c:574 src/xz/file_io.c:636
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s: Jedná se o symbolický odkaz, vynechává se"
 
-#: src/xz/file_io.c:665
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s: Jedná se o složku, vynechává se"
 
-#: src/xz/file_io.c:671
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s: Nejedná se o běžný soubor, vynechává se"
 
-#: src/xz/file_io.c:688
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s: Soubor má nastavený bit setuid nebo setgid, vynechává se"
 
-#: src/xz/file_io.c:695
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s: Soubor má nastavený bit sticky, vynechává se"
 
-#: src/xz/file_io.c:702
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: Vstupní soubor má více než jeden pevný odkaz, vynechává se"
 
-#: src/xz/file_io.c:792
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr ""
 
-#: src/xz/file_io.c:840
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr ""
 
-#: src/xz/file_io.c:1018
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Chyba při obnovení příznaku O_APPEND na standardní výstup: %s"
 
-#: src/xz/file_io.c:1030
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: Selhalo zavření souboru: %s"
 
-#: src/xz/file_io.c:1066 src/xz/file_io.c:1309
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: Selhalo nastavení pozice při pokusu o vytvoření souboru řídké matice: %s"
 
-#: src/xz/file_io.c:1167
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: Chyba čtení: %s"
 
-#: src/xz/file_io.c:1191
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: Chyba při posunu v rámci souboru: %s"
 
-#: src/xz/file_io.c:1201
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: Neočekávaný konec souboru"
 
-#: src/xz/file_io.c:1260
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: Chyba zápisu: %s"
 
-#: src/xz/hardware.c:137
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "Vypnuto"
 
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:156
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "Celkové množství fyzické paměti (RAM):     "
 
-#: src/xz/hardware.c:158
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "Omezení použitelné paměti pro komprimaci:  "
 
-#: src/xz/hardware.c:160
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "Omezení použitelné paměti pro dekomprimaci:"
 
