@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-07-01 21:43+0800\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2019-09-27 08:08+0100\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -145,7 +145,7 @@ msgstr "%s: poll() falhou: %s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: o ficheiro parece ter sido movido, não será eliminado"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:882
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: impossível remover: %s"
@@ -155,114 +155,114 @@ msgstr "%s: impossível remover: %s"
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s: impossível definir o proprietário do ficheiro: %s"
 
-#: src/xz/file_io.c:372
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s: impossível definir o grupo do ficheiro: %s"
 
-#: src/xz/file_io.c:391
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s: impossível definir as permissões do ficheiro: %s"
 
-#: src/xz/file_io.c:517
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr "Erro ao obter as bandeiras de estado da entrada padrão: %s"
 
-#: src/xz/file_io.c:574 src/xz/file_io.c:636
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s: é uma ligação simbólica, a ignorar"
 
-#: src/xz/file_io.c:665
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s: é uma pasta, a ignorar"
 
-#: src/xz/file_io.c:671
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s: não é um ficheiro normal, a ignorar"
 
-#: src/xz/file_io.c:688
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s: o ficheiro tem o bit setuid ou setgid definido, a ignorar"
 
-#: src/xz/file_io.c:695
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s: o ficheiro tem o bit sticky definido, a ignorar"
 
-#: src/xz/file_io.c:702
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: o ficheiro de entrada tem mais de uma ligação absoluta, a ignorar"
 
-#: src/xz/file_io.c:792
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "Erro ao restaurar as bandeiras de estado para a entrada padrão: %s"
 
-#: src/xz/file_io.c:840
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "Erro ao obter as bandeiras de estado do ficheiro da saída padrão: %s"
 
-#: src/xz/file_io.c:1018
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Erro ao restaurar a bandeira O_APPEND para a saída padrão: %s"
 
-#: src/xz/file_io.c:1030
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: falha ao fechar o ficheiro: %s"
 
-#: src/xz/file_io.c:1066 src/xz/file_io.c:1309
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: falha na procura ao tentar criar um ficheiro escasso: %s"
 
-#: src/xz/file_io.c:1167
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: erro de leitura: %s"
 
-#: src/xz/file_io.c:1191
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: erro ao procurar o ficheiro: %s"
 
-#: src/xz/file_io.c:1201
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: fim de ficheiro inesperado"
 
-#: src/xz/file_io.c:1260
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: erro de escrita: %s"
 
-#: src/xz/hardware.c:137
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "Desactivado"
 
 # Espaços adicionados para manter alinhamento com mensagens adjacentes -- Rafael
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:156
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "Quantidade total de memória física (RAM):    "
 
 # Espaços adicionados para manter alinhamento com mensagens adjacentes -- Rafael
-#: src/xz/hardware.c:158
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "Limite de uso de memória para compressão:    "
 
 # Espaços reduzidos para manter alinhamento com mensagens adjacentes -- Rafael
-#: src/xz/hardware.c:160
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "Limite de uso de memória para descompressão: "
 

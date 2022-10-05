@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2018-04-29 18:19+0300\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2019-11-18 09:57+0100\n"
 "Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -120,19 +120,11 @@ msgstr "Az LZMA%c szótár méretének módosítása erről: %s MiB, erre: %s Mi
 msgid "Error creating a pipe: %s"
 msgstr "Hiba a csővezeték létrehozásakor: %s"
 
-#: src/xz/file_io.c:173
-msgid "Sandbox is disabled due to incompatible command line arguments"
-msgstr "A homokozó ki lett kapcsolva a nem kompatibilis parancssori argumentumok miatt"
-
-#: src/xz/file_io.c:216
-msgid "Sandbox was successfully enabled"
-msgstr "A homokozó sikeresen engedélyezve"
-
-#: src/xz/file_io.c:220
+#: src/xz/file_io.c:224
 msgid "Failed to enable the sandbox"
 msgstr "A homokozó engedélyezése sikertelen"
 
-#: src/xz/file_io.c:262
+#: src/xz/file_io.c:266
 #, c-format
 msgid "%s: poll() failed: %s"
 msgstr "%s: poll() sikertelen: %s"
@@ -147,126 +139,126 @@ msgstr "%s: poll() sikertelen: %s"
 #. it is possible that the user has put a new file in place
 #. of the original file, and in that case it obviously
 #. shouldn't be removed.
-#: src/xz/file_io.c:332
+#: src/xz/file_io.c:333
 #, c-format
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: Úgy tűnik, hogy a fájl át lett helyezve, nincs eltávolítás"
 
-#: src/xz/file_io.c:339 src/xz/file_io.c:878
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: Nem távolítható el: %s"
 
-#: src/xz/file_io.c:364
+#: src/xz/file_io.c:366
 #, c-format
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s: A fájl tulajdonosa nem adható meg: %s"
 
-#: src/xz/file_io.c:370
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s: A fájl csoportja nem adható meg: %s"
 
-#: src/xz/file_io.c:389
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s: A fájl jogosultságai nem adhatók meg: %s"
 
-#: src/xz/file_io.c:515
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr "Hiba a fájl állapotjelzőinek lekérdezésekor a szabványos bemenetről: %s"
 
-#: src/xz/file_io.c:572 src/xz/file_io.c:634
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s: Szimbolikus link, kihagyás"
 
-#: src/xz/file_io.c:663
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s: Könyvtár, kihagyás"
 
-#: src/xz/file_io.c:669
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s: Nem szabályos fájl, kihagyás"
 
-#: src/xz/file_io.c:686
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s: A fájlon setuid vagy setgid bit van beállítva, kihagyás"
 
-#: src/xz/file_io.c:693
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s: A fájlon sticky bit van beállítva, kihagyás"
 
-#: src/xz/file_io.c:700
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: A bemeneti fájlhoz több mint egy hard link tartozik, kihagyás"
 
-#: src/xz/file_io.c:788
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "Hiba a fájl állapotjelzőinek visszaállításakor a szabványos bemenetre: %s"
 
-#: src/xz/file_io.c:836
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "Hiba a fájl állapotjelzőinek lekérdezésekor a szabványos kimenetről: %s"
 
-#: src/xz/file_io.c:1014
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Hiba az O_APPEND visszaállításakor a szabványos kimenetre: %s"
 
-#: src/xz/file_io.c:1026
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: A fájl lezárása sikertelen: %s"
 
-#: src/xz/file_io.c:1062 src/xz/file_io.c:1288
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: A pozícionálás sikertelen a ritka fájl létrehozásának kísérletekor: %s"
 
-#: src/xz/file_io.c:1157
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: Olvasási hiba: %s"
 
-#: src/xz/file_io.c:1177
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: Hiba a fájlban pozícionáláskor: %s"
 
-#: src/xz/file_io.c:1187
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: Váratlan fájlvég"
 
-#: src/xz/file_io.c:1246
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: Írási hiba: %s"
 
-#: src/xz/hardware.c:107
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "Letiltva"
 
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:126
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "Az összes fizikai memória (RAM):        "
 
-#: src/xz/hardware.c:128
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "Memóriahasználat korlátja tömörítéskor: "
 
-#: src/xz/hardware.c:130
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "Memóriahasználat korlátja kibontáskor:  "
 
@@ -493,68 +485,68 @@ msgstr "Az adatok nem olvashatók be a szabványos bemenetről a fájlnevek olva
 #. of the line in messages. Usually it becomes "xz: ".
 #. This is a translatable string because French needs
 #. a space before a colon.
-#: src/xz/message.c:714
+#: src/xz/message.c:728
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c:777 src/xz/message.c:827
+#: src/xz/message.c:791 src/xz/message.c:841
 msgid "Internal error (bug)"
 msgstr "Belső hiba (bug)"
 
-#: src/xz/message.c:784
+#: src/xz/message.c:798
 msgid "Cannot establish signal handlers"
 msgstr "A szignálkezelők nem hozhatók létre"
 
-#: src/xz/message.c:793
+#: src/xz/message.c:807
 msgid "No integrity check; not verifying file integrity"
 msgstr "Nincs integritás-ellenőrzés; a fájl épsége nem lesz ellenőrizve"
 
-#: src/xz/message.c:796
+#: src/xz/message.c:810
 msgid "Unsupported type of integrity check; not verifying file integrity"
 msgstr "Nem támogatott integritás-ellenőrzési típus; a fájl épsége nem lesz ellenőrizve"
 
-#: src/xz/message.c:803
+#: src/xz/message.c:817
 msgid "Memory usage limit reached"
 msgstr "Memóriahasználat korlátja elérve"
 
-#: src/xz/message.c:806
+#: src/xz/message.c:820
 msgid "File format not recognized"
 msgstr "A fájlformátum nem felismert"
 
-#: src/xz/message.c:809
+#: src/xz/message.c:823
 msgid "Unsupported options"
 msgstr "Nem támogatott kapcsolók"
 
-#: src/xz/message.c:812
+#: src/xz/message.c:826
 msgid "Compressed data is corrupt"
 msgstr "A tömörített adatok megsérültek"
 
-#: src/xz/message.c:815
+#: src/xz/message.c:829
 msgid "Unexpected end of input"
 msgstr "A bemenet váratlanul véget ért"
 
-#: src/xz/message.c:848
+#: src/xz/message.c:862
 #, c-format
 msgid "%s MiB of memory is required. The limiter is disabled."
 msgstr "%s MiB memória szükséges. A korlátozás letiltva."
 
-#: src/xz/message.c:876
+#: src/xz/message.c:890
 #, c-format
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "%s MiB memória szükséges. A korlát %s."
 
-#: src/xz/message.c:1043
+#: src/xz/message.c:1057
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s: Szűrőlánc: %s\n"
 
-#: src/xz/message.c:1053
+#: src/xz/message.c:1067
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "További információkért adja ki a következő parancsot: „%s --help”."
 
-#: src/xz/message.c:1079
+#: src/xz/message.c:1093
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -565,15 +557,15 @@ msgstr ""
 ".xz formátumú FÁJLok tömörítése vagy kibontása.\n"
 "\n"
 
-#: src/xz/message.c:1086
+#: src/xz/message.c:1100
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "A hosszú kapcsolók kötelező argumentumai a rövid kapcsolók esetén is kötelezők.\n"
 
-#: src/xz/message.c:1090
+#: src/xz/message.c:1104
 msgid " Operation mode:\n"
 msgstr " Működési mód:\n"
 
-#: src/xz/message.c:1093
+#: src/xz/message.c:1107
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -585,7 +577,7 @@ msgstr ""
 "  -t, --test          tömörített fájl épségének tesztelése\n"
 "  -l, --list          információk kiírása az .xz fájlokról"
 
-#: src/xz/message.c:1099
+#: src/xz/message.c:1113
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -593,7 +585,7 @@ msgstr ""
 "\n"
 " Műveleti módosítók:\n"
 
-#: src/xz/message.c:1102
+#: src/xz/message.c:1116
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
@@ -605,7 +597,7 @@ msgstr ""
 "  -c, --stdout        írás a szabványos kimenetre írás, és nem törli a\n"
 "                      bemeneti fájlokat"
 
-#: src/xz/message.c:1108
+#: src/xz/message.c:1122
 msgid ""
 "      --single-stream decompress only the first stream, and silently\n"
 "                      ignore possible remaining input data"
@@ -613,7 +605,7 @@ msgstr ""
 "      --single-stream csak az első adatfolyam kibontása, és a\n"
 "                      lehetséges hátralévő bemeneti adatok mellőzése"
 
-#: src/xz/message.c:1111
+#: src/xz/message.c:1125
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
 "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
@@ -630,7 +622,7 @@ msgstr ""
 "      --files0[=FÁJL] mint a --files, de a null karakter használata\n"
 "                      elválasztóként"
 
-#: src/xz/message.c:1120
+#: src/xz/message.c:1134
 msgid ""
 "\n"
 " Basic file format and compression options:\n"
@@ -638,7 +630,7 @@ msgstr ""
 "\n"
 " Alapvető fájlformátum és tömörítési beállítások:\n"
 
-#: src/xz/message.c:1122
+#: src/xz/message.c:1136
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
 "                      `auto' (default), `xz', `lzma', and `raw'\n"
@@ -651,11 +643,11 @@ msgstr ""
 "  -C, --check=ELL     integritás-ellenőrzés típusa: „none” (óvatosan használja),\n"
 "                      „crc32”, „crc64” (alapértelmezett) vagy „sha256”"
 
-#: src/xz/message.c:1127
+#: src/xz/message.c:1141
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
 msgstr "      --ignore-check  kibontáskor ne ellenőrizze az épséget"
 
-#: src/xz/message.c:1131
+#: src/xz/message.c:1145
 msgid ""
 "  -0 ... -9           compression preset; default is 6; take compressor *and*\n"
 "                      decompressor memory usage into account before using 7-9!"
@@ -664,7 +656,7 @@ msgstr ""
 "                      a 7-9 használata előtt vegye figyelembe a tömörítő\n"
 "                      *és* kibontó memóriahasználatát!"
 
-#: src/xz/message.c:1135
+#: src/xz/message.c:1149
 msgid ""
 "  -e, --extreme       try to improve compression ratio by using more CPU time;\n"
 "                      does not affect decompressor memory requirements"
@@ -672,7 +664,7 @@ msgstr ""
 "  -e, --extreme       a tömörítési arány javítási kísérlete több CPU-idő\n"
 "                      használatával; nincs hatással a kibontó memóriaigényére"
 
-#: src/xz/message.c:1139
+#: src/xz/message.c:1153
 msgid ""
 "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
 "                      to use as many threads as there are processor cores"
@@ -681,7 +673,7 @@ msgstr ""
 "                      állítsa 0-ra, hogy annyi szálat használjon, amennyi\n"
 "                      processzormag áll rendelkezésre"
 
-#: src/xz/message.c:1144
+#: src/xz/message.c:1158
 msgid ""
 "      --block-size=SIZE\n"
 "                      start a new .xz block after every SIZE bytes of input;\n"
@@ -691,7 +683,7 @@ msgstr ""
 "                      új .xz blokk indítása minden MÉRETnyi bájt bemenet után;\n"
 "                      a többszálas tömörítés blokkméretének megadásához"
 
-#: src/xz/message.c:1148
+#: src/xz/message.c:1162
 msgid ""
 "      --block-list=SIZES\n"
 "                      start a new .xz block after the given comma-separated\n"
@@ -701,7 +693,7 @@ msgstr ""
 "                      új .xz blokk indítása a vesszőkkel felsorolva megadott\n"
 "                      méretű tömörítetlen adatszakaszok után"
 
-#: src/xz/message.c:1152
+#: src/xz/message.c:1166
 msgid ""
 "      --flush-timeout=TIMEOUT\n"
 "                      when compressing, if more than TIMEOUT milliseconds has\n"
@@ -713,7 +705,7 @@ msgstr ""
 "                      telt el az előző kiírástól, és a bemenetolvasás\n"
 "                      blokkolna, akkor minden adat ki lesz írva"
 
-#: src/xz/message.c:1158
+#: src/xz/message.c:1172
 #, no-c-format
 msgid ""
 "      --memlimit-compress=LIMIT\n"
@@ -729,7 +721,7 @@ msgstr ""
 "                      kibontáshoz vagy mindkettőhöz; a KORLÁT bájtokban van\n"
 "                      megadva, a RAM %-ában, vagy 0 az alapértelmezéshez"
 
-#: src/xz/message.c:1165
+#: src/xz/message.c:1179
 msgid ""
 "      --no-adjust     if compression settings exceed the memory usage limit,\n"
 "                      give an error instead of adjusting the settings downwards"
@@ -738,7 +730,7 @@ msgstr ""
 "                      korlátot, akkor hibát fog adni a beállítások lefelé\n"
 "                      állítása helyett"
 
-#: src/xz/message.c:1171
+#: src/xz/message.c:1185
 msgid ""
 "\n"
 " Custom filter chain for compression (alternative for using presets):"
@@ -746,7 +738,7 @@ msgstr ""
 "\n"
 " Egyéni szűrőlánc a tömörítéshez (alternatíva az előbeállításokra):"
 
-#: src/xz/message.c:1180
+#: src/xz/message.c:1194
 msgid ""
 "\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
@@ -776,7 +768,7 @@ msgstr ""
 "                        depth=SZÁM legnagyobb keresési mélység; 0=automatikus\n"
 "                                   (alapértelmezett)"
 
-#: src/xz/message.c:1195
+#: src/xz/message.c:1209
 msgid ""
 "\n"
 "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
@@ -799,7 +791,7 @@ msgstr ""
 "                        start=SZÁM kezdési eltolás az átalakításokhoz\n"
 "                                   (alapértelmezett=0)"
 
-#: src/xz/message.c:1207
+#: src/xz/message.c:1221
 msgid ""
 "\n"
 "  --delta[=OPTS]      Delta filter; valid OPTS (valid values; default):\n"
@@ -812,7 +804,7 @@ msgstr ""
 "                        dist=SZÁM  az egymásból kivont bájtok közti\n"
 "                                   távolság (1-256; 1)"
 
-#: src/xz/message.c:1215
+#: src/xz/message.c:1229
 msgid ""
 "\n"
 " Other options:\n"
@@ -820,7 +812,7 @@ msgstr ""
 "\n"
 " Egyéb kapcsolók:\n"
 
-#: src/xz/message.c:1218
+#: src/xz/message.c:1232
 msgid ""
 "  -q, --quiet         suppress warnings; specify twice to suppress errors too\n"
 "  -v, --verbose       be verbose; specify twice for even more verbose"
@@ -830,19 +822,19 @@ msgstr ""
 "  -v, --verbose       legyen bőbeszédű; adja meg kétszer, hogy még bőbeszédűbb\n"
 "                      legyen"
 
-#: src/xz/message.c:1223
+#: src/xz/message.c:1237
 msgid "  -Q, --no-warn       make warnings not affect the exit status"
 msgstr ""
 "  -Q, --no-warn       a figyelmeztetések nem befolyásolják a kilépési\n"
 "                      állapotkódot"
 
-#: src/xz/message.c:1225
+#: src/xz/message.c:1239
 msgid "      --robot         use machine-parsable messages (useful for scripts)"
 msgstr ""
 "      --robot         géppel értelmezhető üzenetek használata\n"
 "                      (parancsfájlok esetén hasznos)"
 
-#: src/xz/message.c:1228
+#: src/xz/message.c:1242
 msgid ""
 "      --info-memory   display the total amount of RAM and the currently active\n"
 "                      memory usage limits, and exit"
@@ -850,7 +842,7 @@ msgstr ""
 "      --info-memory   az összes RAM mennyiségének és a jelenlegi\n"
 "                      memóriahasználati korlátok megjelenítése, és kilépés"
 
-#: src/xz/message.c:1231
+#: src/xz/message.c:1245
 msgid ""
 "  -h, --help          display the short help (lists only the basic options)\n"
 "  -H, --long-help     display this long help and exit"
@@ -858,7 +850,7 @@ msgstr ""
 "  -h, --help          a rövid súgó megjelenítése (csak az alapvető kapcsolók)\n"
 "  -H, --long-help     ezen hosszú súgó megjelenítése, és kilépés"
 
-#: src/xz/message.c:1235
+#: src/xz/message.c:1249
 msgid ""
 "  -h, --help          display this short help and exit\n"
 "  -H, --long-help     display the long help (lists also the advanced options)"
@@ -866,11 +858,11 @@ msgstr ""
 "  -h, --help          ezen rövid súgó megjelenítése, és kilépés\n"
 "  -H, --long-help     a hosszú súgó megjelenítése (speciális kapcsolókhoz)"
 
-#: src/xz/message.c:1240
+#: src/xz/message.c:1254
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       a verziószám kiírása és kilépés"
 
-#: src/xz/message.c:1242
+#: src/xz/message.c:1256
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -882,17 +874,17 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c:1248
+#: src/xz/message.c:1262
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "Ide jelentse a hibákat: <%s> (angolul vagy finnül).\n"
 
-#: src/xz/message.c:1250
+#: src/xz/message.c:1264
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s honlap: <%s>\n"
 
-#: src/xz/message.c:1254
+#: src/xz/message.c:1268
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "EZ EGY FEJLESZTŐI VÁLTOZAT, NEM ÉLES HASZNÁLATRA SZÁNT."
 
@@ -964,22 +956,28 @@ msgstr "Az érvényes utótagok: „KiB” (2^10), „MiB” (2^20) és „GiB�
 msgid "Value of the option `%s' must be in the range [%<PRIu64>, %<PRIu64>]"
 msgstr "A(z) „%s” kapcsoló értékének a(z) [%<PRIu64>, %<PRIu64>] tartományban kell lennie"
 
-#: src/xz/util.c:257
+#: src/xz/util.c:267
 msgid "Empty filename, skipping"
 msgstr "Üres fájlnév, kihagyás"
 
-#: src/xz/util.c:271
+#: src/xz/util.c:281
 msgid "Compressed data cannot be read from a terminal"
 msgstr "A tömörített adatokat nem lehet beolvasni a terminálból"
 
-#: src/xz/util.c:284
+#: src/xz/util.c:294
 msgid "Compressed data cannot be written to a terminal"
 msgstr "A tömörített adatokat nem lehet kiírni a terminálba"
 
-#: src/common/tuklib_exit.c:39
+#: src/common/tuklib_exit.c:40
 msgid "Writing to standard output failed"
 msgstr "A szabványos kimenetre írás sikertelen"
 
-#: src/common/tuklib_exit.c:42
+#: src/common/tuklib_exit.c:43
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
+
+#~ msgid "Sandbox is disabled due to incompatible command line arguments"
+#~ msgstr "A homokozó ki lett kapcsolva a nem kompatibilis parancssori argumentumok miatt"
+
+#~ msgid "Sandbox was successfully enabled"
+#~ msgstr "A homokozó sikeresen engedélyezve"

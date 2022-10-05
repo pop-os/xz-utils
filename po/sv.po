@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-06-24 22:18+0800\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2022-06-28 20:40+0800\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -144,7 +144,7 @@ msgstr "%s: poll() misslyckades: %s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: File verkar har flyttats, tar inte bort"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:882
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: Kan inte ta bort: %s"
@@ -154,111 +154,111 @@ msgstr "%s: Kan inte ta bort: %s"
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s: Kan inte sätta filägaren: %s"
 
-#: src/xz/file_io.c:372
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s: Kan inte sätta filgruppen: %s"
 
-#: src/xz/file_io.c:391
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s: Kan inte sätta filrättigheterna: %s"
 
-#: src/xz/file_io.c:517
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr "Fel vid hämtning av filstatusflaggor från standard in: %s"
 
-#: src/xz/file_io.c:574 src/xz/file_io.c:636
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s: Är en symbolisk länk, hoppar över"
 
-#: src/xz/file_io.c:665
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s: Är en katalog, hoppar över"
 
-#: src/xz/file_io.c:671
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s: Är inte en vanlig fil, hoppar över"
 
-#: src/xz/file_io.c:688
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s: Filen har setuid- eller setgid-biten satt, hoppar över"
 
-#: src/xz/file_io.c:695
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s: Filen har stickybiten satt, hoppar över"
 
-#: src/xz/file_io.c:702
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: Indatafilten har mer en än en hårdlänk, hoppar över"
 
-#: src/xz/file_io.c:792
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "Fel vid återställning av statusflaggorna för standard in: %s"
 
-#: src/xz/file_io.c:840
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "Fel vid hämtning av filstatusflaggorna från standard ut: %s"
 
-#: src/xz/file_io.c:1018
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Fel vid återställning av O_APPEND-flaggand till standard ut: %s"
 
-#: src/xz/file_io.c:1030
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: Stänging av filen misslyckades: %s"
 
-#: src/xz/file_io.c:1066 src/xz/file_io.c:1309
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: Sökning misslyckades vid skapande av gles fil: %s"
 
-#: src/xz/file_io.c:1167
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: Läsfel: %s"
 
-#: src/xz/file_io.c:1191
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: Fel vid sökning i fil: %s"
 
-#: src/xz/file_io.c:1201
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: Oväntat filslut"
 
-#: src/xz/file_io.c:1260
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: Skrivfel: %s"
 
-#: src/xz/hardware.c:137
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "Inaktiverad"
 
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:156
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "Totalt mängd fysiskt minne (RAM): "
 
-#: src/xz/hardware.c:158
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "Begränsning av minnesanvändning för komprimering:  "
 
-#: src/xz/hardware.c:160
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "Begränsning av minnesanvändning för dekomprimering:"
 

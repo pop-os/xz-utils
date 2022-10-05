@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-06-24 22:18+0800\n"
+"POT-Creation-Date: 2022-09-30 13:06+0300\n"
 "PO-Revision-Date: 2022-06-28 23:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -144,7 +144,7 @@ msgstr "%s: помилка poll(): %s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: здається, файл пересунуто; не вилучаємо"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:882
+#: src/xz/file_io.c:340 src/xz/file_io.c:890
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: не вдалося вилучити: %s"
@@ -154,111 +154,111 @@ msgstr "%s: не вдалося вилучити: %s"
 msgid "%s: Cannot set the file owner: %s"
 msgstr "%s: не вдалося встановити власника файла: %s"
 
-#: src/xz/file_io.c:372
+#: src/xz/file_io.c:379
 #, c-format
 msgid "%s: Cannot set the file group: %s"
 msgstr "%s: не вдалося встановити групу власника файла: %s"
 
-#: src/xz/file_io.c:391
+#: src/xz/file_io.c:398
 #, c-format
 msgid "%s: Cannot set the file permissions: %s"
 msgstr "%s: не вдалося встановити права доступу до файла: %s"
 
-#: src/xz/file_io.c:517
+#: src/xz/file_io.c:524
 #, c-format
 msgid "Error getting the file status flags from standard input: %s"
 msgstr "Помилка під час спроби отримання прапорців стану файла зі стандартного джерела вхідних даних: %s"
 
-#: src/xz/file_io.c:574 src/xz/file_io.c:636
+#: src/xz/file_io.c:582 src/xz/file_io.c:644
 #, c-format
 msgid "%s: Is a symbolic link, skipping"
 msgstr "%s: є символічним посиланням; пропускаємо"
 
-#: src/xz/file_io.c:665
+#: src/xz/file_io.c:673
 #, c-format
 msgid "%s: Is a directory, skipping"
 msgstr "%s: є каталогом; пропускаємо"
 
-#: src/xz/file_io.c:671
+#: src/xz/file_io.c:679
 #, c-format
 msgid "%s: Not a regular file, skipping"
 msgstr "%s: не є звичайним файлом; пропускаємо"
 
-#: src/xz/file_io.c:688
+#: src/xz/file_io.c:696
 #, c-format
 msgid "%s: File has setuid or setgid bit set, skipping"
 msgstr "%s: для файла встановлено біт setuid або setgid; пропускаємо"
 
-#: src/xz/file_io.c:695
+#: src/xz/file_io.c:703
 #, c-format
 msgid "%s: File has sticky bit set, skipping"
 msgstr "%s: для файла встановлено липкий біт; пропускаємо"
 
-#: src/xz/file_io.c:702
+#: src/xz/file_io.c:710
 #, c-format
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: виявлено декілька жорстких посилань на файл із вхідними даними; пропускаємо"
 
-#: src/xz/file_io.c:792
+#: src/xz/file_io.c:800
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "Помилка під час спроби відновлення прапорців стану для стандартного джерела вхідних даних: %s"
 
-#: src/xz/file_io.c:840
+#: src/xz/file_io.c:848
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "Помилка під час спроби отримання прапорців стану файла зі стандартного виведення: %s"
 
-#: src/xz/file_io.c:1018
+#: src/xz/file_io.c:1026
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Помилка під час спроби відновлення прапорця O_APPEND для стандартного виведення: %s"
 
-#: src/xz/file_io.c:1030
+#: src/xz/file_io.c:1038
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: не вдалося закрити файл: %s"
 
-#: src/xz/file_io.c:1066 src/xz/file_io.c:1309
+#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: помилка позиціювання під час спроби створити розріджений файл: %s"
 
-#: src/xz/file_io.c:1167
+#: src/xz/file_io.c:1175
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: помилка читання: %s"
 
-#: src/xz/file_io.c:1191
+#: src/xz/file_io.c:1199
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: помилка позиціювання у файлі: %s"
 
-#: src/xz/file_io.c:1201
+#: src/xz/file_io.c:1209
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: неочікуваний кінець файла"
 
-#: src/xz/file_io.c:1260
+#: src/xz/file_io.c:1268
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: помилка під час спроби запису: %s"
 
-#: src/xz/hardware.c:137
+#: src/xz/hardware.c:143
 msgid "Disabled"
 msgstr "Вимкнено"
 
 #. TRANSLATORS: Test with "xz --info-memory" to see if
 #. the alignment looks nice.
-#: src/xz/hardware.c:156
+#: src/xz/hardware.c:162
 msgid "Total amount of physical memory (RAM): "
 msgstr "Загальний обсяг фізичної пам'яті (RAM): "
 
-#: src/xz/hardware.c:158
+#: src/xz/hardware.c:164
 msgid "Memory usage limit for compression:    "
 msgstr "Обмеження пам'яті для пакування:        "
 
-#: src/xz/hardware.c:160
+#: src/xz/hardware.c:166
 msgid "Memory usage limit for decompression:  "
 msgstr "Обмеження пам'яті для розпаковування:   "
 
