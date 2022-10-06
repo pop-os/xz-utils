@@ -14,6 +14,8 @@ usr/share/man/man1/xzless.1
 usr/share/man/man1/xzdiff.1
 usr/share/man/man1/xzcmp.1
 usr/share/man/man1/xz*grep.1
+usr/share/man/de/man1/*.1
+usr/share/man/fr_FR/man1/*.1
 usr/bin/lzmainfo
 usr/share/man/man1/lzmainfo.1
 usr/share/locale/*/LC_MESSAGES/xz.mo
