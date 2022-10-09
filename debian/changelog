@@ -3,6 +3,7 @@ xz-utils (5.2.7-0.0) UNRELEASED; urgency=medium
   * Non-maintainer upload.
   * New upstream release.
   * Provide de/fr man page (Closes: #988580, #995982).
+  * Update symbol file, compat symbols were added.
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 05 Oct 2022 22:59:34 +0200
 
