@@ -2,6 +2,7 @@ xz-utils (5.2.7-0.1) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * Avoid cmake buildsystem detection (Closes: #1022336).
+  * Mark the compat symbols as linux-any so hurd does not complain.
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Mon, 24 Oct 2022 20:41:02 +0200
 
