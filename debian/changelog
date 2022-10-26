@@ -4,7 +4,7 @@ xz-utils (5.2.7-0.1) unstable; urgency=medium
   * Avoid cmake buildsystem detection (Closes: #1022336).
   * Mark the compat symbols as linux-any so hurd does not complain.
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 25 Oct 2022 21:14:02 +0200
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 26 Oct 2022 23:05:08 +0200
 
 xz-utils (5.2.7-0.0) unstable; urgency=medium
 
