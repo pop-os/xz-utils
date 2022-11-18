@@ -49,9 +49,17 @@
 	 * Filter for SPARC binaries.
 	 */
 
+#define LZMA_FILTER_ARM64       LZMA_VLI_C(0x3FDB87B33B27010B)
+	/**<
+	 * Filter for ARM64 binaries.
+	 *
+	 * \note    THIS IS AN EXPERIMENTAL VERSION WHICH WILL
+	 *          STILL CHANGE! FILES CREATED WITH THIS
+	 *          WILL NOT BE SUPPORTED IN THE FUTURE!
+	 */
 
 /**
- * \brief       Options for BCJ filters
+ * \brief       Options for BCJ filters (except ARM64)
  *
  * The BCJ filters never change the size of the data. Specifying options
  * for them is optional: if pointer to options is NULL, default value is

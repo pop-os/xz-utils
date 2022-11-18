@@ -13,7 +13,18 @@
 if test -x ../src/xz/xz ; then
 	:
 else
-	(exit 77)
+	exit 77
+fi
+
+# If compression or decompression support is missing, this test is skipped.
+# This isn't perfect as if only some compressors or decompressors are disabled
+# then this script can still fail because for now this doesn't check the
+# availability of each filter.
+if grep 'define HAVE_ENCODERS' ../config.h > /dev/null \
+		&& grep 'define HAVE_DECODERS' ../config.h > /dev/null ; then
+	:
+else
+	echo "Compression or decompression support is disabled, skipping this test."
 	exit 77
 fi
 
@@ -21,7 +32,6 @@ fi
 eval 'unset foo ; foo() { return 42; } ; foo'
 if test $? != 42 ; then
 	echo "/bin/sh doesn't support functions, skipping this test."
-	(exit 77)
 	exit 77
 fi
 
@@ -30,7 +40,6 @@ test_xz() {
 		:
 	else
 		echo "Compressing failed: $* $FILE"
-		(exit 1)
 		exit 1
 	fi
 
@@ -38,7 +47,6 @@ test_xz() {
 		:
 	else
 		echo "Decompressing failed: $* $FILE"
-		(exit 1)
 		exit 1
 	fi
 
@@ -47,7 +55,6 @@ test_xz() {
 	else
 		echo "Decompressed file does not match" \
 				"the original: $* $FILE"
-		(exit 1)
 		exit 1
 	fi
 
@@ -56,7 +63,6 @@ test_xz() {
 			:
 		else
 			echo "Decompressing failed: $* $FILE"
-			(exit 1)
 			exit 1
 		fi
 
@@ -65,14 +71,15 @@ test_xz() {
 		else
 			echo "Decompressed file does not match" \
 					"the original: $* $FILE"
-			(exit 1)
 			exit 1
 		fi
 	fi
 }
 
 XZ="../src/xz/xz --memlimit-compress=48MiB --memlimit-decompress=5MiB \
-		--no-adjust --threads=1 --check=crc64"
+		--no-adjust --threads=1 --check=crc32"
+grep "define HAVE_CHECK_CRC64" ../config.h > /dev/null \
+		&& XZ="$XZ --check=crc64"
 XZDEC="../src/xzdec/xzdec" # No memory usage limiter available
 test -x ../src/xzdec/xzdec || XZDEC=
 
@@ -85,13 +92,11 @@ case $FILE in
 		else
 			rm -f "$FILE"
 			echo "Failed to create the file '$FILE'."
-			(exit 1)
 			exit 1
 		fi
 		;;
 	'')
 		echo "No test file was specified."
-		(exit 1)
 		exit 1
 		;;
 esac
@@ -115,19 +120,22 @@ test_xz -2
 test_xz -3
 test_xz -4
 
-for ARGS in \
-	--delta=dist=1 \
-	--delta=dist=4 \
-	--delta=dist=256 \
-	--x86 \
-	--powerpc \
-	--ia64 \
-	--arm \
-	--armthumb \
-	--sparc
-do
-	test_xz $ARGS --lzma2=dict=64KiB,nice=32,mode=fast
-done
+test_filter()
+{
+	grep "define HAVE_ENCODER_$1" ../config.h > /dev/null || return
+	grep "define HAVE_DECODER_$1" ../config.h > /dev/null || return
+	shift
+	test_xz "$@" --lzma2=dict=64KiB,nice=32,mode=fast
+}
 
-(exit 0)
+test_filter DELTA --delta=dist=1
+test_filter DELTA --delta=dist=4
+test_filter DELTA --delta=dist=256
+test_filter X86 --x86
+test_filter POWERPC --power
+test_filter IA64 --ia64
+test_filter ARM --arm
+test_filter ARMTHUMB --armthumb
+test_filter SPARC --sparc
+
 exit 0

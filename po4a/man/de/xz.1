@@ -10,7 +10,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH XZ 1 2022\-08\-22 Tukaani XZ\-Dienstprogramme
+.TH XZ 1 2022\-11\-09 Tukaani XZ\-Dienstprogramme
 .
 .SH BEZEICHNUNG
 xz, unxz, xzcat, lzma, unlzma, lzcat \- .xz\- und .lzma\-Dateien komprimieren
@@ -35,11 +35,11 @@ den Namen \fBxz\fP mit den entsprechenden Argumenten (\fBxz \-d\fP oder \fBxz \-
 anstelle der Namen \fBunxz\fP und \fBxzcat\fP verwenden.
 .
 .SH BESCHREIBUNG
-\fBxz\fP ist ein Allzweckwerkzeug zur Datenkompression, dessen
-Befehlszeilensyntax denen von \fBgzip\fP(1) und \fBbzip2\fP(1) ähnelt. Das native
-Dateiformat ist das \fB.xz\fP\-Format, aber das veraltete, von den
-LZMA\-Dienstprogrammen verwendete Format sowie komprimierte Rohdatenströme
-ohne Containerformat\-Header werden ebenfalls unterstützt.
+\fBxz\fP is a general\-purpose data compression tool with command line syntax
+similar to \fBgzip\fP(1)  and \fBbzip2\fP(1).  The native file format is the
+\&\fB.xz\fP format, but the legacy \fB.lzma\fP format used by LZMA Utils and raw
+compressed streams with no container format headers are also supported.  In
+addition, decompression of the \fB.lz\fP format used by \fBlzip\fP is supported.
 .PP
 \fBxz\fP komprimiert oder dekomprimierte jede \fIDatei\fP entsprechend des
 gewählten Vorgangsmodus. Falls entweder \fB\-\fP oder keine Datei angegeben ist,
@@ -58,9 +58,9 @@ Bei der Kompression wird das Suffix des Formats der Zieldatei (\fB.xz\fP oder
 \&\fB.lzma\fP) an den Namen der Quelldatei angehängt und so der Name der
 Zieldatei gebildet.
 .IP \(bu 3
-Bei der Dekompression wird das Suffix \fB.xz\fP oder \fB.lzma\fP vom Dateinamen
-entfernt und so der Name der Zieldatei gebildet. Außerdem erkennt \fBxz\fP die
-Suffixe \fB.txz\fP und \fB.tlz\fP und ersetzt diese durch \fB.tar\fP.
+When decompressing, the \fB.xz\fP, \fB.lzma\fP, or \fB.lz\fP suffix is removed from
+the filename to get the target filename.  \fBxz\fP also recognizes the suffixes
+\&\fB.txz\fP and \fB.tlz\fP, and replaces them with the \fB.tar\fP suffix.
 .PP
 Wenn die Zieldatei bereits existiert, wird eine Fehlermeldung angezeigt und
 die \fIDatei\fP übersprungen.
@@ -81,9 +81,9 @@ das Suffix des Zieldateiformats (\fB.xz\fP oder \fB.txz\fP beim Komprimieren in
 das \fB.xz\fP\-Format und \fB.lzma\fP oder \fB.tlz\fP beim Komprimieren in das
 \&\fB.lzma\fP\-Format).
 .IP \(bu 3
-Der Aktionsmodus wird auf Dekompression gesetzt und die \fIDatei\fP hat nicht
-das Suffix eines der unterstützten Zieldateiformate (\fB.xz\fP, \fB.txz\fP,
-\&\fB.lzma\fP oder \fB.tlz\fP).
+The operation mode is set to decompress and the \fIfile\fP doesn't have a
+suffix of any of the supported file formats (\fB.xz\fP, \fB.txz\fP, \fB.lzma\fP,
+\&\fB.tlz\fP, or \fB.lz\fP).
 .PP
 Nach erfolgreicher Kompression oder Dekompression der \fIDatei\fP kopiert \fBxz\fP
 Eigentümer, Gruppe, Zugriffsrechte, Zugriffszeit und Änderungszeit aus der
@@ -94,10 +94,9 @@ die Ursprungs\-\fIDatei\fP hatten. Das Kopieren anderer Metadaten wie
 Zugriffssteuerlisten oder erweiterter Attribute wird von \fBxz\fP noch nicht
 unterstützt.
 .PP
-Sobald die Zieldatei erfolgreich geschlossen wurde, wird die
-Ursprungs\-\fIDatei\fP entfernt. Dies wird durch die Option \fB\-\-keep\fP
-verhindert. Die Ursprungs\-\fIDatei\fP wird niemals entfernt, wenn die Ausgabe
-in die Standardausgabe geschrieben wird.
+Once the target file has been successfully closed, the source \fIfile\fP is
+removed unless \fB\-\-keep\fP was specified.  The source \fIfile\fP is never removed
+if the output is written to standard output or if an error occurs.
 .PP
 Durch Senden der Signale \fBSIGINFO\fP oder \fBSIGUSR1\fP an den \fBxz\fP\-Prozess
 werden Fortschrittsinformationen in den Fehlerkanal der Standardausgabe
@@ -281,10 +280,10 @@ als Suffix für die Zieldatei. Falls nicht in die Standardausgabe geschrieben
 wird und die Quelldatei bereits das Suffix \fI.suf\fP hat, wird eine Warnung
 angezeigt und die Datei übersprungen.
 .IP ""
-berücksichtigt bei der Dekompression zusätzlich zu Dateien mit den Suffixen
-\&\fB.xz\fP, \fB.txz\fP, \fB.lzma\fP oder \fB.tlz\fP auch jene mit dem Suffix
-\&\fI.suf\fP. Falls die Quelldatei das Suffix \fI.suf\fP hat, wird dieses entfernt
-und so der Name der Zieldatei abgeleitet.
+When decompressing, recognize files with the suffix \fI.suf\fP in addition to
+files with the \fB.xz\fP, \fB.txz\fP, \fB.lzma\fP, \fB.tlz\fP, or \fB.lz\fP suffix.  If the
+source file has the suffix \fI.suf\fP, the suffix is removed to get the target
+filename.
 .IP ""
 Beim Komprimieren oder Dekomprimieren von Rohdatenströmen mit
 \fB\-\-format=raw\fP muss das Suffix stets angegeben werden, außer wenn die
@@ -324,6 +323,21 @@ Die Kompression erfolgt in das \fB.xz\fP\-Dateiformat oder akzeptiert nur
 Die Kompression erfolgt in das veraltete \fB.lzma\fP\-Dateiformat oder
 akzeptiert nur \fB.lzma\fP\-Dateien bei der Dekompression. Der alternative Name
 \fBalone\fP dient der Abwärtskompatibilität zu den LZMA\-Dienstprogrammen.
+.TP 
+\fBlzip\fP
+Accept only \fB.lz\fP files when decompressing.  Compression is not supported.
+.IP ""
+The \fB.lz\fP format version 0 and the unextended version 1 are supported.
+Version 0 files were produced by \fBlzip\fP 1.3 and older.  Such files aren't
+common but may be found from file archives as a few source packages were
+released in this format.  People might have old personal files in this
+format too.  Decompression support for the format version 0 was removed in
+\fBlzip\fP 1.18.
+.IP ""
+\fBlzip\fP 1.4 and later create files in the format version 1.  The sync flush
+marker extension to the format version 1 was added in \fBlzip\fP 1.6.  This
+extension is rarely used and isn't supported by \fBxz\fP (diagnosed as corrupt
+input).
 .TP 
 \fBraw\fP
 Komprimiert oder dekomprimiert einen Rohdatenstrom (ohne Header). Diese
@@ -393,8 +407,7 @@ Die Unterschiede zwischen den Voreinstellungsstufen sind deutlicher als bei
 \fBgzip\fP(1) und \fBbzip2\fP(1). Die gewählten Kompressionseinstellungen
 bestimmen den Speicherbedarf bei der Dekompression, daher ist es auf älteren
 Systemen mit wenig Speicher bei einer zu hoch gewählten Voreinstellung
-schwer, eine Datei zu dekomprimieren. Insbesondere \fBist es keine gute Idee,
-blindlings \-9 für alles\fP zu verwenden, wie dies häufig mit \fBgzip\fP(1) und
+schwer, eine Datei zu dekomprimieren. Insbesondere \fBist es keine gute Idee, blindlings \-9 für alles\fP zu verwenden, wie dies häufig mit \fBgzip\fP(1) und
 \fBbzip2\fP(1) gehandhabt wird.
 .RS
 .TP 
@@ -761,8 +774,7 @@ getrennten Liste. Zusätzliche Kommata in den \fIOptionen\fP werden
 ignoriert. Jede Option hat einen Standardwert, daher brauchen Sie nur jene
 anzugeben, die Sie ändern wollen.
 .PP
-Um die gesamte Filterkette und die \fIOptionen\fP anzuzeigen, rufen Sie \fBxz
-\-vv\fP auf (was gleichbedeutend mit der zweimaligen Angabe von \fB\-\-verbose\fP
+Um die gesamte Filterkette und die \fIOptionen\fP anzuzeigen, rufen Sie \fBxz \-vv\fP auf (was gleichbedeutend mit der zweimaligen Angabe von \fB\-\-verbose\fP
 ist). Dies funktioniert auch zum Betrachten der von den Voreinstellungen
 verwendeten Filterkettenoptionen.
 .TP 
@@ -969,13 +981,15 @@ Wörterbuch\-\fIGröße\fP.  LZMA1 benötigt außerdem \fIlc\fP, \fIlp\fP und \f
 \fB\-\-x86\fP[\fB=\fP\fIOptionen\fP]
 .PD 0
 .TP 
-\fB\-\-powerpc\fP[\fB=\fP\fIOptionen\fP]
-.TP 
-\fB\-\-ia64\fP[\fB=\fP\fIOptionen\fP]
-.TP 
 \fB\-\-arm\fP[\fB=\fP\fIOptionen\fP]
 .TP 
 \fB\-\-armthumb\fP[\fB=\fP\fIOptionen\fP]
+.TP 
+\fB\-\-arm64\fP[\fB=\fP\fIoptions\fP]
+.TP 
+\fB\-\-powerpc\fP[\fB=\fP\fIOptionen\fP]
+.TP 
+\fB\-\-ia64\fP[\fB=\fP\fIOptionen\fP]
 .TP 
 \fB\-\-sparc\fP[\fB=\fP\fIOptionen\fP]
 .PD
@@ -983,47 +997,34 @@ fügt ein »Branch/Call/Jump«\-(BCJ\-)Filter zur Filterkette hinzu. Diese Filte
 können nicht als letzter Filter in der Filterkette verwendet werden.
 .IP ""
 A BCJ filter converts relative addresses in the machine code to their
-absolute counterparts.  This doesn't change the size of the data, but it
+absolute counterparts.  This doesn't change the size of the data but it
 increases redundancy, which can help LZMA2 to produce 0\(en15\ % smaller
 \&\fB.xz\fP file.  The BCJ filters are always reversible, so using a BCJ filter
 for wrong type of data doesn't cause any data loss, although it may make the
-compression ratio slightly worse.
-.IP ""
-Es ist in Ordnung, einen BCJ\-Filter auf eine gesamte Binärdatei anzuwenden;
-es ist nicht nötig, dies nur auf den binären Bereich zu beschränken. Die
-Anwendung eines BCJ\-Filters auf ein Archiv, das sowohl binäre als auch
-nicht\-binäre Dateien enthält, kann gute Ergebnisse liefern, muss es aber
-nicht. Daher ist es generell nicht gut, einen BCJ\-Filter blindlings
-anzuwenden, wenn Sie Binärpakete zwecks Weitergabe komprimieren wollen.
-.IP ""
-Diese BCJ\-Filter sind sehr schnell und erhöhen den Speicherbedarf nur
-unerheblich. Wenn ein BCJ\-Filter das Kompressionsverhältnis einer Datei
-verbessert, kann er auch gleichzeitig die Dekompressionsgeschwindigkeit
-verbessern. Das kommt daher, dass auf der gleichen Hardware die
-Dekompressionsgeschwindigkeit von LZMA2 ungefähr eine feste Anzahl Byte an
-komprimierten Daten pro Sekunde ist.
+compression ratio slightly worse.  The BCJ filters are very fast and use an
+insignificant amount of memory.
 .IP ""
 Diese BCJ\-Filter haben bekannte Probleme mit dem Kompressionsverhältnis:
 .RS
 .IP \(bu 3
 Some types of files containing executable code (for example, object files,
 static libraries, and Linux kernel modules)  have the addresses in the
-instructions filled with filler values.  These BCJ filters will still do the
-address conversion, which will make the compression worse with these files.
+instructions filled with filler values.  These BCJ filters (except ARM64)
+will still do the address conversion, which will make the compression worse
+with these files.  The ARM64 filter doesn't have this problem.
 .IP \(bu 3
-Bei der Anwendung eines BCJ\-Filters auf ein Archiv, das mehrere ähnliche
-Binärdateien enthält, kann das Kompressionsverhältnis schlechter sein als
-ohne BCJ\-Filter. Das kommt daher, weil der BCJ\-Filter die Grenzen der
-Binärdateien nicht erkennt und den Zähler der Adressumwandlung für jede
-Binärdatei nicht zurücksetzt.
+If a BCJ filter is applied on an archive, it is possible that it makes the
+compression ratio worse than not using a BCJ filter.  For example, if there
+are similar or even identical executables then filtering will likely make
+the files less similar and thus compression is worse.  The contents of
+non\-executable files in the same archive can matter too.  In practice one
+has to try with and without a BCJ filter to see which is better in each
+situation.
 .RE
 .IP ""
-Beide der oben genannten Probleme werden in der Zukunft in einem neuen
-Filter nicht mehr auftreten. Die alten BCJ\-Filter werden noch in
-eingebetteten Systemen von Nutzen sein, weil der Dekoder des neuen Filters
-größer sein und mehr Speicher beanspruchen wird.
-.IP ""
-Verschiedene Befehlssätze haben unterschiedliche Ausrichtungen:
+Different instruction sets have different alignment: the executable file
+must be aligned to a multiple of this value in the input data to make the
+filter work.
 .RS
 .RS
 .PP
@@ -1033,22 +1034,22 @@ l n l
 l n l.
 Filter;Ausrichtung;Hinweise
 x86;1;32\-Bit oder 64\-Bit x86
+ARM;4;
+ARM\-Thumb;2;
+ARM64;4;4096\-byte alignment is best
 PowerPC;4;Nur Big Endian
-ARM;4;Nur Little Endian
-ARM\-Thumb;2;Nur Little Endian
-IA\-64;16;Big oder Little Endian
-SPARC;4;Big oder Little Endian
+IA\-64;16;Itanium
+SPARC;4;
 .TE
 .RE
 .RE
 .IP ""
-Da die BCJ\-gefilterten Daten üblicherweise mit LZMA2 komprimiert sind, kann
-das Kompressionsverhältnis dadurch etwas verbessert werden, dass die
-LZMA2\-Optionen so gesetzt werden, dass sie der Ausrichtung des gewählten
-BCJ\-Filters entsprechen. Zum Beispiel ist es beim IA\-64\-Filter eine gute
-Wahl, \fBpb=4\fP mit LZMA2 zu setzen (2^4=16). Der x86\-Filter bildet dabei eine
-Ausnahme; Sie sollten bei der für LZMA2 voreingestellten 4\-Byte\-Ausrichtung
-bleiben, wenn Sie x86\-Binärdateien komprimieren.
+Since the BCJ\-filtered data is usually compressed with LZMA2, the
+compression ratio may be improved slightly if the LZMA2 options are set to
+match the alignment of the selected BCJ filter.  For example, with the IA\-64
+filter, it's good to set \fBpb=4\fP or even \fBpb=4,lp=4,lc=0\fP with LZMA2
+(2^4=16).  The x86 filter is an exception; it's usually good to stick to
+LZMA2's default four\-byte alignment when compressing x86 executables.
 .IP ""
 Alle BCJ\-Filter unterstützen die gleichen \fIOptionen\fP:
 .RS
@@ -1207,15 +1208,30 @@ Beispiele: 4.999.9beta ist \fB49990091\fP und 5.0.0 is \fB50000002\fP.
 \fBxz \-\-robot \-\-info\-memory\fP gibt eine einzelne Zeile mit drei durch
 Tabulatoren getrennten Spalten aus:
 .IP 1. 4
-Gesamter physischer Speicher (RAM) in Byte
+Total amount of physical memory (RAM) in bytes.
 .IP 2. 4
-Speicherbedarfsbegrenzung für die Kompression in Byte. Ein spezieller Wert
-von Null bezeichnet die Standardeinstellung, die im Einzelthread\-Modus
-bedeutet, dass keine Begrenzung vorhanden ist.
+Memory usage limit for compression in bytes (\fB\-\-memlimit\-compress\fP).  A
+special value of \fB0\fP indicates the default setting which for
+single\-threaded mode is the same as no limit.
 .IP 3. 4
-Speicherbedarfsbegrenzung für die Dekompression in Byte. Ein spezieller Wert
-von Null bezeichnet die Standardeinstellung, die im Einzelthread\-Modus
-bedeutet, dass keine Begrenzung vorhanden ist.
+Memory usage limit for decompression in bytes (\fB\-\-memlimit\-decompress\fP).  A
+special value of \fB0\fP indicates the default setting which for
+single\-threaded mode is the same as no limit.
+.IP 4. 4
+Since \fBxz\fP 5.3.4alpha: Memory usage for multi\-threaded decompression in
+bytes (\fB\-\-memlimit\-mt\-decompress\fP).  This is never zero because a
+system\-specific default value shown in the column 5 is used if no limit has
+been specified explicitly.  This is also never greater than the value in the
+column 3 even if a larger value has been specified with
+\fB\-\-memlimit\-mt\-decompress\fP.
+.IP 5. 4
+Since \fBxz\fP 5.3.4alpha: A system\-specific default memory usage limit that is
+used to limit the number of threads when compressing with an automatic
+number of threads (\fB\-\-threads=0\fP)  and no memory usage limit has been
+specified (\fB\-\-memlimit\-compress\fP).  This is also used as the default value
+for \fB\-\-memlimit\-mt\-decompress\fP.
+.IP 6. 4
+Since \fBxz\fP 5.3.4alpha: Number of available processor threads.
 .PP
 In der Zukunft könnte die Ausgabe von \fBxz \-\-robot \-\-info\-memory\fP weitere
 Spalten enthalten, aber niemals mehr als eine einzelne Zeile.
@@ -1470,8 +1486,7 @@ use something like this:
 .RS
 .PP
 .nf
-\f(CWXZ_OPT=${XZ_OPT\-"\-7e"}
-export XZ_OPT\fP
+\f(CWXZ_OPT=${XZ_OPT\-"\-7e"} export XZ_OPT\fP
 .fi
 .RE
 .RE
@@ -1667,8 +1682,7 @@ Parallelisieren der Kompression vieler Dateien verwendet werden:
 .RS
 .PP
 .nf
-\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e
-    | xargs \-0r \-P4 \-n16 xz \-T1\fP
+\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e     | xargs \-0r \-P4 \-n16 xz \-T1\fP
 .fi
 .RE
 .PP
@@ -1700,11 +1714,7 @@ Beta\-Versionen kompatibel, welche die Option \fB\-\-robot\fP nicht unterstütze
 .RS
 .PP
 .nf
-\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||
-        [ "$XZ_VERSION" \-lt 50000002 ]; then
-    echo "Ihre Version von Xz ist zu alt."
-fi
-unset XZ_VERSION LIBLZMA_VERSION\fP
+\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||         [ "$XZ_VERSION" \-lt 50000002 ]; then     echo "Ihre Version von Xz ist zu alt." fi unset XZ_VERSION LIBLZMA_VERSION\fP
 .fi
 .RE
 .PP
@@ -1713,12 +1723,7 @@ aber eine bereits gesetzte Begrenzung nicht erhöhen:
 .RS
 .PP
 .nf
-\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB
-OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3)
-if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then
-    XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"
-    export XZ_OPT
-fi\fP
+\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3) if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then     XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"     export XZ_OPT fi\fP
 .fi
 .RE
 .
@@ -1789,8 +1794,7 @@ Befehl für kleine Dateien nicht sinnvoll.
 .PP
 Sometimes the compression time doesn't matter, but the decompressor memory
 usage has to be kept low, for example, to make it possible to decompress the
-file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6
-\-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
+file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6 \-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
 resulting file can be decompressed with XZ Embedded (that's why there is
 \fB\-\-check=crc32\fP)  using about 100\ KiB of memory.
 .RS
@@ -1805,8 +1809,7 @@ of literal context bits (\fIlc\fP)  and number of position bits (\fIpb\fP)  can
 sometimes help.  Adjusting the number of literal position bits (\fIlp\fP)
 might help too, but usually \fIlc\fP and \fIpb\fP are more important.  For
 example, a source code archive contains mostly US\-ASCII text, so something
-like the following might give slightly (like 0.1\ %) smaller file than \fBxz
-\-6e\fP (try also without \fBlc=4\fP):
+like the following might give slightly (like 0.1\ %) smaller file than \fBxz \-6e\fP (try also without \fBlc=4\fP):
 .RS
 .PP
 .nf

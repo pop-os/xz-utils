@@ -1,3 +1,1667 @@
+commit b9a67d9a5fa207062d4aa8a01639234609315d31
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-15 10:58:39 +0200
+
+    Bump version number for 5.3.4alpha.
+
+ src/liblzma/api/lzma/version.h  | 2 +-
+ src/liblzma/liblzma_generic.map | 2 +-
+ src/liblzma/liblzma_linux.map   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+commit 5b999ba289b3280457b7386b9ac65dbbdf1575a5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-15 10:54:40 +0200
+
+    Add NEWS for 5.3.4alpha.
+
+ NEWS | 96 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 96 insertions(+)
+
+commit ce8db9e37da4f6c87691c5066f51f91f2411c44a
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-15 10:54:08 +0200
+
+    Add NEWS for 5.2.8.
+
+ NEWS | 79 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+
+commit b56bc8251d2736224af6bdaaae734ceb8926a879
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 23:19:57 +0200
+
+    Revert "liblzma: Simple/BCJ filters: Allow disabling generic BCJ options."
+    
+    This reverts commit 177bdc922cb17bd0fd831ab8139dfae912a5c2b8
+    and also does equivalent change to arm64.c.
+    
+    Now that ARM64 filter will use lzma_options_bcj, this change
+    is not needed anymore.
+
+ src/liblzma/simple/arm.c            | 2 +-
+ src/liblzma/simple/arm64.c          | 2 +-
+ src/liblzma/simple/armthumb.c       | 2 +-
+ src/liblzma/simple/ia64.c           | 2 +-
+ src/liblzma/simple/powerpc.c        | 2 +-
+ src/liblzma/simple/simple_coder.c   | 4 ++--
+ src/liblzma/simple/simple_private.h | 2 +-
+ src/liblzma/simple/sparc.c          | 2 +-
+ src/liblzma/simple/x86.c            | 3 +--
+ 9 files changed, 10 insertions(+), 11 deletions(-)
+
+commit 8370ec8edf9ddf8d1d9fef03d8d1027503ec4c35
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 23:14:41 +0200
+
+    Replace the experimental ARM64 filter with a new experimental version.
+    
+    This is incompatible with the previous version.
+    
+    This has space/tab fixes in filter_*.c and bcj.h too.
+
+ src/liblzma/api/lzma/bcj.h          |  41 +-----
+ src/liblzma/common/filter_common.c  |  14 +-
+ src/liblzma/common/filter_decoder.c |  12 +-
+ src/liblzma/common/filter_encoder.c |  17 +--
+ src/liblzma/simple/arm64.c          | 283 ++++++++++++++----------------------
+ src/liblzma/simple/simple_decoder.h |   4 -
+ src/liblzma/simple/simple_encoder.h |   2 -
+ src/xz/args.c                       |   2 +-
+ src/xz/message.c                    |  13 +-
+ src/xz/options.c                    |  39 -----
+ src/xz/options.h                    |   7 -
+ 11 files changed, 147 insertions(+), 287 deletions(-)
+
+commit f644473a211394447824ea00518d0a214ff3f7f2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 21:34:57 +0200
+
+    liblzma: Add fast CRC64 for 32/64-bit x86 using SSSE3 + SSE4.1 + CLMUL.
+    
+    It also works on E2K as it supports these intrinsics.
+    
+    On x86-64 runtime detection is used so the code keeps working on
+    older processors too. A CLMUL-only build can be done by using
+    -msse4.1 -mpclmul in CFLAGS and this will reduce the library
+    size since the generic implementation and its 8 KiB lookup table
+    will be omitted.
+    
+    On 32-bit x86 this isn't used by default for now because by default
+    on 32-bit x86 the separate assembly file crc64_x86.S is used.
+    If --disable-assembler is used then this new CLMUL code is used
+    the same way as on 64-bit x86. However, a CLMUL-only build
+    (-msse4.1 -mpclmul) won't omit the 8 KiB lookup table on
+    32-bit x86 due to a currently-missing check for disabled
+    assembler usage.
+    
+    The configure.ac check should be such that the code won't be
+    built if something in the toolchain doesn't support it but
+    --disable-clmul-crc option can be used to unconditionally
+    disable this feature.
+    
+    CLMUL speeds up decompression of files that have compressed very
+    well (assuming CRC64 is used as a check type). It is know that
+    the CLMUL code is significantly slower than the generic code for
+    tiny inputs (especially 1-8 bytes but up to 16 bytes). If that
+    is a real-world problem then there is already a commented-out
+    variant that uses the generic version for small inputs.
+    
+    Thanks to Ilya Kurdyukov for the original patch which was
+    derived from a white paper from Intel [1] (published in 2009)
+    and public domain code from [2] (released in 2016).
+    
+    [1] https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/fast-crc-computation-generic-polynomials-pclmulqdq-paper.pdf
+    [2] https://github.com/rawrunprotected/crc
+
+ CMakeLists.txt                  |  26 ++-
+ INSTALL                         |  12 ++
+ configure.ac                    |  59 +++++-
+ src/liblzma/check/crc64_fast.c  | 449 +++++++++++++++++++++++++++++++++++++++-
+ src/liblzma/check/crc64_table.c |  21 +-
+ 5 files changed, 554 insertions(+), 13 deletions(-)
+
+commit 3b466bc79672bb2b06d1245a500588e6026e0ba0
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 20:14:34 +0200
+
+    Translations: Update the Swedish translation one more time.
+
+ po/sv.po | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit e963379a8622ebdff6ce78e76b803bcd1e1d16d6
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 19:34:15 +0200
+
+    Translations: Update the Swedish translation again.
+
+ po/sv.po | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+commit a4bc689a823a2254f29ac9d233170add5121b307
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 19:07:45 +0200
+
+    Translations: Update the Swedish translation.
+
+ po/sv.po | 671 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 382 insertions(+), 289 deletions(-)
+
+commit bbf2073d824ab4ba33bed4b77f467435abd333a5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 18:58:09 +0200
+
+    Translations: Update the Ukrainian translation.
+
+ po/uk.po | 618 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 354 insertions(+), 264 deletions(-)
+
+commit ac10b1b3622e70881595586edfb8a3ebdcd76bb6
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 17:58:07 +0200
+
+    Build: Omit x86_64 from --enable-assembler.
+    
+    It didn't do anything. There are only 32-bit x86 assembly files
+    and it feels likely that new files won't be added as intrinsics
+    in C are more portable across toolchains and OSes.
+
+ configure.ac | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit eb0f1450ad9f23dac03050d9c8375980240aee21
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-14 16:00:52 +0200
+
+    liblzma: Use __attribute__((__constructor__)) if available.
+    
+    This uses it for CRC table initializations when using --disable-small.
+    It avoids mythread_once() overhead. It also means that then
+    --disable-small --disable-threads is thread-safe if this attribute
+    is supported.
+
+ CMakeLists.txt                  | 15 +++++++++++++++
+ INSTALL                         |  4 +++-
+ configure.ac                    | 31 ++++++++++++++++++++++++++++---
+ src/liblzma/check/crc32_small.c |  7 +++++++
+ src/liblzma/check/crc64_small.c |  5 +++++
+ src/liblzma/lz/lz_encoder.c     |  2 +-
+ 6 files changed, 59 insertions(+), 5 deletions(-)
+
+commit 6553f49b11dafad35c73b05f12e14865ea1fd8a1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-12 21:19:52 +0200
+
+    Translations: Update the Romanian translation.
+
+ po/ro.po | 651 +++++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 380 insertions(+), 271 deletions(-)
+
+commit db97e69e12393becc29f8febd53133d0d36989bd
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-12 21:17:45 +0200
+
+    Translations: Update the Hungarian translation.
+
+ po/hu.po | 625 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 357 insertions(+), 268 deletions(-)
+
+commit 2bbb9c0f3829a8b121b36998d273a6c6f92000f4
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:58:57 +0200
+
+    Translations: Update the Finnish translation.
+
+ po/fi.po | 610 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 348 insertions(+), 262 deletions(-)
+
+commit 3c8cbb8137b6f8ed9416c1209d73cdbcb015251f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:58:18 +0200
+
+    Translations: Update the Croatian translation.
+
+ po/hr.po | 680 +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 381 insertions(+), 299 deletions(-)
+
+commit 26c3359eac0988d6f3986735cd1363bec1678e8e
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:57:18 +0200
+
+    Translations: Update the Polish translation.
+
+ po/pl.po | 569 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 309 insertions(+), 260 deletions(-)
+
+commit 577e467b137c735afb8de6ae71ac7a73c2960cc4
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:56:44 +0200
+
+    Translations: Update the Spanish translation.
+
+ po/es.po | 598 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 344 insertions(+), 254 deletions(-)
+
+commit f9b4ff6e9a0f1678650775582d3e4fe782abce97
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:16:03 +0200
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit a39961ef211e1bf030b17edeea3cff29fe263b67
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:15:25 +0200
+
+    liblzma: Fix building with Intel ICC (the classic compiler).
+    
+    It claims __GNUC__ >= 10 but doesn't support __symver__ attribute.
+    
+    Thanks to Stephen Sachs.
+
+ src/liblzma/common/common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c715f683dcb1a817d565da292cddfbceda643e12
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 14:35:58 +0200
+
+    liblzma: Fix incorrect #ifdef for x86 SSE2 support.
+    
+    __SSE2__ is the correct macro for SSE2 support with GCC, Clang,
+    and ICC. __SSE2_MATH__ means doing floating point math with SSE2
+    instead of 387. Often the latter macro is defined if the first
+    one is but it was still a bug.
+
+ src/liblzma/common/memcmplen.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit bd334ae56afe7f642ad4d0f1ac19e74e82daa1ce
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 13:27:06 +0200
+
+    Add NEWS for 5.2.7 (forgotten cherry-pick from v5.2).
+
+ NEWS | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+
+commit 3c7860cf49de6f81046b3a4034a89f3a4803a576
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 13:16:21 +0200
+
+    xzdiff: Add support for .lz files.
+    
+    The other scripts don't need changes for .lz support because
+    in those scripts it is enough that xz supports .lz.
+
+ src/scripts/xzdiff.in | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+commit d76c752a6d77052e5ad57ade555082585f7ac5d8
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 12:23:58 +0200
+
+    Scripts: Ignore warnings from xz.
+    
+    In practice this means making the scripts work when
+    the input files have an unsupported check type which
+    isn't a problem in practice unless support for
+    some check types has been disabled at build time.
+
+ src/scripts/xzdiff.in | 5 +++--
+ src/scripts/xzgrep.in | 2 +-
+ src/scripts/xzless.in | 4 ++--
+ src/scripts/xzmore.in | 4 ++--
+ 4 files changed, 8 insertions(+), 7 deletions(-)
+
+commit 6552535afd1fe29d726ab6e68cf14ce3624fd48c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-10 12:34:43 +0200
+
+    Translations: Rename poa4/fr_FR.po to po4a/fr.po.
+    
+    That's how it is preferred at the Translation Project.
+    On my system /usr/share/man/fr_FR doesn't contain any
+    other man pages than XZ Utils while /usr/share/man/fr
+    has quite a few, so this will fix that too.
+    
+    Thanks to Benno Schulenberg from the Translation Project.
+
+ po4a/{fr_FR.po => fr.po} | 0
+ po4a/po4a.conf           | 2 +-
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+commit 0918159ce4c75bfb60aff0193b559f8a9f41d25a
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 18:48:50 +0200
+
+    xz: Update the man page about BCJ filters, including upcoming --arm64.
+    
+    The --arm64 isn't actually implemented yet in the form
+    described in this commit.
+    
+    Thanks to Jia Tan.
+
+ src/xz/xz.1 | 66 +++++++++++++++++++++++++++----------------------------------
+ 1 file changed, 29 insertions(+), 37 deletions(-)
+
+commit ba2ae3596f6be1587495f33b367488f6e00e56f1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 18:14:14 +0200
+
+    xz: Add --arm64 to --long-help and omit endianness from ARM(-Thumb).
+    
+    Modern 32-bit ARM in big endian mode use little endian for
+    instruction encoding still, so the filters work on such
+    executables too. It's likely less confusing for users this way.
+    
+    The --arm64 option hasn't been implemented yet (there is
+    --experimental-arm64 but it's different). The --arm64 option
+    is added now anyway because this is the likely result and the
+    strings need to be ready for translators.
+    
+    Thanks to Jia Tan.
+
+ src/xz/message.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 802d57d9215d9c81dbee86edb43c9e93a7f7ec55
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 15:12:13 +0200
+
+    Windows: Update the VS project files for ARM64 and .lz support.
+
+ windows/vs2013/config.h            | 9 +++++++++
+ windows/vs2013/liblzma.vcxproj     | 5 ++++-
+ windows/vs2013/liblzma_dll.vcxproj | 5 ++++-
+ windows/vs2017/config.h            | 9 +++++++++
+ windows/vs2017/liblzma.vcxproj     | 3 +++
+ windows/vs2017/liblzma_dll.vcxproj | 3 +++
+ windows/vs2019/config.h            | 9 +++++++++
+ windows/vs2019/liblzma.vcxproj     | 5 ++++-
+ windows/vs2019/liblzma_dll.vcxproj | 5 ++++-
+ 9 files changed, 49 insertions(+), 4 deletions(-)
+
+commit 5846aeda05972bc803c6094821ae836229ebe691
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:57:48 +0200
+
+    DOS: Update Makefile and config.h to include ARM64 and .lz support.
+
+ dos/Makefile | 2 ++
+ dos/config.h | 9 +++++++++
+ 2 files changed, 11 insertions(+)
+
+commit 781da8d6c44de6aa278c916375250668a0b107f2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:45:05 +0200
+
+    CMake: Add lzip decoder files and #define to the build.
+
+ CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit df8ad4af65a9c4846b108550d0083770a69dee64
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:41:56 +0200
+
+    Docs: Update INSTALL and also add new prohibited options to PACKAGERS.
+
+ INSTALL   | 49 +++++++++++++++++++++++++++++++++++++++++--------
+ PACKAGERS |  2 ++
+ 2 files changed, 43 insertions(+), 8 deletions(-)
+
+commit c8ef089c149afaab413c3a51be827dd1d11afe0e
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-20 17:39:06 +0300
+
+    Tests: Test the .lz files in test_files.sh.
+
+ tests/test_files.sh | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+commit c8f70ebb4628ceb6cb29cc9195d9deadf69d2bd7
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-20 15:35:59 +0300
+
+    Tests: Add .lz (lzip) test files.
+
+ tests/files/README                     | 109 +++++++++++++++++++++++++++++----
+ tests/files/bad-1-v0-uncomp-size.lz    | Bin 0 -> 42 bytes
+ tests/files/bad-1-v1-crc32.lz          | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-dict-1.lz         | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-dict-2.lz         | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-magic-1.lz        | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-magic-2.lz        | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-member-size.lz    | Bin 0 -> 50 bytes
+ tests/files/bad-1-v1-trailing-magic.lz | Bin 0 -> 54 bytes
+ tests/files/bad-1-v1-uncomp-size.lz    | Bin 0 -> 50 bytes
+ tests/files/good-1-v0-trailing-1.lz    | Bin 0 -> 59 bytes
+ tests/files/good-1-v0.lz               | Bin 0 -> 42 bytes
+ tests/files/good-1-v1-trailing-1.lz    | Bin 0 -> 67 bytes
+ tests/files/good-1-v1-trailing-2.lz    | Bin 0 -> 70 bytes
+ tests/files/good-1-v1.lz               | Bin 0 -> 50 bytes
+ tests/files/good-2-v0-v1.lz            | Bin 0 -> 78 bytes
+ tests/files/good-2-v1-v0.lz            | Bin 0 -> 78 bytes
+ tests/files/good-2-v1-v1.lz            | Bin 0 -> 86 bytes
+ tests/files/unsupported-1-v234.lz      | Bin 0 -> 50 bytes
+ 19 files changed, 98 insertions(+), 11 deletions(-)
+
+commit 731db13e6fa3ad3e3fc786c0ccf6eac4cce6865f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-19 22:32:51 +0300
+
+    xz: Remove the commented-out FORMAT_GZIP, gzip, .gz, and .tgz.
+
+ src/xz/args.c   | 2 --
+ src/xz/coder.h  | 1 -
+ src/xz/suffix.c | 9 ---------
+ 3 files changed, 12 deletions(-)
+
+commit 3176f992c55b8d788c4633809aaf9447376a5a12
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-08 21:28:15 +0300
+
+    xz: Add .lz (lzip) decompression support.
+    
+    If configured with --disable-lzip-decoder then --long-help will
+    still list `lzip' in --format but I left it like that since
+    due to translations it would be messy to have two help strings.
+    Features are disabled only in special situations so wrong help
+    in such a situation shouldn't matter much.
+    
+    Thanks to Michał Górny for the original patch.
+
+ src/xz/args.c    |  9 ++++++++
+ src/xz/coder.c   | 68 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ src/xz/coder.h   |  3 +++
+ src/xz/message.c |  2 +-
+ src/xz/suffix.c  | 26 ++++++++++++++++++----
+ src/xz/xz.1      | 46 +++++++++++++++++++++++++++++++++-----
+ 6 files changed, 141 insertions(+), 13 deletions(-)
+
+commit 034086e1ae1459210837a24e04878435c86dc41b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-08 00:29:20 +0300
+
+    liblzma: Add .lz support to lzma_auto_decoder().
+    
+    Thanks to Michał Górny for the original patch.
+
+ src/liblzma/api/lzma/container.h  | 10 ++++++----
+ src/liblzma/common/Makefile.inc   |  3 ++-
+ src/liblzma/common/auto_decoder.c | 23 +++++++++++++++++------
+ src/liblzma/common/lzip_decoder.h | 22 ++++++++++++++++++++++
+ 4 files changed, 47 insertions(+), 11 deletions(-)
+
+commit 0538db038f3cdc352007dacb42454aa1806b8e40
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-06 15:50:20 +0300
+
+    liblzma: Add .lz (lzip) decompression support (format versions 0 and 1).
+    
+    Support for format version 0 was removed from lzip 1.18 for some
+    reason. .lz format version 0 files are rare (and old) but some
+    source packages were released in this format, and some people might
+    have personal files in this format too. It's very little extra code
+    to support it along side format version 1 so this commits adds
+    support for both.
+    
+    The Sync Flush marker extentension to the original .lz format
+    version 1 isn't supported. It would require changes to the
+    LZMA decoder itself. Such files are very rare anyway.
+    
+    See the API doc for lzma_lzip_decoder() for more details about
+    the .lz format support.
+    
+    Thanks to Michał Górny for the original patch.
+
+ configure.ac                      |  21 ++
+ src/liblzma/api/lzma/container.h  |  62 +++++-
+ src/liblzma/common/Makefile.inc   |   5 +
+ src/liblzma/common/lzip_decoder.c | 413 ++++++++++++++++++++++++++++++++++++++
+ src/liblzma/liblzma_generic.map   |   1 +
+ src/liblzma/liblzma_linux.map     |   1 +
+ 6 files changed, 501 insertions(+), 2 deletions(-)
+
+commit 633d48a075b9ce4b9c08a7a56a7eb4cabc18100c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:17:23 +0200
+
+    liblzma: Add the missing Makefile.inc change for --disable-microlzma.
+    
+    This was forgotten from commit 59c4d6e1390f6f4176f43ac1dad1f7ac03c449b8.
+
+ src/liblzma/common/Makefile.inc | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+commit 724285dadbdc88765c8fb83eab9816575a260966
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:10:52 +0200
+
+    xz: Add comments about stdin and src_st.st_size.
+    
+    "xz -v < regular_file > out.xz" doesn't display the percentage
+    and estimated remaining time because it doesn't even try to
+    check the input file size when input is read from stdin.
+    This could be improved but for now there's just a comment
+    to remind about it.
+
+ src/xz/coder.c   | 9 +++++++++
+ src/xz/file_io.c | 4 ++++
+ 2 files changed, 13 insertions(+)
+
+commit f723eec68b0e44234910f669a29119de33018967
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 12:48:22 +0200
+
+    xz: Fix displaying of file sizes in progress indicator in passthru mode.
+    
+    It worked for one input file since the counters are zero when
+    xz starts but they weren't reset when starting a new file in
+    passthru mode. For example, if files A, B, and C are one byte each,
+    then "xz -dcvf A B C" would show file sizes as 1, 2, and 3 bytes
+    instead of 1, 1, and 1 byte.
+
+ src/xz/coder.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 69265d0f223ddf1d66f799b8b047df22923e376f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 11:27:20 +0200
+
+    xz: Add a comment why --to-stdout is not in --help.
+    
+    It is on the man page still.
+
+ src/xz/message.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit fe6b8852a3c6a0eb5a3c33512e0a69af257d3bc7
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 23:05:37 +0200
+
+    xz: Make xz -lvv show that the upcoming --arm64 needs 5.4.0 to decompress.
+
+ src/xz/list.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+commit fb3f05ac9f2b4b0e3643401960fbeab31997ac7a
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 22:26:54 +0200
+
+    Docs: Update faq.txt a little.
+
+ doc/faq.txt | 66 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 43 insertions(+), 23 deletions(-)
+
+commit 05331f091ec3b68eccbfb2a9a7a576072768fb4b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 16:57:17 +0200
+
+    Translations: Update Turkish translation.
+
+ po/tr.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ed3a4822963b4940d84e6f44d47277c394fc046d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:55:32 +0200
+
+    Translations: Update Croatian translation.
+
+ po/hr.po | 190 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 96 insertions(+), 94 deletions(-)
+
+commit 4746f5ec721316bc4c6fec9905b2902e0360e0af
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:13:03 +0200
+
+    liblzma: Update API docs about decoder flags.
+
+ src/liblzma/api/lzma/container.h | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+commit 8779a9db5d0cec00c9dc9e9965dd2dda04f9d80d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:01:50 +0200
+
+    liblzma: Use the return_if_error() macro in alone_decoder.c.
+
+ src/liblzma/common/alone_decoder.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit 3f4990b6822961e75cd9b4e2e82b1df63f6f8fcc
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:00:58 +0200
+
+    liblzma: Fix a comment in auto_decoder.c.
+
+ src/liblzma/common/auto_decoder.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 026a5897c72a2041ae08ceec54ce8b1cdeb51334
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 13:43:19 +0200
+
+    xz: Initialize the pledge(2) sandbox at the very beginning of main().
+    
+    It feels better that the initializations are sandboxed too.
+    They don't do anything that the pledge() call wouldn't allow.
+
+ src/xz/main.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
+
+commit 49a59f6ca001c3ce9affa2c162b437aad021b4d5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-07 22:51:16 +0200
+
+    xz: Extend --robot --info-memory output.
+    
+    Now it includes everything that the human-readable --info-memory shows.
+
+ src/xz/hardware.c | 24 +++++++++++++++---------
+ src/xz/xz.1       | 47 +++++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 56 insertions(+), 15 deletions(-)
+
+commit 5e2450c75cbac966c62cf2231c824f2cc91ddba8
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-07 17:22:04 +0200
+
+    liblzma: Include cached memory in reported memusage in threaded decoder.
+    
+    This affects lzma_memusage() and lzma_memlimit_set() when used
+    with the threaded decompressor. Now all allocations are reported
+    by lzma_memusage() (so it's not misleading) and lzma_memlimit_set()
+    cannot lower the limit below that value.
+    
+    The alternative would have been to allow lowering the limit if
+    doing so is possible by freeing the cached memory but since
+    the primary use case of lzma_memlimit_set() is to increase
+    memlimit after LZMA_MEMLIMIT_ERROR this simple approach
+    was selected.
+    
+    The cached memory was always included when enforcing
+    the memory usage limit while decoding.
+    
+    Thanks to Jia Tan.
+
+ src/liblzma/common/stream_decoder_mt.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+commit 1fc6e7dd1fabdb60124d449b99273330ccab3ff1
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-11-07 16:24:14 +0200
+
+    xz: Avoid a compiler warning in progress_speed() in message.c.
+    
+    This should be smaller too since it avoids the string constants.
+
+ src/xz/message.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+commit cf118c014683069b5dbe91898acdc40f2f0a1f5d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 16:26:05 +0200
+
+    Build: Clarify comment in configure.ac about SSE2.
+
+ configure.ac | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit aad3c609ffb72f581a7a2b67be3ad70b2b327840
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 16:16:37 +0200
+
+    Build: Remove obsolete commented-out lines from configure.ac.
+
+ configure.ac | 4 ----
+ 1 file changed, 4 deletions(-)
+
+commit e53e0e2186c6b8ce866bd19aec52f1c318ed31ba
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 13:31:58 +0200
+
+    Windows: Fix mythread_once() macro with Vista threads.
+    
+    Don't call InitOnceComplete() if initialization was already done.
+    
+    So far mythread_once() has been needed only when building
+    with --enable-small. windows/build.bash does this together
+    with --disable-threads so the Vista-specific mythread_once()
+    is never needed by those builds. VS project files or
+    CMake-builds don't support HAVE_SMALL builds at all.
+
+ src/common/mythread.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit 48dde3bab9dc04081acb5aa7cf7c5044b8a49f58
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 11:54:44 +0200
+
+    liblzma: Silence -Wconversion warning from crc64_fast.c.
+
+ src/liblzma/check/crc64_fast.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit a243c617ff249d915ac123de4f536b80322c1fdb
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 11:49:47 +0200
+
+    CMake: Sync tuklib_cpucores.cmake with tuklib_cpucores.m4.
+    
+    This was forgotten from commit 2611c4d90535652d3eb7ef4a026a6691276fab43.
+
+ cmake/tuklib_cpucores.cmake | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 05c72de06fcaaedc78f8abba7d5ec568ddcf1e75
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-27 15:49:18 +0300
+
+    Tests: test_files.sh: Make it not fail if features were disabled at build.
+    
+    It now tries to test as many files as easily possible.
+    The exit status indicates skipping if any of the files were
+    skipped. This way it is easy to notice if something is being
+    skipped when it isn't expected.
+
+ tests/test_files.sh | 50 ++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 46 insertions(+), 4 deletions(-)
+
+commit b3459327a51f4b8239d19e6c34b4e0c6bc2d81de
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-27 15:30:13 +0300
+
+    Tests: test_files.sh: Suppress an expected warning from the log.
+    
+    xz (but not xzdec) will normally warn about unsupported check
+    but since we are testing specifically such a file, it's better
+    to silence that warning so that it doesn't look suspicious in
+    test_files.sh.log.
+    
+    The use of -q and -Q in xzdec is just for consistency and
+    doesn't affect the result at least for now.
+
+ tests/test_files.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 798c86e4231e0835ab76ccd0810c8ea30833b2ce
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-27 15:27:50 +0300
+
+    Tests: test_files.sh: Print the reason for skipping if xz & xzdec missing.
+
+ tests/test_files.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit c1dd8524e1af07f16b790463899de06a6a5fcc08
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-27 01:12:40 +0300
+
+    Tests: Keep test_compress_* working when some filters are unavailable.
+
+ tests/test_compress.sh | 34 ++++++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
+
+commit ce30ada91951d0746879ae438da11f1ee8a90aa0
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-23 21:01:08 +0800
+
+    Tests: test_bcj_exact_size skips properly now if PowerPC filter disabled.
+
+ tests/test_bcj_exact_size.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 89c5cfcacaca7130509fac836e2f30c46b824502
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-26 00:05:57 +0300
+
+    Tests: Test also unsupported-*.xz.
+
+ tests/test_files.sh | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+commit a4b214b93ac741edef9c41e55865b0b867ca2587
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:45:03 +0300
+
+    Build: Use AC_CONFIG_HEADERS instead of the ancient AC_CONFIG_HEADER.
+    
+    We require Autoconf >= 2.69 and that has AC_CONFIG_HEADERS.
+    
+    There is a warning about AC_PROG_CC_C99 being obsolete but
+    it cannot be removed because it is needed with Autoconf 2.69.
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 04f299b64e73f50afc188c2590ebebc6b73ed744
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:31:44 +0300
+
+    Build: Update m4/ax_pthread.m4 from Autoconf Archive.
+
+ m4/ax_pthread.m4 | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+commit 59c4d6e1390f6f4176f43ac1dad1f7ac03c449b8
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:28:34 +0300
+
+    Build: Add configure option --disable-microlzma.
+    
+    MicroLZMA was made for EROFS and used by erofs-utils.
+    It might be used by something else in the future but
+    those wanting a smaller build for specific situations
+    can now disable this rarely-needed feature.
+
+ configure.ac | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+commit 054ccd6d14b2cc6eddc56897af280d3221414150
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:09:11 +0300
+
+    xz: Fix --single-stream with an empty .xz Stream.
+    
+    Example:
+    
+        $ xz -dc --single-stream good-0-empty.xz
+        xz: good-0-empty.xz: Internal error (bug)
+    
+    The code, that is tries to catch some input file issues early,
+    didn't anticipate LZMA_STREAM_END which is possible in that
+    code only when --single-stream is used.
+
+ src/xz/coder.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit 563288ea705e83ff5cb292adf794650c263bca1d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 21:11:58 +0300
+
+    xz: Add support for OpenBSD's pledge() sandbox.
+
+ configure.ac     | 12 +++++++++---
+ src/xz/file_io.c | 11 +++++++++++
+ src/xz/main.c    | 13 +++++++++++++
+ src/xz/private.h |  2 +-
+ 4 files changed, 34 insertions(+), 4 deletions(-)
+
+commit f9913e8ee2ba0b1e4ff4d0aa4c001aae305ed944
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 19:07:17 +0300
+
+    xz: Fix decompressor behavior if input uses an unsupported check type.
+    
+    Now files with unsupported check will make xz display
+    a warning, set the exit status to 2 (unless --no-warn is used),
+    and then decompress the file normally. This is how it was
+    supposed to work since the beginning but this was broken by
+    the commit 231c3c7098f1099a56abb8afece76fc9b8699f05, that is,
+    a little before 5.0.0 was released. The buggy behavior displayed
+    a message, set exit status 1 (error), and xz didn't attempt to
+    to decompress the file.
+    
+    This doesn't matter today except for special builds that disable
+    CRC64 or SHA-256 at build time (but such builds should be used
+    in special situations only). The bug matters if new check type
+    is added in the future and an old xz version is used to decompress
+    such a file; however, it's likely that such files would use a new
+    filter too and an old xz wouldn't be able to decompress the file
+    anyway.
+    
+    The first hunk in the commit is the actual fix. The second hunk
+    is a cleanup since LZMA_TELL_ANY_CHECK isn't used in xz.
+    
+    There is a test file for unsupported check type but it wasn't
+    used by test_files.sh, perhaps due to different behavior between
+    xz and the simpler xzdec.
+
+ src/xz/coder.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+commit aa4fe145b9486adc454f44fd3e09be9add808a0f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 18:36:19 +0300
+
+    xz: Clarify the man page: input file isn't removed if an error occurs.
+
+ src/xz/xz.1 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 8b46ae8cdeddfd7dc01fec92971b8696e9a96c5d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 18:30:55 +0300
+
+    xz: Refactor to remove is_empty_filename().
+    
+    Long ago it was used in list.c too but nowadays it's needed
+    only in io_open_src() so it's nicer to avoid a separate function.
+
+ src/xz/file_io.c |  4 +++-
+ src/xz/util.c    | 12 ------------
+ src/xz/util.h    |  4 ----
+ 3 files changed, 3 insertions(+), 17 deletions(-)
+
+commit 85624015978b0de294cff3df79006df987c552b1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 18:23:54 +0300
+
+    xz: If input file cannot be removed, treat it as a warning, not error.
+    
+    Treating it as a warning (message + exit status 2) matches gzip
+    and it seems more logical as at that point the output file has
+    already been successfully closed. When it's a warning it is
+    possible to suppress it with --no-warn.
+
+ src/xz/file_io.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit fda9f85f52c546f7ca0313cf89481da4707fecb3
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-24 16:25:09 +0300
+
+    liblzma: Threaded decoder: Stop the worker threads on errors.
+    
+    It's waste of CPU time and electricity to leave the unfinished
+    worker threads running when it is known that their output will
+    get ignored.
+
+ src/liblzma/common/stream_decoder_mt.c | 33 ++++++++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 7 deletions(-)
+
+commit 2611c4d90535652d3eb7ef4a026a6691276fab43
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-20 20:22:50 +0300
+
+    tuklib_cpucores: Use HW_NCPUONLINE on OpenBSD.
+    
+    On OpenBSD the number of cores online is often less
+    than what HW_NCPU would return because OpenBSD disables
+    simultaneous multi-threading (SMT) by default.
+    
+    Thanks to Christian Weisgerber.
+
+ m4/tuklib_cpucores.m4        | 5 +++++
+ src/common/tuklib_cpucores.c | 9 +++++++++
+ 2 files changed, 14 insertions(+)
+
+commit 424ac91c7e0419393ff2bde4f62e21fa611c776d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-19 19:39:35 +0300
+
+    Tests: Skip tests in test_*.sh if encoders and/or decoders are disabled.
+    
+    This isn't perfect as the scripts can still fail if only
+    certain filters are disabled. This is still an improvement
+    as now "make check" has better behavior when all encoders
+    or decoders are disabled.
+    
+    Grepping ../config.h is simple and fairly clean but it only
+    works if config.h was created. CMake builds don't create
+    config.h but they don't use these test scripts either.
+    
+    Thanks to Sebastian Andrzej Siewior for reporting the problem.
+    Thanks to Jia Tan for the original patch which grepped xz
+    error messages instead of config.h.
+
+ tests/test_compress.sh | 12 ++++++++++++
+ tests/test_files.sh    | 11 +++++++++++
+ tests/test_scripts.sh  | 11 +++++++++++
+ 3 files changed, 34 insertions(+)
+
+commit ca8bf9d7c5a30be8ba1eeb106fd892f19e83ed09
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-19 18:54:34 +0300
+
+    Test: Remove the (exit 1) lines.
+    
+    I suspect that I used these in the original version because
+    Autoconf's manual describes that such a trick is needed in
+    some specific situations for portability reasons. None of those
+    situations listed on Autoconf 2.71 manual apply to these test
+    scripts though so this cleans them up.
+
+ tests/test_compress.sh | 10 ----------
+ tests/test_files.sh    |  9 ---------
+ tests/test_scripts.sh  |  6 ------
+ 3 files changed, 25 deletions(-)
+
+commit 82fcb7cfc17ce62f79ebc7ca2374e1daca5e4d5e
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-19 17:14:57 +0300
+
+    Tests: Fix a warning in test_memlimit.c when decoders are disabled.
+
+ tests/test_memlimit.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit b5f8271b45b9b0e59485ffba3640ca3418835ec4
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-19 17:11:46 +0300
+
+    Tests: Add test_memlimit to .gitignore.
+    
+    Thanks to Jia Tan.
+
+ .gitignore | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 6a86e81cab202d0a812a7b2e9efacaf70c58ba38
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-06 21:53:09 +0300
+
+    Tests: Refactor test_stream_flags.c.
+    
+    Converts test_stream_flags to tuktest. Also the test will now
+    compile and skip properly if encoders or decoders are disabled.
+    
+    Thanks to Sebastian Andrzej Siewior.
+
+ tests/test_stream_flags.c | 533 ++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 416 insertions(+), 117 deletions(-)
+
+commit 827ac5b4821491fd3afe0d0e1ddac326253aeb66
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-06 17:00:38 +0800
+
+    Tests: Refactor test_block_header.c.
+    
+    test_block_header now achieves higher test coverage. Also the
+    test will now compile and skip properly if encoders or decoders
+    are disabled.
+    
+    Thanks to Sebastian Andrzej Siewior.
+
+ tests/test_block_header.c | 486 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 370 insertions(+), 116 deletions(-)
+
+commit 84963318952064a93bfc52edd6b0ef70593384ee
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-05 23:54:12 +0800
+
+    Tests: Fix compilation issues.
+    
+    test_bcj_exact_size, test_check, test_hardware, and test_index will
+    all now compile and skip properly if encoders or decoders are disabled.
+    
+    Also fixed a small typo (disabed -> disabled).
+    
+    Thanks to Sebastian Andrzej Siewior.
+
+ tests/test_bcj_exact_size.c | 20 ++++++++++++++------
+ tests/test_check.c          |  8 +++++++-
+ tests/test_hardware.c       |  2 +-
+ tests/test_index.c          |  6 ++++++
+ tests/test_memlimit.c       | 16 +++++++++++++++-
+ tests/test_vli.c            | 13 +++++++++++++
+ 6 files changed, 56 insertions(+), 9 deletions(-)
+
+commit 7dcabeec63d46b436fa5f043c3d1f09d0e15be16
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-05 16:20:47 +0300
+
+    Tests: Include mythread.h in the tests that use MYTHREAD_ENABLED.
+
+ tests/test_check.c    | 1 +
+ tests/test_hardware.c | 1 +
+ tests/test_memlimit.c | 1 +
+ 3 files changed, 3 insertions(+)
+
+commit 14af758a770c7781af18fb66d6d21ee5b1c27f04
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-05 20:57:16 +0800
+
+    liblzma: Fix a compilation issue when encoders are disabled.
+    
+    When encoders were disabled and threading enabled, outqueue.c and
+    outqueue.h were not compiled. The multi threaded decoder required
+    these files, so compilation failed.
+
+ src/liblzma/common/Makefile.inc | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit 6ca5c354bd4620aa7f81da68870eef1b1f26288f
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-10-05 16:41:38 +0800
+
+    Tests: Fix compilation error when threading support has been disabled.
+    
+    Now tests that require threading are skipped when threading
+    support has been disabled.
+    
+    Thanks to Sebastian Andrzej Siewior.
+
+ tests/test_check.c    | 4 ++++
+ tests/test_hardware.c | 4 ++++
+ tests/test_memlimit.c | 4 ++++
+ 3 files changed, 12 insertions(+)
+
+commit fae37ad2affd8fe8871f4ff93d5cab5ec14d5e58
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-05 14:26:00 +0300
+
+    tuklib_integer: Add 64-bit endianness-converting reads and writes.
+    
+    Also update the comment in liblzma's memcmplen.h.
+    
+    Thanks to Michał Górny for the original patch for the reads.
+
+ m4/tuklib_integer.m4           |  8 ++++----
+ src/common/tuklib_integer.h    | 46 ++++++++++++++++++++++++++++++++++++++++--
+ src/liblzma/common/memcmplen.h |  9 +++------
+ 3 files changed, 51 insertions(+), 12 deletions(-)
+
+commit 508a44372c5b0dede8863fd0d358d4a9d8645c95
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-30 12:06:13 +0300
+
+    liblzma: Add API doc note about the .xz decoder LZMA_MEMLIMIT_ERROR bug.
+    
+    The bug was fixed in 660739f99ab211edec4071de98889fb32ed04e98.
+
+ src/liblzma/api/lzma/base.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+commit 8cc9874a7974cd575aee44f218836f7acdbeb0ed
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-09-21 16:15:50 +0800
+
+    liblzma: Add dest and src NULL checks to lzma_index_cat.
+    
+    The documentation states LZMA_PROG_ERROR can be returned from
+    lzma_index_cat. Previously, lzma_index_cat could not return
+    LZMA_PROG_ERROR. Now, the validation is similar to
+    lzma_index_append, which does a NULL check on the index
+    parameter.
+
+ src/liblzma/common/index.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit afd5a8bf5374eba82804a999e1ea7af680784086
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-09-21 20:29:28 +0800
+
+    Tests: Create a test for the lzma_index_cat bug.
+
+ tests/test_index.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
+
+commit 3d5a99ca373a4e86faf671226ca6487febb9eeac
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-09-21 19:28:53 +0800
+
+    liblzma: Fix copying of check type statistics in lzma_index_cat().
+    
+    The check type of the last Stream in dest was never copied to
+    dest->checks (the code tried to copy it but it was done too late).
+    This meant that the value returned by lzma_index_checks() would
+    only include the check type of the last Stream when multiple
+    lzma_indexes had been concatenated.
+    
+    In xz --list this meant that the summary would only list the
+    check type of the last Stream, so in this sense this was only
+    a visual bug. However, it's possible that some applications
+    use this information for purposes other than merely showing
+    it to the users in an informational message. I'm not aware of
+    such applications though and it's quite possible that such
+    applications don't exist.
+    
+    Regular streamed decompression in xz or any other application
+    doesn't use lzma_index_cat() and so this bug cannot affect them.
+
+ src/liblzma/common/index.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+commit a61d32172789735350a941e23baf6b587c49e5d9
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-28 12:20:41 +0300
+
+    tuklib_physmem: Fix Unicode builds on Windows.
+    
+    Thanks to ArSaCiA Game.
+
+ src/common/tuklib_physmem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 5a4d3548ab214fdca364d5c734baf1d1fab47308
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-28 11:12:07 +0300
+
+    Tests: Add test_memlimit.c to test restarting after LZMA_MEMLIMIT_ERROR.
+
+ tests/Makefile.am     |   2 +
+ tests/test_memlimit.c | 151 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 153 insertions(+)
+
+commit 660739f99ab211edec4071de98889fb32ed04e98
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-28 11:05:15 +0300
+
+    liblzma: Stream decoder: Fix restarting after LZMA_MEMLIMIT_ERROR.
+    
+    If lzma_code() returns LZMA_MEMLIMIT_ERROR it is now possible
+    to use lzma_memlimit_set() to increase the limit and continue
+    decoding. This was supposed to work from the beginning but
+    there was a bug. With other decoders (.lzma or threaded .xz)
+    this already worked correctly.
+
+ src/liblzma/common/stream_decoder.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+commit 7e68fda58c74ad9e5b876cc22fcbe80fc0e4747b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-28 11:00:23 +0300
+
+    liblzma: Stream decoder: Fix comments.
+
+ src/liblzma/common/stream_decoder.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+commit f664cb25841fc1c478b819034a224a558e2ac6e7
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-20 16:58:22 +0300
+
+    liblzma: ARM64: Add comments.
+
+ src/liblzma/simple/arm64.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+commit b557b4a0eea05470fae8ba5ef4ad5a6dfb36ac41
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-20 16:27:50 +0300
+
+    liblzma: ARM64: Fix wrong comment in API doc.
+    
+    Thanks to Jia Tan.
+
+ src/liblzma/api/lzma/bcj.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit d5b0906fa55157f48c200188a3951d80df9cb308
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-19 20:24:26 +0300
+
+    xz: Add --experimental-arm64[=width=WIDTH].
+    
+    It will be renamed to --arm64 once it is stable.
+    
+    Man page or --long-help weren't updated yet.
+
+ src/xz/args.c    |  7 +++++++
+ src/xz/message.c |  7 +++++++
+ src/xz/options.c | 39 +++++++++++++++++++++++++++++++++++++++
+ src/xz/options.h |  7 +++++++
+ 4 files changed, 60 insertions(+)
+
+commit ecb966de308c255bb4735a7307ef9901c643a9de
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-19 19:34:56 +0300
+
+    liblzma: Add experimental ARM64 BCJ filter with a temporary Filter ID.
+    
+    That is, the Filter ID will be changed once the design is final.
+    The current version will be removed. So files created with the
+    tempoary Filter ID won't be supported in the future.
+
+ CMakeLists.txt                      |   3 +
+ configure.ac                        |   4 +-
+ src/liblzma/api/lzma/bcj.h          |  35 +++++-
+ src/liblzma/common/filter_common.c  |   9 ++
+ src/liblzma/common/filter_decoder.c |   8 ++
+ src/liblzma/common/filter_encoder.c |  11 ++
+ src/liblzma/simple/Makefile.inc     |   4 +
+ src/liblzma/simple/arm64.c          | 227 ++++++++++++++++++++++++++++++++++++
+ src/liblzma/simple/simple_coder.h   |   9 ++
+ src/liblzma/simple/simple_decoder.h |   4 +
+ src/liblzma/simple/simple_encoder.h |   2 +
+ 11 files changed, 313 insertions(+), 3 deletions(-)
+
+commit 177bdc922cb17bd0fd831ab8139dfae912a5c2b8
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-17 22:42:18 +0300
+
+    liblzma: Simple/BCJ filters: Allow disabling generic BCJ options.
+    
+    This will be needed for the ARM64 BCJ filter as it will use
+    its own options struct.
+
+ src/liblzma/simple/arm.c            | 2 +-
+ src/liblzma/simple/armthumb.c       | 2 +-
+ src/liblzma/simple/ia64.c           | 2 +-
+ src/liblzma/simple/powerpc.c        | 2 +-
+ src/liblzma/simple/simple_coder.c   | 4 ++--
+ src/liblzma/simple/simple_private.h | 2 +-
+ src/liblzma/simple/sparc.c          | 2 +-
+ src/liblzma/simple/x86.c            | 3 ++-
+ 8 files changed, 10 insertions(+), 9 deletions(-)
+
+commit c3592d0a55114144686ecf960cb516d6b31c98e9
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-16 17:08:53 +0300
+
+    Tests: Add a test file for lzma_index_append() integer overflow bug.
+    
+    This test fails before commit 18d7facd3802b55c287581405c4d49c98708c136.
+    
+    test_files.sh now runs xz -l for bad-3-index-uncomp-overflow.xz
+    because only then the previously-buggy code path gets tested.
+    Normal decompression doesn't use lzma_index_append() at all.
+    Instead, lzma_index_hash functions are used and those already
+    did the overflow check.
+
+ tests/files/README                         |  10 ++++++++++
+ tests/files/bad-3-index-uncomp-overflow.xz | Bin 0 -> 132 bytes
+ tests/test_files.sh                        |   8 ++++++++
+ 3 files changed, 18 insertions(+)
+
+commit 982b29f828079a2a26253a40e975127a40a7d2bd
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-16 15:10:07 +0300
+
+    Translations: Add Turkish translation.
+
+ po/LINGUAS |   1 +
+ po/tr.po   | 977 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 978 insertions(+)
+
+commit 1fc088d9f6d1697924aaeac8cd1fb9918d1532e2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-16 14:09:07 +0300
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 097c7b67ce86ff16a7cef7631b39e5ca4ee3d420
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-16 14:07:03 +0300
+
+    xzgrep: Fix compatibility with old shells.
+    
+    Running the current xzgrep on Slackware 10.1 with GNU bash 3.00.15:
+    
+        xzgrep: line 231: syntax error near unexpected token `;;'
+    
+    On SCO OpenServer 5.0.7 with Korn Shell 93r:
+    
+        syntax error at line 231 : `;;' unexpected
+    
+    Turns out that some old shells don't like apostrophes (') inside
+    command substitutions. For example, the following fails:
+    
+        x=$(echo foo
+        # asdf'zxcv
+        echo bar)
+        printf '%s\n' "$x"
+    
+    The problem was introduced by commits
+    69d1b3fc29677af8ade8dc15dba83f0589cb63d6 (2022-03-29),
+    bd7b290f3fe4faeceb7d3497ed9bf2e6ed5e7dc5 (2022-07-18), and
+    a648978b20495b7aa4a8b029c5a810b5ad9d08ff (2022-07-19).
+    5.2.6 is the only stable release that included
+    this problem.
+    
+    Thanks to Kevin R. Bulgrien for reporting the problem
+    on SCO OpenServer 5.0.7 and for providing the fix.
+
+ src/scripts/xzgrep.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit f2d084fe3f0d6d71488bfc6987f26542f67bfd99
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-09 14:12:30 +0300
+
+    Tests: Silence warnings about unused functions from tuktest.h.
+    
+    Warnings about unused tuktest_run_test conveniently tell which
+    test programs haven't been converted to tuktest.h yet but I
+    silenced that warning too for now anyway.
+    
+    It is fine to use __attribute__((__unused__)) even when the
+    function is actually used because the attribute only means
+    that the function might be unused.
+
+ tests/tuktest.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+commit f8ee61e74eb40600445fdb601c374d582e1e9c8a
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-09 13:51:57 +0300
+
+    liblzma: lzma_filters_copy: Keep dest[] unmodified if an error occurs.
+    
+    lzma_stream_encoder() and lzma_stream_encoder_mt() always assumed
+    this. Before this patch, failing lzma_filters_copy() could result
+    in free(invalid_pointer) or invalid memory reads in stream_encoder.c
+    or stream_encoder_mt.c.
+    
+    To trigger this, allocating memory for a filter options structure
+    has to fail. These are tiny allocations so in practice they very
+    rarely fail.
+    
+    Certain badness in the filter chain array could also make
+    lzma_filters_copy() fail but both stream_encoder.c and
+    stream_encoder_mt.c validate the filter chain before
+    trying to copy it, so the crash cannot occur this way.
+
+ src/liblzma/api/lzma/filter.h      |  4 +++-
+ src/liblzma/common/filter_common.c | 18 ++++++++++++------
+ 2 files changed, 15 insertions(+), 7 deletions(-)
+
+commit 18d7facd3802b55c287581405c4d49c98708c136
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-09-02 20:18:55 +0800
+
+    liblzma: lzma_index_append: Add missing integer overflow check.
+    
+    The documentation in src/liblzma/api/lzma/index.h suggests that
+    both the unpadded (compressed) size and the uncompressed size
+    are checked for overflow, but only the unpadded size was checked.
+    The uncompressed check is done first since that is more likely to
+    occur than the unpadded or index field size overflows.
+
+ src/liblzma/common/index.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 9ac06cb5b85274d18f9f70d82cf2d8c9c1151bd4
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-08 15:11:08 +0300
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit ba3e4ba2de034ae93a513f9c3a0823b80cdb66dc
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-09-08 15:07:00 +0300
+
+    CMake: Clarify a comment about Windows symlinks without file extension.
+
+ CMakeLists.txt | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+commit 17485e884ce5c74315f29a8a1507bc706cd5cd1d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-08 15:02:41 +0300
+
+    CMake: Update for liblzma_*.map files and fix wrong common_w32res.rc dep.
+    
+    The previous commit split liblzma.map into liblzma_linux.map and
+    liblzma_generic.map. This commit updates the CMake build for those.
+    
+    common_w32res.rc dependency was listed under Linux/FreeBSD while
+    obviously it belongs to Windows when building a DLL.
+
+ CMakeLists.txt | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
+
+commit 913ddc5572b9455fa0cf299be2e35c708840e922
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-09-04 23:23:00 +0300
+
+    liblzma: Vaccinate against an ill patch from RHEL/CentOS 7.
+    
+    RHEL/CentOS 7 shipped with 5.1.2alpha, including the threaded
+    encoder that is behind #ifdef LZMA_UNSTABLE in the API headers.
+    In 5.1.2alpha these symbols are under XZ_5.1.2alpha in liblzma.map.
+    API/ABI compatibility tracking isn't done between development
+    releases so newer releases didn't have XZ_5.1.2alpha anymore.
+    
+    Later RHEL/CentOS 7 updated xz to 5.2.2 but they wanted to keep
+    the exported symbols compatible with 5.1.2alpha. After checking
+    the ABI changes it turned out that >= 5.2.0 ABI is backward
+    compatible with the threaded encoder functions from 5.1.2alpha
+    (but not vice versa as fixes and extensions to these functions
+    were made between 5.1.2alpha and 5.2.0).
+    
+    In RHEL/CentOS 7, XZ Utils 5.2.2 was patched with
+    xz-5.2.2-compat-libs.patch to modify liblzma.map:
+    
+      - XZ_5.1.2alpha was added with lzma_stream_encoder_mt and
+        lzma_stream_encoder_mt_memusage. This matched XZ Utils 5.1.2alpha.
+    
+      - XZ_5.2 was replaced with XZ_5.2.2. It is clear that this was
+        an error; the intention was to keep using XZ_5.2 (XZ_5.2.2
+        has never been used in XZ Utils). So XZ_5.2.2 lists all
+        symbols that were listed under XZ_5.2 before the patch.
+        lzma_stream_encoder_mt and _mt_memusage are included too so
+        they are listed both here and under XZ_5.1.2alpha.
+    
+    The patch didn't add any __asm__(".symver ...") lines to the .c
+    files. Thus the resulting liblzma.so exports the threaded encoder
+    functions under XZ_5.1.2alpha only. Listing the two functions
+    also under XZ_5.2.2 in liblzma.map has no effect without
+    matching .symver lines.
+    
+    The lack of XZ_5.2 in RHEL/CentOS 7 means that binaries linked
+    against unpatched XZ Utils 5.2.x won't run on RHEL/CentOS 7.
+    This is unfortunate but this alone isn't too bad as the problem
+    is contained within RHEL/CentOS 7 and doesn't affect users
+    of other distributions. It could also be fixed internally in
+    RHEL/CentOS 7.
+    
+    The second problem is more serious: In XZ Utils 5.2.2 the API
+    headers don't have #ifdef LZMA_UNSTABLE for obvious reasons.
+    This is true in RHEL/CentOS 7 version too. Thus now programs
+    using new APIs can be compiled without an extra #define. However,
+    the programs end up depending on symbol version XZ_5.1.2alpha
+    (and possibly also XZ_5.2.2) instead of XZ_5.2 as they would
+    with an unpatched XZ Utils 5.2.2. This means that such binaries
+    won't run on other distributions shipping XZ Utils >= 5.2.0 as
+    they don't provide XZ_5.1.2alpha or XZ_5.2.2; they only provide
+    XZ_5.2 (and XZ_5.0). (This includes RHEL/CentOS 8 as the patch
+    luckily isn't included there anymore with XZ Utils 5.2.4.)
+    
+    Binaries built by RHEL/CentOS 7 users get distributed and then
+    people wonder why they don't run on some other distribution.
+    Seems that people have found out about the patch and been copying
+    it to some build scripts, seemingly curing the symptoms but
+    actually spreading the illness further and outside RHEL/CentOS 7.
+    
+    The ill patch seems to be from late 2016 (RHEL 7.3) and in 2017 it
+    had spread at least to EasyBuild. I heard about the events only
+    recently. :-(
+    
+    This commit splits liblzma.map into two versions: one for
+    GNU/Linux and another for other OSes that can use symbol versioning
+    (FreeBSD, Solaris, maybe others). The Linux-specific file and the
+    matching additions to .c files add full compatibility with binaries
+    that have been built against a RHEL/CentOS-patched liblzma. Builds
+    for OSes other than GNU/Linux won't get the vaccine as they should
+    be immune to the problem (I really hope that no build script uses
+    the RHEL/CentOS 7 patch outside GNU/Linux).
+    
+    The RHEL/CentOS compatibility symbols XZ_5.1.2alpha and XZ_5.2.2
+    are intentionally put *after* XZ_5.2 in liblzma_linux.map. This way
+    if one forgets to #define HAVE_SYMBOL_VERSIONS_LINUX when building,
+    the resulting liblzma.so.5 will have lzma_stream_encoder_mt@@XZ_5.2
+    since XZ_5.2 {...} is the first one that lists that function.
+    Without HAVE_SYMBOL_VERSIONS_LINUX @XZ_5.1.2alpha and @XZ_5.2.2
+    will be missing but that's still a minor problem compared to
+    only having lzma_stream_encoder_mt@@XZ_5.1.2alpha!
+    
+    The "local: *;" line was moved to XZ_5.0 so that it doesn't need
+    to be moved around. It doesn't matter where it is put.
+    
+    Having two similar liblzma_*.map files is a bit silly as it is,
+    at least for now, easily possible to generate the generic one
+    from the Linux-specific file. But that adds extra steps and
+    increases the risk of mistakes when supporting more than one
+    build system. So I rather maintain two files in parallel and let
+    validate_map.sh check that they are in sync when "make mydist"
+    is run.
+    
+    This adds .symver lines for lzma_stream_encoder_mt@XZ_5.2.2 and
+    lzma_stream_encoder_mt_memusage@XZ_5.2.2 even though these
+    weren't exported by RHEL/CentOS 7 (only @@XZ_5.1.2alpha was
+    for these two). I added these anyway because someone might
+    misunderstand the RHEL/CentOS 7 patch and think that @XZ_5.2.2
+    (@@XZ_5.2.2) versions were exported too.
+    
+    At glance one could suggest using __typeof__ to copy the function
+    prototypes when making aliases. However, this doesn't work trivially
+    because __typeof__ won't copy attributes (lzma_nothrow, lzma_pure)
+    and it won't change symbol visibility from hidden to default (done
+    by LZMA_API()). Attributes could be copied with __copy__ attribute
+    but that needs GCC 9 and a fallback method would be needed anyway.
+    
+    This uses __symver__ attribute with GCC >= 10 and
+    __asm__(".symver ...") with everything else. The attribute method
+    is required for LTO (-flto) support with GCC. Using -flto with
+    GCC older than 10 is now broken on GNU/Linux and will not be fixed
+    (can silently result in a broken liblzma build that has dangerously
+    incorrect symbol versions). LTO builds with Clang seem to work
+    with the traditional __asm__(".symver ...") method.
+    
+    Thanks to Boud Roukema for reporting the problem and discussing
+    the details and testing the fix.
+
+ configure.ac                                     |  23 +++-
+ src/liblzma/Makefile.am                          |  10 +-
+ src/liblzma/common/block_buffer_encoder.c        |  18 ++++
+ src/liblzma/common/common.c                      |  14 +++
+ src/liblzma/common/common.h                      |  28 +++++
+ src/liblzma/common/hardware_cputhreads.c         |  12 +++
+ src/liblzma/common/stream_encoder_mt.c           |  42 ++++++++
+ src/liblzma/{liblzma.map => liblzma_generic.map} |   6 +-
+ src/liblzma/liblzma_linux.map                    | 131 +++++++++++++++++++++++
+ src/liblzma/validate_map.sh                      | 113 +++++++++++++++++--
+ 10 files changed, 382 insertions(+), 15 deletions(-)
+
+commit 80a1a8bb838842a2be343bd88ad1462c21c5e2c9
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-08-31 16:42:04 +0300
+
+    CMake: Add xz symlinks.
+    
+    These are a minor thing especially since the xz build has
+    some real problems still like lack of large file support
+    on 32-bit systems but I'll commit this since the code exists.
+    
+    Thanks to Jia Tan.
+
+ CMakeLists.txt | 38 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
+
+commit a4193bb6d85d7765b1b87faeab3e50106d3ab2e9
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-08-31 16:29:38 +0300
+
+    CMake: Put xz man page install under if(UNIX) like is for xzdec.
+    
+    Thanks to Jia Tan.
+
+ CMakeLists.txt | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
 commit c1555b1a221a1427d4d650647531016d754bc4da
 Author: Lasse Collin <lasse.collin@tukaani.org>
 Date:   2022-08-22 18:16:40 +0300

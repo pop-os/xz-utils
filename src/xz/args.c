@@ -126,6 +126,7 @@ parse_real(args_info *args, int argc, char **argv)
 		OPT_IA64,
 		OPT_ARM,
 		OPT_ARMTHUMB,
+		OPT_ARM64,
 		OPT_SPARC,
 		OPT_DELTA,
 		OPT_LZMA1,
@@ -197,6 +198,7 @@ parse_real(args_info *args, int argc, char **argv)
 		{ "ia64",         optional_argument, NULL,  OPT_IA64 },
 		{ "arm",          optional_argument, NULL,  OPT_ARM },
 		{ "armthumb",     optional_argument, NULL,  OPT_ARMTHUMB },
+		{ "experimental-arm64",        optional_argument, NULL,  OPT_ARM64 },
 		{ "sparc",        optional_argument, NULL,  OPT_SPARC },
 		{ "delta",        optional_argument, NULL,  OPT_DELTA },
 
@@ -370,6 +372,11 @@ parse_real(args_info *args, int argc, char **argv)
 					options_bcj(optarg));
 			break;
 
+		case OPT_ARM64:
+			coder_add_filter(LZMA_FILTER_ARM64,
+					options_bcj(optarg));
+			break;
+
 		case OPT_SPARC:
 			coder_add_filter(LZMA_FILTER_SPARC,
 					options_bcj(optarg));
@@ -405,8 +412,9 @@ parse_real(args_info *args, int argc, char **argv)
 				{ "xz",     FORMAT_XZ },
 				{ "lzma",   FORMAT_LZMA },
 				{ "alone",  FORMAT_LZMA },
-				// { "gzip",   FORMAT_GZIP },
-				// { "gz",     FORMAT_GZIP },
+#ifdef HAVE_LZIP_DECODER
+				{ "lzip",   FORMAT_LZIP },
+#endif
 				{ "raw",    FORMAT_RAW },
 			};
 
@@ -659,6 +667,12 @@ args_parse(args_info *args, int argc, char **argv)
 	if (opt_mode != MODE_COMPRESS)
 		message_fatal(_("Decompression support was disabled "
 				"at build time"));
+#endif
+
+#ifdef HAVE_LZIP_DECODER
+	if (opt_mode == MODE_COMPRESS && opt_format == FORMAT_LZIP)
+		message_fatal(_("Compression of lzip files (.lz) "
+				"is not supported"));
 #endif
 
 	// Never remove the source file when the destination is not on disk.
