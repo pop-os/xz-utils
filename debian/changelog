@@ -1,4 +1,4 @@
-xz-utils (5.3.4alpha-0.0) UNRELEASED; urgency=medium
+xz-utils (5.3.4alpha-0.0) experimental; urgency=medium
 
   * Non-maintainer upload.
   * Import 5.3.4alpha.
@@ -6,7 +6,7 @@ xz-utils (5.3.4alpha-0.0) UNRELEASED; urgency=medium
   * Update standards to 4.6.1.
   * Add hardening=+all.
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Fri, 18 Nov 2022 21:33:05 +0100
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Fri, 18 Nov 2022 23:25:47 +0100
 
 xz-utils (5.3.3alpha-0.0) experimental; urgency=medium
 
