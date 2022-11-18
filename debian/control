@@ -8,7 +8,7 @@ Build-Depends: debhelper-compat (= 13), dpkg-dev (>= 1.16.2),
  gettext, autopoint | gettext (<< 0.18-1), autopoint | cvs
 Build-Depends-Indep: doxygen
 Build-Conflicts: automake1.4
-Standards-Version: 4.3.0
+Standards-Version: 4.6.1
 Vcs-Browser: https://repo.or.cz/w/xz/debian
 Vcs-Git: https://repo.or.cz/r/xz/debian
 Homepage: https://tukaani.org/xz/
