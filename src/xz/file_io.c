@@ -212,6 +212,17 @@ io_sandbox_enter(int src_fd)
 	if (cap_enter())
 		goto error;
 
+#elif defined(HAVE_PLEDGE)
+	// pledge() was introduced in OpenBSD 5.9.
+	//
+	// main() unconditionally calls pledge() with fairly relaxed
+	// promises which work in all situations. Here we make the
+	// sandbox more strict.
+	if (pledge("stdio", ""))
+		goto error;
+
+	(void)src_fd;
+
 #else
 #	error ENABLE_SANDBOX is defined but no sandboxing method was found.
 #endif
@@ -330,14 +341,14 @@ io_unlink(const char *name, const struct stat *known_st)
 		// it is possible that the user has put a new file in place
 		// of the original file, and in that case it obviously
 		// shouldn't be removed.
-		message_error(_("%s: File seems to have been moved, "
+		message_warning(_("%s: File seems to have been moved, "
 				"not removing"), name);
 	else
 #endif
 		// There's a race condition between lstat() and unlink()
 		// but at least we have tried to avoid removing wrong file.
 		if (unlink(name))
-			message_error(_("%s: Cannot remove: %s"),
+			message_warning(_("%s: Cannot remove: %s"),
 					name, strerror(errno));
 
 	return;
@@ -748,13 +759,19 @@ error:
 extern file_pair *
 io_open_src(const char *src_name)
 {
-	if (is_empty_filename(src_name))
+	if (src_name[0] == '\0') {
+		message_error(_("Empty filename, skipping"));
 		return NULL;
+	}
 
 	// Since we have only one file open at a time, we can use
 	// a statically allocated structure.
 	static file_pair pair;
 
+	// This implicitly also initializes src_st.st_size to zero
+	// which is expected to be <= 0 by default. fstat() isn't
+	// called when reading from standard input but src_st.st_size
+	// is still read.
 	pair = (file_pair){
 		.src_name = src_name,
 		.dest_name = NULL,

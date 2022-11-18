@@ -15,6 +15,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "tests.h"
+#include "mythread.h"
 
 
 static void
@@ -30,8 +31,12 @@ test_lzma_physmem(void)
 static void
 test_lzma_cputhreads(void)
 {
+#ifndef MYTHREAD_ENABLED
+	assert_skip("Threading support disabled");
+#else
 	if (lzma_cputhreads() == 0)
 		assert_skip("Could not determine cpu core count");
+#endif
 }
 
 

@@ -12,6 +12,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "tests.h"
+#include "mythread.h"
 
 
 // These must be specified as numbers so that the test works on EBCDIC
@@ -156,6 +157,9 @@ test_lzma_check_size(void)
 static void
 test_lzma_get_check_st(void)
 {
+#ifndef HAVE_DECODERS
+	assert_skip("Decoder support disabled");
+#else
 	const uint32_t flags = LZMA_TELL_ANY_CHECK |
 			LZMA_TELL_UNSUPPORTED_CHECK |
 			LZMA_TELL_NO_CHECK;
@@ -229,12 +233,18 @@ test_lzma_get_check_st(void)
 #endif
 
 	lzma_end(&strm);
+#endif
 }
 
 
 static void
 test_lzma_get_check_mt(void)
 {
+#ifndef MYTHREAD_ENABLED
+	assert_skip("Threading support disabled");
+#elif !defined(HAVE_DECODERS)
+	assert_skip("Decoder support disabled");
+#else
 	const uint32_t flags = LZMA_TELL_ANY_CHECK |
 			LZMA_TELL_UNSUPPORTED_CHECK |
 			LZMA_TELL_NO_CHECK;
@@ -311,6 +321,7 @@ test_lzma_get_check_mt(void)
 #endif
 
 	lzma_end(&strm);
+#endif
 }
 
 

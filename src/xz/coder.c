@@ -51,6 +51,11 @@ static lzma_check check;
 /// This becomes false if the --check=CHECK option is used.
 static bool check_default = true;
 
+/// Indicates if unconsumed input is allowed to remain after
+/// decoding has successfully finished. This is set for each file
+/// in coder_init().
+static bool allow_trailing_input;
+
 #ifdef MYTHREAD_ENABLED
 static lzma_mt mt_options = {
 	.flags = 0,
@@ -136,6 +141,11 @@ memlimit_too_small(uint64_t memory_usage)
 extern void
 coder_set_compression_settings(void)
 {
+#ifdef HAVE_LZIP_DECODER
+	// .lz compression isn't supported.
+	assert(opt_format != FORMAT_LZIP);
+#endif
+
 	// The default check type is CRC64, but fallback to CRC32
 	// if CRC64 isn't supported by the copy of liblzma we are
 	// using. CRC32 is always supported.
@@ -470,6 +480,18 @@ is_format_lzma(void)
 
 	return true;
 }
+
+
+#ifdef HAVE_LZIP_DECODER
+/// Return true if the data in in_buf seems to be in the .lz format.
+static bool
+is_format_lzip(void)
+{
+	static const uint8_t magic[4] = { 0x4C, 0x5A, 0x49, 0x50 };
+	return strm.avail_in >= sizeof(magic)
+			&& memcmp(in_buf.u8, magic, sizeof(magic)) == 0;
+}
+#endif
 #endif
 
 
@@ -482,6 +504,12 @@ static enum coder_init_ret
 coder_init(file_pair *pair)
 {
 	lzma_ret ret = LZMA_PROG_ERROR;
+
+	// In most cases if there is input left when coding finishes,
+	// something has gone wrong. Exceptions are --single-stream
+	// and decoding .lz files which can contain trailing non-.lz data.
+	// These will be handled later in this function.
+	allow_trailing_input = false;
 
 	if (opt_mode == MODE_COMPRESS) {
 #ifdef HAVE_ENCODERS
@@ -506,6 +534,14 @@ coder_init(file_pair *pair)
 			ret = lzma_alone_encoder(&strm, filters[0].options);
 			break;
 
+#	ifdef HAVE_LZIP_DECODER
+		case FORMAT_LZIP:
+			// args.c should disallow this.
+			assert(0);
+			ret = LZMA_PROG_ERROR;
+			break;
+#	endif
+
 		case FORMAT_RAW:
 			ret = lzma_raw_encoder(&strm, filters);
 			break;
@@ -522,7 +558,9 @@ coder_init(file_pair *pair)
 		else
 			flags |= LZMA_TELL_UNSUPPORTED_CHECK;
 
-		if (!opt_single_stream)
+		if (opt_single_stream)
+			allow_trailing_input = true;
+		else
 			flags |= LZMA_CONCATENATED;
 
 		// We abuse FORMAT_AUTO to indicate unknown file format,
@@ -531,8 +569,14 @@ coder_init(file_pair *pair)
 
 		switch (opt_format) {
 		case FORMAT_AUTO:
+			// .lz is checked before .lzma since .lzma detection
+			// is more complicated (no magic bytes).
 			if (is_format_xz())
 				init_format = FORMAT_XZ;
+#	ifdef HAVE_LZIP_DECODER
+			else if (is_format_lzip())
+				init_format = FORMAT_LZIP;
+#	endif
 			else if (is_format_lzma())
 				init_format = FORMAT_LZMA;
 			break;
@@ -547,6 +591,13 @@ coder_init(file_pair *pair)
 				init_format = FORMAT_LZMA;
 			break;
 
+#	ifdef HAVE_LZIP_DECODER
+		case FORMAT_LZIP:
+			if (is_format_lzip())
+				init_format = FORMAT_LZIP;
+			break;
+#	endif
+
 		case FORMAT_RAW:
 			init_format = FORMAT_RAW;
 			break;
@@ -560,8 +611,12 @@ coder_init(file_pair *pair)
 			// is needed, because we don't want to do use
 			// passthru mode with --test.
 			if (opt_mode == MODE_DECOMPRESS
-					&& opt_stdout && opt_force)
+					&& opt_stdout && opt_force) {
+				// These are needed for progress info.
+				strm.total_in = 0;
+				strm.total_out = 0;
 				return CODER_INIT_PASSTHRU;
+			}
 
 			ret = LZMA_FORMAT_ERROR;
 			break;
@@ -600,6 +655,15 @@ coder_init(file_pair *pair)
 						MODE_DECOMPRESS));
 			break;
 
+#	ifdef HAVE_LZIP_DECODER
+		case FORMAT_LZIP:
+			allow_trailing_input = true;
+			ret = lzma_lzip_decoder(&strm,
+					hardware_memlimit_get(
+						MODE_DECOMPRESS), flags);
+			break;
+#	endif
+
 		case FORMAT_RAW:
 			// Memory usage has already been checked in
 			// coder_set_compression_settings().
@@ -611,10 +675,30 @@ coder_init(file_pair *pair)
 		// memory usage limit in case it happens in the first
 		// Block of the first Stream, which is where it very
 		// probably will happen if it is going to happen.
+		//
+		// This will also catch unsupported check type which
+		// we treat as a warning only. If there are empty
+		// concatenated Streams with unsupported check type then
+		// the message can be shown more than once here. The loop
+		// is used in case there is first a warning about
+		// unsupported check type and then the first Block
+		// would exceed the memlimit.
 		if (ret == LZMA_OK && init_format != FORMAT_RAW) {
 			strm.next_out = NULL;
 			strm.avail_out = 0;
-			ret = lzma_code(&strm, LZMA_RUN);
+			while ((ret = lzma_code(&strm, LZMA_RUN))
+					== LZMA_UNSUPPORTED_CHECK)
+				message_warning("%s: %s", pair->src_name,
+						message_strm(ret));
+
+			// With --single-stream lzma_code won't wait for
+			// LZMA_FINISH and thus it can return LZMA_STREAM_END
+			// if the file has no uncompressed data inside.
+			// So treat LZMA_STREAM_END as LZMA_OK here.
+			// When lzma_code() is called again in coder_normal()
+			// it will return LZMA_STREAM_END again.
+			if (ret == LZMA_STREAM_END)
+				ret = LZMA_OK;
 		}
 #endif
 	}
@@ -825,9 +909,9 @@ coder_normal(file_pair *pair)
 
 		} else if (ret != LZMA_OK) {
 			// Determine if the return value indicates that we
-			// won't continue coding.
-			const bool stop = ret != LZMA_NO_CHECK
-					&& ret != LZMA_UNSUPPORTED_CHECK;
+			// won't continue coding. LZMA_NO_CHECK would be
+			// here too if LZMA_TELL_ANY_CHECK was used.
+			const bool stop = ret != LZMA_UNSUPPORTED_CHECK;
 
 			if (stop) {
 				// Write the remaining bytes even if something
@@ -840,7 +924,7 @@ coder_normal(file_pair *pair)
 			}
 
 			if (ret == LZMA_STREAM_END) {
-				if (opt_single_stream) {
+				if (allow_trailing_input) {
 					io_fix_src_pos(pair, strm.avail_in);
 					success = true;
 					break;
@@ -848,7 +932,9 @@ coder_normal(file_pair *pair)
 
 				// Check that there is no trailing garbage.
 				// This is needed for LZMA_Alone and raw
-				// streams.
+				// streams. This is *not* done with .lz files
+				// as that format specifically requires
+				// allowing trailing garbage.
 				if (strm.avail_in == 0 && !pair->src_eof) {
 					// Try reading one more byte.
 					// Hopefully we don't get any more
@@ -976,6 +1062,15 @@ coder_run(const char *filename)
 				mytime_set_start_time();
 
 				// Initialize the progress indicator.
+				//
+				// NOTE: When reading from stdin, fstat()
+				// isn't called on it and thus src_st.st_size
+				// is zero. If stdin pointed to a regular
+				// file, it would still be possible to know
+				// the file size but then we would also need
+				// to take into account the current reading
+				// position since with stdin it isn't
+				// necessarily at the beginning of the file.
 				const bool is_passthru = init_ret
 						== CODER_INIT_PASSTHRU;
 				const uint64_t in_size

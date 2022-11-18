@@ -355,11 +355,8 @@ progress_speed(uint64_t uncompressed_pos, uint64_t elapsed)
 	if (elapsed < 3000)
 		return "";
 
-	static const char unit[][8] = {
-		"KiB/s",
-		"MiB/s",
-		"GiB/s",
-	};
+	// The first character of KiB/s, MiB/s, or GiB/s:
+	static const char unit[] = { 'K', 'M', 'G' };
 
 	size_t unit_index = 0;
 
@@ -381,7 +378,7 @@ progress_speed(uint64_t uncompressed_pos, uint64_t elapsed)
 	//  - 999 KiB/s
 	// Use big enough buffer to hold e.g. a multibyte decimal point.
 	static char buf[16];
-	snprintf(buf, sizeof(buf), "%.*f %s",
+	snprintf(buf, sizeof(buf), "%.*f %ciB/s",
 			speed > 9.9 ? 0 : 1, speed, unit[unit_index]);
 	return buf;
 }
@@ -1036,6 +1033,20 @@ message_filters_to_str(char buf[FILTERS_STR_SIZE],
 			break;
 		}
 
+		case LZMA_FILTER_ARM64: {
+			// FIXME TODO: Merge with the above generic BCJ list
+			// once the Filter ID is changed to the final value.
+			const lzma_options_bcj *opt = filters[i].options;
+			my_snprintf(&pos, &left, "arm64");
+
+			// Show the start offset only when really needed.
+			if (opt != NULL && opt->start_offset != 0)
+				my_snprintf(&pos, &left, "=start=%" PRIu32,
+						opt->start_offset);
+
+			break;
+		}
+
 		case LZMA_FILTER_DELTA: {
 			const lzma_options_delta *opt = filters[i].options;
 			my_snprintf(&pos, &left, "delta=dist=%" PRIu32,
@@ -1125,6 +1136,9 @@ message_help(bool long_help)
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
 "  -c, --stdout        write to standard output and don't delete input files"));
+	// NOTE: --to-stdout isn't included above because it's not
+	// the recommended spelling. It was copied from gzip but other
+	// compressors with gzip-like syntax don't support it.
 
 	if (long_help) {
 		puts(_(
@@ -1143,7 +1157,7 @@ message_help(bool long_help)
 		puts(_("\n Basic file format and compression options:\n"));
 		puts(_(
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
-"                      `auto' (default), `xz', `lzma', and `raw'\n"
+"                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
 "  -C, --check=CHECK   integrity check type: `none' (use with caution),\n"
 "                      `crc32', `crc64' (default), or `sha256'"));
 		puts(_(
@@ -1219,10 +1233,11 @@ message_help(bool long_help)
 		puts(_(
 "\n"
 "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
+"  --arm[=OPTS]        ARM BCJ filter\n"
+"  --armthumb[=OPTS]   ARM-Thumb BCJ filter\n"
+"  --arm64[=OPTS]      ARM64 BCJ filter\n"
 "  --powerpc[=OPTS]    PowerPC BCJ filter (big endian only)\n"
 "  --ia64[=OPTS]       IA-64 (Itanium) BCJ filter\n"
-"  --arm[=OPTS]        ARM BCJ filter (little endian only)\n"
-"  --armthumb[=OPTS]   ARM-Thumb BCJ filter (little endian only)\n"
 "  --sparc[=OPTS]      SPARC BCJ filter\n"
 "                      Valid OPTS for all BCJ filters:\n"
 "                        start=NUM  start offset for conversions (default=0)"));

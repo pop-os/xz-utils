@@ -22,7 +22,10 @@ liblzma_la_SOURCES += \
 	common/vli_size.c
 
 if COND_THREADS
-liblzma_la_SOURCES += common/hardware_cputhreads.c
+liblzma_la_SOURCES += \
+	common/hardware_cputhreads.c \
+	common/outqueue.c \
+	common/outqueue.h
 endif
 
 if COND_MAIN_ENCODER
@@ -36,7 +39,6 @@ liblzma_la_SOURCES += \
 	common/easy_buffer_encoder.c \
 	common/easy_encoder.c \
 	common/easy_encoder_memusage.c \
-	common/microlzma_encoder.c \
 	common/filter_buffer_encoder.c \
 	common/filter_encoder.c \
 	common/filter_encoder.h \
@@ -50,9 +52,12 @@ liblzma_la_SOURCES += \
 
 if COND_THREADS
 liblzma_la_SOURCES += \
-	common/outqueue.c \
-	common/outqueue.h \
 	common/stream_encoder_mt.c
+endif
+
+if COND_MICROLZMA
+liblzma_la_SOURCES += \
+	common/microlzma_encoder.c
 endif
 endif
 
@@ -66,7 +71,6 @@ liblzma_la_SOURCES += \
 	common/block_decoder.h \
 	common/block_header_decoder.c \
 	common/easy_decoder_memusage.c \
-	common/microlzma_decoder.c \
 	common/file_info.c \
 	common/filter_buffer_decoder.c \
 	common/filter_decoder.c \
@@ -84,5 +88,16 @@ liblzma_la_SOURCES += \
 if COND_THREADS
 liblzma_la_SOURCES += \
 	common/stream_decoder_mt.c
+endif
+
+if COND_MICROLZMA
+liblzma_la_SOURCES += \
+	common/microlzma_decoder.c
+endif
+
+if COND_LZIP_DECODER
+liblzma_la_SOURCES += \
+	common/lzip_decoder.c \
+	common/lzip_decoder.h
 endif
 endif

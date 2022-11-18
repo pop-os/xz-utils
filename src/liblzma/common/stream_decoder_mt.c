@@ -1169,9 +1169,16 @@ stream_decode_mt(void *coder_ptr, const lzma_allocator *allocator,
 			// The downside of this is that with fail-fast apps
 			// cannot always distinguish between corrupt and
 			// truncated files.
-			if (action == LZMA_FINISH && coder->fail_fast)
+			if (action == LZMA_FINISH && coder->fail_fast) {
+				// We won't produce any more output. Stop
+				// the unfinished worker threads so they
+				// won't waste CPU time.
+				threads_stop(coder);
 				return LZMA_DATA_ERROR;
+			}
 
+			// read_output_and_wait() will call threads_stop()
+			// if needed so with that we can use return_if_error.
 			return_if_error(read_output_and_wait(coder, allocator,
 				out, out_pos, out_size,
 				NULL, waiting_allowed,
@@ -1447,12 +1454,20 @@ stream_decode_mt(void *coder_ptr, const lzma_allocator *allocator,
 		}
 
 		// Allocate memory for the output buffer in the output queue.
-		return_if_error(lzma_outq_prealloc_buf(
+		lzma_ret ret = lzma_outq_prealloc_buf(
 				&coder->outq, allocator,
-				coder->block_options.uncompressed_size));
+				coder->block_options.uncompressed_size);
+		if (ret != LZMA_OK) {
+			threads_stop(coder);
+			return ret;
+		}
 
 		// Set up coder->thr.
-		return_if_error(get_thread(coder, allocator));
+		ret = get_thread(coder, allocator);
+		if (ret != LZMA_OK) {
+			threads_stop(coder);
+			return ret;
+		}
 
 		// The new Block decoder memory usage is already counted in
 		// coder->mem_in_use. Store it in the thread too.
@@ -1460,7 +1475,7 @@ stream_decode_mt(void *coder_ptr, const lzma_allocator *allocator,
 
 		// Initialize the Block decoder.
 		coder->thr->block_options = coder->block_options;
-		const lzma_ret ret = lzma_block_decoder_init(
+		ret = lzma_block_decoder_init(
 					&coder->thr->block_decoder, allocator,
 					&coder->thr->block_options);
 
@@ -1480,8 +1495,10 @@ stream_decode_mt(void *coder_ptr, const lzma_allocator *allocator,
 		// Allocate the input buffer.
 		coder->thr->in_size = coder->mem_next_in;
 		coder->thr->in = lzma_alloc(coder->thr->in_size, allocator);
-		if (coder->thr->in == NULL)
+		if (coder->thr->in == NULL) {
+			threads_stop(coder);
 			return LZMA_MEM_ERROR;
+		}
 
 		// Get the preallocated output buffer.
 		coder->thr->outbuf = lzma_outq_get_buf(
@@ -1516,8 +1533,10 @@ stream_decode_mt(void *coder_ptr, const lzma_allocator *allocator,
 			const size_t in_avail = in_size - *in_pos;
 			const size_t in_needed = coder->thr->in_size
 					- coder->thr->in_filled;
-			if (in_avail < in_needed)
+			if (in_avail < in_needed) {
+				threads_stop(coder);
 				return LZMA_DATA_ERROR;
+			}
 		}
 
 		// Copy input to the worker thread.
@@ -1815,11 +1834,27 @@ stream_decoder_mt_memconfig(void *coder_ptr, uint64_t *memusage,
 {
 	// NOTE: This function gets/sets memlimit_stop. For now,
 	// memlimit_threading cannot be modified after initialization.
+	//
+	// *memusage will include cached memory too. Excluding cached memory
+	// would be misleading and it wouldn't help the applications to
+	// know how much memory is actually needed to decompress the file
+	// because the higher the number of threads and the memlimits are
+	// the more memory the decoder may use.
+	//
+	// Setting a new limit includes the cached memory too and too low
+	// limits will be rejected. Alternative could be to free the cached
+	// memory immediately if that helps to bring the limit down but
+	// the current way is the simplest. It's unlikely that limit needs
+	// to be lowered in the middle of a file anyway; the typical reason
+	// to want a new limit is to increase after LZMA_MEMLIMIT_ERROR
+	// and even such use isn't common.
 	struct lzma_stream_coder *coder = coder_ptr;
 
 	mythread_sync(coder->mutex) {
-		*memusage = coder->mem_direct_mode + coder->mem_in_use
-				+ coder->outq.mem_in_use; // FIXME?
+		*memusage = coder->mem_direct_mode
+				+ coder->mem_in_use
+				+ coder->mem_cached
+				+ coder->outq.mem_allocated;
 	}
 
 	// If no filter chains are allocated, *memusage may be zero.
@@ -1830,7 +1865,7 @@ stream_decoder_mt_memconfig(void *coder_ptr, uint64_t *memusage,
 	*old_memlimit = coder->memlimit_stop;
 
 	if (new_memlimit != 0) {
-		if (new_memlimit < *memusage) // FIXME?
+		if (new_memlimit < *memusage)
 			return LZMA_MEMLIMIT_ERROR;
 
 		coder->memlimit_stop = new_memlimit;
