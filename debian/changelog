@@ -1,3 +1,10 @@
+xz-utils (5.3.4alpha-0.0) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * Import 5.3.4alpha.
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Fri, 18 Nov 2022 21:33:05 +0100
+
 xz-utils (5.3.3alpha-0.0) experimental; urgency=medium
 
   * Non-maintainer upload.

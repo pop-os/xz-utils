@@ -1,12 +1,22 @@
 liblzma.so.5 liblzma5 #MINVER#
 * Build-Depends-Package: liblzma-dev
  (symver)XZ_5.0 5.1.1alpha+20110809
+ (arch=linux-any)XZ_5.1.2alpha@XZ_5.1.2alpha 5.3.4alpha
  lzma_code@XZ_5.0 5.1.1alpha+20120614
  lzma_raw_buffer_decode@XZ_5.0 5.1.1alpha+20120614
  lzma_raw_buffer_encode@XZ_5.0 5.1.1alpha+20120614
  (symver)XZ_5.2 5.2.2
- XZ_5.3.3alpha@XZ_5.3.3alpha 5.3.3alpha
- lzma_file_info_decoder@XZ_5.3.3alpha 5.3.3alpha
- lzma_microlzma_decoder@XZ_5.3.3alpha 5.3.3alpha
- lzma_microlzma_encoder@XZ_5.3.3alpha 5.3.3alpha
- lzma_stream_decoder_mt@XZ_5.3.3alpha 5.3.3alpha
+ (arch=linux-any)XZ_5.2.2@XZ_5.2.2 5.3.4alpha
+ (arch=linux-any)lzma_block_uncomp_encode@XZ_5.2.2 5.3.4alpha
+ XZ_5.3.4alpha@XZ_5.3.4alpha 5.3.4alpha
+ lzma_file_info_decoder@XZ_5.3.4alpha 5.3.4alpha
+ lzma_lzip_decoder@XZ_5.3.4alpha 5.3.4alpha
+ lzma_microlzma_decoder@XZ_5.3.4alpha 5.3.4alpha
+ lzma_microlzma_encoder@XZ_5.3.4alpha 5.3.4alpha
+ lzma_stream_decoder_mt@XZ_5.3.4alpha 5.3.4alpha
+ (arch=linux-any)lzma_cputhreads@XZ_5.2.2 5.2.2
+ (arch=linux-any)lzma_get_progress@XZ_5.2.2 5.2.2
+ (arch=linux-any)lzma_stream_encoder_mt@XZ_5.1.2alpha 5.3.4alpha
+ (arch=linux-any)lzma_stream_encoder_mt@XZ_5.2.2 5.2.2
+ (arch=linux-any)lzma_stream_encoder_mt_memusage@XZ_5.1.2alpha 5.3.4alpha
+ (arch=linux-any)lzma_stream_encoder_mt_memusage@XZ_5.2.2 5.2.2
