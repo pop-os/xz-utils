@@ -10,7 +10,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH XZ 1 2022\-07\-24 Tukaani XZ\-Dienstprogramme
+.TH XZ 1 2022\-10\-25 Tukaani XZ\-Dienstprogramme
 .
 .SH BEZEICHNUNG
 xz, unxz, xzcat, lzma, unlzma, lzcat \- .xz\- und .lzma\-Dateien komprimieren
@@ -94,10 +94,9 @@ die Ursprungs\-\fIDatei\fP hatten. Das Kopieren anderer Metadaten wie
 Zugriffssteuerlisten oder erweiterter Attribute wird von \fBxz\fP noch nicht
 unterstützt.
 .PP
-Sobald die Zieldatei erfolgreich geschlossen wurde, wird die
-Ursprungs\-\fIDatei\fP entfernt. Dies wird durch die Option \fB\-\-keep\fP
-verhindert. Die Ursprungs\-\fIDatei\fP wird niemals entfernt, wenn die Ausgabe
-in die Standardausgabe geschrieben wird.
+Once the target file has been successfully closed, the source \fIfile\fP is
+removed unless \fB\-\-keep\fP was specified.  The source \fIfile\fP is never removed
+if the output is written to standard output or if an error occurs.
 .PP
 Durch Senden der Signale \fBSIGINFO\fP oder \fBSIGUSR1\fP an den \fBxz\fP\-Prozess
 werden Fortschrittsinformationen in den Fehlerkanal der Standardausgabe
@@ -393,8 +392,7 @@ Die Unterschiede zwischen den Voreinstellungsstufen sind deutlicher als bei
 \fBgzip\fP(1) und \fBbzip2\fP(1). Die gewählten Kompressionseinstellungen
 bestimmen den Speicherbedarf bei der Dekompression, daher ist es auf älteren
 Systemen mit wenig Speicher bei einer zu hoch gewählten Voreinstellung
-schwer, eine Datei zu dekomprimieren. Insbesondere \fBist es keine gute Idee,
-blindlings \-9 für alles\fP zu verwenden, wie dies häufig mit \fBgzip\fP(1) und
+schwer, eine Datei zu dekomprimieren. Insbesondere \fBist es keine gute Idee, blindlings \-9 für alles\fP zu verwenden, wie dies häufig mit \fBgzip\fP(1) und
 \fBbzip2\fP(1) gehandhabt wird.
 .RS
 .TP 
@@ -715,8 +713,7 @@ getrennten Liste. Zusätzliche Kommata in den \fIOptionen\fP werden
 ignoriert. Jede Option hat einen Standardwert, daher brauchen Sie nur jene
 anzugeben, die Sie ändern wollen.
 .PP
-Um die gesamte Filterkette und die \fIOptionen\fP anzuzeigen, rufen Sie \fBxz
-\-vv\fP auf (was gleichbedeutend mit der zweimaligen Angabe von \fB\-\-verbose\fP
+Um die gesamte Filterkette und die \fIOptionen\fP anzuzeigen, rufen Sie \fBxz \-vv\fP auf (was gleichbedeutend mit der zweimaligen Angabe von \fB\-\-verbose\fP
 ist). Dies funktioniert auch zum Betrachten der von den Voreinstellungen
 verwendeten Filterkettenoptionen.
 .TP 
@@ -1424,8 +1421,7 @@ use something like this:
 .RS
 .PP
 .nf
-\f(CWXZ_OPT=${XZ_OPT\-"\-7e"}
-export XZ_OPT\fP
+\f(CWXZ_OPT=${XZ_OPT\-"\-7e"} export XZ_OPT\fP
 .fi
 .RE
 .RE
@@ -1621,8 +1617,7 @@ Parallelisieren der Kompression vieler Dateien verwendet werden:
 .RS
 .PP
 .nf
-\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e
-    | xargs \-0r \-P4 \-n16 xz \-T1\fP
+\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e     | xargs \-0r \-P4 \-n16 xz \-T1\fP
 .fi
 .RE
 .PP
@@ -1654,11 +1649,7 @@ Beta\-Versionen kompatibel, welche die Option \fB\-\-robot\fP nicht unterstütze
 .RS
 .PP
 .nf
-\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||
-        [ "$XZ_VERSION" \-lt 50000002 ]; then
-    echo "Ihre Version von Xz ist zu alt."
-fi
-unset XZ_VERSION LIBLZMA_VERSION\fP
+\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||         [ "$XZ_VERSION" \-lt 50000002 ]; then     echo "Ihre Version von Xz ist zu alt." fi unset XZ_VERSION LIBLZMA_VERSION\fP
 .fi
 .RE
 .PP
@@ -1667,12 +1658,7 @@ aber eine bereits gesetzte Begrenzung nicht erhöhen:
 .RS
 .PP
 .nf
-\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB
-OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3)
-if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then
-    XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"
-    export XZ_OPT
-fi\fP
+\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3) if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then     XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"     export XZ_OPT fi\fP
 .fi
 .RE
 .
@@ -1743,8 +1729,7 @@ Befehl für kleine Dateien nicht sinnvoll.
 .PP
 Sometimes the compression time doesn't matter, but the decompressor memory
 usage has to be kept low, for example, to make it possible to decompress the
-file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6
-\-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
+file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6 \-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
 resulting file can be decompressed with XZ Embedded (that's why there is
 \fB\-\-check=crc32\fP)  using about 100\ KiB of memory.
 .RS
@@ -1759,8 +1744,7 @@ of literal context bits (\fIlc\fP)  and number of position bits (\fIpb\fP)  can
 sometimes help.  Adjusting the number of literal position bits (\fIlp\fP)
 might help too, but usually \fIlc\fP and \fIpb\fP are more important.  For
 example, a source code archive contains mostly US\-ASCII text, so something
-like the following might give slightly (like 0.1\ %) smaller file than \fBxz
-\-6e\fP (try also without \fBlc=4\fP):
+like the following might give slightly (like 0.1\ %) smaller file than \fBxz \-6e\fP (try also without \fBlc=4\fP):
 .RS
 .PP
 .nf

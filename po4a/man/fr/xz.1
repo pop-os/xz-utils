@@ -10,7 +10,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH XZ 1 2022\-07\-24 Tukaani "Utilitaires XZ"
+.TH XZ 1 2022\-10\-25 Tukaani "Utilitaires XZ"
 .
 .SH NOM
 xz, unxz, xzcat, lzma, unlzma, lzcat \- Compresser ou décompresser des
@@ -93,9 +93,9 @@ d'accès au \fIfichier\fP source. \fBxz\fP ne prend actuellement pas en charge l
 copie d'autres métadonnées telles que les listes de contrôle d'accès ou les
 attributs étendus.
 .PP
-Une fois que le fichier cible a été fermé avec succès, le \fIfichier\fP source
-est supprimé à moins que \fB\-\-keep\fP n'ait été spécifié. Le \fIfichier\fP source
-n'est jamais supprimé si la sortie est écrite sur la sortie standard.
+Once the target file has been successfully closed, the source \fIfile\fP is
+removed unless \fB\-\-keep\fP was specified.  The source \fIfile\fP is never removed
+if the output is written to standard output or if an error occurs.
 .PP
 Envoyer \fBSIGINFO\fP ou \fBSIGURSR1\fP au processus \fBxz\fP, lui fait afficher
 l'information de progression sur l'erreur standard. Cela a un intérêt limité
@@ -388,8 +388,7 @@ Les différences entre les préréglages sont plus significatives qu'avec
 \fBgzip\fP(1) et \fBbzip2\fP(1). les réglages de compression sélectionnés
 déterminent les exigences en mémoire pour la décompression, ainsi, utiliser
 un niveau de préréglage trop élevé peut rendre difficile à décompresser un
-fichier sur un vieux système avec peu de RAM. Clairement, \fBce n'est pas une
-bonne idée d'utiliser \-9 aveuglément pour tout\fP comme ça l'est souvent avec
+fichier sur un vieux système avec peu de RAM. Clairement, \fBce n'est pas une bonne idée d'utiliser \-9 aveuglément pour tout\fP comme ça l'est souvent avec
 \fBgzip\fP(1) et \fBbzip2\fP(1).
 .RS
 .TP 
@@ -1419,8 +1418,7 @@ use something like this:
 .RS
 .PP
 .nf
-\f(CWXZ_OPT=${XZ_OPT\-"\-7e"}
-export XZ_OPT\fP
+\f(CWXZ_OPT=${XZ_OPT\-"\-7e"} export XZ_OPT\fP
 .fi
 .RE
 .RE
@@ -1618,8 +1616,7 @@ en parallèle la compression de plusieurs fichiers\ :
 .RS
 .PP
 .nf
-\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e
-    | xargs \-0r \-P4 \-n16 xz \-T1\fP
+\f(CWfind . \-type f \e! \-name '*.xz' \-print0 \e     | xargs \-0r \-P4 \-n16 xz \-T1\fP
 .fi
 .RE
 .PP
@@ -1650,11 +1647,7 @@ vieilles versions bêta, qui ne gèrent pas l'option \fB\-\-robot\fP\ :
 .RS
 .PP
 .nf
-\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||
-        [ "$XZ_VERSION" \-lt 50000002 ]; then
-    echo "Votre version de xz est trop ancienne."
-fi
-unset XZ_VERSION LIBLZMA_VERSION\fP
+\f(CWif ! eval "$(xz \-\-robot \-\-version 2> /dev/null)" ||         [ "$XZ_VERSION" \-lt 50000002 ]; then     echo "Votre version de xz est trop ancienne." fi unset XZ_VERSION LIBLZMA_VERSION\fP
 .fi
 .RE
 .PP
@@ -1664,12 +1657,7 @@ l'augmenter\ :
 .RS
 .PP
 .nf
-\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB
-OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3)
-if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then
-    XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"
-    export XZ_OPT
-fi\fP
+\f(CWNEWLIM=$((123 << 20))\ \ # 123 MiB OLDLIM=$(xz \-\-robot \-\-info\-memory | cut \-f3) if [ $OLDLIM \-eq 0 \-o $OLDLIM \-gt $NEWLIM ]; then     XZ_OPT="$XZ_OPT \-\-memlimit\-decompress=$NEWLIM"     export XZ_OPT fi\fP
 .fi
 .RE
 .
@@ -1741,8 +1729,7 @@ ci\-dessus n'est pas utile pour les petits fichiers.
 .PP
 Sometimes the compression time doesn't matter, but the decompressor memory
 usage has to be kept low, for example, to make it possible to decompress the
-file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6
-\-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
+file on an embedded system.  The following command uses \fB\-6e\fP (\fB\-6 \-\-extreme\fP)  as a base and sets the dictionary to only 64\ KiB.  The
 resulting file can be decompressed with XZ Embedded (that's why there is
 \fB\-\-check=crc32\fP)  using about 100\ KiB of memory.
 .RS
@@ -1757,8 +1744,7 @@ of literal context bits (\fIlc\fP)  and number of position bits (\fIpb\fP)  can
 sometimes help.  Adjusting the number of literal position bits (\fIlp\fP)
 might help too, but usually \fIlc\fP and \fIpb\fP are more important.  For
 example, a source code archive contains mostly US\-ASCII text, so something
-like the following might give slightly (like 0.1\ %) smaller file than \fBxz
-\-6e\fP (try also without \fBlc=4\fP):
+like the following might give slightly (like 0.1\ %) smaller file than \fBxz \-6e\fP (try also without \fBlc=4\fP):
 .RS
 .PP
 .nf

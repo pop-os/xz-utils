@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-09-30 13:06+0300\n"
+"POT-Creation-Date: 2022-11-13 19:59+0200\n"
 "PO-Revision-Date: 2022-06-30 18:19+0300\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -157,7 +157,7 @@ msgstr "%s: ha fallat la funció poll(): %s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: sembla que el fitxer s'ha mogut, no s'elimina"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:890
+#: src/xz/file_io.c:340 src/xz/file_io.c:894
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: no es pot eliminar: %s"
@@ -212,47 +212,47 @@ msgstr "%s: el fitxer té un bit enganxós, s'omet"
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: el fitxer d'entrada té més d'un enllaç dur, s'omet"
 
-#: src/xz/file_io.c:800
+#: src/xz/file_io.c:804
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "S'ha produït un error en restaurar els indicadors d'estat a l'entrada estàndard: %s"
 
-#: src/xz/file_io.c:848
+#: src/xz/file_io.c:852
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "S'ha produït un error en obtenir els indicadors d'estat del fitxer de la sortida estàndard: %s"
 
-#: src/xz/file_io.c:1026
+#: src/xz/file_io.c:1030
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "S'ha produït un error en restaurar l'indicador O_APPEND a la sortida estàndard: %s"
 
-#: src/xz/file_io.c:1038
+#: src/xz/file_io.c:1042
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: ha fallat el tancament del fitxer: %s"
 
-#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
+#: src/xz/file_io.c:1078 src/xz/file_io.c:1321
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: ha fallat la cerca en intentar crear un fitxer dispers: %s"
 
-#: src/xz/file_io.c:1175
+#: src/xz/file_io.c:1179
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: error de lectura: %s"
 
-#: src/xz/file_io.c:1199
+#: src/xz/file_io.c:1203
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: error en cercar el fitxer: %s"
 
-#: src/xz/file_io.c:1209
+#: src/xz/file_io.c:1213
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: fi inesperat del fitxer"
 
-#: src/xz/file_io.c:1268
+#: src/xz/file_io.c:1272
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: error d'escriptura: %s"
@@ -524,77 +524,77 @@ msgstr "No es poden llegir les dades de l'entrada estàndard en llegir els noms 
 #. of the line in messages. Usually it becomes "xz: ".
 #. This is a translatable string because French needs
 #. a space before a colon.
-#: src/xz/message.c:728
+#: src/xz/message.c:725
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
 #
-#: src/xz/message.c:791 src/xz/message.c:841
+#: src/xz/message.c:788 src/xz/message.c:838
 msgid "Internal error (bug)"
 msgstr "Error intern (error)"
 
 #
-#: src/xz/message.c:798
+#: src/xz/message.c:795
 msgid "Cannot establish signal handlers"
 msgstr "No es poden establir els gestors de senyals"
 
 #
-#: src/xz/message.c:807
+#: src/xz/message.c:804
 msgid "No integrity check; not verifying file integrity"
 msgstr "Sense comprovació d'integritat; no es verifica la integritat del fitxer"
 
 #
-#: src/xz/message.c:810
+#: src/xz/message.c:807
 msgid "Unsupported type of integrity check; not verifying file integrity"
 msgstr "Tipus no admès de comprovació d'integritat; no es verifica la integritat del fitxer"
 
 #
-#: src/xz/message.c:817
+#: src/xz/message.c:814
 msgid "Memory usage limit reached"
 msgstr "S'ha arribat al límit d'ús de la memòria"
 
 #
-#: src/xz/message.c:820
+#: src/xz/message.c:817
 msgid "File format not recognized"
 msgstr "No s'ha reconegut el format del fitxer"
 
 #
-#: src/xz/message.c:823
+#: src/xz/message.c:820
 msgid "Unsupported options"
 msgstr "Opcions no suportades"
 
 #
-#: src/xz/message.c:826
+#: src/xz/message.c:823
 msgid "Compressed data is corrupt"
 msgstr "Les dades comprimides estan malmeses"
 
 #
-#: src/xz/message.c:829
+#: src/xz/message.c:826
 msgid "Unexpected end of input"
 msgstr "Final inesperat de l'entrada"
 
-#: src/xz/message.c:862
+#: src/xz/message.c:859
 #, c-format
 msgid "%s MiB of memory is required. The limiter is disabled."
 msgstr "Es requereixen %s MiB de memòria. El limitador està desactivat."
 
-#: src/xz/message.c:890
+#: src/xz/message.c:887
 #, c-format
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "Es requereixen %s MiB de memòria. El límit és %s."
 
-#: src/xz/message.c:1057
+#: src/xz/message.c:1054
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s: Cadena de filtratge: %s\n"
 
-#: src/xz/message.c:1067
+#: src/xz/message.c:1064
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "Proveu «%s --help» per a més informació."
 
-#: src/xz/message.c:1093
+#: src/xz/message.c:1090
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -606,19 +606,19 @@ msgstr ""
 "\n"
 
 #
-#: src/xz/message.c:1100
+#: src/xz/message.c:1097
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 "Els arguments obligatoris per a opcions llargues també són obligatoris\n"
 "per a opcions curtes.\n"
 
 #
-#: src/xz/message.c:1104
+#: src/xz/message.c:1101
 msgid " Operation mode:\n"
 msgstr " Mode d'operació:\n"
 
 #
-#: src/xz/message.c:1107
+#: src/xz/message.c:1104
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -631,7 +631,7 @@ msgstr ""
 "  -l, --list          informació sobre els fitxers .xz"
 
 #
-#: src/xz/message.c:1113
+#: src/xz/message.c:1110
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -640,7 +640,7 @@ msgstr ""
 " Modificadors de l'operació:\n"
 
 #
-#: src/xz/message.c:1116
+#: src/xz/message.c:1113
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"

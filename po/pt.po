@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-09-30 13:06+0300\n"
+"POT-Creation-Date: 2022-11-13 19:59+0200\n"
 "PO-Revision-Date: 2019-09-27 08:08+0100\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -145,7 +145,7 @@ msgstr "%s: poll() falhou: %s"
 msgid "%s: File seems to have been moved, not removing"
 msgstr "%s: o ficheiro parece ter sido movido, não será eliminado"
 
-#: src/xz/file_io.c:340 src/xz/file_io.c:890
+#: src/xz/file_io.c:340 src/xz/file_io.c:894
 #, c-format
 msgid "%s: Cannot remove: %s"
 msgstr "%s: impossível remover: %s"
@@ -200,47 +200,47 @@ msgstr "%s: o ficheiro tem o bit sticky definido, a ignorar"
 msgid "%s: Input file has more than one hard link, skipping"
 msgstr "%s: o ficheiro de entrada tem mais de uma ligação absoluta, a ignorar"
 
-#: src/xz/file_io.c:800
+#: src/xz/file_io.c:804
 #, c-format
 msgid "Error restoring the status flags to standard input: %s"
 msgstr "Erro ao restaurar as bandeiras de estado para a entrada padrão: %s"
 
-#: src/xz/file_io.c:848
+#: src/xz/file_io.c:852
 #, c-format
 msgid "Error getting the file status flags from standard output: %s"
 msgstr "Erro ao obter as bandeiras de estado do ficheiro da saída padrão: %s"
 
-#: src/xz/file_io.c:1026
+#: src/xz/file_io.c:1030
 #, c-format
 msgid "Error restoring the O_APPEND flag to standard output: %s"
 msgstr "Erro ao restaurar a bandeira O_APPEND para a saída padrão: %s"
 
-#: src/xz/file_io.c:1038
+#: src/xz/file_io.c:1042
 #, c-format
 msgid "%s: Closing the file failed: %s"
 msgstr "%s: falha ao fechar o ficheiro: %s"
 
-#: src/xz/file_io.c:1074 src/xz/file_io.c:1317
+#: src/xz/file_io.c:1078 src/xz/file_io.c:1321
 #, c-format
 msgid "%s: Seeking failed when trying to create a sparse file: %s"
 msgstr "%s: falha na procura ao tentar criar um ficheiro escasso: %s"
 
-#: src/xz/file_io.c:1175
+#: src/xz/file_io.c:1179
 #, c-format
 msgid "%s: Read error: %s"
 msgstr "%s: erro de leitura: %s"
 
-#: src/xz/file_io.c:1199
+#: src/xz/file_io.c:1203
 #, c-format
 msgid "%s: Error seeking the file: %s"
 msgstr "%s: erro ao procurar o ficheiro: %s"
 
-#: src/xz/file_io.c:1209
+#: src/xz/file_io.c:1213
 #, c-format
 msgid "%s: Unexpected end of file"
 msgstr "%s: fim de ficheiro inesperado"
 
-#: src/xz/file_io.c:1268
+#: src/xz/file_io.c:1272
 #, c-format
 msgid "%s: Write error: %s"
 msgstr "%s: erro de escrita: %s"
@@ -501,68 +501,68 @@ msgstr "Impossível ler dados da entrada padrão ao ler nomes de ficheiro da ent
 #. of the line in messages. Usually it becomes "xz: ".
 #. This is a translatable string because French needs
 #. a space before a colon.
-#: src/xz/message.c:728
+#: src/xz/message.c:725
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c:791 src/xz/message.c:841
+#: src/xz/message.c:788 src/xz/message.c:838
 msgid "Internal error (bug)"
 msgstr "Erro interno (erro)"
 
-#: src/xz/message.c:798
+#: src/xz/message.c:795
 msgid "Cannot establish signal handlers"
 msgstr "Impossível estabelecer gestores de sinais"
 
-#: src/xz/message.c:807
+#: src/xz/message.c:804
 msgid "No integrity check; not verifying file integrity"
 msgstr "Sem teste de integridade; a integridade do ficheiro não será verificada"
 
-#: src/xz/message.c:810
+#: src/xz/message.c:807
 msgid "Unsupported type of integrity check; not verifying file integrity"
 msgstr "Tipo de verificação de integridade não suportada; a integridade do ficheiro não será verificada"
 
-#: src/xz/message.c:817
+#: src/xz/message.c:814
 msgid "Memory usage limit reached"
 msgstr "Limite de uso de memória alcançado"
 
-#: src/xz/message.c:820
+#: src/xz/message.c:817
 msgid "File format not recognized"
 msgstr "Formato de ficheiro não reconhecido"
 
-#: src/xz/message.c:823
+#: src/xz/message.c:820
 msgid "Unsupported options"
 msgstr "Opções não suportadas"
 
-#: src/xz/message.c:826
+#: src/xz/message.c:823
 msgid "Compressed data is corrupt"
 msgstr "Os dados comprimidos estão corrompidos"
 
-#: src/xz/message.c:829
+#: src/xz/message.c:826
 msgid "Unexpected end of input"
 msgstr "Fim de entrada inesperado"
 
-#: src/xz/message.c:862
+#: src/xz/message.c:859
 #, c-format
 msgid "%s MiB of memory is required. The limiter is disabled."
 msgstr "São necessários %s MiB de memória. O limitador está desactivado."
 
-#: src/xz/message.c:890
+#: src/xz/message.c:887
 #, c-format
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "São necessários %s MiB de memória. O limite é %s."
 
-#: src/xz/message.c:1057
+#: src/xz/message.c:1054
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s: cadeia de filtros: %s\n"
 
-#: src/xz/message.c:1067
+#: src/xz/message.c:1064
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "Tente \"%s --help\" para mais informações."
 
-#: src/xz/message.c:1093
+#: src/xz/message.c:1090
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -573,17 +573,17 @@ msgstr ""
 "Comprime ou descomprime FICHEIROs no formato .xz.\n"
 "\n"
 
-#: src/xz/message.c:1100
+#: src/xz/message.c:1097
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 "Argumentos obrigatórios para opções longas são também obrigatórios para\n"
 "opções curtas.\n"
 
-#: src/xz/message.c:1104
+#: src/xz/message.c:1101
 msgid " Operation mode:\n"
 msgstr " Modo de operação:\n"
 
-#: src/xz/message.c:1107
+#: src/xz/message.c:1104
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -595,7 +595,7 @@ msgstr ""
 "  -t, --test          testa a integridade do ficheiro comprimido\n"
 "  -l, --list          lista informações sobre ficheiros .xz"
 
-#: src/xz/message.c:1113
+#: src/xz/message.c:1110
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -603,7 +603,7 @@ msgstr ""
 "\n"
 " Modificadores de operações:\n"
 
-#: src/xz/message.c:1116
+#: src/xz/message.c:1113
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
