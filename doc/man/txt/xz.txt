@@ -76,7 +76,7 @@ DESCRIPTION
 
        Once  the  target file has been successfully closed, the source file is
        removed unless --keep was specified.  The source file is never  removed
-       if the output is written to standard output.
+       if the output is written to standard output or if an error occurs.
 
        Sending  SIGINFO  or  SIGUSR1 to the xz process makes it print progress
        information to standard error.  This has only limited  use  since  when
@@ -1498,4 +1498,4 @@ SEE ALSO
 
 
 
-Tukaani                           2022-07-24                             XZ(1)
+Tukaani                           2022-10-25                             XZ(1)

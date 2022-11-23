@@ -1,3 +1,360 @@
+commit 5476089d9c42b9b04e92b80e1800b384a98265cb
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-13 19:58:47 +0200
+
+    Bump version and soname for 5.2.8.
+
+ src/liblzma/Makefile.am        | 2 +-
+ src/liblzma/api/lzma/version.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit f9994f395d04d37b75e879f90397258b86b466cc
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-13 19:57:26 +0200
+
+    Add NEWS for 5.2.8.
+
+ NEWS | 79 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+
+commit cdf14b28993ef2f3168821372467e3aa7cf1e973
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:16:03 +0200
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 454f567e58bbadea5cff4f31ef450c1305e9853d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 17:15:25 +0200
+
+    liblzma: Fix building with Intel ICC (the classic compiler).
+    
+    It claims __GNUC__ >= 10 but doesn't support __symver__ attribute.
+    
+    Thanks to Stephen Sachs.
+
+ src/liblzma/common/common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 2f01169f5a81e21e7a7e5f799c32472c6277b1d5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 14:35:58 +0200
+
+    liblzma: Fix incorrect #ifdef for x86 SSE2 support.
+    
+    __SSE2__ is the correct macro for SSE2 support with GCC, Clang,
+    and ICC. __SSE2_MATH__ means doing floating point math with SSE2
+    instead of 387. Often the latter macro is defined if the first
+    one is but it was still a bug.
+
+ src/liblzma/common/memcmplen.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit fc1358679ed3994f67e5e8c869c281be82370a32
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 12:23:58 +0200
+
+    Scripts: Ignore warnings from xz.
+    
+    In practice this means making the scripts work when
+    the input files have an unsupported check type which
+    isn't a problem in practice unless support for
+    some check types has been disabled at build time.
+
+ src/scripts/xzdiff.in | 5 +++--
+ src/scripts/xzgrep.in | 2 +-
+ src/scripts/xzless.in | 4 ++--
+ src/scripts/xzmore.in | 4 ++--
+ 4 files changed, 8 insertions(+), 7 deletions(-)
+
+commit a08be1c420501b1c75770a8f6103e3959486c895
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 14:10:52 +0200
+
+    xz: Add comments about stdin and src_st.st_size.
+    
+    "xz -v < regular_file > out.xz" doesn't display the percentage
+    and estimated remaining time because it doesn't even try to
+    check the input file size when input is read from stdin.
+    This could be improved but for now there's just a comment
+    to remind about it.
+
+ src/xz/coder.c   | 9 +++++++++
+ src/xz/file_io.c | 4 ++++
+ 2 files changed, 13 insertions(+)
+
+commit 3ee411cd1cd636bdced6ecede4651394bb4f9cb1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 12:48:22 +0200
+
+    xz: Fix displaying of file sizes in progress indicator in passthru mode.
+    
+    It worked for one input file since the counters are zero when
+    xz starts but they weren't reset when starting a new file in
+    passthru mode. For example, if files A, B, and C are one byte each,
+    then "xz -dcvf A B C" would show file sizes as 1, 2, and 3 bytes
+    instead of 1, 1, and 1 byte.
+
+ src/xz/coder.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit aa7fa9d960df4bb21f7727bbf7ce0503f3d211b4
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-09 11:27:20 +0200
+
+    xz: Add a comment why --to-stdout is not in --help.
+    
+    It is on the man page still.
+
+ src/xz/message.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit ff49ff84a4ba3fab25ffb6d65af321dee36c1273
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 22:26:54 +0200
+
+    Docs: Update faq.txt a little.
+
+ doc/faq.txt | 66 ++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 43 insertions(+), 23 deletions(-)
+
+commit 3489565b75b45ee514cf0a6785bb721c7dc624f3
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:13:03 +0200
+
+    liblzma: Update API docs about decoder flags.
+
+ src/liblzma/api/lzma/container.h | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+commit e4937710805c4b660fc629c15d9a6164b2d97822
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:00:58 +0200
+
+    liblzma: Fix a comment in auto_decoder.c.
+
+ src/liblzma/common/auto_decoder.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit d4674dfbb7d1df1feb841f5dbce6ae1f0b026879
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-11-07 16:24:14 +0200
+
+    xz: Avoid a compiler warning in progress_speed() in message.c.
+    
+    This should be smaller too since it avoids the string constants.
+
+ src/xz/message.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+commit 4ed56d32a91ff8ff21c71db4082a54a72ae08b3d
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 16:26:05 +0200
+
+    Build: Clarify comment in configure.ac about SSE2.
+
+ configure.ac | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit f930638797f1fec05b272367c052d4fc9de35896
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 16:16:37 +0200
+
+    Build: Remove obsolete commented-out lines from configure.ac.
+
+ configure.ac | 4 ----
+ 1 file changed, 4 deletions(-)
+
+commit 6930f14733757592a4f8d92513f642a5dcc9ec9c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 13:31:58 +0200
+
+    Windows: Fix mythread_once() macro with Vista threads.
+    
+    Don't call InitOnceComplete() if initialization was already done.
+    
+    So far mythread_once() has been needed only when building
+    with --enable-small. windows/build.bash does this together
+    with --disable-threads so the Vista-specific mythread_once()
+    is never needed by those builds. VS project files or
+    CMake-builds don't support HAVE_SMALL builds at all.
+
+ src/common/mythread.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit 1c8cbb5be3a97bf22e933777369c4cc28ef9ed5f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-31 11:49:47 +0200
+
+    CMake: Sync tuklib_cpucores.cmake with tuklib_cpucores.m4.
+    
+    This was forgotten from commit 2611c4d90535652d3eb7ef4a026a6691276fab43.
+
+ cmake/tuklib_cpucores.cmake | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit fa9efb729b1827b25ec71aefcf32f3aceeaf9597
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:45:03 +0300
+
+    Build: Use AC_CONFIG_HEADERS instead of the ancient AC_CONFIG_HEADER.
+    
+    We require Autoconf >= 2.69 and that has AC_CONFIG_HEADERS.
+    
+    There is a warning about AC_PROG_CC_C99 being obsolete but
+    it cannot be removed because it is needed with Autoconf 2.69.
+
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b10ba4bf39edd9c9fef42cade3e64fc3b9e3fd19
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:31:44 +0300
+
+    Build: Update m4/ax_pthread.m4 from Autoconf Archive.
+
+ m4/ax_pthread.m4 | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+commit 01744b280c6e35d331b9dc4cc64716b82bc8b3db
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 23:09:11 +0300
+
+    xz: Fix --single-stream with an empty .xz Stream.
+    
+    Example:
+    
+        $ xz -dc --single-stream good-0-empty.xz
+        xz: good-0-empty.xz: Internal error (bug)
+    
+    The code, that is tries to catch some input file issues early,
+    didn't anticipate LZMA_STREAM_END which is possible in that
+    code only when --single-stream is used.
+
+ src/xz/coder.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit a3e4606134058241bf1c396243bebcec42c2a780
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 19:07:17 +0300
+
+    xz: Fix decompressor behavior if input uses an unsupported check type.
+    
+    Now files with unsupported check will make xz display
+    a warning, set the exit status to 2 (unless --no-warn is used),
+    and then decompress the file normally. This is how it was
+    supposed to work since the beginning but this was broken by
+    the commit 231c3c7098f1099a56abb8afece76fc9b8699f05, that is,
+    a little before 5.0.0 was released. The buggy behavior displayed
+    a message, set exit status 1 (error), and xz didn't attempt to
+    to decompress the file.
+    
+    This doesn't matter today except for special builds that disable
+    CRC64 or SHA-256 at build time (but such builds should be used
+    in special situations only). The bug matters if new check type
+    is added in the future and an old xz version is used to decompress
+    such a file; however, it's likely that such files would use a new
+    filter too and an old xz wouldn't be able to decompress the file
+    anyway.
+    
+    The first hunk in the commit is the actual fix. The second hunk
+    is a cleanup since LZMA_TELL_ANY_CHECK isn't used in xz.
+    
+    There is a test file for unsupported check type but it wasn't
+    used by test_files.sh, perhaps due to different behavior between
+    xz and the simpler xzdec.
+
+ src/xz/coder.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+commit 0b5e8c7e073bce07c59112af1e8a7495e3576e6c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 18:36:19 +0300
+
+    xz: Clarify the man page: input file isn't removed if an error occurs.
+
+ src/xz/xz.1 | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 23b7416d5ba0e3579265467bd546865d2ea4cef0
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-25 18:23:54 +0300
+
+    xz: If input file cannot be removed, treat it as a warning, not error.
+    
+    Treating it as a warning (message + exit status 2) matches gzip
+    and it seems more logical as at that point the output file has
+    already been successfully closed. When it's a warning it is
+    possible to suppress it with --no-warn.
+
+ src/xz/file_io.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 5daa40454b63c4eb04ab5caeb339eddc95c94bb1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-10-20 20:22:50 +0300
+
+    tuklib_cpucores: Use HW_NCPUONLINE on OpenBSD.
+    
+    On OpenBSD the number of cores online is often less
+    than what HW_NCPU would return because OpenBSD disables
+    simultaneous multi-threading (SMT) by default.
+    
+    Thanks to Christian Weisgerber.
+
+ m4/tuklib_cpucores.m4        | 5 +++++
+ src/common/tuklib_cpucores.c | 9 +++++++++
+ 2 files changed, 14 insertions(+)
+
+commit 0af861050f375678eafc4e1136ca589ae47d31c0
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-11 13:25:02 +0200
+
+    NEWS: Omit the extra copy of 5.2.5 NEWS.
+    
+    It was a copy-paste error.
+
+ NEWS | 105 -------------------------------------------------------------------
+ 1 file changed, 105 deletions(-)
+
+commit f0c6a66701afed12c5926c0499b150ecd5b0a63c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-10 12:34:43 +0200
+
+    Translations: Rename poa4/fr_FR.po to po4a/fr.po.
+    
+    That's how it is preferred at the Translation Project.
+    On my system /usr/share/man/fr_FR doesn't contain any
+    other man pages than XZ Utils while /usr/share/man/fr
+    has quite a few, so this will fix that too.
+    
+    Thanks to Benno Schulenberg from the Translation Project.
+
+ po4a/{fr_FR.po => fr.po} | 0
+ po4a/po4a.conf           | 2 +-
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+commit 6bf8b1f870870a1a0c3f555c34decc9ffb9f8d7a
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 16:57:17 +0200
+
+    Translations: Update Turkish translation.
+
+ po/tr.po | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 9f8e9d3c8189d8c6f587c99b0da1cf83f72330c2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-08 14:55:32 +0200
+
+    Translations: Update Croatian translation.
+
+ po/hr.po | 190 ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 96 insertions(+), 94 deletions(-)
+
 commit d24a57b7fc7e5e9267b84367cb0788d3acf7f569
 Author: Lasse Collin <lasse.collin@tukaani.org>
 Date:   2022-09-30 16:41:03 +0300
