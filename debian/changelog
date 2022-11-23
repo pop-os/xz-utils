@@ -2,6 +2,7 @@ xz-utils (5.2.8-0.0) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * New upstream release.
+  * Use --disable-symbol-versions for static + xzdec build (Closes: #1024516).
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 23 Nov 2022 21:16:35 +0100
 

@@ -74,7 +74,7 @@ debian/normal-build/Makefile debian/normal-build/Doxyfile: $(configure_input)
 debian/static-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/static-build -- \
 		$(opt_reproduce) \
-		--enable-threads --disable-shared \
+		--enable-threads --disable-shared --disable-symbol-versions \
 		--enable-liblzma2-compat \
 		$(opt_optimize) $(opt_quiet) \
 		--disable-lzmainfo --disable-scripts \
@@ -85,7 +85,7 @@ debian/xzdec-build/Makefile: $(configure_input)
 	dh_auto_configure --builddirectory debian/xzdec-build -- \
 		$(opt_reproduce) \
 		--disable-shared --disable-nls --disable-encoders \
-		--enable-small --disable-threads \
+		--enable-small --disable-threads --disable-symbol-versions \
 		--disable-liblzma2-compat \
 		$(opt_optimize_small) $(opt_quiet) \
 		--disable-lzmainfo --disable-scripts \
