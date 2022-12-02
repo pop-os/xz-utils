@@ -2,6 +2,49 @@
 XZ Utils Release Notes
 ======================
 
+5.3.5beta (2022-12-01)
+
+    * All fixes from 5.2.9.
+
+    * liblzma:
+
+        - Added new LZMA_FILTER_LZMA1EXT for raw encoder and decoder to
+          handle raw LZMA1 streams that don't have end of payload marker
+          (EOPM) alias end of stream (EOS) marker. It can be used in
+          filter chains, for example, with the x86 BCJ filter.
+
+        - Added lzma_str_to_filters(), lzma_str_from_filters(), and
+          lzma_str_list_filters() to make it easier for applications
+          to get custom compression options from a user and convert
+          it to an array of lzma_filter structures.
+
+        - Added lzma_filters_free().
+
+        - lzma_filters_update() can now be used with the multi-threaded
+          encoder (lzma_stream_encoder_mt()) to change the filter chain
+          after LZMA_FULL_BARRIER or LZMA_FULL_FLUSH.
+
+        - In lzma_options_lzma, allow nice_len = 2 and 3 with the match
+          finders that require at least 3 or 4. Now it is internally
+          rounded up if needed.
+
+        - ARM64 filter was modified. It is still experimental.
+
+        - Fixed LTO build with Clang if -fgnuc-version=10 or similar
+          was used to make Clang look like GCC >= 10. Now it uses
+          __has_attribute(__symver__) which should be reliable.
+
+    * xz:
+
+        - --threads=+1 or -T+1 is now a way to put xz into multi-threaded
+          mode while using only one worker thread.
+
+        - In --lzma2=nice=NUMBER allow 2 and 3 with all match finders
+          now that liblzma handles it.
+
+    * Updated translations: Chinese (simplified), Korean, and Turkish.
+
+
 5.3.4alpha (2022-11-15)
 
     * All fixes from 5.2.7 and 5.2.8.
@@ -312,6 +355,40 @@ XZ Utils Release Notes
 
     * Capsicum sandbox support is enabled by default where available
       (FreeBSD >= 10).
+
+
+5.2.9 (2022-11-30)
+
+    * liblzma:
+
+        - Fixed an infinite loop in LZMA encoder initialization
+          if dict_size >= 2 GiB. (The encoder only supports up
+          to 1536 MiB.)
+
+        - Fixed two cases of invalid free() that can happen if
+          a tiny allocation fails in encoder re-initialization
+          or in lzma_filters_update(). These bugs had some
+          similarities with the bug fixed in 5.2.7.
+
+        - Fixed lzma_block_encoder() not allowing the use of
+          LZMA_SYNC_FLUSH with lzma_code() even though it was
+          documented to be supported. The sync-flush code in
+          the Block encoder was already used internally via
+          lzma_stream_encoder(), so this was just a missing flag
+          in the lzma_block_encoder() API function.
+
+        - GNU/Linux only: Don't put symbol versions into static
+          liblzma as it breaks things in some cases (and even if
+          it didn't break anything, symbol versions in static
+          libraries are useless anyway). The downside of the fix
+          is that if the configure options --with-pic or --without-pic
+          are used then it's not possible to build both shared and
+          static liblzma at the same time on GNU/Linux anymore;
+          with those options --disable-static or --disable-shared
+          must be used too.
+
+    * New email address for bug reports is <xz@tukaani.org> which
+      forwards messages to Lasse Collin and Jia Tan.
 
 
 5.2.8 (2022-11-13)

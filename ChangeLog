@@ -1,3 +1,648 @@
+commit 24790f49ae66938c1c7574315e1c0aba1ed5ed25
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 20:59:32 +0200
+
+    Bump version number for 5.3.5beta.
+    
+    This also sorts the symbol names alphabetically in liblzma_*.map.
+
+ src/liblzma/api/lzma/version.h  |  4 ++--
+ src/liblzma/liblzma_generic.map | 10 +++++-----
+ src/liblzma/liblzma_linux.map   | 10 +++++-----
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+
+commit 7e53c5bcb3c2c17f47c096c06ff6b1481e6ecafa
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 20:57:26 +0200
+
+    Add NEWS for 5.3.5beta.
+
+ NEWS | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+commit 5865f2aaac326fcbd9f8a7d62defa230e4cb644e
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 20:57:09 +0200
+
+    Update THANKS.
+
+ THANKS | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 62b270988ec67314d69976df484d2974c6eacfda
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 20:04:17 +0200
+
+    liblzma: Use __has_attribute(__symver__) to fix Clang detection.
+    
+    If someone sets up Clang to define __GNUC__ to 10 or greater
+    then symvers broke. __has_attribute is supported by such GCC
+    and Clang versions that don't support __symver__ so this should
+    be much better and simpler way to detect if __symver__ is
+    actually supported.
+    
+    Thanks to Tomasz Gajc for the bug report.
+
+ src/liblzma/common/common.h | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+commit f9ca7d45162664ddd9fb70e19335c2426e5d75bb
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 18:51:52 +0200
+
+    liblzma: Omit zero-skipping from ARM64 filter.
+    
+    It has some complicated downsides and its usefulness is more limited
+    than I originally thought. So this change is bad for certain very
+    specific situations but a generic solution that works for other
+    filters (and is otherwise better too) is planned anyway. And this
+    way 7-Zip can use the same compatible filter for the .7z format.
+    
+    This is still marked as experimental with a new temporary Filter ID.
+
+ src/liblzma/api/lzma/bcj.h |  2 +-
+ src/liblzma/simple/arm64.c | 81 +++++++++++++---------------------------------
+ 2 files changed, 24 insertions(+), 59 deletions(-)
+
+commit 5baec3f0a9c85e6abf45c0f652f699b074129a8b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 18:13:27 +0200
+
+    xz: Omit the special notes about ARM64 filter on the man page.
+
+ src/xz/xz.1 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+commit 0c3627b51862eb0dcdd4fc283d046250571991c6
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 18:12:03 +0200
+
+    liblzma: Don't be over-specific in lzma_str_to_filters API doc.
+
+ src/liblzma/api/lzma/filter.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 94adf057f27b1970f493dc99cd166407d7255639
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 17:54:23 +0200
+
+    liblzma: Silence unused variable warning when BCJ filters are disabled.
+    
+    Thanks to Jia Tan for the original patch.
+
+ src/liblzma/common/string_conversion.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+commit c68af4441744e5ffc41a472e1be9c9d53a1d9780
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 17:38:03 +0200
+
+    Translations: Update the Chinese (simplified) translation.
+
+ po/zh_CN.po | 608 ++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 348 insertions(+), 260 deletions(-)
+
+commit 3be6942e5c27d29995d41da52fbe274e4ce4a537
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-30 18:55:03 +0200
+
+    Add NEWS for 5.2.9.
+
+ NEWS | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+commit 7c16e312cb2f40b81154c0e5be13a3c6b8da485d
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-11-30 23:33:08 +0800
+
+    xz: Remove message_filters_to_str function prototype from message.h.
+    
+    This was forgotten from 7484744af6cbabe81e92af7d9e061dfd597fff7b.
+
+ src/xz/message.h | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+commit 764955e2d4f2a5e8d6d6fec63af694f799e050e7
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-30 18:08:34 +0200
+
+    Change the bug report address.
+    
+    It forwards to me and Jia Tan.
+    
+    Also update the IRC reference in README as #tukaani was moved
+    to Libera Chat long ago.
+
+ CMakeLists.txt             |  2 +-
+ README                     | 11 +++++------
+ configure.ac               |  2 +-
+ dos/config.h               |  2 +-
+ windows/README-Windows.txt |  2 +-
+ 5 files changed, 9 insertions(+), 10 deletions(-)
+
+commit c21983c76031e01da01ad3c6cc716fe4b8a75070
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-30 17:50:17 +0200
+
+    Build: Add string_conversion.c to CMake, DOS, and VS files.
+
+ CMakeLists.txt                     | 1 +
+ dos/Makefile                       | 1 +
+ windows/vs2013/liblzma.vcxproj     | 1 +
+ windows/vs2013/liblzma_dll.vcxproj | 1 +
+ windows/vs2017/liblzma.vcxproj     | 1 +
+ windows/vs2017/liblzma_dll.vcxproj | 1 +
+ windows/vs2019/liblzma.vcxproj     | 1 +
+ windows/vs2019/liblzma_dll.vcxproj | 1 +
+ 8 files changed, 8 insertions(+)
+
+commit 30be0c35d24eb5175459d69dbf7d92e2b087ef82
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-30 17:38:32 +0200
+
+    Update to HTTPS URLs in AUTHORS.
+
+ AUTHORS | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 0a72b9ca2fe20082da9b7128fe0d908af947a851
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-11-30 00:52:06 +0800
+
+    liblzma: Improve documentation for string to filter functions.
+
+ src/liblzma/api/lzma/filter.h | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+commit a6e21fcede3b196160a52dd294d965c508a4bb33
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-29 22:27:42 +0200
+
+    liblzma: Two fixes to lzma_str_list_filters() API docs.
+    
+    Thanks to Jia Tan.
+
+ src/liblzma/api/lzma/filter.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 7484744af6cbabe81e92af7d9e061dfd597fff7b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 21:57:47 +0200
+
+    xz: Use lzma_str_from_filters().
+    
+    Two uses: Displaying encoder filter chain when compressing with -vv,
+    and displaying the decoder filter chain in --list -vv.
+
+ src/xz/list.c    |  28 ++++++---
+ src/xz/message.c | 175 +++----------------------------------------------------
+ 2 files changed, 28 insertions(+), 175 deletions(-)
+
+commit cedeeca2ea6ada5b0411b2ae10d7a859e837f203
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 21:37:48 +0200
+
+    liblzma: Add lzma_str_to_filters, _from_filters, and _list_filters.
+    
+    lzma_str_to_filters() uses static error messages which makes
+    them not very precise. It tells the position in the string
+    where an error occurred though which helps quite a bit if
+    applications take advantage of it. Dynamic error messages can
+    be added later with a new flag if it seems important enough.
+
+ src/liblzma/api/lzma/filter.h          |  258 +++++++
+ src/liblzma/common/Makefile.inc        |    1 +
+ src/liblzma/common/string_conversion.c | 1302 ++++++++++++++++++++++++++++++++
+ src/liblzma/liblzma_generic.map        |    3 +
+ src/liblzma/liblzma_linux.map          |    3 +
+ 5 files changed, 1567 insertions(+)
+
+commit 072ebf7b1335421193ffa9d4a70d5533786b8995
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 21:02:19 +0200
+
+    liblzma: Make lzma_validate_chain() available outside filter_common.c.
+
+ src/liblzma/common/filter_common.c | 8 ++++----
+ src/liblzma/common/filter_common.h | 3 +++
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+commit 5f22bd2d37e3bd01a5d701b51750eb51f09c11bf
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 10:51:03 +0200
+
+    liblzma: Remove lzma_lz_decoder_uncompressed() as it's now unused.
+
+ src/liblzma/lz/lz_decoder.c | 14 --------------
+ src/liblzma/lz/lz_decoder.h |  3 ---
+ 2 files changed, 17 deletions(-)
+
+commit cee83206465b95729ab649aa2f57fdbde8dcaf89
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 10:48:53 +0200
+
+    liblzma: Use LZMA1EXT feature in lzma_microlzma_decoder().
+    
+    Here too this avoids the slightly ugly method to set
+    the uncompressed size.
+    
+    Also moved the setting of dict_size to the struct initializer.
+
+ src/liblzma/common/microlzma_decoder.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+commit e310e8b6a490dfb468f4ed68feff246d776b323c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-28 10:28:20 +0200
+
+    liblzma: Use LZMA1EXT feature in lzma_alone_decoder().
+    
+    This avoids the need to use the slightly ugly method to
+    set the uncompressed size.
+
+ src/liblzma/common/alone_decoder.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+commit 33b8a24b6646a9dbfd8358405aec466b13078559
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-27 23:16:21 +0200
+
+    liblzma: Add LZMA_FILTER_LZMA1EXT to support LZMA1 without end marker.
+    
+    Some file formats need support for LZMA1 streams that don't use
+    the end of payload marker (EOPM) alias end of stream (EOS) marker.
+    So far liblzma API has supported decompressing such streams via
+    lzma_alone_decoder() when .lzma header specifies a known
+    uncompressed size. Encoding support hasn't been available in the API.
+    
+    Instead of adding a new LZMA1-only API for this purpose, this commit
+    adds a new filter ID for use with raw encoder and decoder. The main
+    benefit of this approach is that then also filter chains are possible,
+    for example, if someone wants to implement support for .7z files that
+    use the x86 BCJ filter with LZMA1 (not BCJ2 as that isn't supported
+    in liblzma).
+
+ src/liblzma/api/lzma/lzma12.h           | 123 ++++++++++++++++++++++++++++++--
+ src/liblzma/common/filter_common.c      |   7 ++
+ src/liblzma/common/filter_decoder.c     |   6 ++
+ src/liblzma/common/filter_encoder.c     |   9 +++
+ src/liblzma/lzma/lzma2_encoder.c        |   2 +-
+ src/liblzma/lzma/lzma_decoder.c         |  26 ++++++-
+ src/liblzma/lzma/lzma_encoder.c         |  40 +++++++++--
+ src/liblzma/lzma/lzma_encoder.h         |   3 +-
+ src/liblzma/lzma/lzma_encoder_private.h |   3 +
+ 9 files changed, 204 insertions(+), 15 deletions(-)
+
+commit 9a304bf1e45b3ddf61aaeaa7c764915b34618ede
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-27 18:43:07 +0200
+
+    liblzma: Avoid unneeded use of void pointer in LZMA decoder.
+
+ src/liblzma/lzma/lzma_decoder.c | 3 +--
+ src/liblzma/lzma/lzma_decoder.h | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit 218394958c7683f892275bb40eae880620feebcc
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-27 18:20:33 +0200
+
+    liblzma: Pass the Filter ID to LZ encoder and decoder.
+    
+    This allows using two Filter IDs with the same
+    initialization function and data structures.
+
+ src/liblzma/common/alone_decoder.c     | 1 +
+ src/liblzma/common/alone_encoder.c     | 1 +
+ src/liblzma/common/common.h            | 7 +++++--
+ src/liblzma/common/lzip_decoder.c      | 1 +
+ src/liblzma/common/microlzma_decoder.c | 1 +
+ src/liblzma/common/microlzma_encoder.c | 1 +
+ src/liblzma/lz/lz_decoder.c            | 5 +++--
+ src/liblzma/lz/lz_decoder.h            | 3 ++-
+ src/liblzma/lz/lz_encoder.c            | 5 +++--
+ src/liblzma/lz/lz_encoder.h            | 3 ++-
+ src/liblzma/lzma/lzma2_decoder.c       | 3 ++-
+ src/liblzma/lzma/lzma2_encoder.c       | 3 ++-
+ src/liblzma/lzma/lzma_decoder.c        | 2 +-
+ src/liblzma/lzma/lzma_encoder.c        | 2 +-
+ 14 files changed, 26 insertions(+), 12 deletions(-)
+
+commit 1663c7676b76f4c514031797f3db1896e8100f7f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-27 01:03:16 +0200
+
+    liblzma: Remove two FIXME comments.
+
+ src/liblzma/common/filter_encoder.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 11fe708db783ac36ebeeb85da164e29e8c300910
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-26 22:25:30 +0200
+
+    xz: Use lzma_filters_free().
+
+ src/xz/list.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+commit e782af9110d8499c7ac2929bc871540eefea5ea1
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-26 22:21:13 +0200
+
+    liblzma: Use lzma_filters_free() in more places.
+
+ src/liblzma/common/block_header_decoder.c | 20 ++------------------
+ src/liblzma/common/stream_decoder.c       |  4 +---
+ src/liblzma/common/stream_decoder_mt.c    | 22 +++++-----------------
+ 3 files changed, 8 insertions(+), 38 deletions(-)
+
+commit 90caaded2dc6db1d6a55b01160d7e87f4a423628
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-25 18:04:37 +0200
+
+    liblzma: Omit simple coder init functions if they are disabled.
+
+ src/liblzma/simple/arm.c      | 4 ++++
+ src/liblzma/simple/armthumb.c | 4 ++++
+ src/liblzma/simple/ia64.c     | 4 ++++
+ src/liblzma/simple/powerpc.c  | 4 ++++
+ src/liblzma/simple/sparc.c    | 4 ++++
+ src/liblzma/simple/x86.c      | 4 ++++
+ 6 files changed, 24 insertions(+)
+
+commit 5cd9f0df78cc4f8a7807bf6104adea13034fbb45
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 23:24:59 +0200
+
+    xz: Allow nice_len 2 and 3 even if match finder requires 3 or 4.
+    
+    Now that liblzma accepts these, we avoid the extra check and
+    there's one message less for translators too.
+
+ src/xz/options.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+commit 3be88ae071371caa279b44e13f4836fb178fe4ae
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 23:23:55 +0200
+
+    liblzma: Allow nice_len 2 and 3 even if match finder requires 3 or 4.
+    
+    That is, if the specified nice_len is smaller than the minimum
+    of the match finder, silently use the match finder's minimum value
+    instead of reporting an error. The old behavior is annoying to users
+    and it complicates xz options handling too.
+
+ src/liblzma/lz/lz_encoder.c     | 14 +++++++++-----
+ src/liblzma/lz/lz_encoder.h     |  9 +++++++++
+ src/liblzma/lzma/lzma_encoder.c | 11 ++++++++---
+ 3 files changed, 26 insertions(+), 8 deletions(-)
+
+commit 93439cfafe1768b3b18d67d2356ef7e7559bba59
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 16:25:10 +0200
+
+    liblzma: Add lzma_filters_update() support to the multi-threaded encoder.
+    
+    A tiny downside of this is that now a 1-4 tiny allocations are made
+    for every Block because each worker thread needs its own copy of
+    the filter chain.
+
+ src/liblzma/api/lzma/filter.h          | 36 +++++++------
+ src/liblzma/common/stream_encoder_mt.c | 96 +++++++++++++++++++++++++++++++---
+ 2 files changed, 109 insertions(+), 23 deletions(-)
+
+commit 17ac51e689794eb41cab3e80946fec689caea2d2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 14:53:22 +0200
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 06824396b2b6c84f3a235cb7c19c2a9701167797
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 14:52:44 +0200
+
+    Build: Don't put GNU/Linux-specific symbol versions into static liblzma.
+    
+    It not only makes no sense to put symbol versions into a static library
+    but it can also cause breakage.
+    
+    By default Libtool #defines PIC if building a shared library and
+    doesn't define it for static libraries. This is documented in the
+    Libtool manual. It can be overriden using --with-pic or --without-pic.
+    configure.ac detects if --with-pic or --without-pic is used and then
+    gives an error if neither --disable-shared nor --disable-static was
+    used at the same time. Thus, in normal situations it works to build
+    both shared and static library at the same time on GNU/Linux,
+    only --with-pic or --without-pic requires that only one type of
+    library is built.
+    
+    Thanks to John Paul Adrian Glaubitz from Debian for reporting
+    the problem that occurred on ia64:
+    https://www.mail-archive.com/xz-devel@tukaani.org/msg00610.html
+
+ CMakeLists.txt              |   5 +-
+ configure.ac                | 143 +++++++++++++++++++++++++++++---------------
+ src/liblzma/common/common.h |  12 ++++
+ 3 files changed, 111 insertions(+), 49 deletions(-)
+
+commit e1acf7107291f8b3d6d609a7133331ff36d35d14
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 01:32:16 +0200
+
+    liblzma: Refactor to use lzma_filters_free().
+    
+    lzma_filters_free() sets the options to NULL and ids to
+    LZMA_VLI_UNKNOWN so there is no need to do it by caller;
+    the filter arrays will always be left in a safe state.
+    
+    Also use memcpy() instead of a loop to copy a filter chain
+    when it is known to be safe to copy LZMA_FILTERS_MAX + 1
+    (even if the elements past the terminator might be uninitialized).
+
+ src/liblzma/common/stream_encoder.c    | 16 ++++------------
+ src/liblzma/common/stream_encoder_mt.c | 11 ++---------
+ 2 files changed, 6 insertions(+), 21 deletions(-)
+
+commit cb05dbcf8b868441ec805016222f3fd77f1c5caa
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 01:26:37 +0200
+
+    liblzma: Fix another invalid free() after memory allocation failure.
+    
+    This time it can happen when lzma_stream_encoder_mt() is used
+    to reinitialize an existing multi-threaded Stream encoder
+    and one of 1-4 tiny allocations in lzma_filters_copy() fail.
+    
+    It's very similar to the previous bug
+    10430fbf3820dafd4eafd38ec8be161a6978ed2b, happening with
+    an array of lzma_filter structures whose old options are freed
+    but the replacement never arrives due to a memory allocation
+    failure in lzma_filters_copy().
+
+ src/liblzma/common/stream_encoder_mt.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 75f1a6c26df4ce329da0882786403e3ccf5cd898
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-05-05 20:53:42 +0800
+
+    liblzma: Add support for LZMA_SYNC_FLUSH in the Block encoder.
+    
+    The documentation mentions that lzma_block_encoder() supports
+    LZMA_SYNC_FLUSH but it was never added to supported_actions[]
+    in the internal structure. Because of this, LZMA_SYNC_FLUSH could
+    not be used with the Block encoder unless it was the next coder
+    after something like stream_encoder() or stream_encoder_mt().
+
+ src/liblzma/common/block_encoder.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit d0901645170b638c517f5c50866b6ef48f491c65
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 01:02:50 +0200
+
+    liblzma: Add new API function lzma_filters_free().
+    
+    This is small but convenient and should have been added
+    a long time ago.
+
+ src/liblzma/api/lzma/filter.h      | 21 +++++++++++++++++++++
+ src/liblzma/common/filter_common.c | 26 ++++++++++++++++++++++++++
+ src/liblzma/liblzma_generic.map    |  1 +
+ src/liblzma/liblzma_linux.map      |  1 +
+ 4 files changed, 49 insertions(+)
+
+commit ae1f8a723dcde2f2c5cf444bcbb5fc5026b3c3c5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-24 00:02:31 +0200
+
+    CMake: Don't use symbol versioning with static library.
+
+ CMakeLists.txt | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+commit 48c1b99dc537a27e1ca929d8837e778e5ba32191
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-23 21:55:22 +0200
+
+    liblzma: Add lzma_attr_warn_unused_result to lzma_filters_copy().
+
+ src/liblzma/api/lzma/filter.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 10430fbf3820dafd4eafd38ec8be161a6978ed2b
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-23 21:26:21 +0200
+
+    liblzma: Fix invalid free() after memory allocation failure.
+    
+    The bug was in the single-threaded .xz Stream encoder
+    in the code that is used for both re-initialization and for
+    lzma_filters_update(). To trigger it, an application had
+    to either re-initialize an existing encoder instance with
+    lzma_stream_encoder() or use lzma_filters_update(), and
+    then one of the 1-4 tiny allocations in lzma_filters_copy()
+    (called from stream_encoder_update()) must fail. An error
+    was correctly reported but the encoder state was corrupted.
+    
+    This is related to the recent fix in
+    f8ee61e74eb40600445fdb601c374d582e1e9c8a which is good but
+    it wasn't enough to fix the main problem in stream_encoder.c.
+
+ src/liblzma/common/stream_encoder.c | 39 +++++++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 8 deletions(-)
+
+commit cafd6dc397ca8b5b5f7775e8d6876b8fe70f8e70
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-22 16:37:15 +0200
+
+    liblzma: Fix language in a comment.
+
+ src/liblzma/common/stream_encoder.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c392bf8ccba857baaf50399c4b460119befacd54
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-22 11:20:17 +0200
+
+    liblzma: Fix infinite loop in LZMA encoder init with dict_size >= 2 GiB.
+    
+    The encoder doesn't support dictionary sizes larger than 1536 MiB.
+    This is validated, for example, when calculating the memory usage
+    via lzma_raw_encoder_memusage(). It is also enforced by the LZ
+    part of the encoder initialization. However, LZMA encoder with
+    LZMA_MODE_NORMAL did an unsafe calculation with dict_size before
+    such validation and that results in an infinite loop if dict_size
+    was 2 << 30 or greater.
+
+ src/liblzma/lzma/lzma_encoder.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+commit f50534c973a591ccf65485adfc827a8a7126ca6c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-21 13:02:33 +0200
+
+    liblzma: Fix two Doxygen commands in the API headers.
+    
+    These were caught by clang -Wdocumentation.
+
+ src/liblzma/api/lzma/hardware.h   | 2 +-
+ src/liblzma/api/lzma/index_hash.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 649d4872ed2f55196114a061d45b416fc4353569
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-19 19:09:55 +0200
+
+    xz: Refactor duplicate code from hardware_memlimit_mtenc_get().
+
+ src/xz/hardware.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit d327743bb547a53364e5951a16e5f1663fe4b9ff
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-19 19:06:13 +0200
+
+    xz: Add support --threads=+N so that -T+1 gives threaded mode.
+
+ src/xz/args.c     | 18 +++++++++++++++---
+ src/xz/hardware.c | 17 +++++++++++++++--
+ src/xz/hardware.h |  1 +
+ src/xz/xz.1       | 21 ++++++++++++++++++++-
+ 4 files changed, 51 insertions(+), 6 deletions(-)
+
+commit a11a2b8b5e830ba682c1d81aaa7078842b296995
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-11-19 23:18:04 +0800
+
+    CMake: Adds test_memlimit to CMake tests
+
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 2af8d9e9b3f44f62d19e7c39297ec63af2e8c64f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-15 19:10:21 +0200
+
+    Translations: Update the Korean translation.
+
+ po/ko.po | 652 ++++++++++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 371 insertions(+), 281 deletions(-)
+
+commit 16ac05677292f7e21a4feaddcfb2ab062ea5f385
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-11-15 19:09:28 +0200
+
+    Translations: Update the Turkish translation.
+
+ po/tr.po | 568 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 310 insertions(+), 258 deletions(-)
+
 commit b9a67d9a5fa207062d4aa8a01639234609315d31
 Author: Lasse Collin <lasse.collin@tukaani.org>
 Date:   2022-11-15 10:58:39 +0200

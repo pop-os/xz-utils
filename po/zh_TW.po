@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
-"Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-11-15 11:12+0200\n"
+"Report-Msgid-Bugs-To: xz@tukaani.org\n"
+"POT-Creation-Date: 2022-12-01 21:23+0200\n"
 "PO-Revision-Date: 2019-04-23 22:00+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -33,34 +33,34 @@ msgstr "%s：傳入 --block-list 的參數過多"
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 只能作為 --block-list 的最後一個元素"
 
-#: src/xz/args.c:424
+#: src/xz/args.c:436
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s：未知檔案格式類型"
 
-#: src/xz/args.c:447 src/xz/args.c:455
+#: src/xz/args.c:459 src/xz/args.c:467
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s：不支援的完整性檢查類型"
 
-#: src/xz/args.c:491
+#: src/xz/args.c:503
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "「--files」或「--files0」只能指定一個檔案。"
 
-#: src/xz/args.c:559
+#: src/xz/args.c:571
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "%s 環境變數包含過多參數"
 
-#: src/xz/args.c:661
+#: src/xz/args.c:673
 msgid "Compression support was disabled at build time"
 msgstr "已在編譯時停用壓縮支援"
 
-#: src/xz/args.c:668
+#: src/xz/args.c:680
 msgid "Decompression support was disabled at build time"
 msgstr "已在編譯時停用解壓縮支援"
 
-#: src/xz/args.c:674
+#: src/xz/args.c:686
 msgid "Compression of lzip files (.lz) is not supported"
 msgstr ""
 
@@ -265,163 +265,163 @@ msgstr "%s：非期望的檔案結尾"
 msgid "%s: Write error: %s"
 msgstr "%s：寫入時發生錯誤：%s"
 
-#: src/xz/hardware.c:225
+#: src/xz/hardware.c:238
 msgid "Disabled"
 msgstr "已停用"
 
-#: src/xz/hardware.c:256
+#: src/xz/hardware.c:269
 #, fuzzy
 #| msgid "Total amount of physical memory (RAM): "
 msgid "Amount of physical memory (RAM):"
 msgstr "實體記憶體 (RAM) 總量："
 
-#: src/xz/hardware.c:257
+#: src/xz/hardware.c:270
 msgid "Number of processor threads:"
 msgstr ""
 
-#: src/xz/hardware.c:258
+#: src/xz/hardware.c:271
 msgid "Compression:"
 msgstr ""
 
-#: src/xz/hardware.c:259
+#: src/xz/hardware.c:272
 msgid "Decompression:"
 msgstr ""
 
-#: src/xz/hardware.c:260
+#: src/xz/hardware.c:273
 #, fuzzy
 #| msgid "Memory usage limit for decompression:  "
 msgid "Multi-threaded decompression:"
 msgstr "解壓縮記憶體限制：     "
 
-#: src/xz/hardware.c:261
+#: src/xz/hardware.c:274
 msgid "Default for -T0:"
 msgstr ""
 
-#: src/xz/hardware.c:279
+#: src/xz/hardware.c:292
 msgid "Hardware information:"
 msgstr ""
 
-#: src/xz/hardware.c:286
+#: src/xz/hardware.c:299
 #, fuzzy
 #| msgid "Memory usage limit reached"
 msgid "Memory usage limits:"
 msgstr "達到記憶體用量上限"
 
-#: src/xz/list.c:65
+#: src/xz/list.c:68
 msgid "Streams:"
 msgstr ""
 
-#: src/xz/list.c:66
+#: src/xz/list.c:69
 msgid "Blocks:"
 msgstr ""
 
-#: src/xz/list.c:67
+#: src/xz/list.c:70
 #, fuzzy
 #| msgid "  Compressed size:    %s\n"
 msgid "Compressed size:"
 msgstr "  壓縮大小：　　　　　　　%s\n"
 
-#: src/xz/list.c:68
+#: src/xz/list.c:71
 #, fuzzy
 #| msgid "  Uncompressed size:  %s\n"
 msgid "Uncompressed size:"
 msgstr "  未壓縮大小：　　　　　　%s\n"
 
-#: src/xz/list.c:69
+#: src/xz/list.c:72
 msgid "Ratio:"
 msgstr ""
 
-#: src/xz/list.c:70
+#: src/xz/list.c:73
 msgid "Check:"
 msgstr ""
 
-#: src/xz/list.c:71
+#: src/xz/list.c:74
 #, fuzzy
 #| msgid "  Stream padding:     %s\n"
 msgid "Stream Padding:"
 msgstr "  串流填充：　　　　　　　%s\n"
 
-#: src/xz/list.c:72
+#: src/xz/list.c:75
 #, fuzzy
 #| msgid "  Memory needed:      %s MiB\n"
 msgid "Memory needed:"
 msgstr "  所需記憶體量：　　　　　%s MiB\n"
 
-#: src/xz/list.c:73
+#: src/xz/list.c:76
 #, fuzzy
 #| msgid "  Sizes in headers:   %s\n"
 msgid "Sizes in headers:"
 msgstr "  檔頭中標示大小：　　　　%s\n"
 
-#: src/xz/list.c:76
+#: src/xz/list.c:79
 #, fuzzy
 #| msgid "  Number of files:    %s\n"
 msgid "Number of files:"
 msgstr "  檔案數：　　　　　　　　%s\n"
 
-#: src/xz/list.c:119
+#: src/xz/list.c:122
 msgid "Stream"
 msgstr ""
 
-#: src/xz/list.c:120
+#: src/xz/list.c:123
 msgid "Block"
 msgstr ""
 
-#: src/xz/list.c:121
+#: src/xz/list.c:124
 msgid "Blocks"
 msgstr ""
 
-#: src/xz/list.c:122
+#: src/xz/list.c:125
 msgid "CompOffset"
 msgstr ""
 
-#: src/xz/list.c:123
+#: src/xz/list.c:126
 msgid "UncompOffset"
 msgstr ""
 
-#: src/xz/list.c:124
+#: src/xz/list.c:127
 msgid "CompSize"
 msgstr ""
 
-#: src/xz/list.c:125
+#: src/xz/list.c:128
 msgid "UncompSize"
 msgstr ""
 
-#: src/xz/list.c:126
+#: src/xz/list.c:129
 #, fuzzy
 #| msgid "Totals:"
 msgid "TotalSize"
 msgstr "總計："
 
-#: src/xz/list.c:127
+#: src/xz/list.c:130
 msgid "Ratio"
 msgstr ""
 
-#: src/xz/list.c:128
+#: src/xz/list.c:131
 msgid "Check"
 msgstr ""
 
-#: src/xz/list.c:129
+#: src/xz/list.c:132
 msgid "CheckVal"
 msgstr ""
 
-#: src/xz/list.c:130
+#: src/xz/list.c:133
 msgid "Padding"
 msgstr ""
 
-#: src/xz/list.c:131
+#: src/xz/list.c:134
 msgid "Header"
 msgstr ""
 
-#: src/xz/list.c:132
+#: src/xz/list.c:135
 msgid "Flags"
 msgstr ""
 
-#: src/xz/list.c:133
+#: src/xz/list.c:136
 msgid "MemUsage"
 msgstr ""
 
-#: src/xz/list.c:134
+#: src/xz/list.c:137
 msgid "Filters"
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 #. This string is used in tables. In older xz version this
 #. string was limited to ten columns in a fixed-width font, but
 #. nowadays there is no strict length restriction anymore.
-#: src/xz/list.c:166
+#: src/xz/list.c:169
 msgid "None"
 msgstr "無"
 
@@ -437,60 +437,60 @@ msgstr "無"
 #. but the Check ID is known (here 2). In older xz version these
 #. strings were limited to ten columns in a fixed-width font, but
 #. nowadays there is no strict length restriction anymore.
-#: src/xz/list.c:172
+#: src/xz/list.c:175
 msgid "Unknown-2"
 msgstr "未知-2"
 
-#: src/xz/list.c:173
+#: src/xz/list.c:176
 msgid "Unknown-3"
 msgstr "未知-3"
 
-#: src/xz/list.c:175
+#: src/xz/list.c:178
 msgid "Unknown-5"
 msgstr "未知-5"
 
-#: src/xz/list.c:176
+#: src/xz/list.c:179
 msgid "Unknown-6"
 msgstr "未知-6"
 
-#: src/xz/list.c:177
+#: src/xz/list.c:180
 msgid "Unknown-7"
 msgstr "未知-7"
 
-#: src/xz/list.c:178
+#: src/xz/list.c:181
 msgid "Unknown-8"
 msgstr "未知-8"
 
-#: src/xz/list.c:179
+#: src/xz/list.c:182
 msgid "Unknown-9"
 msgstr "未知-9"
 
-#: src/xz/list.c:181
+#: src/xz/list.c:184
 msgid "Unknown-11"
 msgstr "未知-11"
 
-#: src/xz/list.c:182
+#: src/xz/list.c:185
 msgid "Unknown-12"
 msgstr "未知-12"
 
-#: src/xz/list.c:183
+#: src/xz/list.c:186
 msgid "Unknown-13"
 msgstr "未知-13"
 
-#: src/xz/list.c:184
+#: src/xz/list.c:187
 msgid "Unknown-14"
 msgstr "未知-14"
 
-#: src/xz/list.c:185
+#: src/xz/list.c:188
 msgid "Unknown-15"
 msgstr "未知-15"
 
-#: src/xz/list.c:348
+#: src/xz/list.c:351
 #, c-format
 msgid "%s: File is empty"
 msgstr "%s：檔案是空的"
 
-#: src/xz/list.c:353
+#: src/xz/list.c:356
 #, c-format
 msgid "%s: Too small to be a valid .xz file"
 msgstr "%s：因過小而不認為是個有效 .xz 檔"
@@ -499,40 +499,40 @@ msgstr "%s：因過小而不認為是個有效 .xz 檔"
 #. to Ratio, the columns are right aligned. Check and Filename
 #. are left aligned. If you need longer words, it's OK to
 #. use two lines here. Test with "xz -l foo.xz".
-#: src/xz/list.c:722
+#: src/xz/list.c:730
 msgid "Strms  Blocks   Compressed Uncompressed  Ratio  Check   Filename"
 msgstr " 串流　　區塊　　　 已壓縮　　　 未壓縮　 比例　檢驗碼　檔名"
 
-#: src/xz/list.c:1016 src/xz/list.c:1193
+#: src/xz/list.c:1025 src/xz/list.c:1203
 msgid "Yes"
 msgstr "是"
 
-#: src/xz/list.c:1016 src/xz/list.c:1193
+#: src/xz/list.c:1025 src/xz/list.c:1203
 msgid "No"
 msgstr "否"
 
-#: src/xz/list.c:1018 src/xz/list.c:1195
+#: src/xz/list.c:1027 src/xz/list.c:1205
 #, c-format
 msgid "  Minimum XZ Utils version: %s\n"
 msgstr "  最小 XZ 工具程式版本：　%s\n"
 
 #. TRANSLATORS: %s is an integer. Only the plural form of this
 #. message is used (e.g. "2 files"). Test with "xz -l foo.xz bar.xz".
-#: src/xz/list.c:1168
+#: src/xz/list.c:1178
 #, c-format
 msgid "%s file\n"
 msgid_plural "%s files\n"
 msgstr[0] "%s 個檔案\n"
 
-#: src/xz/list.c:1181
+#: src/xz/list.c:1191
 msgid "Totals:"
 msgstr "總計："
 
-#: src/xz/list.c:1259
+#: src/xz/list.c:1269
 msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list 只能在 .xz 檔使用（--format=xz 或 --format=auto）"
 
-#: src/xz/list.c:1265
+#: src/xz/list.c:1275
 msgid "--list does not support reading from standard input"
 msgstr "--list 不支援從標準輸入讀取"
 
@@ -614,17 +614,17 @@ msgstr "需要 %s MiB 的記憶體。已停用記憶體限制器。"
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "需要 %s MiB 的記憶體。記憶體限制為 %s。"
 
-#: src/xz/message.c:1077
+#: src/xz/message.c:915
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s：篩選鏈：%s\n"
 
-#: src/xz/message.c:1087
+#: src/xz/message.c:926
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "嘗試「%s --help」取得更多資訊。"
 
-#: src/xz/message.c:1113
+#: src/xz/message.c:952
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -635,15 +635,15 @@ msgstr ""
 "用 .xz 格式壓縮，或解壓縮 .xz 格式中的 <檔案>。\n"
 "\n"
 
-#: src/xz/message.c:1120
+#: src/xz/message.c:959
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "長選項的必填參數，對短選項也是必填。\n"
 
-#: src/xz/message.c:1124
+#: src/xz/message.c:963
 msgid " Operation mode:\n"
 msgstr " 操作模式：\n"
 
-#: src/xz/message.c:1127
+#: src/xz/message.c:966
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -655,7 +655,7 @@ msgstr ""
 "  -t, --test          測試壓縮檔完整性\n"
 "  -l, --list          列出 .xz 檔的資訊"
 
-#: src/xz/message.c:1133
+#: src/xz/message.c:972
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -663,7 +663,7 @@ msgstr ""
 "\n"
 " 操作修飾詞：\n"
 
-#: src/xz/message.c:1136
+#: src/xz/message.c:975
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
@@ -673,7 +673,7 @@ msgstr ""
 "  -f, --force         強制覆寫輸出檔並（解）壓縮連結\n"
 "  -c, --stdout        寫入標準輸出並不刪除輸入檔"
 
-#: src/xz/message.c:1145
+#: src/xz/message.c:984
 msgid ""
 "      --single-stream decompress only the first stream, and silently\n"
 "                      ignore possible remaining input data"
@@ -681,7 +681,7 @@ msgstr ""
 "      --single-stream 僅解壓縮第一個串流，再\n"
 "                      安靜地忽略可能剩餘的輸入檔"
 
-#: src/xz/message.c:1148
+#: src/xz/message.c:987
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
 "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
@@ -696,7 +696,7 @@ msgstr ""
 "                      則從標準輸入讀取檔名；檔名必須以換行字元作為結尾\n"
 "      --files0[=檔案] 類似 --files 但是以 null 空字元作結尾"
 
-#: src/xz/message.c:1157
+#: src/xz/message.c:996
 msgid ""
 "\n"
 " Basic file format and compression options:\n"
@@ -704,7 +704,7 @@ msgstr ""
 "\n"
 " 基本檔案格式與壓縮選項：\n"
 
-#: src/xz/message.c:1159
+#: src/xz/message.c:998
 #, fuzzy
 #| msgid ""
 #| "  -F, --format=FMT    file format to encode or decode; possible values are\n"
@@ -722,11 +722,11 @@ msgstr ""
 "  -C, --check=檢查碼   完整性檢查類型：「none」（請小心使用）、「crc32」、\n"
 "                      「crc64」（預設值）或「sha256」"
 
-#: src/xz/message.c:1164
+#: src/xz/message.c:1003
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
 msgstr "      --ignore-check  不在解壓縮時驗證完整性"
 
-#: src/xz/message.c:1168
+#: src/xz/message.c:1007
 msgid ""
 "  -0 ... -9           compression preset; default is 6; take compressor *and*\n"
 "                      decompressor memory usage into account before using 7-9!"
@@ -734,7 +734,7 @@ msgstr ""
 "  -0 ... -9           壓縮設定檔；預設值為 6；使用 7-9 前請考慮\n"
 "                      壓縮和解壓縮所使用的記憶體！"
 
-#: src/xz/message.c:1172
+#: src/xz/message.c:1011
 msgid ""
 "  -e, --extreme       try to improve compression ratio by using more CPU time;\n"
 "                      does not affect decompressor memory requirements"
@@ -742,7 +742,7 @@ msgstr ""
 "  -e, --extreme       使用更多 CPU 時間以嘗試改善壓縮比；\n"
 "                      不影響解壓縮器的記憶體需求"
 
-#: src/xz/message.c:1176
+#: src/xz/message.c:1015
 msgid ""
 "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
 "                      to use as many threads as there are processor cores"
@@ -750,7 +750,7 @@ msgstr ""
 "  -T, --threads=NUM   使用最多 NUM 個執行緒；預設為 1；設成 0 則使用所有的\n"
 "                      處理機核心"
 
-#: src/xz/message.c:1181
+#: src/xz/message.c:1020
 msgid ""
 "      --block-size=SIZE\n"
 "                      start a new .xz block after every SIZE bytes of input;\n"
@@ -760,14 +760,14 @@ msgstr ""
 "                      輸入每 <大小> 位元組後，開始一個新 .xz 區塊；\n"
 "                      使用此功能以設定多執行緒壓縮的區塊大小"
 
-#: src/xz/message.c:1185
+#: src/xz/message.c:1024
 msgid ""
 "      --block-list=SIZES\n"
 "                      start a new .xz block after the given comma-separated\n"
 "                      intervals of uncompressed data"
 msgstr ""
 
-#: src/xz/message.c:1189
+#: src/xz/message.c:1028
 msgid ""
 "      --flush-timeout=TIMEOUT\n"
 "                      when compressing, if more than TIMEOUT milliseconds has\n"
@@ -775,7 +775,7 @@ msgid ""
 "                      would block, all pending data is flushed out"
 msgstr ""
 
-#: src/xz/message.c:1195
+#: src/xz/message.c:1034
 #, fuzzy, no-c-format
 #| msgid ""
 #| "      --memlimit-compress=LIMIT\n"
@@ -798,7 +798,7 @@ msgstr ""
 "                      限制壓縮、解壓縮或兩者的記憶體用量上限；\n"
 "                      <限制> 可以是位元組、記憶體百分比 (%)、或 0（預設值）"
 
-#: src/xz/message.c:1204
+#: src/xz/message.c:1043
 msgid ""
 "      --no-adjust     if compression settings exceed the memory usage limit,\n"
 "                      give an error instead of adjusting the settings downwards"
@@ -806,7 +806,7 @@ msgstr ""
 "      --no-adjust     若壓縮設定超過記憶體用量上限，請給出\n"
 "                      錯誤而非下調設定"
 
-#: src/xz/message.c:1210
+#: src/xz/message.c:1049
 msgid ""
 "\n"
 " Custom filter chain for compression (alternative for using presets):"
@@ -814,7 +814,7 @@ msgstr ""
 "\n"
 " 自訂壓縮篩選鏈（使用設定檔時選用）："
 
-#: src/xz/message.c:1219
+#: src/xz/message.c:1058
 msgid ""
 "\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
@@ -842,7 +842,7 @@ msgstr ""
 "                        mf=名稱    尋找符合搜尋器 (hc3, hc4, bt2, bt3, bt4; bt4)\n"
 "                        depth=NUM  最大搜尋深度；0=自動（預設）"
 
-#: src/xz/message.c:1234
+#: src/xz/message.c:1073
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -876,7 +876,7 @@ msgstr ""
 "                      所有 BCJ 篩選器可用的 OPTS：\n"
 "                        start=NUM  轉換起始位移（預設值=0）"
 
-#: src/xz/message.c:1247
+#: src/xz/message.c:1086
 msgid ""
 "\n"
 "  --delta[=OPTS]      Delta filter; valid OPTS (valid values; default):\n"
@@ -884,7 +884,7 @@ msgid ""
 "                                   from each other (1-256; 1)"
 msgstr ""
 
-#: src/xz/message.c:1255
+#: src/xz/message.c:1094
 msgid ""
 "\n"
 " Other options:\n"
@@ -892,7 +892,7 @@ msgstr ""
 "\n"
 " 其他選項：\n"
 
-#: src/xz/message.c:1258
+#: src/xz/message.c:1097
 msgid ""
 "  -q, --quiet         suppress warnings; specify twice to suppress errors too\n"
 "  -v, --verbose       be verbose; specify twice for even more verbose"
@@ -900,21 +900,21 @@ msgstr ""
 "  -q, --quiet         隱藏警告訊息；指定兩次也一併隱藏錯誤訊息\n"
 "  -v, --verbose       輸出較詳細內容；指定兩次更詳細輸出"
 
-#: src/xz/message.c:1263
+#: src/xz/message.c:1102
 msgid "  -Q, --no-warn       make warnings not affect the exit status"
 msgstr "  -Q, --no-warn       即使有警告，退出狀態碼仍不變"
 
-#: src/xz/message.c:1265
+#: src/xz/message.c:1104
 msgid "      --robot         use machine-parsable messages (useful for scripts)"
 msgstr "      --robot         使用機器可解析訊息（適合用於指令稿）"
 
-#: src/xz/message.c:1268
+#: src/xz/message.c:1107
 msgid ""
 "      --info-memory   display the total amount of RAM and the currently active\n"
 "                      memory usage limits, and exit"
 msgstr "      --info-memory   顯示記憶體總量和使用中的記憶體用量限制後退出"
 
-#: src/xz/message.c:1271
+#: src/xz/message.c:1110
 msgid ""
 "  -h, --help          display the short help (lists only the basic options)\n"
 "  -H, --long-help     display this long help and exit"
@@ -922,7 +922,7 @@ msgstr ""
 "  -h, --help          顯示較短說明（僅列出基本選項）\n"
 "  -H, --long-help     顯示較長說明後退出"
 
-#: src/xz/message.c:1275
+#: src/xz/message.c:1114
 msgid ""
 "  -h, --help          display this short help and exit\n"
 "  -H, --long-help     display the long help (lists also the advanced options)"
@@ -930,11 +930,11 @@ msgstr ""
 "  -h, --help          顯示較短說明後退出\n"
 "  -H, --long-help     顯示較長說明（也列出進階選項）"
 
-#: src/xz/message.c:1280
+#: src/xz/message.c:1119
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       顯示版本號碼後退出"
 
-#: src/xz/message.c:1282
+#: src/xz/message.c:1121
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -946,17 +946,17 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c:1288
+#: src/xz/message.c:1127
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "請回報臭蟲至 <%s>（使用英文或芬蘭語）。\n"
 
-#: src/xz/message.c:1290
+#: src/xz/message.c:1129
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s 首頁：<%s>\n"
 
-#: src/xz/message.c:1294
+#: src/xz/message.c:1133
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "此為開發版本，不打算在生產環境使用。"
 
@@ -983,11 +983,6 @@ msgstr "不支援的 LZMA1/LZMA2 設定檔：%s"
 #: src/xz/options.c:355
 msgid "The sum of lc and lp must not exceed 4"
 msgstr "lc 和 lp 的總和不能超過 4"
-
-#: src/xz/options.c:359
-#, c-format
-msgid "The selected match finder requires at least nice=%<PRIu32>"
-msgstr "選取的符合搜尋工具需要至少 nice=%<PRIu32>"
 
 #: src/xz/suffix.c:134 src/xz/suffix.c:265
 #, c-format
@@ -1090,3 +1085,7 @@ msgstr "未知錯誤"
 #, c-format
 #~ msgid "      CheckVal %*s Header  Flags        CompSize    MemUsage  Filters"
 #~ msgstr "      CheckVal %*s Header  Flags        CompSize    MemUsage  Filters"
+
+#, c-format
+#~ msgid "The selected match finder requires at least nice=%<PRIu32>"
+#~ msgstr "選取的符合搜尋工具需要至少 nice=%<PRIu32>"
