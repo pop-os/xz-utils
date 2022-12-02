@@ -34,6 +34,26 @@
 
 #include "lzma.h"
 
+// This is for detecting modern GCC and Clang attributes
+// like __symver__ in GCC >= 10.
+#ifdef __has_attribute
+#	define lzma_has_attribute(attr) __has_attribute(attr)
+#else
+#	define lzma_has_attribute(attr) 0
+#endif
+
+// The extra symbol versioning in the C files may only be used when
+// building a shared library. If HAVE_SYMBOL_VERSIONS_LINUX is defined
+// to 2 then symbol versioning is done only if also PIC is defined.
+// By default Libtool defines PIC when building a shared library and
+// doesn't define it when building a static library but it can be
+// overriden with --with-pic and --without-pic. configure let's rely
+// on PIC if neither --with-pic or --without-pic was used.
+#if defined(HAVE_SYMBOL_VERSIONS_LINUX) \
+		&& (HAVE_SYMBOL_VERSIONS_LINUX == 2 && !defined(PIC))
+#	undef HAVE_SYMBOL_VERSIONS_LINUX
+#endif
+
 #ifdef HAVE_SYMBOL_VERSIONS_LINUX
 // To keep link-time optimization (LTO, -flto) working with GCC,
 // the __symver__ attribute must be used instead of __asm__(".symver ...").
@@ -51,7 +71,12 @@
 // since 2000). When using @@ instead of @@@, the internal name must not be
 // the same as the external name to avoid problems in some situations. This
 // is why "#define foo_52 foo" is needed for the default symbol versions.
-#	if TUKLIB_GNUC_REQ(10, 0) && !defined(__INTEL_COMPILER)
+//
+// __has_attribute is supported before GCC 10 and it is supported in Clang 14
+// too (which doesn't support __symver__) so use it to detect if __symver__
+// is available. This should be far more reliable than looking at compiler
+// version macros as nowadays especially __GNUC__ is defined by many compilers.
+#	if lzma_has_attribute(__symver__)
 #		define LZMA_SYMVER_API(extnamever, type, intname) \
 			extern __attribute__((__symver__(extnamever))) \
 					LZMA_API(type) intname
@@ -150,8 +175,11 @@ typedef void (*lzma_end_function)(
 /// an array of lzma_filter_info structures. This array is used with
 /// lzma_next_filter_init to initialize the filter chain.
 struct lzma_filter_info_s {
-	/// Filter ID. This is used only by the encoder
-	/// with lzma_filters_update().
+	/// Filter ID. This can be used to share the same initiazation
+	/// function *and* data structures with different Filter IDs
+	/// (LZMA_FILTER_LZMA1EXT does it), and also by the encoder
+	/// with lzma_filters_update() if filter chain is updated
+	/// in the middle of a raw stream or Block (LZMA_SYNC_FLUSH).
 	lzma_vli id;
 
 	/// Pointer to function used to initialize the filter.

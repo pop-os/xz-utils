@@ -321,9 +321,9 @@ am__liblzma_la_SOURCES_DIST = ../common/tuklib_physmem.c \
 	common/easy_preset.h common/filter_common.c \
 	common/filter_common.h common/hardware_physmem.c \
 	common/index.c common/index.h common/stream_flags_common.c \
-	common/stream_flags_common.h common/vli_size.c \
-	common/hardware_cputhreads.c common/outqueue.c \
-	common/outqueue.h common/alone_encoder.c \
+	common/stream_flags_common.h common/string_conversion.c \
+	common/vli_size.c common/hardware_cputhreads.c \
+	common/outqueue.c common/outqueue.h common/alone_encoder.c \
 	common/block_buffer_encoder.c common/block_buffer_encoder.h \
 	common/block_encoder.c common/block_encoder.h \
 	common/block_header_encoder.c common/easy_buffer_encoder.c \
@@ -453,7 +453,8 @@ am_liblzma_la_OBJECTS = liblzma_la-tuklib_physmem.lo $(am__objects_1) \
 	liblzma_la-common.lo liblzma_la-block_util.lo \
 	liblzma_la-easy_preset.lo liblzma_la-filter_common.lo \
 	liblzma_la-hardware_physmem.lo liblzma_la-index.lo \
-	liblzma_la-stream_flags_common.lo liblzma_la-vli_size.lo \
+	liblzma_la-stream_flags_common.lo \
+	liblzma_la-string_conversion.lo liblzma_la-vli_size.lo \
 	$(am__objects_2) $(am__objects_3) $(am__objects_4) \
 	$(am__objects_5) $(am__objects_6) $(am__objects_7) \
 	$(am__objects_8) $(am__objects_9) liblzma_la-check.lo \
@@ -569,6 +570,7 @@ am__depfiles_remade = ./$(DEPDIR)/liblzma_la-alone_decoder.Plo \
 	./$(DEPDIR)/liblzma_la-stream_flags_common.Plo \
 	./$(DEPDIR)/liblzma_la-stream_flags_decoder.Plo \
 	./$(DEPDIR)/liblzma_la-stream_flags_encoder.Plo \
+	./$(DEPDIR)/liblzma_la-string_conversion.Plo \
 	./$(DEPDIR)/liblzma_la-tuklib_cpucores.Plo \
 	./$(DEPDIR)/liblzma_la-tuklib_physmem.Plo \
 	./$(DEPDIR)/liblzma_la-vli_decoder.Plo \
@@ -847,22 +849,22 @@ liblzma_la_SOURCES = ../common/tuklib_physmem.c $(am__append_3) \
 	common/filter_common.c common/filter_common.h \
 	common/hardware_physmem.c common/index.c common/index.h \
 	common/stream_flags_common.c common/stream_flags_common.h \
-	common/vli_size.c $(am__append_4) $(am__append_5) \
-	$(am__append_6) $(am__append_7) $(am__append_8) \
-	$(am__append_9) $(am__append_10) $(am__append_11) \
-	check/check.c check/check.h check/crc_macros.h \
-	$(am__append_12) $(am__append_13) $(am__append_14) \
-	$(am__append_15) $(am__append_16) $(am__append_17) \
-	$(am__append_18) $(am__append_19) $(am__append_20) \
-	$(am__append_21) $(am__append_22) $(am__append_24) \
-	$(am__append_25) $(am__append_26) $(am__append_27) \
-	$(am__append_28) $(am__append_29) $(am__append_30) \
-	$(am__append_31) $(am__append_32) $(am__append_33) \
-	$(am__append_34) $(am__append_35) $(am__append_36) \
-	$(am__append_37) $(am__append_38) $(am__append_39) \
-	$(am__append_40) $(am__append_41) $(am__append_42) \
-	$(am__append_43) $(am__append_44) $(am__append_45) \
-	$(am__append_47)
+	common/string_conversion.c common/vli_size.c $(am__append_4) \
+	$(am__append_5) $(am__append_6) $(am__append_7) \
+	$(am__append_8) $(am__append_9) $(am__append_10) \
+	$(am__append_11) check/check.c check/check.h \
+	check/crc_macros.h $(am__append_12) $(am__append_13) \
+	$(am__append_14) $(am__append_15) $(am__append_16) \
+	$(am__append_17) $(am__append_18) $(am__append_19) \
+	$(am__append_20) $(am__append_21) $(am__append_22) \
+	$(am__append_24) $(am__append_25) $(am__append_26) \
+	$(am__append_27) $(am__append_28) $(am__append_29) \
+	$(am__append_30) $(am__append_31) $(am__append_32) \
+	$(am__append_33) $(am__append_34) $(am__append_35) \
+	$(am__append_36) $(am__append_37) $(am__append_38) \
+	$(am__append_39) $(am__append_40) $(am__append_41) \
+	$(am__append_42) $(am__append_43) $(am__append_44) \
+	$(am__append_45) $(am__append_47)
 liblzma_la_CPPFLAGS = \
 	-I$(top_srcdir)/src/liblzma/api \
 	-I$(top_srcdir)/src/liblzma/common \
@@ -1038,6 +1040,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-stream_flags_common.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-stream_flags_decoder.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-stream_flags_encoder.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-string_conversion.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-tuklib_cpucores.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-tuklib_physmem.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/liblzma_la-vli_decoder.Plo@am__quote@ # am--include-marker
@@ -1169,6 +1172,13 @@ liblzma_la-stream_flags_common.lo: common/stream_flags_common.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='common/stream_flags_common.c' object='liblzma_la-stream_flags_common.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblzma_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o liblzma_la-stream_flags_common.lo `test -f 'common/stream_flags_common.c' || echo '$(srcdir)/'`common/stream_flags_common.c
+
+liblzma_la-string_conversion.lo: common/string_conversion.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblzma_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT liblzma_la-string_conversion.lo -MD -MP -MF $(DEPDIR)/liblzma_la-string_conversion.Tpo -c -o liblzma_la-string_conversion.lo `test -f 'common/string_conversion.c' || echo '$(srcdir)/'`common/string_conversion.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/liblzma_la-string_conversion.Tpo $(DEPDIR)/liblzma_la-string_conversion.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='common/string_conversion.c' object='liblzma_la-string_conversion.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblzma_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o liblzma_la-string_conversion.lo `test -f 'common/string_conversion.c' || echo '$(srcdir)/'`common/string_conversion.c
 
 liblzma_la-vli_size.lo: common/vli_size.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblzma_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT liblzma_la-vli_size.lo -MD -MP -MF $(DEPDIR)/liblzma_la-vli_size.Tpo -c -o liblzma_la-vli_size.lo `test -f 'common/vli_size.c' || echo '$(srcdir)/'`common/vli_size.c
@@ -2000,6 +2010,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_common.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_decoder.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_encoder.Plo
+	-rm -f ./$(DEPDIR)/liblzma_la-string_conversion.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-tuklib_cpucores.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-tuklib_physmem.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-vli_decoder.Plo
@@ -2128,6 +2139,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_common.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_decoder.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-stream_flags_encoder.Plo
+	-rm -f ./$(DEPDIR)/liblzma_la-string_conversion.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-tuklib_cpucores.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-tuklib_physmem.Plo
 	-rm -f ./$(DEPDIR)/liblzma_la-vli_decoder.Plo

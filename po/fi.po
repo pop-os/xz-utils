@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.4.0-pre1\n"
-"Report-Msgid-Bugs-To: lasse.collin@tukaani.org\n"
-"POT-Creation-Date: 2022-11-15 11:12+0200\n"
+"Report-Msgid-Bugs-To: xz@tukaani.org\n"
+"POT-Creation-Date: 2022-12-01 21:23+0200\n"
 "PO-Revision-Date: 2022-11-10 16:17+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -33,34 +33,34 @@ msgstr "%s: Liian monta argumenttia valitsimelle --block-list"
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0:aa voi käyttää vain viimeisenä alkiona valitsimen --block-list kanssa"
 
-#: src/xz/args.c:424
+#: src/xz/args.c:436
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: Tuntematon tiedostomuototyyppi"
 
-#: src/xz/args.c:447 src/xz/args.c:455
+#: src/xz/args.c:459 src/xz/args.c:467
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: Eheystarkistuksen tyyppiä ei tueta"
 
-#: src/xz/args.c:491
+#: src/xz/args.c:503
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Vain yksi tiedosto voidaan antaa valitsimille ”--files” ja ”--files0”."
 
-#: src/xz/args.c:559
+#: src/xz/args.c:571
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "Ympäristömuuttuja %s sisältää liian monta argumenttia"
 
-#: src/xz/args.c:661
+#: src/xz/args.c:673
 msgid "Compression support was disabled at build time"
 msgstr "Tiivistämistuki on poistettu käytöstä käännösaikana"
 
-#: src/xz/args.c:668
+#: src/xz/args.c:680
 msgid "Decompression support was disabled at build time"
 msgstr "Purkutuki on poistettu käytöstä käännösaikana"
 
-#: src/xz/args.c:674
+#: src/xz/args.c:686
 msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Lzip-tiedostojen (.lz) pakkaamista ei tueta"
 
@@ -263,143 +263,143 @@ msgstr "%s: Odottamaton tiedoston loppu"
 msgid "%s: Write error: %s"
 msgstr "%s: Kirjoitusvirhe: %s"
 
-#: src/xz/hardware.c:225
+#: src/xz/hardware.c:238
 msgid "Disabled"
 msgstr "Pois käytöstä"
 
-#: src/xz/hardware.c:256
+#: src/xz/hardware.c:269
 msgid "Amount of physical memory (RAM):"
 msgstr "Fyysisen muistin kokonaismäärä (RAM):"
 
-#: src/xz/hardware.c:257
+#: src/xz/hardware.c:270
 msgid "Number of processor threads:"
 msgstr "Suoritinsäikeiden määrä:"
 
-#: src/xz/hardware.c:258
+#: src/xz/hardware.c:271
 msgid "Compression:"
 msgstr "Tiivistys:"
 
-#: src/xz/hardware.c:259
+#: src/xz/hardware.c:272
 msgid "Decompression:"
 msgstr "Purku:"
 
-#: src/xz/hardware.c:260
+#: src/xz/hardware.c:273
 msgid "Multi-threaded decompression:"
 msgstr "Monisäikeinen purku:"
 
-#: src/xz/hardware.c:261
+#: src/xz/hardware.c:274
 msgid "Default for -T0:"
 msgstr "-T0:n oletusarvo:"
 
-#: src/xz/hardware.c:279
+#: src/xz/hardware.c:292
 msgid "Hardware information:"
 msgstr "Laitteiston tiedot:"
 
-#: src/xz/hardware.c:286
+#: src/xz/hardware.c:299
 msgid "Memory usage limits:"
 msgstr "Muistinkäytön rajat:"
 
-#: src/xz/list.c:65
+#: src/xz/list.c:68
 msgid "Streams:"
 msgstr "Virrat:"
 
-#: src/xz/list.c:66
+#: src/xz/list.c:69
 msgid "Blocks:"
 msgstr "Lohkot:"
 
-#: src/xz/list.c:67
+#: src/xz/list.c:70
 msgid "Compressed size:"
 msgstr "Tiivistetty koko:"
 
-#: src/xz/list.c:68
+#: src/xz/list.c:71
 msgid "Uncompressed size:"
 msgstr "Tiivistämätön koko:"
 
-#: src/xz/list.c:69
+#: src/xz/list.c:72
 msgid "Ratio:"
 msgstr "Suhde:"
 
-#: src/xz/list.c:70
+#: src/xz/list.c:73
 msgid "Check:"
 msgstr "Tarkistus:"
 
-#: src/xz/list.c:71
+#: src/xz/list.c:74
 msgid "Stream Padding:"
 msgstr "Virran tasaus:"
 
-#: src/xz/list.c:72
+#: src/xz/list.c:75
 msgid "Memory needed:"
 msgstr "Tarvittava muisti:"
 
-#: src/xz/list.c:73
+#: src/xz/list.c:76
 msgid "Sizes in headers:"
 msgstr "Koot otsakkeissa:"
 
-#: src/xz/list.c:76
+#: src/xz/list.c:79
 msgid "Number of files:"
 msgstr "Tiedostojen määrä:"
 
-#: src/xz/list.c:119
+#: src/xz/list.c:122
 msgid "Stream"
 msgstr "Virta"
 
-#: src/xz/list.c:120
+#: src/xz/list.c:123
 msgid "Block"
 msgstr "Lohko"
 
-#: src/xz/list.c:121
+#: src/xz/list.c:124
 msgid "Blocks"
 msgstr "Lohkot"
 
-#: src/xz/list.c:122
+#: src/xz/list.c:125
 msgid "CompOffset"
 msgstr "TiivSiirr."
 
-#: src/xz/list.c:123
+#: src/xz/list.c:126
 msgid "UncompOffset"
 msgstr "Tv:tönSiirr."
 
-#: src/xz/list.c:124
+#: src/xz/list.c:127
 msgid "CompSize"
 msgstr "TiivKoko"
 
-#: src/xz/list.c:125
+#: src/xz/list.c:128
 msgid "UncompSize"
 msgstr "Tv:tönKoko"
 
-#: src/xz/list.c:126
+#: src/xz/list.c:129
 msgid "TotalSize"
 msgstr "Yht.Koko"
 
-#: src/xz/list.c:127
+#: src/xz/list.c:130
 msgid "Ratio"
 msgstr "Suhde"
 
-#: src/xz/list.c:128
+#: src/xz/list.c:131
 msgid "Check"
 msgstr "Tark."
 
-#: src/xz/list.c:129
+#: src/xz/list.c:132
 msgid "CheckVal"
 msgstr "Tark.arvo"
 
-#: src/xz/list.c:130
+#: src/xz/list.c:133
 msgid "Padding"
 msgstr "Tasaus"
 
-#: src/xz/list.c:131
+#: src/xz/list.c:134
 msgid "Header"
 msgstr "Otsake"
 
-#: src/xz/list.c:132
+#: src/xz/list.c:135
 msgid "Flags"
 msgstr "Liput"
 
-#: src/xz/list.c:133
+#: src/xz/list.c:136
 msgid "MemUsage"
 msgstr "Muist.käyt."
 
-#: src/xz/list.c:134
+#: src/xz/list.c:137
 msgid "Filters"
 msgstr "Suodattimet"
 
@@ -407,7 +407,7 @@ msgstr "Suodattimet"
 #. This string is used in tables. In older xz version this
 #. string was limited to ten columns in a fixed-width font, but
 #. nowadays there is no strict length restriction anymore.
-#: src/xz/list.c:166
+#: src/xz/list.c:169
 msgid "None"
 msgstr "Ei mitään"
 
@@ -415,60 +415,60 @@ msgstr "Ei mitään"
 #. but the Check ID is known (here 2). In older xz version these
 #. strings were limited to ten columns in a fixed-width font, but
 #. nowadays there is no strict length restriction anymore.
-#: src/xz/list.c:172
+#: src/xz/list.c:175
 msgid "Unknown-2"
 msgstr "Tuntematon-2"
 
-#: src/xz/list.c:173
+#: src/xz/list.c:176
 msgid "Unknown-3"
 msgstr "Tuntematon-3"
 
-#: src/xz/list.c:175
+#: src/xz/list.c:178
 msgid "Unknown-5"
 msgstr "Tuntematon-5"
 
-#: src/xz/list.c:176
+#: src/xz/list.c:179
 msgid "Unknown-6"
 msgstr "Tuntematon-6"
 
-#: src/xz/list.c:177
+#: src/xz/list.c:180
 msgid "Unknown-7"
 msgstr "Tuntematon-7"
 
-#: src/xz/list.c:178
+#: src/xz/list.c:181
 msgid "Unknown-8"
 msgstr "Tuntematon-8"
 
-#: src/xz/list.c:179
+#: src/xz/list.c:182
 msgid "Unknown-9"
 msgstr "Tuntematon-9"
 
-#: src/xz/list.c:181
+#: src/xz/list.c:184
 msgid "Unknown-11"
 msgstr "Tuntematon-11"
 
-#: src/xz/list.c:182
+#: src/xz/list.c:185
 msgid "Unknown-12"
 msgstr "Tuntematon-12"
 
-#: src/xz/list.c:183
+#: src/xz/list.c:186
 msgid "Unknown-13"
 msgstr "Tuntematon-13"
 
-#: src/xz/list.c:184
+#: src/xz/list.c:187
 msgid "Unknown-14"
 msgstr "Tuntematon-14"
 
-#: src/xz/list.c:185
+#: src/xz/list.c:188
 msgid "Unknown-15"
 msgstr "Tuntematon-15"
 
-#: src/xz/list.c:348
+#: src/xz/list.c:351
 #, c-format
 msgid "%s: File is empty"
 msgstr "%s: Tiedosto on tyhjä"
 
-#: src/xz/list.c:353
+#: src/xz/list.c:356
 #, c-format
 msgid "%s: Too small to be a valid .xz file"
 msgstr "%s: Liian pieni kelvolliseksi .xz-tiedostoksi"
@@ -477,41 +477,41 @@ msgstr "%s: Liian pieni kelvolliseksi .xz-tiedostoksi"
 #. to Ratio, the columns are right aligned. Check and Filename
 #. are left aligned. If you need longer words, it's OK to
 #. use two lines here. Test with "xz -l foo.xz".
-#: src/xz/list.c:722
+#: src/xz/list.c:730
 msgid "Strms  Blocks   Compressed Uncompressed  Ratio  Check   Filename"
 msgstr "Virrat Lohkot   Tiivist.   Tiivistämätön Suhde  Tark.   Tiedostonimi"
 
-#: src/xz/list.c:1016 src/xz/list.c:1193
+#: src/xz/list.c:1025 src/xz/list.c:1203
 msgid "Yes"
 msgstr "Kyllä"
 
-#: src/xz/list.c:1016 src/xz/list.c:1193
+#: src/xz/list.c:1025 src/xz/list.c:1203
 msgid "No"
 msgstr "Ei"
 
-#: src/xz/list.c:1018 src/xz/list.c:1195
+#: src/xz/list.c:1027 src/xz/list.c:1205
 #, c-format
 msgid "  Minimum XZ Utils version: %s\n"
 msgstr "  XZ Utilsin vähimmäisversio: %s\n"
 
 #. TRANSLATORS: %s is an integer. Only the plural form of this
 #. message is used (e.g. "2 files"). Test with "xz -l foo.xz bar.xz".
-#: src/xz/list.c:1168
+#: src/xz/list.c:1178
 #, c-format
 msgid "%s file\n"
 msgid_plural "%s files\n"
 msgstr[0] "%s tiedosto\n"
 msgstr[1] "%s tiedostoa\n"
 
-#: src/xz/list.c:1181
+#: src/xz/list.c:1191
 msgid "Totals:"
 msgstr "Yhteensä:"
 
-#: src/xz/list.c:1259
+#: src/xz/list.c:1269
 msgid "--list works only on .xz files (--format=xz or --format=auto)"
 msgstr "--list toimii vain .xz-tiedostoille (--format=xz tai --format=auto)"
 
-#: src/xz/list.c:1265
+#: src/xz/list.c:1275
 msgid "--list does not support reading from standard input"
 msgstr "--list ei tue lukemista vakiosyötteestä"
 
@@ -593,17 +593,17 @@ msgstr "%s MiB muistia vaaditaan. Rajoitin on poistettu käytöstä."
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "%s MiB muistia vaaditaan. Raja on %s."
 
-#: src/xz/message.c:1077
+#: src/xz/message.c:915
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s: Suodinketju: %s\n"
 
-#: src/xz/message.c:1087
+#: src/xz/message.c:926
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "Komento ”%s --help” antaa lisää tietoa."
 
-#: src/xz/message.c:1113
+#: src/xz/message.c:952
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -614,15 +614,15 @@ msgstr ""
 "Tiivistä tai pura .xz-muotoisia TIEDOSTOja.\n"
 "\n"
 
-#: src/xz/message.c:1120
+#: src/xz/message.c:959
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Pitkien valitsinten pakolliset argumentit ovat pakollisia myös lyhyille.\n"
 
-#: src/xz/message.c:1124
+#: src/xz/message.c:963
 msgid " Operation mode:\n"
 msgstr " Toimintatila:\n"
 
-#: src/xz/message.c:1127
+#: src/xz/message.c:966
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -634,7 +634,7 @@ msgstr ""
 "  -t, --test          testaa tiivistetyn tiedoston eheys\n"
 "  -l, --list          näytä tietoja .xz-tiedostoista"
 
-#: src/xz/message.c:1133
+#: src/xz/message.c:972
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -642,7 +642,7 @@ msgstr ""
 "\n"
 " Toimintomääreet:\n"
 
-#: src/xz/message.c:1136
+#: src/xz/message.c:975
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
@@ -653,7 +653,7 @@ msgstr ""
 "                      linkit\n"
 "  -c, --stdout        kirjoita vakiotulosteeseen äläkä poista syötetiedostoja"
 
-#: src/xz/message.c:1145
+#: src/xz/message.c:984
 msgid ""
 "      --single-stream decompress only the first stream, and silently\n"
 "                      ignore possible remaining input data"
@@ -661,7 +661,7 @@ msgstr ""
 "      --single-stream pura vain ensimmäinen virta, ja ohita\n"
 "                      hiljaisesti mahdollinen jäljellä oleva syötedata"
 
-#: src/xz/message.c:1148
+#: src/xz/message.c:987
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
 "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
@@ -677,7 +677,7 @@ msgstr ""
 "                      tiedostonimet on päätettävä rivinvaihtomerkillä\n"
 "      --files0[=TIED] kuten --files mutta käytä päättämiseen nul-merkkiä"
 
-#: src/xz/message.c:1157
+#: src/xz/message.c:996
 msgid ""
 "\n"
 " Basic file format and compression options:\n"
@@ -685,7 +685,7 @@ msgstr ""
 "\n"
 " Tiedostomuodon ja tiivistyksen perusvalitsimet:\n"
 
-#: src/xz/message.c:1159
+#: src/xz/message.c:998
 msgid ""
 "  -F, --format=FMT    file format to encode or decode; possible values are\n"
 "                      `auto' (default), `xz', `lzma', `lzip', and `raw'\n"
@@ -697,11 +697,11 @@ msgstr ""
 "  -C, --check=CHECK   eheystarkastuksen tyyppi: ”none” (käytä varoen),\n"
 "                      ”crc32”, ”crc64” (oletus) tai ”sha256”"
 
-#: src/xz/message.c:1164
+#: src/xz/message.c:1003
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
 msgstr "      --ignore-check  älä suorita eheystarkastusta purettaessa"
 
-#: src/xz/message.c:1168
+#: src/xz/message.c:1007
 msgid ""
 "  -0 ... -9           compression preset; default is 6; take compressor *and*\n"
 "                      decompressor memory usage into account before using 7-9!"
@@ -710,7 +710,7 @@ msgstr ""
 "                      *ja* purun muistinkäyttö huomioon ennen kuin käytät\n"
 "                      arvoja 7–9!"
 
-#: src/xz/message.c:1172
+#: src/xz/message.c:1011
 msgid ""
 "  -e, --extreme       try to improve compression ratio by using more CPU time;\n"
 "                      does not affect decompressor memory requirements"
@@ -718,7 +718,7 @@ msgstr ""
 "  -e, --extreme       yritä parantaa tiivistyssuhdetta käyttämällä enemmän\n"
 "                      suoritinaikaa; ei vaikuta purkimen muistivaatimuksiin"
 
-#: src/xz/message.c:1176
+#: src/xz/message.c:1015
 msgid ""
 "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
 "                      to use as many threads as there are processor cores"
@@ -726,7 +726,7 @@ msgstr ""
 "  -T, --threads=MÄÄRÄ käytä enintää MÄÄRÄä säiettä; oletus on 1; asettamalla\n"
 "                      0:ksi käytetään suoritinytimien määrän verran säikeitä"
 
-#: src/xz/message.c:1181
+#: src/xz/message.c:1020
 msgid ""
 "      --block-size=SIZE\n"
 "                      start a new .xz block after every SIZE bytes of input;\n"
@@ -736,7 +736,7 @@ msgstr ""
 "                      aloita uusi .xz-lohko aina KOKO syötetavun jälkeen; käytä\n"
 "                      tätä säikeistetyn tiivistyksen lohkokoon asettamiseen"
 
-#: src/xz/message.c:1185
+#: src/xz/message.c:1024
 msgid ""
 "      --block-list=SIZES\n"
 "                      start a new .xz block after the given comma-separated\n"
@@ -747,7 +747,7 @@ msgstr ""
 "                      käsitelty pilkuilla erotellut tavumäärät"
 
 # FIXME: tarvitaan kiva suomenkielinen termi block-verbille tässä merkityksessä
-#: src/xz/message.c:1189
+#: src/xz/message.c:1028
 msgid ""
 "      --flush-timeout=TIMEOUT\n"
 "                      when compressing, if more than TIMEOUT milliseconds has\n"
@@ -759,7 +759,7 @@ msgstr ""
 "                      edellisestä huuhtomisesta ja syötteen lukemisen\n"
 "                      jatkaminen pysähtyisi, kaikki odottava data huuhdellaan"
 
-#: src/xz/message.c:1195
+#: src/xz/message.c:1034
 #, no-c-format
 msgid ""
 "      --memlimit-compress=LIMIT\n"
@@ -777,7 +777,7 @@ msgstr ""
 "                      säikeistetylle purkamisella tai näille kaikille; RAJA\n"
 "                      on tavuja, %-osuus RAMista tai 0 oletusarvoille"
 
-#: src/xz/message.c:1204
+#: src/xz/message.c:1043
 msgid ""
 "      --no-adjust     if compression settings exceed the memory usage limit,\n"
 "                      give an error instead of adjusting the settings downwards"
@@ -785,7 +785,7 @@ msgstr ""
 "      --no-adjust     jos tiivistysasetukset ylittävät muistinkäytön rajan,\n"
 "                      anna virhe äläkä pudota asetuksia alaspäin"
 
-#: src/xz/message.c:1210
+#: src/xz/message.c:1049
 msgid ""
 "\n"
 " Custom filter chain for compression (alternative for using presets):"
@@ -793,7 +793,7 @@ msgstr ""
 "\n"
 " Mukautettu suodinketju tiivistykselle (vaihtoehto esiasetuksille):"
 
-#: src/xz/message.c:1219
+#: src/xz/message.c:1058
 msgid ""
 "\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
@@ -823,7 +823,7 @@ msgstr ""
 "                                   bt4; bt4)\n"
 "                        depth=LUKU enimmäishakusyvyys; 0=automaattinen (oletus)"
 
-#: src/xz/message.c:1234
+#: src/xz/message.c:1073
 msgid ""
 "\n"
 "  --x86[=OPTS]        x86 BCJ filter (32-bit and 64-bit)\n"
@@ -847,7 +847,7 @@ msgstr ""
 "                      Kelvolliset ASETukset kaikille BCJ-suotimille:\n"
 "                        start=LUKU muunnoksien aloitussiirtymä (oletus=0)"
 
-#: src/xz/message.c:1247
+#: src/xz/message.c:1086
 msgid ""
 "\n"
 "  --delta[=OPTS]      Delta filter; valid OPTS (valid values; default):\n"
@@ -859,7 +859,7 @@ msgstr ""
 "                        dist=LUKU  toisistaan vähennettävien tavujen\n"
 "                                   välinen etäisyys (1–256; 1)"
 
-#: src/xz/message.c:1255
+#: src/xz/message.c:1094
 msgid ""
 "\n"
 " Other options:\n"
@@ -867,7 +867,7 @@ msgstr ""
 "\n"
 " Muut valitsimet:\n"
 
-#: src/xz/message.c:1258
+#: src/xz/message.c:1097
 msgid ""
 "  -q, --quiet         suppress warnings; specify twice to suppress errors too\n"
 "  -v, --verbose       be verbose; specify twice for even more verbose"
@@ -875,15 +875,15 @@ msgstr ""
 "  -q, --quiet         vaienna varoitukset; kahdesti antamalla myös virheet\n"
 "  -v, --verbose       ole lavea; kahdesti antamalla vieläkin laveampi"
 
-#: src/xz/message.c:1263
+#: src/xz/message.c:1102
 msgid "  -Q, --no-warn       make warnings not affect the exit status"
 msgstr "  -Q, --no-warn       älkööt varoitukset vaikuttako paluuarvoon"
 
-#: src/xz/message.c:1265
+#: src/xz/message.c:1104
 msgid "      --robot         use machine-parsable messages (useful for scripts)"
 msgstr "      --robot         käytä koneluettavia viestejä (sopii skripteihin)"
 
-#: src/xz/message.c:1268
+#: src/xz/message.c:1107
 msgid ""
 "      --info-memory   display the total amount of RAM and the currently active\n"
 "                      memory usage limits, and exit"
@@ -891,7 +891,7 @@ msgstr ""
 "      --info-memory   näytä RAM-muistin kokonaismäärä ja parhaillaan\n"
 "                      vallitsevat muistinkäytön rajat, ja poistu"
 
-#: src/xz/message.c:1271
+#: src/xz/message.c:1110
 msgid ""
 "  -h, --help          display the short help (lists only the basic options)\n"
 "  -H, --long-help     display this long help and exit"
@@ -899,7 +899,7 @@ msgstr ""
 "  -h, --help          näytä lyhyt ohje (kertoo vain perusvalitsimet)\n"
 "  -H, --long-help     näytä tämä pitkä ohje ja poistu"
 
-#: src/xz/message.c:1275
+#: src/xz/message.c:1114
 msgid ""
 "  -h, --help          display this short help and exit\n"
 "  -H, --long-help     display the long help (lists also the advanced options)"
@@ -907,11 +907,11 @@ msgstr ""
 "  -h, --help          näytä tämä lyhyt ohje ja poistu\n"
 "  -H, --long-help     näytä pitkä ohje (kertoo myös lisävalitsimet)"
 
-#: src/xz/message.c:1280
+#: src/xz/message.c:1119
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       näytä versionumero ja poistu"
 
-#: src/xz/message.c:1282
+#: src/xz/message.c:1121
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -923,17 +923,17 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c:1288
+#: src/xz/message.c:1127
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr "Ilmoita ohjelmistovioista (suomeksi) osoitteeseen <%s>.\n"
 
-#: src/xz/message.c:1290
+#: src/xz/message.c:1129
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s -kotisivu: <%s>\n"
 
-#: src/xz/message.c:1294
+#: src/xz/message.c:1133
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "TÄMÄ ON KEHITYSVERSIO, JOTA EI OLE TARKOITETTU TUOTANTOKÄYTTÖÖN."
 
@@ -960,11 +960,6 @@ msgstr "Ei-tuettu LZMA1/LZMA2-esiasetus: %s"
 #: src/xz/options.c:355
 msgid "The sum of lc and lp must not exceed 4"
 msgstr "lc:n ja lp:n summa ei saa olla yli 4"
-
-#: src/xz/options.c:359
-#, c-format
-msgid "The selected match finder requires at least nice=%<PRIu32>"
-msgstr "Valittu täsmäävyydenetsin vaatii vähintään nice-arvon=%<PRIu32>"
 
 #: src/xz/suffix.c:134 src/xz/suffix.c:265
 #, c-format
@@ -1020,6 +1015,10 @@ msgstr "Vakiotulosteeseen kirjoitus epäonnistui"
 #: src/common/tuklib_exit.c:43
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
+
+#, c-format
+#~ msgid "The selected match finder requires at least nice=%<PRIu32>"
+#~ msgstr "Valittu täsmäävyydenetsin vaatii vähintään nice-arvon=%<PRIu32>"
 
 #~ msgid "Sandbox is disabled due to incompatible command line arguments"
 #~ msgstr "Hiekkalaatikko on poistettu käytöstä yhteensopimattomien komentoriviargumenttien vuoksi"

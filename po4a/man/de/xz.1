@@ -10,7 +10,7 @@
 .\" This file was generated with po4a. Translate the source file.
 .\"
 .\"*******************************************************************
-.TH XZ 1 2022\-11\-09 Tukaani XZ\-Dienstprogramme
+.TH XZ 1 2022\-12\-01 Tukaani XZ\-Dienstprogramme
 .
 .SH BEZEICHNUNG
 xz, unxz, xzcat, lzma, unlzma, lzcat \- .xz\- und .lzma\-Dateien komprimieren
@@ -720,6 +720,12 @@ mode.  Setting \fIthreads\fP to any other value, including \fB0\fP, will use the
 multi\-threaded compressor even if the system supports only one hardware
 thread.  (\fBxz\fP 5.2.x used single\-threaded mode in this situation.)
 .IP ""
+To use multi\-threaded mode with only one thread, set \fIthreads\fP to \fB+1\fP.
+The \fB+\fP prefix has no effect with values other than \fB1\fP.  A memory usage
+limit can still make \fBxz\fP switch to single\-threaded mode unless
+\fB\-\-no\-adjust\fP is used.  Support for the \fB+\fP prefix was added in \fBxz\fP
+5.4.0.
+.IP ""
 If an automatic number of threads has been requested and no memory usage
 limit has been specified, then a system\-specific default soft limit will be
 used to possibly limit the number of threads.  It is a soft limit in sense
@@ -1009,9 +1015,8 @@ Diese BCJ\-Filter haben bekannte Probleme mit dem Kompressionsverhältnis:
 .IP \(bu 3
 Some types of files containing executable code (for example, object files,
 static libraries, and Linux kernel modules)  have the addresses in the
-instructions filled with filler values.  These BCJ filters (except ARM64)
-will still do the address conversion, which will make the compression worse
-with these files.  The ARM64 filter doesn't have this problem.
+instructions filled with filler values.  These BCJ filters will still do the
+address conversion, which will make the compression worse with these files.
 .IP \(bu 3
 If a BCJ filter is applied on an archive, it is possible that it makes the
 compression ratio worse than not using a BCJ filter.  For example, if there
