@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-11-30 18:45+0200\n"
+"POT-Creation-Date: 2022-12-13 20:39+0200\n"
 "PO-Revision-Date: 2020-02-14 18:33+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -19,44 +19,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2.4\n"
 
-#: src/xz/args.c:63
+#: src/xz/args.c:76
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: Virheellinen argumentti valitsimelle --block-list"
 
-#: src/xz/args.c:73
+#: src/xz/args.c:86
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Liian monta argumenttia valitsimelle --block-list"
 
-#: src/xz/args.c:102
+#: src/xz/args.c:115
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0:aa voi käyttää vain viimeisenä alkiona valitsimen --block-list kanssa"
 
-#: src/xz/args.c:406
+#: src/xz/args.c:421
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: Tuntematon tiedostomuototyyppi"
 
-#: src/xz/args.c:429 src/xz/args.c:437
+#: src/xz/args.c:444 src/xz/args.c:452
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: Eheystarkistuksen tyyppiä ei tueta"
 
-#: src/xz/args.c:473
+#: src/xz/args.c:488
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Vain yksi tiedosto voidaan antaa valitsimille ”--files” ja ”--files0”."
 
-#: src/xz/args.c:541
+#: src/xz/args.c:556
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "Ympäristömuuttuja %s sisältää liian monta argumenttia"
 
-#: src/xz/args.c:643
+#: src/xz/args.c:658
 msgid "Compression support was disabled at build time"
 msgstr "Tiivistämistuki on poistettu käytöstä käännösaikana"
 
-#: src/xz/args.c:650
+#: src/xz/args.c:665
 msgid "Decompression support was disabled at build time"
 msgstr "Purkutuki on poistettu käytöstä käännösaikana"
 

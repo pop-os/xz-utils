@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-11-30 18:45+0200\n"
+"POT-Creation-Date: 2022-12-13 20:39+0200\n"
 "PO-Revision-Date: 2021-01-06 22:30-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge.net>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Virtaal 1.0.0-beta1\n"
 
-#: src/xz/args.c:63
+#: src/xz/args.c:76
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: Argumento inválido para --block-list"
 
-#: src/xz/args.c:73
+#: src/xz/args.c:86
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Argumentos demais para --block-list"
 
-#: src/xz/args.c:102
+#: src/xz/args.c:115
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 só pode ser usado como o último elemento em --block-list"
 
-#: src/xz/args.c:406
+#: src/xz/args.c:421
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: Tipo de formato de arquivo desconhecido"
 
-#: src/xz/args.c:429 src/xz/args.c:437
+#: src/xz/args.c:444 src/xz/args.c:452
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: Tipo de verificação de integridade sem suporte"
 
-#: src/xz/args.c:473
+#: src/xz/args.c:488
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Somente um arquivo pode ser especificado com \"--files\" ou \"--files0\"."
 
-#: src/xz/args.c:541
+#: src/xz/args.c:556
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "A variável de ambiente %s contém argumentos demais"
 
-#: src/xz/args.c:643
+#: src/xz/args.c:658
 msgid "Compression support was disabled at build time"
 msgstr "Suporte a compressão foi desabilitado em tempo de compilação"
 
-#: src/xz/args.c:650
+#: src/xz/args.c:665
 msgid "Decompression support was disabled at build time"
 msgstr "Suporte a descompressão foi desabilitado em tempo de compilação"
 
