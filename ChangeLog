@@ -1,3 +1,241 @@
+commit b69da6d4bb6bb11fc0cf066920791990d2b22a06
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 20:37:17 +0200
+
+    Bump version to 5.4.0 and soname to 5.4.0.
+
+ src/liblzma/Makefile.am         | 2 +-
+ src/liblzma/api/lzma/version.h  | 6 +++---
+ src/liblzma/liblzma_generic.map | 2 +-
+ src/liblzma/liblzma_linux.map   | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+
+commit 20869eb3fb280ff4f271ef527b12b6bf68b05e19
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 20:29:39 +0200
+
+    Update INSTALL: CMake on Windows isn't experimental anymore.
+    
+    Using CMake to build liblzma should work on a few other OSes
+    but building the command line tools is still subtly broken.
+    
+    It is known that shared library versioning may differ between
+    CMake and Libtool builds on some OSes, most notably Darwin.
+
+ INSTALL | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+commit cbbd84451944e3e8c63acfaa3c923f6d8aff7852
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 19:47:53 +0200
+
+    Add NEWS for 5.4.0.
+
+ NEWS | 202 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 202 insertions(+)
+
+commit c3e94d37e8d10a3e96019864b6f5d7b578db2c14
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 17:41:20 +0200
+
+    Fix a typo in NEWS.
+
+ NEWS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0d2a2e0a545c3da2b3e9500f1e531eb903087245
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 17:41:03 +0200
+
+    Add NEWS for 5.2.10.
+
+ NEWS | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit 177ece1c8eb007188fb1b04eff09ca2193fbdea6
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 12:30:45 +0200
+
+    Tests: Fix a typo in tests/files/README.
+
+ tests/files/README | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 60f45bdbaa6b07558b3f4baac285739b0c6342f5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 12:30:09 +0200
+
+    Tests: Add two ARM64 test files.
+
+ tests/files/README                  |   7 +++++++
+ tests/files/good-1-arm64-lzma2-1.xz | Bin 0 -> 512 bytes
+ tests/files/good-1-arm64-lzma2-2.xz | Bin 0 -> 488 bytes
+ tests/test_files.sh                 |   5 +++++
+ 4 files changed, 12 insertions(+)
+
+commit f5e419550619c548c7c35d7e367cf00580a56521
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 22:44:21 +0200
+
+    Translations: Update the Catalan translation.
+
+ po/ca.po | 657 +++++++++++++++++++++++++++++----------------------------------
+ 1 file changed, 306 insertions(+), 351 deletions(-)
+
+commit 0fb9d355da3789b1757040af475b4e6bbc8b8af8
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 19:18:12 +0200
+
+    Update THANKS.
+
+ THANKS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit e5b6c161c61a37c54dcb76a99bbb83ac4abe02dc
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 19:07:58 +0200
+
+    Update AUTHORS.
+
+ AUTHORS | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit f2d98e691099d82054d5f3071ef6f5e809932e44
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 15:31:14 +0200
+
+    Docs: Omit multi-threaded decompress from TODO.
+    
+    The TODO file outdated still.
+
+ TODO | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit b42908c42a4cc091db45a7e5ba0e0ecceaa3f6da
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-11 21:16:09 +0200
+
+    Docs: Update xz-file-format.txt to 1.1.0 for ARM64 filter.
+
+ doc/xz-file-format.txt | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+commit 854f2f5946b353cb0963fd6dfd54d363adc89b9f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-11 21:13:57 +0200
+
+    xz: Rename --experimental-arm64 to --arm64.
+
+ src/xz/args.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 31dbd1e5fb65831915a7bbb531c3f19aea8d57a5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-11 21:13:06 +0200
+
+    liblzma: Change LZMA_FILTER_ARM64 to the official Filter ID 0x0A.
+
+ src/liblzma/api/lzma/bcj.h | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+commit 01b3549e523edac899ec4925b282ceddd20da116
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 19:24:22 +0200
+
+    xz: Make args_info.files_name a const pointer.
+
+ src/xz/args.c | 2 +-
+ src/xz/args.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit bc665b84ea6bf7946394a08122177efe41b26a5f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 19:18:16 +0200
+
+    xz: Don't modify argv[].
+    
+    The code that parses --memlimit options and --block-list modified
+    the argv[] when parsing the option string from optarg. This was
+    visible in "ps auxf" and such and could be confusing. I didn't
+    understand it back in the day when I wrote that code. Now a copy
+    is allocated when modifiable strings are needed.
+
+ src/xz/args.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+commit a13064e1c290de7933db72b6dffbd65cfce59c9f
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 18:18:57 +0200
+
+    Translations: Update the German man page translations.
+
+ po4a/de.po | 4570 ++++++++++++++++++------------------------------------------
+ 1 file changed, 1374 insertions(+), 3196 deletions(-)
+
+commit 8bdbe42a8d0d75dff70206b923fc4bce5c69a40a
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-12-06 23:05:56 +0800
+
+    Translations: Update the German translation.
+
+ po/de.po | 586 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 315 insertions(+), 271 deletions(-)
+
+commit 5c304b57c24ef40ff57f864301065f0244c05bde
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-12-06 23:04:25 +0800
+
+    Translations: Update the Turkish translation.
+
+ po/tr.po | 221 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 108 insertions(+), 113 deletions(-)
+
+commit 6d86781fdb937970486500447ebb49b98244235b
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-12-06 23:02:11 +0800
+
+    Translations: Update the Croatian translation.
+
+ po/hr.po | 228 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 113 insertions(+), 115 deletions(-)
+
+commit 7a5b4b8075eb36026b1796f04ffed5830c42396a
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-12-06 22:56:30 +0800
+
+    Translations: Add Romanian translation of man pages.
+    
+    Thanks to Remus-Gabriel Chelu.
+
+ po4a/po4a.conf |    2 +-
+ po4a/ro.po     | 3692 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 3693 insertions(+), 1 deletion(-)
+
+commit c6977e7400088177556e8771bcb839eb7d90caa3
+Author: Jia Tan <jiat0218@gmail.com>
+Date:   2022-12-06 22:52:13 +0800
+
+    Translations: Update the Romanian translation.
+
+ po/ro.po | 294 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 147 insertions(+), 147 deletions(-)
+
+commit ac2a747e939c2cbccff7a49c399769af5e02d2ab
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 17:30:09 +0200
+
+    liblzma: Check for unexpected NULL pointers in block_header_decode().
+    
+    The API docs gave an impression that such checks are done
+    but they actually weren't done. In practice it made little
+    difference since the calling code has a bug if these are NULL.
+    
+    Thanks to Jia Tan for the original patch that checked for
+    block->filters == NULL.
+
+ src/liblzma/common/block_header_decoder.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
 commit 24790f49ae66938c1c7574315e1c0aba1ed5ed25
 Author: Lasse Collin <lasse.collin@tukaani.org>
 Date:   2022-12-01 20:59:32 +0200
