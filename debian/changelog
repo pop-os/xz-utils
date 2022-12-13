@@ -1,9 +1,9 @@
-xz-utils (5.2.10-0.0) UNRELEASED; urgency=medium
+xz-utils (5.2.10-0.0) unstable; urgency=medium
 
   * Non-maintainer upload.
   * New upstream release.
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 13 Dec 2022 21:50:32 +0100
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 13 Dec 2022 22:42:32 +0100
 
 xz-utils (5.2.9-0.0) unstable; urgency=medium
 
