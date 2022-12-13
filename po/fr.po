@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz-5.2.4\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-12-01 21:23+0200\n"
+"POT-Creation-Date: 2022-12-13 20:47+0200\n"
 "PO-Revision-Date: 2019-05-12 05:46+0200\n"
 "Last-Translator: Stéphane Aulery <lkppo@free.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -18,48 +18,48 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n==1) ? 0 : 1;\n"
 
-#: src/xz/args.c:64
+#: src/xz/args.c:77
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s : argument de l'option --block-list invalide"
 
-#: src/xz/args.c:74
+#: src/xz/args.c:87
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s : trop d'arguments pour l'option --block-list"
 
-#: src/xz/args.c:103
+#: src/xz/args.c:116
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 peut seulement être utilisé en dernier élément de --block-list"
 
-#: src/xz/args.c:436
+#: src/xz/args.c:451
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s : Format de fichier inconnu"
 
-#: src/xz/args.c:459 src/xz/args.c:467
+#: src/xz/args.c:474 src/xz/args.c:482
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s : Type de vérification d'intégrité inconnu"
 
-#: src/xz/args.c:503
+#: src/xz/args.c:518
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Un seul fichier peut être spécifié avec `--files' ou `--files0'."
 
-#: src/xz/args.c:571
+#: src/xz/args.c:586
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "La variable d'environnement %s contient trop d'arguments"
 
-#: src/xz/args.c:673
+#: src/xz/args.c:688
 msgid "Compression support was disabled at build time"
 msgstr "Le support de la compression à était désactivé lors de la compilaton"
 
-#: src/xz/args.c:680
+#: src/xz/args.c:695
 msgid "Decompression support was disabled at build time"
 msgstr "Le support de la décompression a été désactivé lors de la compilation"
 
-#: src/xz/args.c:686
+#: src/xz/args.c:701
 msgid "Compression of lzip files (.lz) is not supported"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.4.0-pre1\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-12-01 21:23+0200\n"
+"POT-Creation-Date: 2022-12-13 20:47+0200\n"
 "PO-Revision-Date: 2022-11-10 16:17+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -19,48 +19,48 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.2\n"
 
-#: src/xz/args.c:64
+#: src/xz/args.c:77
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: Virheellinen argumentti valitsimelle --block-list"
 
-#: src/xz/args.c:74
+#: src/xz/args.c:87
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: Liian monta argumenttia valitsimelle --block-list"
 
-#: src/xz/args.c:103
+#: src/xz/args.c:116
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0:aa voi käyttää vain viimeisenä alkiona valitsimen --block-list kanssa"
 
-#: src/xz/args.c:436
+#: src/xz/args.c:451
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: Tuntematon tiedostomuototyyppi"
 
-#: src/xz/args.c:459 src/xz/args.c:467
+#: src/xz/args.c:474 src/xz/args.c:482
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: Eheystarkistuksen tyyppiä ei tueta"
 
-#: src/xz/args.c:503
+#: src/xz/args.c:518
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Vain yksi tiedosto voidaan antaa valitsimille ”--files” ja ”--files0”."
 
-#: src/xz/args.c:571
+#: src/xz/args.c:586
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "Ympäristömuuttuja %s sisältää liian monta argumenttia"
 
-#: src/xz/args.c:673
+#: src/xz/args.c:688
 msgid "Compression support was disabled at build time"
 msgstr "Tiivistämistuki on poistettu käytöstä käännösaikana"
 
-#: src/xz/args.c:680
+#: src/xz/args.c:695
 msgid "Decompression support was disabled at build time"
 msgstr "Purkutuki on poistettu käytöstä käännösaikana"
 
-#: src/xz/args.c:686
+#: src/xz/args.c:701
 msgid "Compression of lzip files (.lz) is not supported"
 msgstr "Lzip-tiedostojen (.lz) pakkaamista ei tueta"
 

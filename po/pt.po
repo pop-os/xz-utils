@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-12-01 21:23+0200\n"
+"POT-Creation-Date: 2022-12-13 20:47+0200\n"
 "PO-Revision-Date: 2019-09-27 08:08+0100\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -19,48 +19,48 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
-#: src/xz/args.c:64
+#: src/xz/args.c:77
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: argumento inválido para --block-list"
 
-#: src/xz/args.c:74
+#: src/xz/args.c:87
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: demasiados argumentos para --block-list"
 
-#: src/xz/args.c:103
+#: src/xz/args.c:116
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 só pode ser usado como o último elemento em --block-list"
 
-#: src/xz/args.c:436
+#: src/xz/args.c:451
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: tipo de formato de ficheiro desconhecido"
 
-#: src/xz/args.c:459 src/xz/args.c:467
+#: src/xz/args.c:474 src/xz/args.c:482
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: tipo de verificação de integridade não suportado"
 
-#: src/xz/args.c:503
+#: src/xz/args.c:518
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Só pode especificar um ficheiro com \"--files\" ou \"--files0\"."
 
-#: src/xz/args.c:571
+#: src/xz/args.c:586
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "A variável de ambiente %s contém demasiados argumentos"
 
-#: src/xz/args.c:673
+#: src/xz/args.c:688
 msgid "Compression support was disabled at build time"
 msgstr "O suporte a compressão foi desactivado ao compilar"
 
-#: src/xz/args.c:680
+#: src/xz/args.c:695
 msgid "Decompression support was disabled at build time"
 msgstr "O suporte a descompressão foi desactivado ao compilar"
 
-#: src/xz/args.c:686
+#: src/xz/args.c:701
 msgid "Compression of lzip files (.lz) is not supported"
 msgstr ""
 
