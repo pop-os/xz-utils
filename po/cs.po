@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz-utils\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-11-30 18:45+0200\n"
+"POT-Creation-Date: 2022-12-13 20:39+0200\n"
 "PO-Revision-Date: 2010-12-03 11:32+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <diskuze@lists.l10n.cz>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "X-Poedit-Language: Czech\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: src/xz/args.c:63
+#: src/xz/args.c:76
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr ""
 
-#: src/xz/args.c:73
+#: src/xz/args.c:86
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr ""
 
-#: src/xz/args.c:102
+#: src/xz/args.c:115
 msgid "0 can only be used as the last element in --block-list"
 msgstr ""
 
-#: src/xz/args.c:406
+#: src/xz/args.c:421
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: Neznámý typ formátu souboru"
 
-#: src/xz/args.c:429 src/xz/args.c:437
+#: src/xz/args.c:444 src/xz/args.c:452
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: Neznámý typ kontroly integrity"
 
-#: src/xz/args.c:473
+#: src/xz/args.c:488
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Spolu s přepínači „--files“ nebo „--files0“ může být zadán pouze jeden soubor"
 
-#: src/xz/args.c:541
+#: src/xz/args.c:556
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "Proměnná prostředí %s obsahuje příliš mnoho argumentů"
 
-#: src/xz/args.c:643
+#: src/xz/args.c:658
 msgid "Compression support was disabled at build time"
 msgstr ""
 
-#: src/xz/args.c:650
+#: src/xz/args.c:665
 msgid "Decompression support was disabled at build time"
 msgstr ""
 

@@ -1,3 +1,107 @@
+commit f7c2cc55618b9af3318f0c908cf8db0df1e28e7c
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 13:03:20 +0200
+
+    Bump version and soname for 5.2.10.
+
+ src/liblzma/Makefile.am        | 2 +-
+ src/liblzma/api/lzma/version.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit e4e5d5bbb1b4965d9874b558520c48c6eaefdfcd
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 13:02:15 +0200
+
+    Add NEWS for 5.2.10.
+
+ NEWS | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit e207267c4b735a31dbf8495b32f76113a188bc98
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-13 12:30:45 +0200
+
+    Tests: Fix a typo in tests/files/README.
+
+ tests/files/README | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 90f8e0828b95bb91b07eb29a64c4cabb182e7c89
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 19:09:20 +0200
+
+    Update AUTHORS.
+
+ AUTHORS | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit 59a17888e96d748a119558e793ebb60d7f08a857
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 19:24:22 +0200
+
+    xz: Make args_info.files_name a const pointer.
+
+ src/xz/args.c | 2 +-
+ src/xz/args.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 4af80d4f5131bcdc827020ddc64172531f365bd7
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 19:18:16 +0200
+
+    xz: Don't modify argv[].
+    
+    The code that parses --memlimit options and --block-list modified
+    the argv[] when parsing the option string from optarg. This was
+    visible in "ps auxf" and such and could be confusing. I didn't
+    understand it back in the day when I wrote that code. Now a copy
+    is allocated when modifiable strings are needed.
+
+ src/xz/args.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+commit 7623b22d1d59c78033425a2448613837bcd203a2
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-08 17:30:09 +0200
+
+    liblzma: Check for unexpected NULL pointers in block_header_decode().
+    
+    The API docs gave an impression that such checks are done
+    but they actually weren't done. In practice it made little
+    difference since the calling code has a bug if these are NULL.
+    
+    Thanks to Jia Tan for the original patch that checked for
+    block->filters == NULL.
+
+ src/liblzma/common/block_header_decoder.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit ef315163efdf82e327608ae9b8df1bfea42eb6b5
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-01 20:04:17 +0200
+
+    liblzma: Use __has_attribute(__symver__) to fix Clang detection.
+    
+    If someone sets up Clang to define __GNUC__ to 10 or greater
+    then symvers broke. __has_attribute is supported by such GCC
+    and Clang versions that don't support __symver__ so this should
+    be much better and simpler way to detect if __symver__ is
+    actually supported.
+    
+    Thanks to Tomasz Gajc for the bug report.
+
+ src/liblzma/common/common.h | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+commit 7e86a7632c98657be3967a3fe5304d696574aa23
+Author: Lasse Collin <lasse.collin@tukaani.org>
+Date:   2022-12-12 15:45:04 +0200
+
+    Update THANKS (sync all from master).
+
+ THANKS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
 commit d8a898eb9974683bc725c49ec76722f9a8758f48
 Author: Lasse Collin <lasse.collin@tukaani.org>
 Date:   2022-11-30 18:33:05 +0200

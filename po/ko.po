@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.6\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-11-30 18:45+0200\n"
+"POT-Creation-Date: 2022-12-13 20:39+0200\n"
 "PO-Revision-Date: 2022-06-28 16:23+0900\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.1\n"
 
-#: src/xz/args.c:63
+#: src/xz/args.c:76
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: --block-list의 인자값이 잘못됨"
 
-#: src/xz/args.c:73
+#: src/xz/args.c:86
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: --block-list 인자 갯수가 너무 많음"
 
-#: src/xz/args.c:102
+#: src/xz/args.c:115
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 값은 --block-list의 마지막 원소로만 사용할 수 있습니다"
 
-#: src/xz/args.c:406
+#: src/xz/args.c:421
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: 알 수 없는 파일 형식"
 
-#: src/xz/args.c:429 src/xz/args.c:437
+#: src/xz/args.c:444 src/xz/args.c:452
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: 지원하지 않는 무결성 검사 형식"
 
-#: src/xz/args.c:473
+#: src/xz/args.c:488
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "`--files' 또는 `--files0' 옵션으로 하나의 파일만 지정할 수 있습니다."
 
-#: src/xz/args.c:541
+#: src/xz/args.c:556
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "%s 환경 변수에 너무 많은 인자 값이 들어있습니다"
 
-#: src/xz/args.c:643
+#: src/xz/args.c:658
 msgid "Compression support was disabled at build time"
 msgstr "빌드 시점에 압축 기능을 비활성했습니다"
 
-#: src/xz/args.c:650
+#: src/xz/args.c:665
 msgid "Decompression support was disabled at build time"
 msgstr "빌드 시점에 압축 해제 기능을 비활성했습니다"
 

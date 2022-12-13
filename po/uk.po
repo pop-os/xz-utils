@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.2.4\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-11-30 18:45+0200\n"
+"POT-Creation-Date: 2022-12-13 20:39+0200\n"
 "PO-Revision-Date: 2022-06-28 23:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 19.03.70\n"
 
-#: src/xz/args.c:63
+#: src/xz/args.c:76
 #, c-format
 msgid "%s: Invalid argument to --block-list"
 msgstr "%s: некоректний аргумент --block-list"
 
-#: src/xz/args.c:73
+#: src/xz/args.c:86
 #, c-format
 msgid "%s: Too many arguments to --block-list"
 msgstr "%s: забагато аргументів --block-list"
 
-#: src/xz/args.c:102
+#: src/xz/args.c:115
 msgid "0 can only be used as the last element in --block-list"
 msgstr "0 можна використовувати лише як останній елемент у --block-list"
 
-#: src/xz/args.c:406
+#: src/xz/args.c:421
 #, c-format
 msgid "%s: Unknown file format type"
 msgstr "%s: невідомий тип формату файлів"
 
-#: src/xz/args.c:429 src/xz/args.c:437
+#: src/xz/args.c:444 src/xz/args.c:452
 #, c-format
 msgid "%s: Unsupported integrity check type"
 msgstr "%s: непідтримуваний тип перевірки цілісності"
 
-#: src/xz/args.c:473
+#: src/xz/args.c:488
 msgid "Only one file can be specified with `--files' or `--files0'."
 msgstr "Разом із параметрами --files або --files0 можна вказувати лише один файл."
 
-#: src/xz/args.c:541
+#: src/xz/args.c:556
 #, c-format
 msgid "The environment variable %s contains too many arguments"
 msgstr "У змінній середовища %s міститься надто багато аргументів"
 
-#: src/xz/args.c:643
+#: src/xz/args.c:658
 msgid "Compression support was disabled at build time"
 msgstr "Підтримку стискання було вимкнено під час збирання програми"
 
-#: src/xz/args.c:650
+#: src/xz/args.c:665
 msgid "Decompression support was disabled at build time"
 msgstr "Підтримку розпаковування було вимкнено під час збирання програми"
 
