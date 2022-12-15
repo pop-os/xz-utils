@@ -12,6 +12,7 @@ Standards-Version: 4.6.1
 Vcs-Browser: https://repo.or.cz/w/xz/debian
 Vcs-Git: https://repo.or.cz/r/xz/debian
 Homepage: https://tukaani.org/xz/
+Rules-Requires-Root: no
 
 Package: liblzma5
 Section: libs
