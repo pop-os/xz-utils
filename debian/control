@@ -9,8 +9,8 @@ Build-Depends: debhelper-compat (= 13), dpkg-dev (>= 1.16.2),
 Build-Depends-Indep: doxygen
 Build-Conflicts: automake1.4
 Standards-Version: 4.6.1
-Vcs-Browser: https://repo.or.cz/w/xz/debian
-Vcs-Git: https://repo.or.cz/r/xz/debian
+Vcs-Browser: https://salsa.debian.org/debian/xz-utils
+Vcs-Git: https://salsa.debian.org/debian/xz-utils
 Homepage: https://tukaani.org/xz/
 Rules-Requires-Root: no
 

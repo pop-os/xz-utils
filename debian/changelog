@@ -2,6 +2,7 @@ xz-utils (5.4.0-0.1) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * Add RRR = no to control file.
+  * Point VCS tags to salsa.d.o.
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 15 Dec 2022 18:13:34 +0100
 
