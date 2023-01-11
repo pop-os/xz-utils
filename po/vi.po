@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xz 5.1.4beta\n"
 "Report-Msgid-Bugs-To: xz@tukaani.org\n"
-"POT-Creation-Date: 2022-12-13 20:47+0200\n"
+"POT-Creation-Date: 2023-01-11 19:01+0200\n"
 "PO-Revision-Date: 2014-09-25 09:06+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
@@ -567,63 +567,63 @@ msgstr "Không thể đọc dữ liệu từ đầu vào tiêu chuẩn khi đọ
 msgid "%s: "
 msgstr "%s: "
 
-#: src/xz/message.c:788 src/xz/message.c:847
+#: src/xz/message.c:797 src/xz/message.c:856
 msgid "Internal error (bug)"
 msgstr "Lỗi nội bộ (lỗi)"
 
-#: src/xz/message.c:795
+#: src/xz/message.c:804
 msgid "Cannot establish signal handlers"
 msgstr "Không thể thiết lập bộ xử lý tín hiệu"
 
-#: src/xz/message.c:804
+#: src/xz/message.c:813
 msgid "No integrity check; not verifying file integrity"
 msgstr "Không có kiểm tra toàn vẹn nên không thể thẩm tra tính toàn vẹn của tập tin"
 
-#: src/xz/message.c:807
+#: src/xz/message.c:816
 msgid "Unsupported type of integrity check; not verifying file integrity"
 msgstr "Kiểu kiểm tra toàn vẹn chưa được hỗ trợ; nên không thể thẩm tra tính toàn vẹn của tập tin"
 
-#: src/xz/message.c:814
+#: src/xz/message.c:823
 msgid "Memory usage limit reached"
 msgstr "Đã chạm mốc giới hạn sử dụng bộ nhớ"
 
-#: src/xz/message.c:817
+#: src/xz/message.c:826
 msgid "File format not recognized"
 msgstr "Không nhận ra định dạng tập tin"
 
-#: src/xz/message.c:820
+#: src/xz/message.c:829
 msgid "Unsupported options"
 msgstr "Tùy chọn không được hỗ trợ"
 
-#: src/xz/message.c:823
+#: src/xz/message.c:832
 msgid "Compressed data is corrupt"
 msgstr "Dữ liệu đã nén bị hỏng"
 
-#: src/xz/message.c:826
+#: src/xz/message.c:835
 msgid "Unexpected end of input"
 msgstr "Gặp kết thúc đầu vào bất ngờ"
 
-#: src/xz/message.c:868
+#: src/xz/message.c:877
 #, c-format
 msgid "%s MiB of memory is required. The limiter is disabled."
 msgstr "Yêu cầu cần có %s MiB bộ nhớ. Nhưng giới hạn bị tắt."
 
-#: src/xz/message.c:896
+#: src/xz/message.c:905
 #, c-format
 msgid "%s MiB of memory is required. The limit is %s."
 msgstr "Yêu cầu cần có %s MiB bộ nhớ. Nhưng giới hạn là %s."
 
-#: src/xz/message.c:915
+#: src/xz/message.c:924
 #, c-format
 msgid "%s: Filter chain: %s\n"
 msgstr "%s: Móc xích lọc: %s\n"
 
-#: src/xz/message.c:926
+#: src/xz/message.c:935
 #, c-format
 msgid "Try `%s --help' for more information."
 msgstr "Hãy chạy lệnh “%s --help” để xem thông tin thêm."
 
-#: src/xz/message.c:952
+#: src/xz/message.c:961
 #, c-format
 msgid ""
 "Usage: %s [OPTION]... [FILE]...\n"
@@ -634,15 +634,15 @@ msgstr ""
 "Nén hoặc giải nén các TẬP TIN có định dạng .xz.\n"
 "\n"
 
-#: src/xz/message.c:959
+#: src/xz/message.c:968
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Các tùy chọn dài bắt buộc phải có đối số thì với tùy chọn ngắn cũng vậy.\n"
 
-#: src/xz/message.c:963
+#: src/xz/message.c:972
 msgid " Operation mode:\n"
 msgstr " Chế độ thao tác:\n"
 
-#: src/xz/message.c:966
+#: src/xz/message.c:975
 msgid ""
 "  -z, --compress      force compression\n"
 "  -d, --decompress    force decompression\n"
@@ -654,7 +654,7 @@ msgstr ""
 "  -t, --test          kiểm tra tính toàn vẹn của tập tin nén\n"
 "  -l, --list          liệt kê các thông tin về tập tin .xz"
 
-#: src/xz/message.c:972
+#: src/xz/message.c:981
 msgid ""
 "\n"
 " Operation modifiers:\n"
@@ -662,7 +662,7 @@ msgstr ""
 "\n"
 " Bộ chỉnh sửa thao tác:\n"
 
-#: src/xz/message.c:975
+#: src/xz/message.c:984
 msgid ""
 "  -k, --keep          keep (don't delete) input files\n"
 "  -f, --force         force overwrite of output file and (de)compress links\n"
@@ -672,7 +672,7 @@ msgstr ""
 "  -f, --force         buộc ghi đè tập tin đầu ra và (giải) nén các liên kết\n"
 "  -c, --stdout        ghi ra đầu ra tiêu chuẩn và không xóa tập tin đầu vào"
 
-#: src/xz/message.c:984
+#: src/xz/message.c:993
 msgid ""
 "      --single-stream decompress only the first stream, and silently\n"
 "                      ignore possible remaining input data"
@@ -680,7 +680,7 @@ msgstr ""
 "      --single-stream chỉ giải nén luồng dữ liệu đầu, và bỏ qua\n"
 "                      dữ liệu đầu vào còn lại có thể"
 
-#: src/xz/message.c:987
+#: src/xz/message.c:996
 msgid ""
 "      --no-sparse     do not create sparse files when decompressing\n"
 "  -S, --suffix=.SUF   use the suffix `.SUF' on compressed files\n"
@@ -696,7 +696,7 @@ msgstr ""
 "                      chuẩn; chúng phải được kết thúc bằng ký tự dòng mới\n"
 "      --files0[=TẬP-TIN] giống --files nhưng ký tự kết thúc là null"
 
-#: src/xz/message.c:996
+#: src/xz/message.c:1005
 msgid ""
 "\n"
 " Basic file format and compression options:\n"
@@ -704,7 +704,7 @@ msgstr ""
 "\n"
 " Các tùy chọn về định dạng và nén cơ bản:\n"
 
-#: src/xz/message.c:998
+#: src/xz/message.c:1007
 #, fuzzy
 #| msgid ""
 #| "  -F, --format=FMT    file format to encode or decode; possible values are\n"
@@ -722,11 +722,11 @@ msgstr ""
 "  -C, --check=KIỂM    kiểu kiểm tra toàn vẹn: “none” (thận trọng khi dùng),\n"
 "                      “crc32”, “crc64” (mặc định), hay “sha256”"
 
-#: src/xz/message.c:1003
+#: src/xz/message.c:1012
 msgid "      --ignore-check  don't verify the integrity check when decompressing"
 msgstr "      --ignore-check  không thẩm tra tính toàn vẹn khi giải nén"
 
-#: src/xz/message.c:1007
+#: src/xz/message.c:1016
 msgid ""
 "  -0 ... -9           compression preset; default is 6; take compressor *and*\n"
 "                      decompressor memory usage into account before using 7-9!"
@@ -734,7 +734,7 @@ msgstr ""
 "  -0 ... -9           đặt mức nén; mặc định là 6; tiêu dùng nhiều bộ nhớ khi nén\n"
 "                      và giải nén, nên tính toán trước khi dùng 7-9!"
 
-#: src/xz/message.c:1011
+#: src/xz/message.c:1020
 msgid ""
 "  -e, --extreme       try to improve compression ratio by using more CPU time;\n"
 "                      does not affect decompressor memory requirements"
@@ -742,7 +742,7 @@ msgstr ""
 "  -e, --extreme       cố gắng nâng cao mức nén bằng cách dùng nhiều CPU hơn;\n"
 "                      nhưng không yêu cần nhiều bộ nhớ khi giải nén"
 
-#: src/xz/message.c:1015
+#: src/xz/message.c:1024
 msgid ""
 "  -T, --threads=NUM   use at most NUM threads; the default is 1; set to 0\n"
 "                      to use as many threads as there are processor cores"
@@ -750,7 +750,7 @@ msgstr ""
 "  -T, --threads=SỐ    dùng tối đa là SỐ tuyến trình; mặc định là 1; đặt\n"
 "                      thành 0 để dùng số lượng bằng số lõi vi xử lý"
 
-#: src/xz/message.c:1020
+#: src/xz/message.c:1029
 msgid ""
 "      --block-size=SIZE\n"
 "                      start a new .xz block after every SIZE bytes of input;\n"
@@ -760,7 +760,7 @@ msgstr ""
 "                      bắt đầu một khối .xz mới sau mỗi CỠ byte của đầu vào;\n"
 "                      dùng tùy chọn này để đặt cỡ khối cho nén tuyến trình"
 
-#: src/xz/message.c:1024
+#: src/xz/message.c:1033
 msgid ""
 "      --block-list=SIZES\n"
 "                      start a new .xz block after the given comma-separated\n"
@@ -770,7 +770,7 @@ msgstr ""
 "                      bắt đầu một khối .xz mới sau một danh sách ngăn\n"
 "                      cách bằng dấu phẩy nhịp dữ của dữ liệu chưa nén"
 
-#: src/xz/message.c:1028
+#: src/xz/message.c:1037
 msgid ""
 "      --flush-timeout=TIMEOUT\n"
 "                      when compressing, if more than TIMEOUT milliseconds has\n"
@@ -782,7 +782,7 @@ msgstr ""
 "                      kể từ lần đẩy dữ liệu lên đĩa trước đó và đang đọc thêm\n"
 "                      khối nữa, mọi dữ liệu đang chờ sẽ được ghi lên đĩa"
 
-#: src/xz/message.c:1034
+#: src/xz/message.c:1043
 #, fuzzy, no-c-format
 #| msgid ""
 #| "      --memlimit-compress=LIMIT\n"
@@ -806,7 +806,7 @@ msgstr ""
 "                      hoặc cả hai; GIỚI_HẠN có đơn vị là byte, % của RAM,\n"
 "                      hay 0 cho mặc định"
 
-#: src/xz/message.c:1043
+#: src/xz/message.c:1052
 msgid ""
 "      --no-adjust     if compression settings exceed the memory usage limit,\n"
 "                      give an error instead of adjusting the settings downwards"
@@ -814,7 +814,7 @@ msgstr ""
 "      --no-adjust     nếu các cài đặt nén vượt quá giới hạn dùng bộ nhớ,\n"
 "                      đưa ra một lỗi thay vì sửa đổi các cài đặt xuống"
 
-#: src/xz/message.c:1049
+#: src/xz/message.c:1058
 msgid ""
 "\n"
 " Custom filter chain for compression (alternative for using presets):"
@@ -822,7 +822,7 @@ msgstr ""
 "\n"
 " Móc xích lọc tùy chỉnh cho nén (thay cho việc dùng chỉnh trước):"
 
-#: src/xz/message.c:1058
+#: src/xz/message.c:1067
 msgid ""
 "\n"
 "  --lzma1[=OPTS]      LZMA1 or LZMA2; OPTS is a comma-separated list of zero or\n"
@@ -850,7 +850,7 @@ msgstr ""
 "                        mf=TÊN     bộ tìm khớp (hc3, hc4, bt2, bt3, bt4; bt4)\n"
 "                        depth=SỐ   mức sâu tìm kiếm tối đa; 0=tự động (mặc định)"
 
-#: src/xz/message.c:1073
+#: src/xz/message.c:1082
 #, fuzzy
 #| msgid ""
 #| "\n"
@@ -884,7 +884,7 @@ msgstr ""
 "                      các tùy chọn hợp lệ cho mọi bộ lọc BCJ:\n"
 "                        start=SỐ khoảng bù khởi đầu cho chuyển đổi (mặc định=0)"
 
-#: src/xz/message.c:1086
+#: src/xz/message.c:1095
 msgid ""
 "\n"
 "  --delta[=OPTS]      Delta filter; valid OPTS (valid values; default):\n"
@@ -897,7 +897,7 @@ msgstr ""
 "                        dist=SỐ    khoảng cách giữa các byte được trừ từ\n"
 "                                   những cái khác (1-256; 1)"
 
-#: src/xz/message.c:1094
+#: src/xz/message.c:1103
 msgid ""
 "\n"
 " Other options:\n"
@@ -905,7 +905,7 @@ msgstr ""
 "\n"
 " Tùy chọn khác:\n"
 
-#: src/xz/message.c:1097
+#: src/xz/message.c:1106
 msgid ""
 "  -q, --quiet         suppress warnings; specify twice to suppress errors too\n"
 "  -v, --verbose       be verbose; specify twice for even more verbose"
@@ -914,17 +914,17 @@ msgstr ""
 "                      chỉ định hai lần nến bạn muốn chặn cả báo lỗi\n"
 "  -v, --verbose       thông báo chi tiết; dùng hai lần nếu muốn chi tiết hơn"
 
-#: src/xz/message.c:1102
+#: src/xz/message.c:1111
 msgid "  -Q, --no-warn       make warnings not affect the exit status"
 msgstr "  -Q, --no-warn       làm cho các cảnh báo không ảnh hưởng đến trạng thái thoát"
 
-#: src/xz/message.c:1104
+#: src/xz/message.c:1113
 msgid "      --robot         use machine-parsable messages (useful for scripts)"
 msgstr ""
 "      --robot         dùng các thông điệp máy có thể phân tích\n"
 "                      (hữu dụng với scripts)"
 
-#: src/xz/message.c:1107
+#: src/xz/message.c:1116
 msgid ""
 "      --info-memory   display the total amount of RAM and the currently active\n"
 "                      memory usage limits, and exit"
@@ -932,7 +932,7 @@ msgstr ""
 "      --info-memory   hiển thị tổng lượng RAM và mức giới hạn tiêu dùng\n"
 "                      bộ nhớ hiện tại, rồi thoát"
 
-#: src/xz/message.c:1110
+#: src/xz/message.c:1119
 msgid ""
 "  -h, --help          display the short help (lists only the basic options)\n"
 "  -H, --long-help     display this long help and exit"
@@ -941,7 +941,7 @@ msgstr ""
 "                      (chỉ liệt kê các tùy chọn cơ bản)\n"
 "  -H, --long-help     hiển thị trợ giúp đầy đủ rồi thoát"
 
-#: src/xz/message.c:1114
+#: src/xz/message.c:1123
 msgid ""
 "  -h, --help          display this short help and exit\n"
 "  -H, --long-help     display the long help (lists also the advanced options)"
@@ -950,11 +950,11 @@ msgstr ""
 "  -H, --long-help     hiển thị trợ giúp đầy đủ\n"
 "                      (liệt kê cả những tùy chọn cấp cao)"
 
-#: src/xz/message.c:1119
+#: src/xz/message.c:1128
 msgid "  -V, --version       display the version number and exit"
 msgstr "  -V, --version       hiển thị số phiên bản và thoát"
 
-#: src/xz/message.c:1121
+#: src/xz/message.c:1130
 msgid ""
 "\n"
 "With no FILE, or when FILE is -, read standard input.\n"
@@ -966,19 +966,19 @@ msgstr ""
 #. for this package. Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the email or WWW
 #. address for translation bugs. Thanks.
-#: src/xz/message.c:1127
+#: src/xz/message.c:1136
 #, c-format
 msgid "Report bugs to <%s> (in English or Finnish).\n"
 msgstr ""
 "Hãy báo cáo lỗi cho <%s> (bằng tiếng Anh hoặc Phần Lan).\n"
 "Thông báo lỗi dịch cho: <http://translationproject.org/team/vi.html>.\n"
 
-#: src/xz/message.c:1129
+#: src/xz/message.c:1138
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "Trang chủ %s: <%s>.\n"
 
-#: src/xz/message.c:1133
+#: src/xz/message.c:1142
 msgid "THIS IS A DEVELOPMENT VERSION NOT INTENDED FOR PRODUCTION USE."
 msgstr "ĐÂY LÀ PHIÊN BẢN PHÁT TRIỂN VÀ NÓ KHÔNG PHÙ HỢP VỚI MỤC ĐÍCH SẢN XUẤT."
 
@@ -1006,22 +1006,22 @@ msgstr "Hiện nay chưa hỗ trợ LZMA1/LZMA2: %s"
 msgid "The sum of lc and lp must not exceed 4"
 msgstr "Tổng số lượng lc và lp không được vượt quá 4"
 
-#: src/xz/suffix.c:134 src/xz/suffix.c:265
+#: src/xz/suffix.c:137 src/xz/suffix.c:268
 #, c-format
 msgid "%s: With --format=raw, --suffix=.SUF is required unless writing to stdout"
 msgstr "%s: Nếu --format=raw, --suffix=.SUF sẽ được yêu cầu trừ trường hợp ghi ra đầu ra tiêu chuẩn"
 
-#: src/xz/suffix.c:165
+#: src/xz/suffix.c:168
 #, c-format
 msgid "%s: Filename has an unknown suffix, skipping"
 msgstr "%s: Tên tập tin có phần hậu tố chưa biết nên bỏ qua"
 
-#: src/xz/suffix.c:186
+#: src/xz/suffix.c:189
 #, c-format
 msgid "%s: File already has `%s' suffix, skipping"
 msgstr "%s: Tập tin đã sẵn có hậu tố “%s” nên bỏ qua"
 
-#: src/xz/suffix.c:402
+#: src/xz/suffix.c:405
 #, c-format
 msgid "%s: Invalid filename suffix"
 msgstr "%s: Hậu tố tên tập tin không hợp lệ"

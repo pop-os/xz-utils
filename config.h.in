@@ -51,6 +51,9 @@
 /* Define to 1 if you have the `clock_gettime' function. */
 #undef HAVE_CLOCK_GETTIME
 
+/* Define to 1 if `CLOCK_MONOTONIC' is declared in <time.h>. */
+#undef HAVE_CLOCK_MONOTONIC
+
 /* Define to 1 if you have the <CommonCrypto/CommonDigest.h> header file. */
 #undef HAVE_COMMONCRYPTO_COMMONDIGEST_H
 
@@ -60,14 +63,6 @@
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
 #undef HAVE_DCGETTEXT
-
-/* Define to 1 if you have the declaration of `CLOCK_MONOTONIC', and to 0 if
-   you don't. */
-#undef HAVE_DECL_CLOCK_MONOTONIC
-
-/* Define to 1 if you have the declaration of `program_invocation_name', and
-   to 0 if you don't. */
-#undef HAVE_DECL_PROGRAM_INVOCATION_NAME
 
 /* Define to 1 if any of HAVE_DECODER_foo have been defined. */
 #undef HAVE_DECODERS
@@ -208,6 +203,9 @@
 /* Define to 1 if you have the `posix_fadvise' function. */
 #undef HAVE_POSIX_FADVISE
 
+/* Define to 1 if `program_invocation_name' is declared in <errno.h>. */
+#undef HAVE_PROGRAM_INVOCATION_NAME
+
 /* Define to 1 if you have the `pthread_condattr_setclock' function. */
 #undef HAVE_PTHREAD_CONDATTR_SETCLOCK
 
@@ -302,8 +300,8 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Define to 1 if _mm_clmulepi64_si128 is usable. See configure.ac for
-   details. */
+/* Define to 1 if _mm_set_epi64x and _mm_clmulepi64_si128 are usable. See
+   configure.ac for details. */
 #undef HAVE_USABLE_CLMUL
 
 /* Define to 1 if you have the `utime' function. */
