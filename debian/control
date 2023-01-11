@@ -36,8 +36,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Multi-Arch: foreign
 Conflicts: lzma (<< 9.22-1), xz-lzma
-Breaks: lzip (<< 1.8~rc2)
-Replaces: lzip (<< 1.8~rc2), xz-lzma
+Breaks: lzip (<< 1.8~rc2), manpages-de (<< 4.1.0-1), manpages-fr (<< 4.1.0-1)
+Replaces: lzip (<< 1.8~rc2), xz-lzma, manpages-de (<< 4.1.0-1), manpages-fr (<< 4.1.0-1)
 Provides: lzma
 Description: XZ-format compression utilities
  XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm

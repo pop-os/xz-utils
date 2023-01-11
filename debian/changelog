@@ -2,6 +2,8 @@ xz-utils (5.4.1-0.0) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * Import 5.4.1.
+  * Provide proper package relationship with manpages-{de|fr}
+   (Closes: #1028375).
 
  -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 11 Jan 2023 21:53:48 +0100
 
