@@ -4,6 +4,9 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 %:
 	dh $@ $(opt_no_act)
 
+override_dh_autoreconf:
+	./autogen.sh
+
 override_dh_auto_clean:
 	dh_auto_clean --builddirectory debian/xzdec-build
 	dh_auto_clean --builddirectory debian/normal-build
