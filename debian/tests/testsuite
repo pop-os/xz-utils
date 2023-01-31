@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Tweak the Makefile to link against the installed liblzma for the tests
+sed 's@..top_builddir..src.liblzma.liblzma.la@-llzma@' -i tests/Makefile.am
+
+./configure
+
+exec make test
