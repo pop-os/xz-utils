@@ -34,6 +34,9 @@ override_dh_auto_build-arch:
 	$(MAKE) -C debian/normal-build/po update-gmo
 	dh_auto_build --builddirectory debian/normal-build
 	dh_auto_build --builddirectory debian/static-build
+	# The xzdec binary/ package is built with -Os as suggested in PACKAGERS
+	# to create a small binary.
+	@echo "blhc: ignore-line-regexp: .*-D_BLHC_IGNORE_THIS_LINE.*"
 	dh_auto_build --builddirectory debian/xzdec-build
 
 override_dh_auto_test-indep:
@@ -72,7 +75,7 @@ override_dh_auto_configure:
 
 small_flags_env =
 small_flags_env += DEB_CFLAGS_MAINT_STRIP='-O2 -O3'
-small_flags_env += DEB_CFLAGS_MAINT_PREPEND=-Os
+small_flags_env += DEB_CFLAGS_MAINT_PREPEND=-Os -D_BLHC_IGNORE_THIS_LINE
 flags_cmd = dpkg-buildflags --export=configure
 opt_optimize = $(shell $(flags_cmd))
 opt_optimize_small = $(shell $(small_flags_env) $(flags_cmd))
