@@ -5,4 +5,4 @@ sed 's@..top_builddir..src.liblzma.liblzma.la@-llzma@' -i tests/Makefile.am
 
 ./configure
 
-exec make control
+exec make check
