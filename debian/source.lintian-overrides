@@ -1,0 +1,6 @@
+# Source is tests/bcj_test.c
+source-is-missing [tests/compress_prepared_bcj_sparc]
+# Source is tests/bcj_test.c
+source-is-missing [tests/compress_prepared_bcj_x86]
+# This is a compressed text file with bad magic for testing.
+source-contains-prebuilt-windows-binary [tests/files/bad-1-v1-magic-2.lz]
