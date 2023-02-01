@@ -31,6 +31,7 @@ override_dh_auto_build-indep:
 	cd debian/normal-build && doxygen Doxyfile
 
 override_dh_auto_build-arch:
+	$(MAKE) -C debian/normal-build/po update-gmo
 	dh_auto_build --builddirectory debian/normal-build
 	dh_auto_build --builddirectory debian/static-build
 	dh_auto_build --builddirectory debian/xzdec-build
