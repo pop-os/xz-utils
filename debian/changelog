@@ -1,11 +1,11 @@
-xz-utils (5.4.1-0.2) UNRELEASED; urgency=medium
+xz-utils (5.4.1-0.2) unstable; urgency=medium
 
   * Non-maintainer upload.
   * Increase replaces/breaks relationship with manpages-{de|fr}
     (Closes: #1028375).
   * Add da.po translation translation from manpages-l10n (Closes: #1029349).
 
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sat, 11 Feb 2023 21:33:58 +0100
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sun, 12 Feb 2023 21:22:50 +0100
 
 xz-utils (5.4.1-0.1) unstable; urgency=medium
 
