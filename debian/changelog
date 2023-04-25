@@ -1,3 +1,9 @@
+xz-utils (5.4.1-0.2pop1) jammy; urgency=medium
+
+  * Pop!_OS Backports.
+
+ -- Brock Szuszczewicz <brock@szu.email>  Tue, 25 Apr 2023 15:49:01 -0600
+
 xz-utils (5.4.1-0.2) unstable; urgency=medium
 
   * Non-maintainer upload.
